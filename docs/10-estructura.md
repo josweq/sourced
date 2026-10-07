@@ -1,5 +1,5 @@
 # Mapa de la estructura
-Estructura neutral respecto al lenguaje. Los directorios contienen límites y documentación; todavía no hay servicios ni pantallas ejecutables.
+La aplicación sigue sin stack definitivo ni pantallas ejecutables. Hay una referencia SQLite/Python para el [modelo de datos](11-modelo-datos.md), con validador y fixtures sintéticos.
 
 | Ruta | Contenido previsto | Entrada → salida | Requisitos |
 |---|---|---|---|

@@ -1,18 +1,11 @@
-# Contratos compartidos propuestos
-Estado: borrador v0 para discusión, no API implementada ni schema validado.
-Los campos mínimos de archivos del reto están en ../docs/04-datos.md.
+# Contrato de datos v1.0.0
+Referencia ejecutable para revisión e integración; no fija el stack final.
 
-## Objetos de integración
-- Evidencia: ID estable, tipo/fuente, URL, fechas separadas, alcance_texto, localizador de campo/pasaje/página y contenido disponible.
-- Afirmación: ID, texto, tipo (hecho/declaración/inferencia/hipótesis) y citas que la sustentan.
-- Grupo: ID de evento, IDs miembros, procedencias identificadas y procedencias desconocidas. Número de publicaciones separado de fuentes independientes.
-- Caso: campos mínimos de fichas.jsonl, verificaciones pendientes y versión de reglas.
-- Revisión: ID de caso, persona revisora, fecha UTC, estado anterior/nuevo, comentario y corrección.
-- Reporte de carga: versión de snapshot, totales aceptados/excluidos, errores por fila/campo y nulos conservados.
-- Respuesta: consulta, evidencias, afirmaciones, vacíos y abstención explícita con motivo.
+- [Modelo y diagrama](../docs/11-modelo-datos.md).
+- [Diccionario y mapeo](diccionario.md).
+- [SQL normativo de esta referencia](sqlite/schema.sql).
+- [Fixture sintético](../tests/fixtures/synthetic/modelo-v1.json).
+- [Validador](../scripts/modelo_datos.py) y [pruebas](../tests/test_modelo_datos.py).
 
-## Acuerdos requeridos
-Nombres/tipos exactos, campos nulos, enumeraciones, esquema JSON, errores y persistencia.
-No interpretar estos objetos como sustitutos del contrato oficial de CSV/JSONL.
-No añadir contadores de corroboración basados únicamente en número de medios.
-Versionar cambios y aportar ejemplos sintéticos cuando se formalice el contrato.
+Claves por snapshot, UTC, nulos conservados y citas por afirmación. Validaciones adicionales en Python; SQL directo no las sustituye. El JSON de prueba no cambia los archivos oficiales del reto.
+Cambios incompatibles requieren nueva versión y migración. Esta versión solo crea bases nuevas.

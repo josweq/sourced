@@ -23,3 +23,6 @@ Invitaciones GitHub: Diego las hará manualmente en web.
 - No delegar ni asignar tareas a Josué o Juanchi; cada integrante elige con su IA.
 - Mantener estructura compartida y criterios claros.
 Estas instrucciones sustituyen el reparto provisional y pausan registros en Notion. No ratifican por sí solas D01–D04.
+
+## D05: modelo de datos de referencia, 2026-10-07
+Diego autorizó proceder con el modelo y ejemplos de prueba. Se implementó un contrato v1 en SQLite con validación Python de biblioteca estándar, sin elegir el stack definitivo de la aplicación. Alternativa: documentación sin esquema ejecutable. Motivo: comprobar claves, relaciones, nulos y citas antes de integrar IA e interfaz. No se descargaron datos reales ni se asignaron tareas. Ver docs/11-modelo-datos.md.

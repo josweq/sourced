@@ -19,3 +19,6 @@ data/processed/*
 !data/processed/.gitkeep
 data/reserved/
 secrets/
+data/local/
+*.sqlite
+*.sqlite-*

@@ -5,7 +5,7 @@ Copiloto editorial para el reto TVN Media. Equipo: **Josué, Juanchi y Diego**.
 Convierte noticias públicas e indicadores oficiales en agenda priorizada, fichas trazables y borradores para revisión humana.
 
 ## Estado real
-Base documental inicial. Prototipo, datos y métricas aún pendientes. Nombre y arquitectura son propuestas ajustables. No hay tareas ni roles asignados por persona. No existe todavía un comando de ejecución del producto.
+Base documental y modelo de datos de referencia ejecutable con SQLite. Hay ejemplos sintéticos y pruebas de integridad; el prototipo editorial, datos reales y métricas de IA siguen pendientes. No hay tareas ni roles asignados por persona. El stack de la aplicación sigue abierto.
 
 ## Empieza aquí
 1. Lee [AGENTS.md](AGENTS.md), también con una IA que no lo cargue automáticamente.
@@ -41,3 +41,15 @@ Consulta [el mapa de módulos](docs/10-estructura.md), [los contratos propuestos
 
 ## Restricción vigente
 **No acceder, subir, crear, editar ni sincronizar contenido en Notion por el momento.** La plantilla se conserva solo como preparación en GitHub. Nadie tiene tareas asignadas; cada integrante decide qué explorar con su IA.
+
+## Probar el modelo de datos
+Lee el [modelo y diagrama](docs/11-modelo-datos.md) y el [diccionario](contracts/diccionario.md).
+Python 3.10+ con SQLite 3.37+, sin paquetes adicionales:
+
+```sh
+python scripts/modelo_datos.py
+python -m unittest discover -s tests -p "test_*.py" -v
+python scripts/modelo_datos.py --output data/local/modelo-demo.sqlite
+```
+
+El último comando crea una base nueva y nunca sobrescribe. Todos los ejemplos son sintéticos. [Resultados y límites de la verificación](evaluation/modelo-datos-v1.md).

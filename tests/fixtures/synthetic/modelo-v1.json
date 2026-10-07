@@ -1,0 +1,340 @@
+{
+  "contract_version": "1.0.0",
+  "warning": "TODO SINTÉTICO. No son noticias ni estadísticas reales.",
+  "tables": {
+    "snapshots": [
+      {
+        "id": "SYN-DEMO-001",
+        "version": "synthetic-1",
+        "naturaleza": "sintetico",
+        "fecha_corte_utc": "2024-06-02T12:00:00Z",
+        "descripcion": "Fixture inventado; no corresponde al snapshot oficial."
+      }
+    ],
+    "fuentes": [
+      {
+        "id": "SYN-FN",
+        "nombre": "Medios ficticios",
+        "familia": "noticias",
+        "url": "https://example.invalid/noticias",
+        "condiciones": "Sintético; no atribuir a medios reales.",
+        "fecha_extraccion": "2024-06-02T12:00:00Z",
+        "snapshot_id": "SYN-DEMO-001"
+      },
+      {
+        "id": "SYN-FI",
+        "nombre": "Serie ficticia",
+        "familia": "indicadores",
+        "url": "https://example.invalid/serie",
+        "condiciones": "Valores inventados; no son Banco Mundial.",
+        "fecha_extraccion": "2024-06-02T12:00:00Z",
+        "snapshot_id": "SYN-DEMO-001"
+      }
+    ],
+    "noticias": [
+      {
+        "id": "SYN-N1",
+        "fuente_id": "SYN-FN",
+        "titulo": "[SINTÉTICO] Agencia ficticia anuncia medida",
+        "url": "https://example.invalid/n1",
+        "medio": "Medio ficticio 1",
+        "idioma": "es",
+        "fecha_publicacion": "2024-06-01T10:00:00Z",
+        "fecha_deteccion": "2024-06-01T11:00:00Z",
+        "fecha_extraccion": "2024-06-02T12:00:00Z",
+        "tema": "economia",
+        "origen": "Agencia ficticia X",
+        "alcance_texto": "titular_metadatos",
+        "texto_disponible": null,
+        "snapshot_id": "SYN-DEMO-001"
+      },
+      {
+        "id": "SYN-N2",
+        "fuente_id": "SYN-FN",
+        "titulo": "[SINTÉTICO] Réplica de la medida",
+        "url": "https://example.invalid/n2",
+        "medio": "Medio ficticio 2",
+        "idioma": "es",
+        "fecha_publicacion": "2024-06-01T10:00:00Z",
+        "fecha_deteccion": "2024-06-01T11:00:00Z",
+        "fecha_extraccion": "2024-06-02T12:00:00Z",
+        "tema": "economia",
+        "origen": "Agencia ficticia X",
+        "alcance_texto": "titular_metadatos",
+        "texto_disponible": null,
+        "snapshot_id": "SYN-DEMO-001"
+      },
+      {
+        "id": "SYN-N3",
+        "fuente_id": "SYN-FN",
+        "titulo": "[SINTÉTICO] Otra réplica",
+        "url": "https://example.invalid/n3",
+        "medio": "Medio ficticio 3",
+        "idioma": "es",
+        "fecha_publicacion": null,
+        "fecha_deteccion": "2024-06-01T11:00:00Z",
+        "fecha_extraccion": "2024-06-02T12:00:00Z",
+        "tema": "economia",
+        "origen": null,
+        "alcance_texto": "titular_metadatos",
+        "texto_disponible": null,
+        "snapshot_id": "SYN-DEMO-001"
+      },
+      {
+        "id": "SYN-N4",
+        "fuente_id": "SYN-FN",
+        "titulo": "[SINTÉTICO] Fuente A dice que inicia lunes",
+        "url": "https://example.invalid/n4",
+        "medio": "Medio ficticio 4",
+        "idioma": "es",
+        "fecha_publicacion": "2024-06-01T10:00:00Z",
+        "fecha_deteccion": "2024-06-01T11:00:00Z",
+        "fecha_extraccion": "2024-06-02T12:00:00Z",
+        "tema": "turismo",
+        "origen": null,
+        "alcance_texto": "titular_metadatos",
+        "texto_disponible": null,
+        "snapshot_id": "SYN-DEMO-001"
+      },
+      {
+        "id": "SYN-N5",
+        "fuente_id": "SYN-FN",
+        "titulo": "[SINTÉTICO] Fuente B dice que inicia martes",
+        "url": "https://example.invalid/n5",
+        "medio": "Medio ficticio 5",
+        "idioma": "es",
+        "fecha_publicacion": "2024-06-01T10:00:00Z",
+        "fecha_deteccion": "2024-06-01T11:00:00Z",
+        "fecha_extraccion": "2024-06-02T12:00:00Z",
+        "tema": "turismo",
+        "origen": null,
+        "alcance_texto": "titular_metadatos",
+        "texto_disponible": null,
+        "snapshot_id": "SYN-DEMO-001"
+      }
+    ],
+    "indicadores": [
+      {
+        "id": "SYN-I1",
+        "fuente_id": "SYN-FI",
+        "pais_iso3": "PAN",
+        "indicador_id": "SYN.INDICADOR",
+        "anio": 2023,
+        "valor": 7.25,
+        "unidad": "porcentaje ficticio",
+        "fuente_url": "https://example.invalid/serie/2023",
+        "fecha_extraccion": "2024-06-02T12:00:00Z",
+        "licencia": "Fixture sintético",
+        "snapshot_id": "SYN-DEMO-001"
+      },
+      {
+        "id": "SYN-I2",
+        "fuente_id": "SYN-FI",
+        "pais_iso3": "PAN",
+        "indicador_id": "SYN.INDICADOR",
+        "anio": 2024,
+        "valor": null,
+        "unidad": "porcentaje ficticio",
+        "fuente_url": "https://example.invalid/serie/2024",
+        "fecha_extraccion": "2024-06-02T12:00:00Z",
+        "licencia": "Fixture sintético",
+        "snapshot_id": "SYN-DEMO-001"
+      }
+    ],
+    "grupos": [
+      {
+        "id": "SYN-G1",
+        "tema": "economia",
+        "descripcion": "Duplicados declarados por fixture.",
+        "snapshot_id": "SYN-DEMO-001"
+      },
+      {
+        "id": "SYN-G2",
+        "tema": "turismo",
+        "descripcion": "Versiones contradictorias ficticias.",
+        "snapshot_id": "SYN-DEMO-001"
+      }
+    ],
+    "grupo_noticias": [
+      {
+        "grupo_id": "SYN-G1",
+        "noticia_id": "SYN-N1",
+        "procedencia_id": "SYN-AGENCIA-X",
+        "justificacion_procedencia": "Relación explícita del fixture; no inferida por semejanza.",
+        "snapshot_id": "SYN-DEMO-001"
+      },
+      {
+        "grupo_id": "SYN-G1",
+        "noticia_id": "SYN-N2",
+        "procedencia_id": "SYN-AGENCIA-X",
+        "justificacion_procedencia": "Relación explícita del fixture; no inferida por semejanza.",
+        "snapshot_id": "SYN-DEMO-001"
+      },
+      {
+        "grupo_id": "SYN-G1",
+        "noticia_id": "SYN-N3",
+        "procedencia_id": null,
+        "justificacion_procedencia": null,
+        "snapshot_id": "SYN-DEMO-001"
+      },
+      {
+        "grupo_id": "SYN-G2",
+        "noticia_id": "SYN-N4",
+        "procedencia_id": null,
+        "justificacion_procedencia": null,
+        "snapshot_id": "SYN-DEMO-001"
+      },
+      {
+        "grupo_id": "SYN-G2",
+        "noticia_id": "SYN-N5",
+        "procedencia_id": null,
+        "justificacion_procedencia": null,
+        "snapshot_id": "SYN-DEMO-001"
+      }
+    ],
+    "evidencias": [
+      {
+        "id": "SYN-E1",
+        "noticia_id": null,
+        "indicador_registro_id": "SYN-I1",
+        "campo": "valor",
+        "limitaciones": "Valor ficticio histórico; no actual.",
+        "snapshot_id": "SYN-DEMO-001"
+      },
+      {
+        "id": "SYN-E2",
+        "noticia_id": "SYN-N4",
+        "indicador_registro_id": null,
+        "campo": "titulo",
+        "limitaciones": "Solo titular sintético; declaración no verificada.",
+        "snapshot_id": "SYN-DEMO-001"
+      },
+      {
+        "id": "SYN-E3",
+        "noticia_id": "SYN-N5",
+        "indicador_registro_id": null,
+        "campo": "titulo",
+        "limitaciones": "Solo titular sintético; declaración no verificada.",
+        "snapshot_id": "SYN-DEMO-001"
+      }
+    ],
+    "casos": [
+      {
+        "id": "SYN-C1",
+        "grupo_id": null,
+        "modalidad": "editorial",
+        "titulo": "[SINTÉTICO] Contexto histórico",
+        "estado_evidencia": "parcial",
+        "preguntas_pendientes": "Falta dato actual.",
+        "snapshot_id": "SYN-DEMO-001"
+      },
+      {
+        "id": "SYN-C2",
+        "grupo_id": "SYN-G1",
+        "modalidad": "editorial",
+        "titulo": "[SINTÉTICO] Duplicados",
+        "estado_evidencia": "insuficiente",
+        "preguntas_pendientes": "Origen del tercer registro desconocido.",
+        "snapshot_id": "SYN-DEMO-001"
+      },
+      {
+        "id": "SYN-C3",
+        "grupo_id": "SYN-G2",
+        "modalidad": "editorial",
+        "titulo": "[SINTÉTICO] Contradicción",
+        "estado_evidencia": "insuficiente",
+        "preguntas_pendientes": "Confirmar lunes o martes con fuente primaria.",
+        "snapshot_id": "SYN-DEMO-001"
+      },
+      {
+        "id": "SYN-C4",
+        "grupo_id": null,
+        "modalidad": "editorial",
+        "titulo": "[SINTÉTICO] Consulta sin respuesta",
+        "estado_evidencia": "insuficiente",
+        "preguntas_pendientes": "¿Valor hoy? No disponible.",
+        "snapshot_id": "SYN-DEMO-001"
+      },
+      {
+        "id": "SYN-C5",
+        "grupo_id": null,
+        "modalidad": "editorial",
+        "titulo": "[SINTÉTICO] Valor faltante",
+        "estado_evidencia": "insuficiente",
+        "preguntas_pendientes": "2024 tiene NULL, no cero.",
+        "snapshot_id": "SYN-DEMO-001"
+      }
+    ],
+    "caso_evidencias": [
+      {
+        "caso_id": "SYN-C1",
+        "evidencia_id": "SYN-E1",
+        "snapshot_id": "SYN-DEMO-001"
+      },
+      {
+        "caso_id": "SYN-C3",
+        "evidencia_id": "SYN-E2",
+        "snapshot_id": "SYN-DEMO-001"
+      },
+      {
+        "caso_id": "SYN-C3",
+        "evidencia_id": "SYN-E3",
+        "snapshot_id": "SYN-DEMO-001"
+      }
+    ],
+    "priorizaciones": [],
+    "borradores": [
+      {
+        "id": "SYN-B1",
+        "caso_id": "SYN-C1",
+        "version": 1,
+        "titulo": "Ejemplo sintético",
+        "enfoque": "Ilustrar trazabilidad.",
+        "brief": "La serie sintética registra 7,25 para Panamá en 2023, en porcentaje ficticio.",
+        "guion": "Pendiente: este ejemplo no es un guion de 45–60 segundos.",
+        "copy": "Ejemplo sintético para revisar evidencia.",
+        "preguntas_json": "[\"¿Qué período?\",\"¿Qué unidad?\",\"¿Existe un valor actual?\"]",
+        "alcance_texto": "dato_estructurado_sintetico",
+        "generador": "fixture_manual",
+        "modelo_version": null,
+        "prompt_version": null,
+        "fecha_utc": "2024-06-02T12:00:00Z",
+        "snapshot_id": "SYN-DEMO-001"
+      }
+    ],
+    "afirmaciones": [
+      {
+        "id": "SYN-A1",
+        "caso_id": "SYN-C1",
+        "borrador_id": "SYN-B1",
+        "seccion": "brief",
+        "texto": "La serie sintética registra 7,25 para Panamá en 2023, en porcentaje ficticio.",
+        "tipo": "hecho",
+        "snapshot_id": "SYN-DEMO-001"
+      }
+    ],
+    "citas": [
+      {
+        "caso_id": "SYN-C1",
+        "afirmacion_id": "SYN-A1",
+        "evidencia_id": "SYN-E1",
+        "relacion": "sustenta",
+        "explicacion": "Dato ficticio con país, año y unidad conservados.",
+        "snapshot_id": "SYN-DEMO-001"
+      }
+    ],
+    "revisiones": [
+      {
+        "id": "SYN-R1",
+        "caso_id": "SYN-C1",
+        "borrador_id": "SYN-B1",
+        "secuencia": 1,
+        "persona_revisora": "REVISOR_SINTETICO",
+        "estado": "en_revision",
+        "comentario": "Simulación; no atribuida a persona real.",
+        "fecha_utc": "2024-06-02T12:00:00Z",
+        "snapshot_id": "SYN-DEMO-001"
+      }
+    ]
+  }
+}

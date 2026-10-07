@@ -1,5 +1,9 @@
 # Pruebas
-Plan oficial T01–T10: ../docs/05-pruebas.md.
-Todavía no hay pruebas de producto implementadas ni resultados.
-fixtures/ se reserva para datos sintéticos explícitos, aislados del snapshot.
-Priorizar validación/nulos, duplicados, período de cifras, abstención, inyección y flujo offline.
+El contrato de datos tiene pruebas ejecutables en test_modelo_datos.py:
+
+```sh
+python -m unittest discover -s tests -p "test_*.py" -v
+```
+
+Fixtures sintéticos en fixtures/synthetic/. Resultado observado: [registro](../evaluation/modelo-datos-v1.md).
+Las pruebas T01–T10 completas siguen pendientes; ver [plan](../docs/05-pruebas.md).
