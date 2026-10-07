@@ -1,6 +1,7 @@
-## Problema y tarea
+## Problema y tarea elegida
 ## Cambios
 ## Verificación realizada
-Resultados reales y lo no ejecutado.
+Resultados reales y comprobaciones no ejecutadas.
 ## Contratos, datos y seguridad
-## Evidencia Notion y pendientes
+## Pendientes
+No asignar trabajo a terceros. Notion permanece pausado.

@@ -17,3 +17,9 @@ D04: Lupa con agenda/radiografía/mesa. Propuesta visual ajustable.
 ## Equipo
 Habilidades, hardware, presupuesto, calendario y stack pendientes.
 Invitaciones GitHub: Diego las hará manualmente en web.
+
+## Instrucciones confirmadas por Diego, 2026-10-07
+- No tocar Notion por el momento; preparar en GitHub.
+- No delegar ni asignar tareas a Josué o Juanchi; cada integrante elige con su IA.
+- Mantener estructura compartida y criterios claros.
+Estas instrucciones sustituyen el reparto provisional y pausan registros en Notion. No ratifican por sí solas D01–D04.

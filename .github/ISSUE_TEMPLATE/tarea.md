@@ -1,12 +1,13 @@
 ---
-name: Tarea de Jajanken
-about: Trabajo con evidencia de terminado
+name: Aporte elegido
+about: Propuesta o tarea elegida voluntariamente, sin asignar a terceros
 title: ""
 labels: ""
 assignees: ""
 ---
-## Objetivo
-## ID backlog y responsable
-## Dependencias
+## ID del backlog y objetivo
+## Estado: exploración / elección propia / implementación
+## Dependencias y alcance
 ## Criterios de terminado
-## Pruebas y evidencia Notion
+## Pruebas y evidencia en GitHub
+Notion permanece pausado.

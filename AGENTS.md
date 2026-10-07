@@ -2,11 +2,11 @@
 Lee README.md y docs/ antes de cambiar el proyecto. Equipo Jajanken: Josué, Juanchi y Diego. Modalidad editorial.
 
 ## Colaboración
-- Elige una tarea de docs/06-backlog.md y trabaja en una rama.
+- No asignes tareas por nombre. En exploración, ofrece opciones y espera la elección del integrante antes de implementar; después usa una rama.
 - Revisa git status antes de editar; preserva trabajo ajeno.
 - No force-push ni sobrescrituras; usa PR y revisión de otro integrante.
 - Acordar cambios de contratos y stack antes de implementar dependencias incompatibles.
-- Registra decisiones, pruebas, fallos y correcciones en documentación y Notion.
+- Registra decisiones, pruebas, fallos y correcciones en GitHub usando templates/. Notion está pausado: no acceder, crear, editar, subir ni sincronizar allí hasta autorización explícita posterior.
 - Indica qué cambió, qué verificaste y qué sigue pendiente.
 - No marques pruebas como pasadas sin ejecución real.
 - No contrates servicios ni publiques sitios por iniciativa propia.
