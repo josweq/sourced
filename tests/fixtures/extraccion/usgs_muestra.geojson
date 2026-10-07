@@ -1,0 +1,142 @@
+{
+ "type": "FeatureCollection",
+ "metadata": {
+  "generated": 1791413167000,
+  "url": "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2024-01-01&endtime=2024-12-31&minlatitude=5&maxlatitude=12&minlongitude=-86&maxlongitude=-76&minmagnitude=3&limit=3",
+  "title": "USGS Earthquakes",
+  "status": 200,
+  "api": "2.7.0",
+  "limit": 3,
+  "offset": 1
+ },
+ "features": [
+  {
+   "type": "Feature",
+   "properties": {
+    "mag": 4,
+    "place": "9 km NW of San Juan del Sur, Nicaragua",
+    "time": 1735513210566,
+    "updated": 1741473552040,
+    "tz": null,
+    "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000pgcx",
+    "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us6000pgcx&format=geojson",
+    "felt": null,
+    "cdi": null,
+    "mmi": null,
+    "alert": null,
+    "status": "reviewed",
+    "tsunami": 0,
+    "sig": 246,
+    "net": "us",
+    "code": "6000pgcx",
+    "ids": ",us6000pgcx,",
+    "sources": ",us,",
+    "types": ",origin,phase-data,",
+    "nst": 33,
+    "dmin": 0.745,
+    "rms": 0.55,
+    "gap": 142,
+    "magType": "mb",
+    "type": "earthquake",
+    "title": "M 4.0 - 9 km NW of San Juan del Sur, Nicaragua"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -85.9299,
+     11.3207,
+     100.943
+    ]
+   },
+   "id": "us6000pgcx"
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "mag": 4.5,
+    "place": "13 km SE of San Juan del Sur, Nicaragua",
+    "time": 1735148873483,
+    "updated": 1741473550040,
+    "tz": null,
+    "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000pfl4",
+    "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us6000pfl4&format=geojson",
+    "felt": 2,
+    "cdi": 2.7,
+    "mmi": null,
+    "alert": null,
+    "status": "reviewed",
+    "tsunami": 0,
+    "sig": 312,
+    "net": "us",
+    "code": "6000pfl4",
+    "ids": ",us6000pfl4,",
+    "sources": ",us,",
+    "types": ",dyfi,origin,phase-data,",
+    "nst": 66,
+    "dmin": 0.542,
+    "rms": 1.23,
+    "gap": 90,
+    "magType": "mb",
+    "type": "earthquake",
+    "title": "M 4.5 - 13 km SE of San Juan del Sur, Nicaragua"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -85.7826,
+     11.1725,
+     90.305
+    ]
+   },
+   "id": "us6000pfl4"
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "mag": 4.3,
+    "place": "86 km SSE of Burica, Panama",
+    "time": 1734477812608,
+    "updated": 1740677452040,
+    "tz": null,
+    "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000nznx",
+    "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000nznx&format=geojson",
+    "felt": null,
+    "cdi": null,
+    "mmi": null,
+    "alert": null,
+    "status": "reviewed",
+    "tsunami": 0,
+    "sig": 284,
+    "net": "us",
+    "code": "7000nznx",
+    "ids": ",us7000nznx,",
+    "sources": ",us,",
+    "types": ",origin,phase-data,",
+    "nst": 48,
+    "dmin": 2.805,
+    "rms": 0.71,
+    "gap": 144,
+    "magType": "mb",
+    "type": "earthquake",
+    "title": "M 4.3 - 86 km SSE of Burica, Panama"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -82.5032,
+     7.3463,
+     10
+    ]
+   },
+   "id": "us7000nznx"
+  }
+ ],
+ "bbox": [
+  -85.9299,
+  7.3463,
+  10,
+  -82.5032,
+  11.3207,
+  100.943
+ ]
+}

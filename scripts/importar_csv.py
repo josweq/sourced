@@ -131,8 +131,35 @@ def import_rows(db, path, expected, normalizer, inserter, kind):
     return accepted, errors
 
 
+def load_sources(path, extracted):
+    if path is None:
+        return [
+            ("SRC-NOTICIAS", "Noticias CSV", "noticias", "https://example.invalid/receta-noticias", "Sustituir por catálogo oficial al recibirlo", extracted),
+            ("SRC-INDICADORES", "Indicadores CSV", "indicadores", "https://example.invalid/receta-indicadores", "Sustituir por catálogo oficial al recibirlo", extracted),
+        ]
+    payload = json.loads(Path(path).read_text(encoding="utf-8"))
+    if not isinstance(payload, list):
+        raise ValueError("fuentes.json debe contener una lista")
+    sources = []
+    for item in payload:
+        row = {key: clean(item.get(key, "")) for key in
+               ("id", "nombre", "familia", "url", "condiciones", "fecha_extraccion")}
+        for field, value in row.items():
+            if not value:
+                raise ValueError(f"fuentes.json: {field} es obligatorio")
+        if row["familia"] not in {"noticias", "indicadores"}:
+            raise ValueError("fuentes.json: familia inválida")
+        valid_https(row["url"], "url")
+        utc(row["fecha_extraccion"])
+        sources.append((row["id"], row["nombre"], row["familia"], row["url"],
+                        row["condiciones"], row["fecha_extraccion"]))
+    if not any(row[2] == "noticias" for row in sources) or not any(row[2] == "indicadores" for row in sources):
+        raise ValueError("fuentes.json debe incluir familias noticias e indicadores")
+    return sources
+
+
 def run_import(news_path, indicators_path, output, report_path, snapshot_id,
-               version, cutoff):
+               version, cutoff, fuentes_path=None):
     if output.exists() or report_path.exists():
         raise FileExistsError("La base o el reporte ya existe; no se sobrescribe")
     utc(cutoff)
@@ -142,10 +169,11 @@ def run_import(news_path, indicators_path, output, report_path, snapshot_id,
     db.execute("INSERT INTO snapshots VALUES (?,?,?,?,?)",
                (snapshot_id, version, "real", cutoff, "Importación CSV local"))
     extracted = cutoff
-    db.executemany("INSERT INTO fuentes VALUES (?,?,?,?,?,?,?)", [
-        (snapshot_id, "SRC-NOTICIAS", "Noticias CSV", "noticias", "https://example.invalid/receta-noticias", "Sustituir por catálogo oficial al recibirlo", extracted),
-        (snapshot_id, "SRC-INDICADORES", "Indicadores CSV", "indicadores", "https://example.invalid/receta-indicadores", "Sustituir por catálogo oficial al recibirlo", extracted),
-    ])
+    source_rows = load_sources(fuentes_path, extracted)
+    db.executemany("INSERT INTO fuentes VALUES (?,?,?,?,?,?,?)",
+                   [(snapshot_id, *row) for row in source_rows])
+    news_source = next(row[0] for row in source_rows if row[2] == "noticias")
+    indicator_source = next(row[0] for row in source_rows if row[2] == "indicadores")
     db.commit()  # Una fila rechazada no debe revertir el snapshot ni su catálogo.
 
     def insert_news(conn, row):
@@ -153,7 +181,7 @@ def run_import(news_path, indicators_path, output, report_path, snapshot_id,
           (snapshot_id,id,fuente_id,titulo,url,medio,idioma,fecha_publicacion,
            fecha_deteccion,fecha_extraccion,tema,origen,alcance_texto,texto_disponible)
           VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,NULL)""",
-          (snapshot_id, row["id_noticia"], "SRC-NOTICIAS", row["titulo"], row["url"],
+          (snapshot_id, row["id_noticia"], news_source, row["titulo"], row["url"],
            row["medio"], row["idioma"], row["fecha_publicacion"], row["fecha_deteccion"],
            row["fecha_extraccion"], row["tema"], row["origen"], row["alcance_texto"]))
 
@@ -161,7 +189,7 @@ def run_import(news_path, indicators_path, output, report_path, snapshot_id,
         conn.execute("""INSERT INTO indicadores
           (snapshot_id,id,fuente_id,pais_iso3,indicador_id,anio,valor,unidad,
            fuente_url,fecha_extraccion,licencia) VALUES (?,?,?,?,?,?,?,?,?,?,?)""",
-          (snapshot_id, indicator_pk(row), "SRC-INDICADORES", row["pais_iso3"],
+          (snapshot_id, indicator_pk(row), indicator_source, row["pais_iso3"],
            row["indicador_id"], row["anio"], row["valor"], row["unidad"],
            row["fuente_url"], row["fecha_extraccion"], row["licencia"]))
 
@@ -179,7 +207,7 @@ def run_import(news_path, indicators_path, output, report_path, snapshot_id,
         "errores": errors,
         "advertencias": [
             "No se aplicó el filtro temporal ambiguo del PDF.",
-            "Las fuentes temporales example.invalid deben reemplazarse con fuentes.json oficial.",
+            "Las fuentes temporales example.invalid deben reemplazarse con fuentes.json oficial." if fuentes_path is None else "Catálogo fuentes.json cargado.",
         ],
     }
     save_new(db, output)
@@ -198,10 +226,11 @@ def main():
     parser.add_argument("--snapshot-id", required=True)
     parser.add_argument("--version", required=True)
     parser.add_argument("--fecha-corte-utc", required=True)
+    parser.add_argument("--fuentes", type=Path)
     args = parser.parse_args()
     print(json.dumps(run_import(args.noticias, args.indicadores, args.output,
                                 args.report, args.snapshot_id, args.version,
-                                args.fecha_corte_utc), ensure_ascii=False, indent=2))
+                                args.fecha_corte_utc, args.fuentes), ensure_ascii=False, indent=2))
 
 
 if __name__ == "__main__":

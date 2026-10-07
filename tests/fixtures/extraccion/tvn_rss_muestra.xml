@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='utf-8'?>
+<rss xmlns:ns0="http://purl.org/dc/terms/" xmlns:ns1="http://search.yahoo.com/mrss/" version="2.0">
+  <channel>
+    <title>Tvn Panamá - Portada</title>
+    <link>https://www.tvn-2.com</link>
+    <description>Tvn Panamá - Portada</description>
+    <language>es</language>
+    <ttl>300</ttl>
+    <item>
+      <title>Canal de Panamá: Carnival Miracle inaugura temporada de cruceros 2026-2027; se contemplan más de 220 tránsitos </title>
+      <link>https://www.tvn-2.com/nacionales/canal-panama-carnival-miracle-inaugura_1_2264860.html</link>
+      <description>El inicio de la temporada reafirma el atractivo del Canal de Panamá como una ruta estratégica para la industria de cruceros, al conectar importantes mercados turísticos de Norteamérica, el Caribe y la costa del Pacífico.
+</description>
+      <guid isPermaLink="true">https://www.tvn-2.com/nacionales/canal-panama-carnival-miracle-inaugura_1_2264860.html</guid>
+      <pubDate>Wed, 07 Oct 2026 21:59:32 +0000</pubDate>
+      <ns0:modified>2026-10-07T21:59:32+00:00</ns0:modified>
+      <ns1:content url="https://static.tvn-2.com/clip/2b064a43-32f7-4da6-8b5f-aeba41407011_16-9-aspect-ratio_default_0.webp" type="image/jpeg" />
+      <ns1:title>Carnival Miracle por las esclusas de Miraflores</ns1:title>
+      <ns1:thumbnail url="https://static.tvn-2.com/clip/2b064a43-32f7-4da6-8b5f-aeba41407011_16-9-aspect-ratio_default_0.webp" />
+      <ns1:keywords>canal de Panamá,Temporada de cruceros,Tránsito</ns1:keywords>
+    </item>
+    <item>
+      <title>Lau Cortés: Legalizan aprehensión y decretan receso en audiencia de garantías que se realiza sin acceso a la prensa</title>
+      <link>https://www.tvn-2.com/nacionales/enrique-lau-cortes-debera-enfrentar-audiencia-bienes-aprehendidos_1_2264768.html</link>
+      <description>De acuerdo con información suministrada por el Ministerio Público, Lau Cortés no habría podido justificar la procedencia de unos $500 mil, luego de una auditoría realizada a su patrimonio.
+</description>
+      <guid isPermaLink="true">https://www.tvn-2.com/nacionales/enrique-lau-cortes-debera-enfrentar-audiencia-bienes-aprehendidos_1_2264768.html</guid>
+      <pubDate>Wed, 07 Oct 2026 13:57:53 +0000</pubDate>
+      <ns0:modified>2026-10-07T13:57:53+00:00</ns0:modified>
+      <ns1:content url="https://static.tvn-2.com/clip/526dda65-bdb6-4570-9be6-d224fa116299_16-9-aspect-ratio_default_0.webp" type="image/jpeg" />
+      <ns1:title>Realizan audiencia a Enrique Lau Cortéz</ns1:title>
+      <ns1:thumbnail url="https://static.tvn-2.com/clip/526dda65-bdb6-4570-9be6-d224fa116299_16-9-aspect-ratio_default_0.webp" />
+      <ns1:keywords>Enrique Lau Cortés,Caja de Seguro Social (CSS),enriquecimiento injustificado</ns1:keywords>
+    </item>
+    <item>
+      <title>Exfuncionarios de alto perfil investigados: estos son los casos y su situación judicial</title>
+      <link>https://www.tvn-2.com/nacionales/judicial/exfuncionarios-alto-perfil-investigados-judicial-cortizo_1_2264771.html</link>
+      <description>Varios exfuncionarios de alto perfil de la administración de Laurentino Cortizo (2019-2024) han quedado bajo la lupa de la Contraloría General de la República y del Ministerio Público por presuntos delitos contra la administración pública, enriquecim</description>
+      <guid isPermaLink="true">https://www.tvn-2.com/nacionales/judicial/exfuncionarios-alto-perfil-investigados-judicial-cortizo_1_2264771.html</guid>
+      <pubDate>Wed, 07 Oct 2026 17:02:14 +0000</pubDate>
+      <ns0:modified>2026-10-07T17:02:14+00:00</ns0:modified>
+      <ns1:content url="https://static.tvn-2.com/clip/2b8e84f2-0a8a-42ca-9ca3-4176da445432_16-9-aspect-ratio_default_0.webp" type="image/jpeg" />
+      <ns1:title>Exfuncionarios del gobierno de Laurentino Cortizo que enfrentan investigaciones</ns1:title>
+      <ns1:thumbnail url="https://static.tvn-2.com/clip/2b8e84f2-0a8a-42ca-9ca3-4176da445432_16-9-aspect-ratio_default_0.webp" />
+      <ns1:keywords>José Gabriel Carrizo,Bernardo Meneses,Enrique Lau Cortés,enriquecimiento injustificado,Investigaciones</ns1:keywords>
+    </item>
+    </channel>
+</rss>

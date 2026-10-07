@@ -8,8 +8,8 @@ No confundir documentos preparados con funcionalidades implementadas.
 |---|---|---|---|---|
 | B01 | Base documental GitHub | Preparado | Ninguna | Documentación navegable y guías comunes |
 | B02 | Aclarar calendario y filtro temporal | Disponible para explorar | Respuesta organización | Respuestas con fuente y fecha |
-| B03 | Snapshot y catálogo | Depende de datos | Paquete común y condiciones | Archivos, hashes y diccionario |
-| B04 | Ingesta y validación | Primera versión sintética preparada | B03 para datos reales | CSV por fila, reporte y pruebas; fuentes.json y snapshot real pendientes |
+| B03 | Snapshot y catálogo | Snapshot de desarrollo preparado; datos oficiales pendientes | Paquete común y condiciones | `scripts/extraccion/`, `docs/15-snapshot-dev.md`, archivos procesados con hashes y catálogo `fuentes.json` |
+| B04 | Ingesta y validación | Importador con catálogo opcional preparado | B03 para datos reales | CSV por fila, reporte, pruebas y carga con `--fuentes`; snapshot oficial pendiente |
 | B05 | Stack e interfaces | Modelo de datos v1 preparado; stack de aplicación pendiente | Hardware y acuerdo técnico | Contrato SQLite de referencia y pruebas; integración pendiente |
 | B06 | Etiquetas y baseline | Búsqueda por palabras clave v1 preparada; evaluación real pendiente | B03 para evaluación real | Método, etiquetas y salidas |
 | B07 | Recuperación y agrupación | Baseline léxico preparado; NLP pendiente | B03/B06 para evaluación real | Comparar baseline con IA y etiquetas humanas; T02/T03 pendientes completos |
