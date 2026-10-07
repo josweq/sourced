@@ -18,12 +18,12 @@ class ImporterTests(unittest.TestCase):
             result = run_import(FIXTURES / "noticias.csv", FIXTURES / "indicadores.csv",
                                 output, report, "TEST-SNAPSHOT", "test-v1",
                                 "2024-06-02T12:00:00Z")
-            self.assertEqual(result["archivos"]["noticias.csv"], {"aceptadas": 2, "rechazadas": 3})
+            self.assertEqual(result["archivos"]["noticias.csv"], {"aceptadas": 3, "rechazadas": 3})
             self.assertEqual(result["archivos"]["indicadores.csv"], {"aceptadas": 2, "rechazadas": 2})
             self.assertEqual(len(result["errores"]), 5)
             db = sqlite3.connect(output)
             try:
-                self.assertEqual(db.execute("SELECT COUNT(*) FROM noticias").fetchone()[0], 2)
+                self.assertEqual(db.execute("SELECT COUNT(*) FROM noticias").fetchone()[0], 3)
                 self.assertIsNone(db.execute("SELECT fecha_publicacion FROM noticias WHERE id='N-002'").fetchone()[0])
                 self.assertIsNone(db.execute("SELECT valor FROM indicadores WHERE anio=2024").fetchone()[0])
             finally:

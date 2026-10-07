@@ -29,8 +29,12 @@ def connect(path):
 def list_cases(db):
     rows = db.execute("""
       SELECT c.snapshot_id,c.id,c.titulo,c.estado_evidencia,c.preguntas_pendientes,
-             ec.estado_revision,p.puntaje,p.componentes_json,p.reglas_version
+             ec.estado_revision,p.puntaje,p.componentes_json,p.reglas_version,
+             COALESCE(pg.publicaciones,0) AS publicaciones,
+             COALESCE(pg.procedencias_identificadas,0) AS procedencias_identificadas,
+             COALESCE(pg.publicaciones_origen_desconocido,0) AS publicaciones_origen_desconocido
       FROM casos c JOIN estado_casos ec ON ec.snapshot_id=c.snapshot_id AND ec.id=c.id
+      LEFT JOIN procedencias_grupos pg ON pg.snapshot_id=c.snapshot_id AND pg.grupo_id=c.grupo_id
       LEFT JOIN priorizaciones p ON p.rowid=(SELECT p2.rowid FROM priorizaciones p2
         WHERE p2.snapshot_id=c.snapshot_id AND p2.caso_id=c.id ORDER BY p2.fecha_utc DESC LIMIT 1)
       ORDER BY COALESCE(p.puntaje,-1) DESC,c.id
@@ -50,6 +54,12 @@ def case_detail(db, case_id):
     if not case:
         return None
     snapshot_id = case["snapshot_id"]
+    grouping = db.execute("""SELECT publicaciones,procedencias_identificadas,
+      publicaciones_origen_desconocido FROM procedencias_grupos
+      WHERE snapshot_id=? AND grupo_id=?""", (snapshot_id, case["grupo_id"])).fetchone() if case["grupo_id"] else None
+    priority = db.execute("""SELECT puntaje,componentes_json,pesos_json,reglas_version,explicacion,fecha_utc
+      FROM priorizaciones WHERE snapshot_id=? AND caso_id=? ORDER BY fecha_utc DESC LIMIT 1""",
+      (snapshot_id, case_id)).fetchone()
     evidence = [dict(r) for r in db.execute("""SELECT e.id,e.campo,e.limitaciones,
       n.titulo AS noticia_titulo,n.url AS noticia_url,n.fecha_publicacion,n.fecha_deteccion,n.alcance_texto,
       i.pais_iso3,i.indicador_id,i.anio,i.valor,i.unidad,i.fuente_url
@@ -68,7 +78,14 @@ def case_detail(db, case_id):
           WHERE a.snapshot_id=? AND a.borrador_id=? ORDER BY a.id,c.evidencia_id""", (snapshot_id, draft["id"]))]
     reviews = [dict(r) for r in db.execute("""SELECT secuencia,persona_revisora,estado,comentario,fecha_utc,borrador_id
       FROM revisiones WHERE snapshot_id=? AND caso_id=? ORDER BY secuencia DESC""", (snapshot_id, case_id))]
-    return {"caso": dict(case), "evidencias": evidence, "borradores": drafts, "revisiones": reviews}
+    priority_data = dict(priority) if priority else None
+    if priority_data:
+        priority_data["componentes"] = json.loads(priority_data.pop("componentes_json"))
+        priority_data["pesos"] = json.loads(priority_data.pop("pesos_json"))
+        priority_data["explicacion"] = json.loads(priority_data["explicacion"])
+    return {"caso": dict(case), "agrupacion": dict(grouping) if grouping else None,
+            "priorizacion": priority_data, "evidencias": evidence,
+            "borradores": drafts, "revisiones": reviews}
 
 
 def add_review(db, case_id, payload):

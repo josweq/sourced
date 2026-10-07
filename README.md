@@ -57,3 +57,5 @@ El último comando crea una base nueva y nunca sobrescribe. Todos los ejemplos s
 ## Importador e interfaz local
 
 El [recorrido local](docs/12-importador-interfaz.md) incluye carga CSV con cuarentena de filas inválidas y una primera interfaz de agenda, evidencia, borrador y revisión. Funciona con biblioteca estándar de Python y datos sintéticos; los datos oficiales siguen pendientes.
+
+El [baseline de agrupación y ranking](docs/13-agrupacion-ranking.md) conecta la importación con la agenda. Es una comparación determinista y explicable, no la capacidad de IA requerida por el reto.

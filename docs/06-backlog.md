@@ -12,8 +12,8 @@ No confundir documentos preparados con funcionalidades implementadas.
 | B04 | Ingesta y validación | Primera versión sintética preparada | B03 para datos reales | CSV por fila, reporte y pruebas; fuentes.json y snapshot real pendientes |
 | B05 | Stack e interfaces | Modelo de datos v1 preparado; stack de aplicación pendiente | Hardware y acuerdo técnico | Contrato SQLite de referencia y pruebas; integración pendiente |
 | B06 | Etiquetas y baseline | Disponible para explorar | B03 para evaluación real | Método, etiquetas y salidas |
-| B07 | Recuperación y agrupación NLP | Pendiente de implementación | B04–B06 | Comparación y T02/T03 |
-| B08 | Ranking explicable | Disponible para explorar | B05 antes de integrar | Reglas, componentes, T08 |
+| B07 | Recuperación y agrupación | Baseline léxico preparado; NLP pendiente | B03/B06 para evaluación real | Comparar baseline con IA y etiquetas humanas; T02/T03 pendientes completos |
+| B08 | Ranking explicable | Baseline v1 preparado | Revisión editorial y datos reales | Reglas/componentes visibles; validar utilidad y T08 completo |
 | B09 | Agenda y ficha | Primera interfaz local preparada | Datos derivados/casos reales pendientes | Agenda, citas, fechas y revisión con fixture sintético |
 | B10 | Generación sustentada | Pendiente de implementación | B07 y contratos | Brief, guion, copy; T04–T07/T09 |
 | B11 | Revisión persistente | Disponible para explorar | Contrato de caso y B05 | Estados y responsable de revisión |
