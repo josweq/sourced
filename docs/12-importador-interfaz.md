@@ -32,6 +32,7 @@ python src/interfaz/app.py --db data/local/agenda-demo.sqlite --port 8765
 Abrir `http://127.0.0.1:8765`. El servidor solo escucha en localhost. Permite:
 
 - consultar la agenda y distinguir estado de evidencia y revisión;
+- buscar por texto, tema, evidencia, medio y rango de fecha, con motivo de coincidencia o abstención;
 - inspeccionar puntaje, componentes, publicaciones y procedencias;
 - abrir fuentes, fechas, limitaciones y citas por afirmación;
 - ver el borrador sintético;

@@ -7,12 +7,19 @@ import json
 from pathlib import Path
 import re
 import sqlite3
-from urllib.parse import unquote, urlparse
+import time
+import unicodedata
+from urllib.parse import parse_qs, unquote, urlparse
 import uuid
 
 ROOT = Path(__file__).resolve().parents[2]
 STATIC = Path(__file__).resolve().parent / "static"
 STATES = {"en_revision", "requiere_evidencia", "aprobado_como_borrador", "descartado"}
+EVIDENCE_STATES = {"insuficiente", "parcial", "suficiente_para_borrador"}
+TOPICS = {"economia", "logistica_canal", "turismo", "servicios_publicos",
+          "eventos_naturales", "regulacion", "sin_clasificar"}
+SEARCH_STOPWORDS = {"a", "al", "con", "de", "del", "el", "en", "la", "las",
+                    "los", "para", "por", "que", "se", "sin", "un", "una", "y"}
 
 
 @contextmanager
@@ -45,6 +52,71 @@ def list_cases(db):
         item["componentes"] = json.loads(item.pop("componentes_json")) if item["componentes_json"] else None
         result.append(item)
     return result
+
+
+def search_tokens(value):
+    plain = unicodedata.normalize("NFKD", value.lower()).encode("ascii", "ignore").decode()
+    return {part for part in re.findall(r"[a-z0-9]+", plain)
+            if len(part) > 1 and part not in SEARCH_STOPWORDS}
+
+
+def search_cases(db, query="", topic="", evidence_state="", medium="",
+                 date_from="", date_to=""):
+    started = time.perf_counter()
+    if len(query) > 200 or len(medium) > 100:
+        raise ValueError("Consulta o medio demasiado largo")
+    if topic and topic not in TOPICS:
+        raise ValueError("Tema inválido")
+    if evidence_state and evidence_state not in EVIDENCE_STATES:
+        raise ValueError("Estado de evidencia inválido")
+    for label, value in (("date_from", date_from), ("date_to", date_to)):
+        if value:
+            try:
+                datetime.strptime(value, "%Y-%m-%d")
+            except ValueError as exc:
+                raise ValueError(f"{label} debe usar una fecha válida YYYY-MM-DD") from exc
+    if date_from and date_to and date_from > date_to:
+        raise ValueError("La fecha inicial no puede ser posterior a la fecha final")
+    wanted = search_tokens(query)
+    results = []
+    for case in list_cases(db):
+        rows = db.execute("""SELECT n.titulo,n.medio,n.fecha_publicacion,g.tema
+          FROM casos c JOIN grupos g ON g.snapshot_id=c.snapshot_id AND g.id=c.grupo_id
+          JOIN grupo_noticias gn ON gn.snapshot_id=g.snapshot_id AND gn.grupo_id=g.id
+          JOIN noticias n ON n.snapshot_id=gn.snapshot_id AND n.id=gn.noticia_id
+          WHERE c.snapshot_id=? AND c.id=? ORDER BY n.id""",
+          (case["snapshot_id"], case["id"])).fetchall()
+        if not rows or (topic and rows[0]["tema"] != topic):
+            continue
+        if evidence_state and case["estado_evidencia"] != evidence_state:
+            continue
+        if medium and not any(medium.lower() in row["medio"].lower() for row in rows):
+            continue
+        if date_from or date_to:
+            dated = [row["fecha_publicacion"][:10] for row in rows if row["fecha_publicacion"]]
+            in_range = [value for value in dated
+                        if (not date_from or value >= date_from)
+                        and (not date_to or value <= date_to)]
+            if not in_range:
+                continue
+        corpus = search_tokens(" ".join(row["titulo"] for row in rows))
+        matches = sorted(wanted & corpus)
+        if wanted and not matches:
+            continue
+        lexical = len(matches) / len(wanted) if wanted else 0.0
+        item = dict(case)
+        item.update({"tema": rows[0]["tema"], "medios": sorted({row["medio"] for row in rows}),
+                     "coincidencias": matches, "relevancia_textual": round(lexical, 3),
+                     "motivo": ("Coincidencias: " + ", ".join(matches)) if matches else "Coincide con los filtros seleccionados."})
+        results.append(item)
+    results.sort(key=lambda item: (-item["relevancia_textual"],
+                                   -(item["puntaje"] if item["puntaje"] is not None else -1), item["id"]))
+    return {"consulta": query, "filtros": {"tema": topic, "evidencia": evidence_state,
+            "medio": medium, "desde": date_from, "hasta": date_to},
+            "resultados": results, "abstencion": not results,
+            "motivo_abstencion": "No hay casos sustentados que coincidan con la consulta y los filtros." if not results else None,
+            "tiempo_ms": round((time.perf_counter() - started) * 1000, 3),
+            "baseline": "palabras-clave-v1"}
 
 
 def case_detail(db, case_id):
@@ -137,7 +209,8 @@ class Handler(BaseHTTPRequestHandler):
         self.wfile.write(body)
 
     def do_GET(self):
-        route = urlparse(self.path).path
+        parsed = urlparse(self.path)
+        route = parsed.path
         if route in ("/", "/index.html"):
             return self.send_file("index.html", "text/html; charset=utf-8")
         if route == "/styles.css":
@@ -148,6 +221,14 @@ class Handler(BaseHTTPRequestHandler):
             with connect(self.db_path) as db:
                 if route == "/api/cases":
                     return self.send_json(200, {"casos": list_cases(db), "modo": "local"})
+                if route == "/api/search":
+                    params = parse_qs(parsed.query, keep_blank_values=True)
+                    get = lambda name: params.get(name, [""])[0].strip()
+                    try:
+                        return self.send_json(200, search_cases(db, get("q"), get("tema"),
+                                              get("evidencia"), get("medio"), get("desde"), get("hasta")))
+                    except ValueError as exc:
+                        return self.send_json(400, {"error": str(exc)})
                 match = re.fullmatch(r"/api/cases/([^/]+)", route)
                 if match:
                     detail = case_detail(db, unquote(match.group(1)))

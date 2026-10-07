@@ -4,9 +4,11 @@
 <body>
 <header><div><span class="eyebrow">Jajanken · prototipo local</span><h1>Lupa editorial</h1><p>Antes de contar una historia, mostramos qué la sostiene.</p></div><span class="offline">Funciona con snapshot local</span></header>
 <main>
-  <aside><div class="aside-title"><h2>Agenda</h2><button id="refresh" type="button">Actualizar</button></div><p class="hint">Prioridad y evidencia se muestran por separado.</p><div id="cases" aria-live="polite"></div></aside>
+  <aside><div class="aside-title"><h2>Agenda</h2><button id="refresh" type="button">Limpiar</button></div><p class="hint">Prioridad y evidencia se muestran por separado.</p>
+    <form id="search-form" class="filters"><label>Buscar<input name="q" maxlength="200" placeholder="tema económico"></label><label>Tema<select name="tema"><option value="">Todos</option><option value="economia">Economía</option><option value="logistica_canal">Logística/Canal</option><option value="turismo">Turismo</option><option value="servicios_publicos">Servicios públicos</option><option value="eventos_naturales">Eventos naturales</option><option value="regulacion">Regulación</option><option value="sin_clasificar">Sin clasificar</option></select></label><label>Evidencia<select name="evidencia"><option value="">Todos</option><option value="insuficiente">Insuficiente</option><option value="parcial">Parcial</option><option value="suficiente_para_borrador">Suficiente para borrador</option></select></label><label>Medio<input name="medio" maxlength="100" placeholder="Medio"></label><div class="date-grid"><label>Desde<input name="desde" type="date"></label><label>Hasta<input name="hasta" type="date"></label></div><button class="submit" type="submit">Buscar</button></form>
+    <p id="search-meta" class="hint" aria-live="polite"></p><div id="cases" aria-live="polite"></div></aside>
   <section id="detail" class="empty"><div><strong>Selecciona un caso</strong><p>Abre su evidencia, borrador y registro de revisión.</p></div></section>
 </main>
-<template id="case-template"><button class="case" type="button"><span class="case-top"><span class="case-id"></span><span class="score"></span></span><strong></strong><span class="badges"><i class="evidence"></i><i class="review"></i></span></button></template>
+<template id="case-template"><button class="case" type="button"><span class="case-top"><span class="case-id"></span><span class="score"></span></span><strong></strong><span class="badges"><i class="evidence"></i><i class="review"></i></span><small class="reason"></small></button></template>
 <script src="/app.js" defer></script>
 </body></html>

@@ -14,3 +14,7 @@ Fecha: 2026-10-07. En esa versión se observaron 28 pruebas correctas (22 del co
 ## Extensión: agenda baseline
 
 Fecha: 2026-10-07. Resultado observado: 32 pruebas correctas. El flujo CLI aceptó 3 noticias y 2 indicadores, rechazó 5 filas, agrupó dos titulares económicos en un caso y dejó el titular turístico como otro. Los puntajes fueron 63.00 y 45.75. La prueba HTTP devolvió 200, dos casos ordenados, dos publicaciones, una procedencia identificada, dos evidencias y guardó la primera revisión del caso generado. No se relacionaron indicadores automáticamente. Esto demuestra el baseline y la integración, no calidad NLP, utilidad editorial ni cumplimiento completo de T02/T08.
+
+## Extensión: búsqueda editorial
+
+Fecha: 2026-10-07. Resultado observado: 38 pruebas correctas. La búsqueda local por palabras clave y filtros incorpora explicación de coincidencia, abstención sin resultados, validación de fechas y medición de latencia. En la prueba HTTP, la página respondió 200, «tema económico» devolvió un caso con las dos palabras coincidentes en 2.586 ms, una consulta ausente se abstuvo y el filtro turismo + evidencia insuficiente devolvió un caso. La latencia es una observación local, no un benchmark. Los datos sintéticos no demuestran relevancia semántica ni calidad con consultas reales.
