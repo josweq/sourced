@@ -1,0 +1,6 @@
+id_noticia,titulo,url,medio,idioma,fecha_publicacion,fecha_deteccion,fecha_extraccion,tema,origen,alcance_texto
+N-001,[SINTÉTICO] Tema económico,https://example.invalid/noticia-1,Medio ficticio,es,2024-06-01T10:00:00Z,2024-06-01T10:30:00Z,2024-06-02T12:00:00Z,economia,Agencia ficticia,titular_metadatos
+N-002,[SINTÉTICO] Sin fecha de publicación,https://example.invalid/noticia-2,Medio ficticio,es,,2024-06-01T11:30:00Z,2024-06-02T12:00:00Z,turismo,,titular_metadatos
+N-003,[SINTÉTICO] Fecha inválida,https://example.invalid/noticia-3,Medio ficticio,es,2024-02-30T10:00:00Z,2024-06-01T11:30:00Z,2024-06-02T12:00:00Z,economia,,titular_metadatos
+N-004,[SINTÉTICO] URL inválida,http://example.invalid/noticia-4,Medio ficticio,es,2024-06-01T10:00:00Z,2024-06-01T11:30:00Z,2024-06-02T12:00:00Z,economia,,titular_metadatos
+N-005,[SINTÉTICO] Tema inválido,https://example.invalid/noticia-5,Medio ficticio,es,2024-06-01T10:00:00Z,2024-06-01T11:30:00Z,2024-06-02T12:00:00Z,deportes,,titular_metadatos

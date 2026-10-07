@@ -9,12 +9,12 @@ No confundir documentos preparados con funcionalidades implementadas.
 | B01 | Base documental GitHub | Preparado | Ninguna | Documentación navegable y guías comunes |
 | B02 | Aclarar calendario y filtro temporal | Disponible para explorar | Respuesta organización | Respuestas con fuente y fecha |
 | B03 | Snapshot y catálogo | Depende de datos | Paquete común y condiciones | Archivos, hashes y diccionario |
-| B04 | Ingesta y validación | Pendiente de implementación | B03 para datos reales, B05 | Reporte y T01, fixtures separados |
+| B04 | Ingesta y validación | Primera versión sintética preparada | B03 para datos reales | CSV por fila, reporte y pruebas; fuentes.json y snapshot real pendientes |
 | B05 | Stack e interfaces | Modelo de datos v1 preparado; stack de aplicación pendiente | Hardware y acuerdo técnico | Contrato SQLite de referencia y pruebas; integración pendiente |
 | B06 | Etiquetas y baseline | Disponible para explorar | B03 para evaluación real | Método, etiquetas y salidas |
 | B07 | Recuperación y agrupación NLP | Pendiente de implementación | B04–B06 | Comparación y T02/T03 |
 | B08 | Ranking explicable | Disponible para explorar | B05 antes de integrar | Reglas, componentes, T08 |
-| B09 | Agenda y ficha | Disponible para explorar | B05 antes de integrar | Recorrido, citas y fechas |
+| B09 | Agenda y ficha | Primera interfaz local preparada | Datos derivados/casos reales pendientes | Agenda, citas, fechas y revisión con fixture sintético |
 | B10 | Generación sustentada | Pendiente de implementación | B07 y contratos | Brief, guion, copy; T04–T07/T09 |
 | B11 | Revisión persistente | Disponible para explorar | Contrato de caso y B05 | Estados y responsable de revisión |
 | B12 | Cinco casos | Depende de datos | Flujo integrado y B03 | Incluye evidencia insuficiente |

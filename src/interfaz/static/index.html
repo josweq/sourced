@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="es">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Jajanken Lupa</title><link rel="stylesheet" href="/styles.css"></head>
+<body>
+<header><div><span class="eyebrow">Jajanken · prototipo local</span><h1>Lupa editorial</h1><p>Antes de contar una historia, mostramos qué la sostiene.</p></div><span class="offline">Funciona con snapshot local</span></header>
+<main>
+  <aside><div class="aside-title"><h2>Agenda</h2><button id="refresh" type="button">Actualizar</button></div><p class="hint">Prioridad y evidencia se muestran por separado.</p><div id="cases" aria-live="polite"></div></aside>
+  <section id="detail" class="empty"><div><strong>Selecciona un caso</strong><p>Abre su evidencia, borrador y registro de revisión.</p></div></section>
+</main>
+<template id="case-template"><button class="case" type="button"><span class="case-top"><span class="case-id"></span><span class="score"></span></span><strong></strong><span class="badges"><i class="evidence"></i><i class="review"></i></span></button></template>
+<script src="/app.js" defer></script>
+</body></html>

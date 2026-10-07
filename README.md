@@ -53,3 +53,7 @@ python scripts/modelo_datos.py --output data/local/modelo-demo.sqlite
 ```
 
 El último comando crea una base nueva y nunca sobrescribe. Todos los ejemplos son sintéticos. [Resultados y límites de la verificación](evaluation/modelo-datos-v1.md).
+
+## Importador e interfaz local
+
+El [recorrido local](docs/12-importador-interfaz.md) incluye carga CSV con cuarentena de filas inválidas y una primera interfaz de agenda, evidencia, borrador y revisión. Funciona con biblioteca estándar de Python y datos sintéticos; los datos oficiales siguen pendientes.
