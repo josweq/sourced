@@ -1,0 +1,354 @@
+{
+  "proyecto": "jajanken-lupa",
+  "commit": "2037a4d",
+  "fecha": "2026-10-07",
+  "estado": "verde",
+  "corridas": [
+    {
+      "n": 1,
+      "comprobaciones": 30,
+      "fallos": 0,
+      "errores": 0,
+      "esperas": [
+        {
+          "que": "abrir el primer caso",
+          "ms": 261
+        },
+        {
+          "que": "registrar la revisión",
+          "ms": 270
+        },
+        {
+          "que": "cambiar a tema Sala",
+          "ms": 3
+        }
+      ],
+      "detalle": [
+        {
+          "ok": true,
+          "que": "arranca en tema Redacción",
+          "detalle": "redaccion"
+        },
+        {
+          "ok": true,
+          "que": "la agenda muestra casos",
+          "detalle": "2"
+        },
+        {
+          "ok": true,
+          "que": "contraste · Redacción · agenda · en reposo",
+          "detalle": "32/32 textos"
+        },
+        {
+          "ok": true,
+          "que": "contraste · Redacción · agenda · hover",
+          "detalle": "32/32 textos"
+        },
+        {
+          "ok": true,
+          "que": "contraste · Redacción · agenda · hover + active",
+          "detalle": "32/32 textos"
+        },
+        {
+          "ok": true,
+          "que": "tarjeta de agenda compacta (≤ 120 px)",
+          "detalle": "90 px"
+        },
+        {
+          "ok": true,
+          "que": "caben ≥ 5 tarjetas a 1366×860",
+          "detalle": "capacidad 5 en 572 px"
+        },
+        {
+          "ok": true,
+          "que": "el detalle muestra la radiografía",
+          "detalle": ""
+        },
+        {
+          "ok": true,
+          "que": "abrir un caso no desplaza la página y la cabecera sigue visible",
+          "detalle": ""
+        },
+        {
+          "ok": true,
+          "que": "contraste · Redacción · caso abierto · en reposo",
+          "detalle": "120/120 textos"
+        },
+        {
+          "ok": true,
+          "que": "contraste · Redacción · caso abierto · hover",
+          "detalle": "120/120 textos"
+        },
+        {
+          "ok": true,
+          "que": "contraste · Redacción · caso abierto · hover + active",
+          "detalle": "120/120 textos"
+        },
+        {
+          "ok": true,
+          "que": "la revisión nueva aparece con su persona revisora",
+          "detalle": "antes 10"
+        },
+        {
+          "ok": true,
+          "que": "el conmutador activa Sala",
+          "detalle": ""
+        },
+        {
+          "ok": true,
+          "que": "contraste · Sala · caso abierto · en reposo",
+          "detalle": "124/124 textos"
+        },
+        {
+          "ok": true,
+          "que": "contraste · Sala · caso abierto · hover",
+          "detalle": "124/124 textos"
+        },
+        {
+          "ok": true,
+          "que": "contraste · Sala · caso abierto · hover + active",
+          "detalle": "124/124 textos"
+        },
+        {
+          "ok": true,
+          "que": "ancho sala · 360 px Agenda",
+          "detalle": "{\"ancho\":360,\"pestana\":\"Agenda\",\"ventana\":360,\"pagina\":360,\"peor\":null,\"ok\":true}"
+        },
+        {
+          "ok": true,
+          "que": "ancho sala · 360 px Radiografía",
+          "detalle": "{\"ancho\":360,\"pestana\":\"Radiografía\",\"ventana\":360,\"pagina\":345,\"peor\":null,\"ok\":true}"
+        },
+        {
+          "ok": true,
+          "que": "ancho sala · 360 px Mesa",
+          "detalle": "{\"ancho\":360,\"pestana\":\"Mesa\",\"ventana\":360,\"pagina\":345,\"peor\":null,\"ok\":true}"
+        },
+        {
+          "ok": true,
+          "que": "ancho sala · 390 px Agenda",
+          "detalle": "{\"ancho\":390,\"pestana\":\"Agenda\",\"ventana\":390,\"pagina\":390,\"peor\":null,\"ok\":true}"
+        },
+        {
+          "ok": true,
+          "que": "ancho sala · 390 px Radiografía",
+          "detalle": "{\"ancho\":390,\"pestana\":\"Radiografía\",\"ventana\":390,\"pagina\":375,\"peor\":null,\"ok\":true}"
+        },
+        {
+          "ok": true,
+          "que": "ancho sala · 390 px Mesa",
+          "detalle": "{\"ancho\":390,\"pestana\":\"Mesa\",\"ventana\":390,\"pagina\":375,\"peor\":null,\"ok\":true}"
+        },
+        {
+          "ok": true,
+          "que": "ancho redaccion · 360 px Agenda",
+          "detalle": "{\"ancho\":360,\"pestana\":\"Agenda\",\"ventana\":360,\"pagina\":360,\"peor\":null,\"ok\":true}"
+        },
+        {
+          "ok": true,
+          "que": "ancho redaccion · 360 px Radiografía",
+          "detalle": "{\"ancho\":360,\"pestana\":\"Radiografía\",\"ventana\":360,\"pagina\":345,\"peor\":null,\"ok\":true}"
+        },
+        {
+          "ok": true,
+          "que": "ancho redaccion · 360 px Mesa",
+          "detalle": "{\"ancho\":360,\"pestana\":\"Mesa\",\"ventana\":360,\"pagina\":345,\"peor\":null,\"ok\":true}"
+        },
+        {
+          "ok": true,
+          "que": "ancho redaccion · 390 px Agenda",
+          "detalle": "{\"ancho\":390,\"pestana\":\"Agenda\",\"ventana\":390,\"pagina\":390,\"peor\":null,\"ok\":true}"
+        },
+        {
+          "ok": true,
+          "que": "ancho redaccion · 390 px Radiografía",
+          "detalle": "{\"ancho\":390,\"pestana\":\"Radiografía\",\"ventana\":390,\"pagina\":375,\"peor\":null,\"ok\":true}"
+        },
+        {
+          "ok": true,
+          "que": "ancho redaccion · 390 px Mesa",
+          "detalle": "{\"ancho\":390,\"pestana\":\"Mesa\",\"ventana\":390,\"pagina\":375,\"peor\":null,\"ok\":true}"
+        },
+        {
+          "ok": true,
+          "que": "sin errores de consola",
+          "detalle": ""
+        }
+      ],
+      "segundos": 7
+    },
+    {
+      "n": 2,
+      "comprobaciones": 30,
+      "fallos": 0,
+      "errores": 0,
+      "esperas": [
+        {
+          "que": "abrir el primer caso",
+          "ms": 258
+        },
+        {
+          "que": "registrar la revisión",
+          "ms": 259
+        },
+        {
+          "que": "cambiar a tema Sala",
+          "ms": 1
+        }
+      ],
+      "detalle": [
+        {
+          "ok": true,
+          "que": "arranca en tema Redacción",
+          "detalle": "redaccion"
+        },
+        {
+          "ok": true,
+          "que": "la agenda muestra casos",
+          "detalle": "2"
+        },
+        {
+          "ok": true,
+          "que": "contraste · Redacción · agenda · en reposo",
+          "detalle": "32/32 textos"
+        },
+        {
+          "ok": true,
+          "que": "contraste · Redacción · agenda · hover",
+          "detalle": "32/32 textos"
+        },
+        {
+          "ok": true,
+          "que": "contraste · Redacción · agenda · hover + active",
+          "detalle": "32/32 textos"
+        },
+        {
+          "ok": true,
+          "que": "tarjeta de agenda compacta (≤ 120 px)",
+          "detalle": "90 px"
+        },
+        {
+          "ok": true,
+          "que": "caben ≥ 5 tarjetas a 1366×860",
+          "detalle": "capacidad 5 en 572 px"
+        },
+        {
+          "ok": true,
+          "que": "el detalle muestra la radiografía",
+          "detalle": ""
+        },
+        {
+          "ok": true,
+          "que": "abrir un caso no desplaza la página y la cabecera sigue visible",
+          "detalle": ""
+        },
+        {
+          "ok": true,
+          "que": "contraste · Redacción · caso abierto · en reposo",
+          "detalle": "124/124 textos"
+        },
+        {
+          "ok": true,
+          "que": "contraste · Redacción · caso abierto · hover",
+          "detalle": "124/124 textos"
+        },
+        {
+          "ok": true,
+          "que": "contraste · Redacción · caso abierto · hover + active",
+          "detalle": "124/124 textos"
+        },
+        {
+          "ok": true,
+          "que": "la revisión nueva aparece con su persona revisora",
+          "detalle": "antes 11"
+        },
+        {
+          "ok": true,
+          "que": "el conmutador activa Sala",
+          "detalle": ""
+        },
+        {
+          "ok": true,
+          "que": "contraste · Sala · caso abierto · en reposo",
+          "detalle": "128/128 textos"
+        },
+        {
+          "ok": true,
+          "que": "contraste · Sala · caso abierto · hover",
+          "detalle": "128/128 textos"
+        },
+        {
+          "ok": true,
+          "que": "contraste · Sala · caso abierto · hover + active",
+          "detalle": "128/128 textos"
+        },
+        {
+          "ok": true,
+          "que": "ancho sala · 360 px Agenda",
+          "detalle": "{\"ancho\":360,\"pestana\":\"Agenda\",\"ventana\":360,\"pagina\":360,\"peor\":null,\"ok\":true}"
+        },
+        {
+          "ok": true,
+          "que": "ancho sala · 360 px Radiografía",
+          "detalle": "{\"ancho\":360,\"pestana\":\"Radiografía\",\"ventana\":360,\"pagina\":345,\"peor\":null,\"ok\":true}"
+        },
+        {
+          "ok": true,
+          "que": "ancho sala · 360 px Mesa",
+          "detalle": "{\"ancho\":360,\"pestana\":\"Mesa\",\"ventana\":360,\"pagina\":345,\"peor\":null,\"ok\":true}"
+        },
+        {
+          "ok": true,
+          "que": "ancho sala · 390 px Agenda",
+          "detalle": "{\"ancho\":390,\"pestana\":\"Agenda\",\"ventana\":390,\"pagina\":390,\"peor\":null,\"ok\":true}"
+        },
+        {
+          "ok": true,
+          "que": "ancho sala · 390 px Radiografía",
+          "detalle": "{\"ancho\":390,\"pestana\":\"Radiografía\",\"ventana\":390,\"pagina\":375,\"peor\":null,\"ok\":true}"
+        },
+        {
+          "ok": true,
+          "que": "ancho sala · 390 px Mesa",
+          "detalle": "{\"ancho\":390,\"pestana\":\"Mesa\",\"ventana\":390,\"pagina\":375,\"peor\":null,\"ok\":true}"
+        },
+        {
+          "ok": true,
+          "que": "ancho redaccion · 360 px Agenda",
+          "detalle": "{\"ancho\":360,\"pestana\":\"Agenda\",\"ventana\":360,\"pagina\":360,\"peor\":null,\"ok\":true}"
+        },
+        {
+          "ok": true,
+          "que": "ancho redaccion · 360 px Radiografía",
+          "detalle": "{\"ancho\":360,\"pestana\":\"Radiografía\",\"ventana\":360,\"pagina\":345,\"peor\":null,\"ok\":true}"
+        },
+        {
+          "ok": true,
+          "que": "ancho redaccion · 360 px Mesa",
+          "detalle": "{\"ancho\":360,\"pestana\":\"Mesa\",\"ventana\":360,\"pagina\":345,\"peor\":null,\"ok\":true}"
+        },
+        {
+          "ok": true,
+          "que": "ancho redaccion · 390 px Agenda",
+          "detalle": "{\"ancho\":390,\"pestana\":\"Agenda\",\"ventana\":390,\"pagina\":390,\"peor\":null,\"ok\":true}"
+        },
+        {
+          "ok": true,
+          "que": "ancho redaccion · 390 px Radiografía",
+          "detalle": "{\"ancho\":390,\"pestana\":\"Radiografía\",\"ventana\":390,\"pagina\":375,\"peor\":null,\"ok\":true}"
+        },
+        {
+          "ok": true,
+          "que": "ancho redaccion · 390 px Mesa",
+          "detalle": "{\"ancho\":390,\"pestana\":\"Mesa\",\"ventana\":390,\"pagina\":375,\"peor\":null,\"ok\":true}"
+        },
+        {
+          "ok": true,
+          "que": "sin errores de consola",
+          "detalle": ""
+        }
+      ],
+      "segundos": 7
+    }
+  ]
+}

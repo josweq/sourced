@@ -63,6 +63,12 @@ def list_cases(db):
     return result
 
 
+def snapshot_metadata(db):
+    row = db.execute("""SELECT id,version,fecha_corte_utc,descripcion
+      FROM snapshots ORDER BY fecha_corte_utc DESC LIMIT 1""").fetchone()
+    return dict(row) if row else None
+
+
 def search_tokens(value):
     plain = unicodedata.normalize("NFKD", value.lower()).encode("ascii", "ignore").decode()
     return {part for part in re.findall(r"[a-z0-9]+", plain)
@@ -119,7 +125,7 @@ def search_cases(db, query="", topic="", evidence_state="", medium="",
         item.update({"tema": rows[0]["tema"], "medios": sorted({row["medio"] for row in rows}),
                      "fecha_publicacion": first_publication, "fecha_deteccion": first_detection,
                      "coincidencias": matches, "relevancia_textual": round(lexical, 3),
-                     "motivo": ("Coincidencias: " + ", ".join(matches)) if matches else "Coincide con los filtros seleccionados."})
+                     "motivo": ("Coincidencias: " + ", ".join(matches)) if matches else ""})
         results.append(item)
     results.sort(key=lambda item: (-item["relevancia_textual"],
                                    -(item["puntaje"] if item["puntaje"] is not None else -1), item["id"]))
@@ -128,7 +134,7 @@ def search_cases(db, query="", topic="", evidence_state="", medium="",
             "resultados": results, "abstencion": not results,
             "motivo_abstencion": "No hay casos sustentados que coincidan con la consulta y los filtros." if not results else None,
             "tiempo_ms": round((time.perf_counter() - started) * 1000, 3),
-            "baseline": "palabras-clave-v1"}
+            "baseline": "palabras-clave-v1", "snapshot": snapshot_metadata(db)}
 
 
 def case_detail(db, case_id):
@@ -145,11 +151,17 @@ def case_detail(db, case_id):
       FROM priorizaciones WHERE snapshot_id=? AND caso_id=? ORDER BY fecha_utc DESC LIMIT 1""",
       (snapshot_id, case_id)).fetchone()
     evidence = [dict(r) for r in db.execute("""SELECT e.id,e.campo,e.limitaciones,
-      n.titulo AS noticia_titulo,n.url AS noticia_url,n.fecha_publicacion,n.fecha_deteccion,n.alcance_texto,
-      i.pais_iso3,i.indicador_id,i.anio,i.valor,i.unidad,i.fuente_url
+      n.id AS noticia_id,n.titulo AS noticia_titulo,n.url AS noticia_url,n.medio,
+      n.fecha_publicacion,n.fecha_deteccion,n.alcance_texto,
+      fn.nombre AS fuente_nombre,gn.procedencia_id,gn.justificacion_procedencia,
+      i.pais_iso3,i.indicador_id,i.anio,i.valor,i.unidad,i.fuente_url,fi.nombre AS indicador_fuente_nombre
       FROM caso_evidencias ce JOIN evidencias e ON e.snapshot_id=ce.snapshot_id AND e.id=ce.evidencia_id
       LEFT JOIN noticias n ON n.snapshot_id=e.snapshot_id AND n.id=e.noticia_id
+      LEFT JOIN fuentes fn ON fn.snapshot_id=n.snapshot_id AND fn.id=n.fuente_id
+      LEFT JOIN casos c ON c.snapshot_id=ce.snapshot_id AND c.id=ce.caso_id
+      LEFT JOIN grupo_noticias gn ON gn.snapshot_id=e.snapshot_id AND gn.grupo_id=c.grupo_id AND gn.noticia_id=n.id
       LEFT JOIN indicadores i ON i.snapshot_id=e.snapshot_id AND i.id=e.indicador_registro_id
+      LEFT JOIN fuentes fi ON fi.snapshot_id=i.snapshot_id AND fi.id=i.fuente_id
       WHERE ce.snapshot_id=? AND ce.caso_id=? ORDER BY e.id""", (snapshot_id, case_id))]
     drafts = [dict(r) for r in db.execute("""SELECT id,version,titulo,enfoque,brief,guion,copy,
       preguntas_json,alcance_texto,generador,modelo_version,prompt_version,fecha_utc
@@ -169,7 +181,7 @@ def case_detail(db, case_id):
         priority_data["explicacion"] = json.loads(priority_data["explicacion"])
     return {"caso": dict(case), "agrupacion": dict(grouping) if grouping else None,
             "priorizacion": priority_data, "evidencias": evidence,
-            "borradores": drafts, "revisiones": reviews}
+            "borradores": drafts, "revisiones": reviews, "snapshot": snapshot_metadata(db)}
 
 
 def add_review(db, case_id, payload):
@@ -232,7 +244,8 @@ class Handler(BaseHTTPRequestHandler):
         try:
             with connect(self.db_path) as db:
                 if route == "/api/cases":
-                    return self.send_json(200, {"casos": list_cases(db), "modo": "local"})
+                    return self.send_json(200, {"casos": list_cases(db), "modo": "local",
+                                                "snapshot": snapshot_metadata(db)})
                 if route == "/api/search":
                     params = parse_qs(parsed.query, keep_blank_values=True)
                     get = lambda name: params.get(name, [""])[0].strip()

@@ -45,7 +45,7 @@ try { commit = execSync('git rev-parse --short HEAD', { encoding: 'utf8', stdio:
  * esperar a algo que CAMBIA, nunca a algo que existe.
  */
 async function recorrido(app, { ok, medir, marca }) {
-  await app.tamano(1366, 900, { movil: false })
+  await app.tamano(1366, 860, { movil: false })
   await app.recargar()
   await app.js(`localStorage.removeItem('lupa-tema'); document.documentElement.removeAttribute('data-tema')`)
   await app.recargar()
@@ -61,12 +61,16 @@ async function recorrido(app, { ok, medir, marca }) {
   const n = await app.js(`document.querySelectorAll('#cases .case').length`)
   ok(n > 0, 'la agenda muestra casos', `${n}`)
   await contraste('Redacción · agenda')
+  const dens = await app.js(`(() => { const c = document.querySelector('#cases .case'); const l = document.querySelector('#cases'); const r = l.getBoundingClientRect(); const col = l.closest('aside') ?? l.parentElement; const b = Math.min(col.getBoundingClientRect().bottom, innerHeight); const vis = b - r.top; const h = c.getBoundingClientRect().height; return { h: Math.round(h), cap: Math.floor(vis / (h + 8)), visible: Math.round(vis) } })()`)
+  ok(dens.h <= 120, 'tarjeta de agenda compacta (≤ 120 px)', `${dens.h} px`)
+  ok(dens.cap >= 5, 'caben ≥ 5 tarjetas a 1366×860', `capacidad ${dens.cap} en ${dens.visible} px`)
 
   await medir('abrir el primer caso', app.esperarCambio(
     `/Qué se reporta/.test(document.querySelector('#detail')?.textContent ?? '')`,
     () => app.pulsar('#cases .case'), 'el detalle del caso'))
   ok(await app.js(`/Prioridad|Qué se reporta|Falta verificar/.test(document.querySelector('#detail').textContent)`),
     'el detalle muestra la radiografía')
+  ok(await app.js(`scrollY === 0 && document.querySelector('header').getBoundingClientRect().top >= 0`), 'abrir un caso no desplaza la página y la cabecera sigue visible')
   await contraste('Redacción · caso abierto')
 
   const antes = await app.js(`document.querySelectorAll('.review-entry').length`)

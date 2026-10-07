@@ -19,11 +19,11 @@
   </div>
   <div class="header-meta" aria-label="Estado del prototipo">
     <span><strong>Snapshot</strong> local</span>
-    <time id="cutoff-time" datetime="">Cargando hora</time>
+    <time id="cutoff-time" datetime="">Corte: cargando</time>
     <span class="status">Sin conexión: listo</span>
     <div class="theme-switch" role="group" aria-label="Tema visual">
-      <button id="tema-redaccion" type="button" data-tema-opcion="redaccion">Redacción</button>
-      <button id="tema-sala" type="button" data-tema-opcion="sala">Sala</button>
+      <button id="tema-redaccion" type="button" data-tema-opcion="redaccion" aria-label="Usar tema Redacción"><span class="theme-icon" aria-hidden="true">☀</span><span class="theme-label">Redacción</span></button>
+      <button id="tema-sala" type="button" data-tema-opcion="sala" aria-label="Usar tema Sala"><span class="theme-icon" aria-hidden="true">☾</span><span class="theme-label">Sala</span></button>
     </div>
   </div>
 </header>
@@ -38,14 +38,15 @@
       <h2>Agenda</h2>
       <button id="refresh" type="button">Limpiar</button>
     </div>
-    <p class="hint">Prioridad y evidencia se muestran por separado.</p>
     <form id="search-form" class="filters">
-      <label>Buscar<input name="q" maxlength="200" placeholder="tema económico"></label>
-      <label>Tema<select name="tema"><option value="">Todos</option><option value="economia">Economía</option><option value="logistica_canal">Logística/Canal</option><option value="turismo">Turismo</option><option value="servicios_publicos">Servicios públicos</option><option value="eventos_naturales">Eventos naturales</option><option value="regulacion">Regulación</option><option value="sin_clasificar">Sin clasificar</option></select></label>
-      <label>Evidencia<select name="evidencia"><option value="">Todos</option><option value="insuficiente">Insuficiente</option><option value="parcial">Parcial</option><option value="suficiente_para_borrador">Suficiente</option></select></label>
-      <label>Medio<input name="medio" maxlength="100" placeholder="Medio"></label>
-      <div class="date-grid"><label>Desde<input name="desde" type="date"></label><label>Hasta<input name="hasta" type="date"></label></div>
-      <button class="submit" type="submit">Buscar</button>
+      <div class="search-row"><label class="sr-label" for="q">Buscar en la agenda</label><input id="q" name="q" type="search" maxlength="200" placeholder="Buscar: tema, lugar, institución"><button class="submit" type="submit">Buscar</button></div>
+      <details class="filter-details">
+        <summary>Filtros <span id="filter-count">0 activos</span></summary>
+        <label>Tema<select name="tema"><option value="">Todos</option><option value="economia">Economía</option><option value="logistica_canal">Logística/Canal</option><option value="turismo">Turismo</option><option value="servicios_publicos">Servicios públicos</option><option value="eventos_naturales">Eventos naturales</option><option value="regulacion">Regulación</option><option value="sin_clasificar">Sin clasificar</option></select></label>
+        <label>Evidencia<select name="evidencia"><option value="">Todos</option><option value="insuficiente">Insuficiente</option><option value="parcial">Parcial</option><option value="suficiente_para_borrador">Suficiente</option></select></label>
+        <label>Medio<input name="medio" maxlength="100" placeholder="Medio"></label>
+        <div class="date-grid"><label>Desde<input name="desde" type="date"></label><label>Hasta<input name="hasta" type="date"></label></div>
+      </details>
     </form>
     <p id="search-meta" class="hint" aria-live="polite"></p>
     <div id="cases" aria-live="polite"></div>
@@ -60,12 +61,9 @@
 <footer>Lupa · prototipo del equipo Jajanken para el hackIAthon Panamá. No es una herramienta oficial de TVN.</footer>
 <template id="case-template">
   <button class="case" type="button">
-    <span class="case-top"><span class="case-id"></span><span class="score"></span></span>
+    <span class="case-top"><span class="case-meta"></span><span class="score"></span></span>
     <strong></strong>
-    <span class="case-level"></span>
-    <span class="case-topic"></span>
-    <span class="badges"><i class="evidence"></i><i class="review"></i></span>
-    <span class="case-time"></span>
+    <span class="case-line"><i class="evidence"></i><span class="source-count"></span></span>
     <small class="reason"></small>
   </button>
 </template>
