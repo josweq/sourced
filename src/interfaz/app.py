@@ -14,6 +14,15 @@ import uuid
 
 ROOT = Path(__file__).resolve().parents[2]
 STATIC = Path(__file__).resolve().parent / "static"
+STATIC_TYPES = {
+    ".css": "text/css; charset=utf-8",
+    ".js": "text/javascript; charset=utf-8",
+    ".html": "text/html; charset=utf-8",
+    ".svg": "image/svg+xml",
+    ".woff2": "font/woff2",
+}
+STATIC_ROOT_FILES = {"index.html", "styles.css", "tokens.css", "app.js", "favicon.svg"}
+STATIC_DIRS = {"fonts", "img"}
 STATES = {"en_revision", "requiere_evidencia", "aprobado_como_borrador", "descartado"}
 EVIDENCE_STATES = {"insuficiente", "parcial", "suficiente_para_borrador"}
 TOPICS = {"economia", "logistica_canal", "turismo", "servicios_publicos",
@@ -80,7 +89,7 @@ def search_cases(db, query="", topic="", evidence_state="", medium="",
     wanted = search_tokens(query)
     results = []
     for case in list_cases(db):
-        rows = db.execute("""SELECT n.titulo,n.medio,n.fecha_publicacion,g.tema
+        rows = db.execute("""SELECT n.titulo,n.medio,n.fecha_publicacion,n.fecha_deteccion,g.tema
           FROM casos c JOIN grupos g ON g.snapshot_id=c.snapshot_id AND g.id=c.grupo_id
           JOIN grupo_noticias gn ON gn.snapshot_id=g.snapshot_id AND gn.grupo_id=g.id
           JOIN noticias n ON n.snapshot_id=gn.snapshot_id AND n.id=gn.noticia_id
@@ -105,7 +114,10 @@ def search_cases(db, query="", topic="", evidence_state="", medium="",
             continue
         lexical = len(matches) / len(wanted) if wanted else 0.0
         item = dict(case)
+        first_publication = next((row["fecha_publicacion"] for row in rows if row["fecha_publicacion"]), None)
+        first_detection = next((row["fecha_deteccion"] for row in rows if row["fecha_deteccion"]), None)
         item.update({"tema": rows[0]["tema"], "medios": sorted({row["medio"] for row in rows}),
+                     "fecha_publicacion": first_publication, "fecha_deteccion": first_detection,
                      "coincidencias": matches, "relevancia_textual": round(lexical, 3),
                      "motivo": ("Coincidencias: " + ", ".join(matches)) if matches else "Coincide con los filtros seleccionados."})
         results.append(item)
@@ -198,7 +210,7 @@ class Handler(BaseHTTPRequestHandler):
         self.send_header("Cache-Control", "no-store")
         self.send_header("X-Content-Type-Options", "nosniff")
         self.send_header("X-Frame-Options", "DENY")
-        self.send_header("Content-Security-Policy", "default-src 'self'; style-src 'self'; script-src 'self'; connect-src 'self'; img-src 'self' data:")
+        self.send_header("Content-Security-Policy", "default-src 'self'; style-src 'self'; script-src 'self'; connect-src 'self'; img-src 'self' data:; font-src 'self'")
 
     def send_json(self, status, payload):
         body = json.dumps(payload, ensure_ascii=False).encode("utf-8")
@@ -211,12 +223,12 @@ class Handler(BaseHTTPRequestHandler):
     def do_GET(self):
         parsed = urlparse(self.path)
         route = parsed.path
-        if route in ("/", "/index.html"):
-            return self.send_file("index.html", "text/html; charset=utf-8")
-        if route == "/styles.css":
-            return self.send_file("styles.css", "text/css; charset=utf-8")
-        if route == "/app.js":
-            return self.send_file("app.js", "text/javascript; charset=utf-8")
+        if route == "/":
+            return self.send_static("index.html")
+        if route.startswith(("/api/", "/api?")):
+            pass
+        elif self.is_static_route(route):
+            return self.send_static(route.lstrip("/"))
         try:
             with connect(self.db_path) as db:
                 if route == "/api/cases":
@@ -262,10 +274,27 @@ class Handler(BaseHTTPRequestHandler):
         except sqlite3.Error:
             self.send_json(409, {"error": "No se pudo registrar la revisión"})
 
-    def send_file(self, name, content_type):
-        body = (STATIC / name).read_bytes()
+    def is_static_route(self, route):
+        name = unquote(route.lstrip("/"))
+        if not name or "\\" in name or ".." in Path(name).parts:
+            return False
+        path = Path(name)
+        if len(path.parts) == 1:
+            return path.name in STATIC_ROOT_FILES
+        return len(path.parts) == 2 and path.parts[0] in STATIC_DIRS and path.suffix in STATIC_TYPES
+
+    def send_static(self, name):
+        clean = unquote(name)
+        if clean == "favicon.svg":
+            clean = "img/lupa.svg"
+        if "\\" in clean or ".." in Path(clean).parts:
+            return self.send_json(404, {"error": "Ruta no encontrada"})
+        path = STATIC / clean
+        if path.suffix not in STATIC_TYPES or not path.is_file() or STATIC not in path.resolve().parents:
+            return self.send_json(404, {"error": "Ruta no encontrada"})
+        body = path.read_bytes()
         self.send_response(200)
-        self.security_headers(content_type)
+        self.security_headers(STATIC_TYPES[path.suffix])
         self.send_header("Content-Length", str(len(body)))
         self.end_headers()
         self.wfile.write(body)

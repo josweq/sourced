@@ -1,10 +1,13 @@
 import json
 from pathlib import Path
+from http.client import HTTPConnection
+from http.server import ThreadingHTTPServer
 import tempfile
+import threading
 import unittest
 
 from scripts.modelo_datos import DEFAULT_FIXTURE, load_fixture, save_new
-from src.interfaz.app import add_review, case_detail, connect, list_cases
+from src.interfaz.app import Handler, add_review, case_detail, connect, list_cases
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -41,6 +44,40 @@ class InterfaceTests(unittest.TestCase):
                 add_review(db, "SYN-C4", {"persona_revisora": "Prueba local",
                     "estado": "aprobado_como_borrador", "comentario": "Aprobar.",
                     "borrador_id": ""})
+
+
+class StaticServerTests(unittest.TestCase):
+    def setUp(self):
+        Handler.db_path = ROOT / "tests" / "no-static-db-needed.sqlite"
+        self.server = ThreadingHTTPServer(("127.0.0.1", 0), Handler)
+        self.thread = threading.Thread(target=self.server.serve_forever, daemon=True)
+        self.thread.start()
+        self.addCleanup(self.server.server_close)
+        self.addCleanup(self.thread.join, 1)
+        self.addCleanup(self.server.shutdown)
+
+    def request(self, path):
+        conn = HTTPConnection("127.0.0.1", self.server.server_port, timeout=5)
+        self.addCleanup(conn.close)
+        conn.request("GET", path)
+        return conn.getresponse()
+
+    def test_new_static_mime_types(self):
+        expected = {
+            "/tokens.css": "text/css; charset=utf-8",
+            "/img/lupa.svg": "image/svg+xml",
+            "/favicon.svg": "image/svg+xml",
+            "/fonts/Inter-Regular.woff2": "font/woff2",
+        }
+        for path, content_type in expected.items():
+            with self.subTest(path=path):
+                response = self.request(path)
+                self.assertEqual(response.status, 200)
+                self.assertEqual(response.getheader("Content-Type"), content_type)
+
+    def test_static_path_traversal_returns_404(self):
+        response = self.request("/fonts/../app.py")
+        self.assertEqual(response.status, 404)
 
 
 if __name__ == "__main__":

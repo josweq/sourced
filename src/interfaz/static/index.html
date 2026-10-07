@@ -1,14 +1,74 @@
 <!doctype html>
 <html lang="es">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Jajanken Lupa</title><link rel="stylesheet" href="/styles.css"></head>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Jajanken Lupa</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/tokens.css">
+  <link rel="stylesheet" href="/styles.css">
+</head>
 <body>
-<header><div><span class="eyebrow">Jajanken · prototipo local</span><h1>Lupa editorial</h1><p>Antes de contar una historia, mostramos qué la sostiene.</p></div><span class="offline">Funciona con snapshot local</span></header>
-<main>
-  <aside><div class="aside-title"><h2>Agenda</h2><button id="refresh" type="button">Limpiar</button></div><p class="hint">Prioridad y evidencia se muestran por separado.</p>
-    <form id="search-form" class="filters"><label>Buscar<input name="q" maxlength="200" placeholder="tema económico"></label><label>Tema<select name="tema"><option value="">Todos</option><option value="economia">Economía</option><option value="logistica_canal">Logística/Canal</option><option value="turismo">Turismo</option><option value="servicios_publicos">Servicios públicos</option><option value="eventos_naturales">Eventos naturales</option><option value="regulacion">Regulación</option><option value="sin_clasificar">Sin clasificar</option></select></label><label>Evidencia<select name="evidencia"><option value="">Todos</option><option value="insuficiente">Insuficiente</option><option value="parcial">Parcial</option><option value="suficiente_para_borrador">Suficiente para borrador</option></select></label><label>Medio<input name="medio" maxlength="100" placeholder="Medio"></label><div class="date-grid"><label>Desde<input name="desde" type="date"></label><label>Hasta<input name="hasta" type="date"></label></div><button class="submit" type="submit">Buscar</button></form>
-    <p id="search-meta" class="hint" aria-live="polite"></p><div id="cases" aria-live="polite"></div></aside>
-  <section id="detail" class="empty"><div><strong>Selecciona un caso</strong><p>Abre su evidencia, borrador y registro de revisión.</p></div></section>
+<header class="app-header">
+  <div class="brand">
+    <img class="brand-logo" src="/img/lupa.svg" alt="">
+    <div>
+      <h1>Lupa</h1>
+      <p>Antes de contar una historia, mostramos qué la sostiene.</p>
+    </div>
+  </div>
+  <div class="header-meta" aria-label="Estado del prototipo">
+    <span><strong>Snapshot</strong> local</span>
+    <time id="cutoff-time" datetime="">Cargando hora</time>
+    <span class="status">Sin conexión: listo</span>
+    <div class="theme-switch" role="group" aria-label="Tema visual">
+      <button id="tema-redaccion" type="button" data-tema-opcion="redaccion">Redacción</button>
+      <button id="tema-sala" type="button" data-tema-opcion="sala">Sala</button>
+    </div>
+  </div>
+</header>
+<main class="shell">
+  <nav class="mobile-tabs" aria-label="Vistas">
+    <button type="button" data-panel="agenda" aria-controls="agenda-panel">Agenda</button>
+    <button type="button" data-panel="radiografia" aria-controls="detail">Radiografía</button>
+    <button type="button" data-panel="mesa" aria-controls="detail">Mesa</button>
+  </nav>
+  <aside id="agenda-panel" data-panel-region="agenda">
+    <div class="aside-title">
+      <h2>Agenda</h2>
+      <button id="refresh" type="button">Limpiar</button>
+    </div>
+    <p class="hint">Prioridad y evidencia se muestran por separado.</p>
+    <form id="search-form" class="filters">
+      <label>Buscar<input name="q" maxlength="200" placeholder="tema económico"></label>
+      <label>Tema<select name="tema"><option value="">Todos</option><option value="economia">Economía</option><option value="logistica_canal">Logística/Canal</option><option value="turismo">Turismo</option><option value="servicios_publicos">Servicios públicos</option><option value="eventos_naturales">Eventos naturales</option><option value="regulacion">Regulación</option><option value="sin_clasificar">Sin clasificar</option></select></label>
+      <label>Evidencia<select name="evidencia"><option value="">Todos</option><option value="insuficiente">Insuficiente</option><option value="parcial">Parcial</option><option value="suficiente_para_borrador">Suficiente</option></select></label>
+      <label>Medio<input name="medio" maxlength="100" placeholder="Medio"></label>
+      <div class="date-grid"><label>Desde<input name="desde" type="date"></label><label>Hasta<input name="hasta" type="date"></label></div>
+      <button class="submit" type="submit">Buscar</button>
+    </form>
+    <p id="search-meta" class="hint" aria-live="polite"></p>
+    <div id="cases" aria-live="polite"></div>
+  </aside>
+  <section id="detail" class="empty" data-panel-region="radiografia mesa">
+    <div>
+      <strong>Selecciona un caso</strong>
+      <p>Abre su evidencia, borrador y registro de revisión.</p>
+    </div>
+  </section>
 </main>
-<template id="case-template"><button class="case" type="button"><span class="case-top"><span class="case-id"></span><span class="score"></span></span><strong></strong><span class="badges"><i class="evidence"></i><i class="review"></i></span><small class="reason"></small></button></template>
+<footer>Lupa · prototipo del equipo Jajanken para el hackIAthon Panamá. No es una herramienta oficial de TVN.</footer>
+<template id="case-template">
+  <button class="case" type="button">
+    <span class="case-top"><span class="case-id"></span><span class="score"></span></span>
+    <strong></strong>
+    <span class="case-level"></span>
+    <span class="case-topic"></span>
+    <span class="badges"><i class="evidence"></i><i class="review"></i></span>
+    <span class="case-time"></span>
+    <small class="reason"></small>
+  </button>
+</template>
+<p id="disabled-help" class="sr-only">Este control está deshabilitado porque el caso no tiene un borrador asociado.</p>
 <script src="/app.js" defer></script>
 </body></html>
