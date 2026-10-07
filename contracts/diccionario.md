@@ -35,4 +35,3 @@ No aplicar el filtro temporal ambiguo del PDF hasta aclararlo.
 ## Fixture JSON
 contract_version: 1.0.0; warning: aviso sintético; tables: colecciones con las columnas SQL.
 No sustituye CSV/JSONL oficiales. El loader solo admite naturaleza sintetico, IDs SYN- y URLs example.invalid.
-

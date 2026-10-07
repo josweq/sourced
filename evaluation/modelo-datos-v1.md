@@ -6,4 +6,3 @@ Incluye persistencia SQLite, rechazo de sobrescritura, referencias cruzadas, cit
 El primer intento encontró un problema de permisos del directorio temporal de Windows; se cambió la ubicación temporal de la prueba al directorio tests/ y se repitió correctamente.
 No son resultados del benchmark oficial, ni de IA, ni cumplimiento completo de T01–T10.
 Datos usados: tests/fixtures/synthetic/modelo-v1.json, todos sintéticos.
-

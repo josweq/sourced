@@ -71,4 +71,3 @@ El snapshot real y su filtro temporal siguen pendientes de la organización.
 
 ## Posibles aportes posteriores, sin asignación
 Importador CSV con cuarentena; exportador fichas; migraciones; revisión de contratos; UI lectora; evaluación semántica de citas.
-

@@ -213,4 +213,3 @@ SUM(CASE WHEN procedencia_id IS NULL THEN 1 ELSE 0 END) AS publicaciones_origen_
 FROM grupo_noticias GROUP BY snapshot_id,grupo_id;
 CREATE INDEX noticias_tema ON noticias(snapshot_id,tema);
 CREATE INDEX citas_evidencia ON citas(snapshot_id,evidencia_id);
-
