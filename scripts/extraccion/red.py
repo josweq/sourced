@@ -4,8 +4,12 @@ from email.utils import formatdate, parsedate_to_datetime
 import time
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
+import http.client
 
-USER_AGENT = "Jajanken-Lupa-Snapshot-Dev/1.0 (+https://github.com/av-safe/jajanken-lupa)"
+# Algunos medios (La Prensa) responden con más de 100 cabeceras; el límite por defecto de http.client corta en 100.
+http.client._MAXHEADERS = 1000
+
+USER_AGENT = "Jajanken-Lupa-Snapshot-Dev/1.0 (+https://github.com/pixeltabletop/jajanken-lupa)"
 
 
 def _retry_after_s(headers):

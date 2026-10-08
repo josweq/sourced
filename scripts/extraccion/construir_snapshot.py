@@ -3,17 +3,18 @@ import argparse
 import csv
 from datetime import datetime, timezone
 import json
+import os
 from pathlib import Path
 import shutil
 import sys
 
 if __package__ in (None, ""):
     sys.path.append(str(Path(__file__).resolve().parents[2]))
-    from scripts.extraccion import banco_mundial, gdelt, tvn_rss, usgs
+    from scripts.extraccion import banco_mundial, gdelt, rss_medios, tvn_rss, usgs
     from scripts.extraccion.comun import ahora_utc, sha256_archivo
     from scripts.extraccion.red import obtener as obtener_red
 else:
-    from . import banco_mundial, gdelt, tvn_rss, usgs
+    from . import banco_mundial, gdelt, rss_medios, tvn_rss, usgs
     from .comun import ahora_utc, sha256_archivo
     from .red import obtener as obtener_red
 
@@ -57,11 +58,17 @@ def preparar_raw_offline(raw):
                     raw / "tvn_rss" / "tvn_rss_muestra.xml")
 
 
+def acumulado_rss():
+    return Path(os.environ.get("LUPA_RSS_ACUMULADO") or Path(__file__).resolve().parents[2] / "data" / "raw" / "rss")
+
+
 def cargar_raw(raw, fecha_extraccion):
     respuestas_bm = {path.stem: path.read_bytes() for path in (raw / "banco_mundial").glob("*.json")}
     indicadores = banco_mundial.construir_filas(respuestas_bm, fecha_extraccion)
     excluidos = []
     noticias_tvn, vistos = tvn_rss.filas_desde_archivos(raw / "tvn_rss", fecha_extraccion, excluidos)
+    noticias_rss, vistos = rss_medios.filas_desde_capturas(raw / "rss", fecha_extraccion, excluidos, vistos)
+    noticias_tvn = noticias_tvn + noticias_rss
     respuestas_gdelt = [path.read_bytes() for path in sorted((raw / "gdelt").glob("*.json"))]
     noticias_gdelt, vistos = gdelt.filas_desde_respuestas(respuestas_gdelt, fecha_extraccion, excluidos, vistos)
     usgs_files = sorted((raw / "usgs").glob("*.geojson"))
@@ -70,7 +77,7 @@ def cargar_raw(raw, fecha_extraccion):
 
 
 def fuentes(fecha_extraccion):
-    return [
+    return rss_medios.fuentes(fecha_extraccion) + [
         {
             "id": "SRC-TVN-RSS",
             "nombre": "TVN RSS capturado",
@@ -114,7 +121,7 @@ def _apartar_parcial_existente(parcial):
     return destino
 
 
-def construir(version, salida, dias=30, offline=False, capturar=False, obtener=obtener_red):
+def construir(version, salida, dias=30, offline=False, capturar=False, obtener=obtener_red, sin_gdelt=False):
     salida = Path(salida)
     salida.mkdir(parents=True, exist_ok=True)
     final = salida / version
@@ -142,18 +149,26 @@ def construir(version, salida, dias=30, offline=False, capturar=False, obtener=o
     else:
         raw.mkdir(parents=True)
         if capturar:
-            tvn_rss.capturar(raw / "tvn_rss", obtener, fecha_extraccion)
+            _guardadas, rss_fallidas = rss_medios.capturar_todos(acumulado_rss(), obtener, fecha_extraccion)
+            consultas_fallidas.extend(rss_fallidas)
+        consultas.extend(url for _nombre, url in rss_medios.MEDIOS.values())
+        cobertura["rss_medios"] = {"capturas_copiadas": rss_medios.copiar_acumulado(acumulado_rss(), raw / "rss")}
         (raw / "banco_mundial").mkdir(parents=True)
         bm_raw, bm_urls = banco_mundial.descargar(obtener)
         for name, payload in bm_raw.items():
             (raw / "banco_mundial" / f"{name}.json").write_bytes(payload)
         indicadores = banco_mundial.construir_filas(bm_raw, fecha_extraccion)
         consultas.extend(bm_urls)
-        _noticias_gdelt, gdelt_urls, excluidos, gdelt_cobertura, gdelt_raw, consultas_fallidas = gdelt.extraer(
-            obtener, fecha_corte, fecha_extraccion, dias=dias
-        )
-        consultas.extend(gdelt_urls)
-        cobertura["gdelt"] = gdelt_cobertura
+        if sin_gdelt:
+            excluidos, gdelt_raw = [], []
+            cobertura["gdelt"] = {"omitido": "GDELT respondió HTTP 429 a todas las consultas el 2026-10-07; se omite con --sin-gdelt"}
+        else:
+            _noticias_gdelt, gdelt_urls, excluidos, gdelt_cobertura, gdelt_raw, gdelt_fallidas = gdelt.extraer(
+                obtener, fecha_corte, fecha_extraccion, dias=dias
+            )
+            consultas_fallidas.extend(gdelt_fallidas)
+            consultas.extend(gdelt_urls)
+            cobertura["gdelt"] = gdelt_cobertura
         eventos, usgs_urls, usgs_raw = usgs.extraer(obtener)
         consultas.extend(usgs_urls)
         (raw / "usgs").mkdir(parents=True)
@@ -162,7 +177,7 @@ def construir(version, salida, dias=30, offline=False, capturar=False, obtener=o
         (raw / "gdelt").mkdir(parents=True)
         for index, payload in enumerate(gdelt_raw, start=1):
             (raw / "gdelt" / f"respuesta_{index:03d}.json").write_bytes(payload)
-        noticias_tvn, vistos = tvn_rss.filas_desde_archivos(raw / "tvn_rss", fecha_extraccion, excluidos)
+        noticias_tvn, vistos = rss_medios.filas_desde_capturas(raw / "rss", fecha_extraccion, excluidos)
         noticias_gdelt, _vistos = gdelt.filas_desde_respuestas(gdelt_raw, fecha_extraccion, excluidos, vistos)
         cobertura["gdelt"]["declara_sin_aportes"] = len(noticias_gdelt) == 0
         noticias = noticias_tvn + noticias_gdelt
@@ -191,7 +206,7 @@ def construir(version, salida, dias=30, offline=False, capturar=False, obtener=o
         "transformaciones": [
             "Normalización de URL: host en minúsculas, sin utm_*, sin /amp ni barra final.",
             "ID estable N- con 16 hex de SHA-256 de URL normalizada.",
-            "TVN RSS conserva solo titular y metadatos; no copia description ni media:content.",
+            "RSS de TVN, La Prensa, Crítica, Panamá América y En Segundos: solo titular y metadatos; no se copia description ni media:content.",
             "GDELT seendate se registra como fecha_deteccion; fecha_publicacion queda vacía.",
             "Las consultas fallidas de GDELT se registran y no abortan el snapshot completo.",
             "Banco Mundial completa la cuadrícula explícita 6 países x 6 indicadores x 15 años; ausencias como valor vacío, nunca cero.",
@@ -212,8 +227,9 @@ def main():
     parser.add_argument("--dias", type=int, default=30)
     parser.add_argument("--offline", action="store_true")
     parser.add_argument("--capturar", action="store_true")
+    parser.add_argument("--sin-gdelt", action="store_true", help="Omite GDELT (por ejemplo, si responde 429).")
     args = parser.parse_args()
-    print(json.dumps(construir(args.version, args.salida, args.dias, args.offline, args.capturar),
+    print(json.dumps(construir(args.version, args.salida, args.dias, args.offline, args.capturar, sin_gdelt=args.sin_gdelt),
                      ensure_ascii=False, indent=2))
 
 
