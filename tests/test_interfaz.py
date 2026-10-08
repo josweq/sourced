@@ -1,17 +1,17 @@
 import json
 from pathlib import Path
-import tempfile
 import unittest
 
 from scripts.modelo_datos import DEFAULT_FIXTURE, load_fixture, save_new
 from src.interfaz.app import add_review, case_detail, connect, list_cases
+from tests.helpers import temporary_directory
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
 class InterfaceTests(unittest.TestCase):
     def setUp(self):
-        self.temp = tempfile.TemporaryDirectory(dir=ROOT / "tests")
+        self.temp = temporary_directory()
         self.addCleanup(self.temp.cleanup)
         self.path = Path(self.temp.name) / "ui.sqlite"
         db = load_fixture(json.loads(DEFAULT_FIXTURE.read_text(encoding="utf-8")))

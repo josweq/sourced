@@ -2,10 +2,10 @@ import csv
 import json
 from pathlib import Path
 import sqlite3
-import tempfile
 import unittest
 
 from scripts.importar_csv import run_import
+from tests.helpers import temporary_directory
 
 ROOT = Path(__file__).resolve().parents[1]
 FIXTURES = ROOT / "tests/fixtures/csv"
@@ -13,7 +13,7 @@ FIXTURES = ROOT / "tests/fixtures/csv"
 
 class ImporterTests(unittest.TestCase):
     def test_valid_rows_load_and_bad_rows_quarantine(self):
-        with tempfile.TemporaryDirectory(dir=ROOT / "tests") as folder:
+        with temporary_directory() as folder:
             output, report = Path(folder) / "data.sqlite", Path(folder) / "report.json"
             result = run_import(FIXTURES / "noticias.csv", FIXTURES / "indicadores.csv",
                                 output, report, "TEST-SNAPSHOT", "test-v1",
@@ -31,7 +31,7 @@ class ImporterTests(unittest.TestCase):
             self.assertEqual(json.loads(report.read_text(encoding="utf-8"))["errores"], result["errores"])
 
     def test_headers_are_exact(self):
-        with tempfile.TemporaryDirectory(dir=ROOT / "tests") as folder:
+        with temporary_directory() as folder:
             folder = Path(folder)
             broken = folder / "noticias.csv"
             broken.write_text("id_noticia,titulo\nX,T\n", encoding="utf-8")
@@ -41,7 +41,7 @@ class ImporterTests(unittest.TestCase):
                            "2024-06-02T12:00:00Z")
 
     def test_does_not_overwrite_outputs(self):
-        with tempfile.TemporaryDirectory(dir=ROOT / "tests") as folder:
+        with temporary_directory() as folder:
             folder = Path(folder)
             output, report = folder / "data.sqlite", folder / "report.json"
             output.write_text("preservar", encoding="utf-8")
