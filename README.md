@@ -58,7 +58,7 @@ El último paso imprime `"siguiente_paso"`: copia y ejecuta ese comando (`python
 Snapshot → validación → organización → contexto → ranking → ficha → borrador → revisión humana → Notion.
 
 ## Reglas esenciales
-Notion es obligatorio para ejecutar, documentar y presentar; GitHub no lo reemplaza.
+La documentación del reto (decisiones, fichas, pruebas, riesgos y pitch) está en el dossier; Notion la replica cuando la cuenta del reto lo permite.
 No publicar automáticamente. No inventar cifras, citas ni resultados.
 Separar prioridad editorial de suficiencia de evidencia.
 La demo debe funcionar sin internet con fallback documentado.
@@ -69,8 +69,8 @@ Plan derivado del PDF de 12 páginas «hackIAthon - reto TVN Media.pdf» facilit
 ## Estructura compartida
 Consulta [el mapa de módulos](docs/10-estructura.md), [los contratos propuestos](contracts/README.md) y [las plantillas](templates/tarea.md). `src/`, `scripts/`, `tests/` y `evaluation/` contienen el prototipo local, sus utilidades y la evidencia de prueba.
 
-## Restricción vigente
-**No acceder, subir, crear, editar ni sincronizar contenido en Notion por el momento.** La plantilla se conserva solo como preparación en GitHub. Nadie tiene tareas asignadas; cada integrante decide qué explorar con su IA.
+## Notion
+La organización indicó avanzar sin depender de Notion porque la cuenta Business del reto no funciona. La documentación completa está en [`docs/notion/dossier.md`](docs/notion/dossier.md) y hay una copia en el espacio «hackIAthon 4taEd».
 
 ## Probar el modelo de datos
 Lee el [modelo y diagrama](docs/11-modelo-datos.md) y el [diccionario](contracts/diccionario.md).
