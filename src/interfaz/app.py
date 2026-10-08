@@ -20,6 +20,7 @@ if str(Path(__file__).resolve().parents[2]) not in sys.path:
     sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from src.editorial.cronometro import resumen_cronometro  # noqa: E402
+from src.editorial.formatos import adaptar  # noqa: E402
 from src.ia.proveedores import ProviderUnavailable, estado_proveedor, modelo_activo, proveedor_activo
 from src.ia.redaccion import cargar_evidencias_caso, generar_paquete, guardar_borrador
 
@@ -275,6 +276,50 @@ def save_human_version(db, draft_id, payload):
     return {"id": new_id, "version": version, "fecha_utc": now}
 
 
+def package_from_draft(db, draft_id):
+    row = db.execute("SELECT * FROM borradores WHERE id=?", (draft_id,)).fetchone()
+    if not row:
+        raise LookupError("Borrador no encontrado")
+    detail = case_detail(db, row["caso_id"])
+    if not detail:
+        raise LookupError("Caso no encontrado")
+    draft = next((item for item in detail["borradores"] if item["id"] == draft_id), None)
+    if not draft:
+        raise LookupError("Borrador no encontrado")
+    case = detail["caso"]
+    return {
+        "titulo": draft.get("titulo", ""),
+        "enfoque": draft.get("enfoque", ""),
+        "brief": draft.get("brief", ""),
+        "guion": draft.get("guion", ""),
+        "copy": draft.get("copy", ""),
+        "preguntas": draft.get("preguntas", []),
+        "alcance_texto": draft.get("alcance_texto"),
+        "preguntas_pendientes": case.get("preguntas_pendientes"),
+        "afirmaciones": draft.get("afirmaciones", []),
+        "evidencias": detail["evidencias"],
+    }
+
+
+def adapt_draft(db, draft_id, payload):
+    allowed_keys = {"formato", "duracion_s", "enfasis", "tono"}
+    extra = set(payload) - allowed_keys
+    if extra:
+        raise ValueError("Opciones no permitidas: " + ", ".join(sorted(extra)))
+    formato = payload.get("formato")
+    duracion = payload.get("duracion_s")
+    if duracion in ("", None):
+        duracion = None
+    elif isinstance(duracion, float) and duracion.is_integer():
+        duracion = int(duracion)
+    elif isinstance(duracion, str) and duracion.isdigit():
+        duracion = int(duracion)
+    paquete = package_from_draft(db, draft_id)
+    return adaptar(paquete, formato, duracion_s=duracion,
+                   enfasis=payload.get("enfasis", "noticia"),
+                   tono=payload.get("tono", "sobrio"))
+
+
 def add_review(db, case_id, payload):
     reviewer = str(payload.get("persona_revisora", "")).strip()
     state = payload.get("estado")
@@ -370,8 +415,9 @@ class Handler(BaseHTTPRequestHandler):
         route = urlparse(self.path).path
         match_review = re.fullmatch(r"/api/cases/([^/]+)/reviews", route)
         match_draft = re.fullmatch(r"/api/cases/([^/]+)/borrador", route)
+        match_adapt = re.fullmatch(r"/api/borradores/([^/]+)/adaptar", route)
         is_query = route == "/api/consulta"
-        if not match_review and not match_draft and not is_query:
+        if not match_review and not match_draft and not match_adapt and not is_query:
             return self.send_json(404, {"error": "Ruta no encontrada"})
         origin = self.headers.get("Origin")
         if origin and origin not in {f"http://127.0.0.1:{self.server.server_port}", f"http://localhost:{self.server.server_port}"}:
@@ -391,9 +437,11 @@ class Handler(BaseHTTPRequestHandler):
                     if not provider["disponible"]:
                         return self.send_json(503, {"error": provider["motivo"], "modelo": provider})
                     result = regenerate_draft(db, unquote(match_draft.group(1)))
+                elif match_adapt:
+                    result = adapt_draft(db, unquote(match_adapt.group(1)), payload)
                 else:
                     result = add_review(db, unquote(match_review.group(1)), payload)
-            self.send_json(201, result)
+            self.send_json(200 if match_adapt else 201, result)
         except UnicodeDecodeError:
             self.send_json(400, {"error": "El texto debe enviarse en UTF-8"})
         except json.JSONDecodeError:

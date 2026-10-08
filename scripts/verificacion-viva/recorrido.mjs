@@ -74,6 +74,18 @@ async function recorrido(app, { ok, medir, marca }) {
   ok(await app.js(`scrollY === 0 && document.querySelector('header').getBoundingClientRect().top >= 0`), 'abrir un caso no desplaza la página y la cabecera sigue visible')
   await contraste('Redacción · caso abierto')
 
+  if (await app.js(`Boolean(document.querySelector('.adapt-form'))`)) {
+    await medir('adaptar a video vertical', app.esperarCambio(
+      `document.querySelector('[data-draft-panel="adaptado"]')?.textContent.includes('Qué falta verificar') ?? false`,
+      () => app.js(`(() => { const f = document.querySelector('.adapt-form'); f.formato.value = 'vertical'; f.formato.dispatchEvent(new Event('change', { bubbles: true })); f.requestSubmit() })()`),
+      'la versión adaptada'))
+    const adaptado = await app.js(`document.querySelector('[data-draft-panel="adaptado"]').innerText`)
+    ok(/0-5 s/.test(adaptado) && /Qué falta verificar/.test(adaptado), 'la adaptación vertical muestra sus tres bloques')
+    const frases = await app.js(`[...document.querySelectorAll('[data-draft-panel="adaptado"] .cited-sentence span')].map(s => s.textContent.trim())`)
+    ok(new Set(frases).size === frases.length, 'la adaptación no repite oraciones', `${frases.length} oraciones`)
+    await contraste('Redacción · adaptación')
+  }
+
 
   await medir('preguntar algo con evidencia', app.esperarCambio(
     `/Respuesta/.test(document.querySelector('#detail')?.textContent ?? '') ? document.querySelector('#detail').textContent.length : 0`,

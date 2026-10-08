@@ -562,7 +562,8 @@ textarea {
 
 .draft-head,
 .draft-tabs,
-.timer {
+.timer,
+.adapt-form {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -574,6 +575,42 @@ textarea {
   margin: var(--espacio-3) 0;
   padding-bottom: var(--espacio-2);
   border-bottom: var(--borde-fino) solid var(--color-linea);
+}
+
+.adapt-form {
+  margin-top: var(--espacio-3);
+  padding: var(--espacio-2);
+  border: var(--borde-fino) solid var(--color-linea);
+  border-radius: var(--radio-control);
+  background: var(--color-fondo);
+}
+
+.adapt-form label {
+  flex: 1 1 96px;
+  min-width: 0;
+}
+
+.adapt-form input,
+.adapt-form select {
+  min-height: 32px;
+}
+
+.adapt-label {
+  color: var(--color-secundario);
+  font-weight: 700;
+}
+
+.adapted-block {
+  display: grid;
+  gap: var(--espacio-2);
+  padding-block: var(--espacio-2);
+  border-top: var(--borde-fino) solid var(--color-linea);
+}
+
+.adapted-block h4 {
+  margin: 0;
+  color: var(--color-secundario);
+  font-size: var(--tamano-minimo);
 }
 
 .draft-tabs button {

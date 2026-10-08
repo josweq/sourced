@@ -10,6 +10,7 @@ const tabButtons = document.querySelectorAll('[data-panel]');
 let selected = null;
 let lastParams = {};
 let currentDetail = null;
+let currentAdaptation = null;
 
 const PANAMA_OFFSET_MS = -5 * 60 * 60 * 1000;
 const MONTHS = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
@@ -272,17 +273,28 @@ function removedBlock(draft) {
   return `<details class="guardian-removed"><summary>Retirado por el guardián (${removed.length})</summary>${removed.map(item => `<article><p>${esc(item.texto || '')}</p><small>${esc(item.motivo || 'Sin motivo registrado')}</small></article>`).join('')}</details>`;
 }
 
+function adaptedTabContent(adapted, evidences) {
+  if (!adapted) return '<p class="muted">○ Elige un formato y pulsa Adaptar.</p>';
+  const timer = adapted.cronometro ? `<div class="timer ${adapted.cronometro.estado === 'dentro' ? 'timer-ok' : adapted.cronometro.estado === 'pasa' ? 'timer-high' : 'timer-low'}"><strong>${esc(adapted.cronometro.texto)}</strong></div>` : '';
+  const counter = adapted.contador?.limite_caracteres ? `${adapted.contador.caracteres}/${adapted.contador.limite_caracteres} caracteres` : `${adapted.contador?.palabras || 0}${adapted.contador?.limite_palabras ? `/${adapted.contador.limite_palabras}` : ''} palabras`;
+  const blocks = (adapted.bloques || []).map(block => `<section class="adapted-block"><h4>${esc(block.titulo)}</h4>${(block.oraciones || []).map(item => `<p class="reading cited-sentence"><span>${esc(item.texto)}</span> ${citationButton(item, evidences)}</p>`).join('') || '<p class="muted">Sin oraciones aceptadas.</p>'}</section>`).join('');
+  const removed = adapted.retiradas?.length ? `<details class="guardian-removed"><summary>Retirado por el guardián (${adapted.retiradas.length})</summary>${adapted.retiradas.map(item => `<article><p>${esc(item.texto || '')}</p><small>${esc(item.motivo || 'Sin motivo registrado')}</small></article>`).join('')}</details>` : '';
+  return `${(adapted.avisos || []).map(text => `<p class="warning">${esc(text)}</p>`).join('')}${timer}<p class="counter">${esc(counter)}</p>${blocks}${removed}<button class="submit save-adapted" type="button">Guardar como versión nueva</button><p class="message" aria-live="polite"></p>`;
+}
+
 function draftBlock(draft, evidences, versions) {
   if (!draft) return `<section class="editorial-card disabled-block" aria-disabled="true"><h3>Mesa editorial</h3><p><strong>Sin borrador todavía.</strong></p><p>Usa el modelo local para generar texto con afirmaciones citadas.</p><button class="submit regenerate" type="button">Regenerar con el modelo local</button><p class="message" aria-live="polite"></p></section>`;
   const ppm = readPpm();
   const timer = cronLabel(scriptSeconds(draft.guion, ppm));
   return `<section class="editorial-card"><div class="draft-head"><h3>Borrador v${esc(draft.version)}</h3><button class="submit regenerate" type="button">Regenerar con el modelo local</button></div>
     <p class="warning">Borrador generado por IA — requiere revisión humana</p>${draft.alcance_texto === 'titular_metadatos' ? '<p class="warning">Basado únicamente en titular/metadatos</p>' : ''}
-    <nav class="draft-tabs" aria-label="Secciones del borrador">${['brief', 'guion', 'copy', 'preguntas'].map((tab, index) => `<button type="button" data-draft-tab="${tab}" aria-selected="${index === 0 ? 'true' : 'false'}">${esc(tab === 'guion' ? 'Guion' : tab.charAt(0).toUpperCase() + tab.slice(1))}</button>`).join('')}</nav>
+    <form class="adapt-form"><span class="adapt-label">Adaptar a</span><label><span class="sr-only">Formato</span><select name="formato"><option value="tv">TV</option><option value="radio">Radio 30 s</option><option value="vertical">Vertical 60 s</option><option value="web">Web</option><option value="alerta">Alerta</option></select></label><label>Duración<input name="duracion_s" type="number" min="1" max="600" placeholder="opcional"></label><label><span class="sr-only">Énfasis</span><select name="enfasis"><option value="noticia">Noticia</option><option value="dato">Dato oficial</option><option value="verificacion">Qué falta</option></select></label><label><span class="sr-only">Tono</span><select name="tono"><option value="sobrio">Sobrio</option><option value="explicativo">Explicativo</option></select></label><button class="submit" type="submit">Adaptar</button><p class="message" aria-live="polite"></p></form>
+    <nav class="draft-tabs" aria-label="Secciones del borrador">${['brief', 'guion', 'copy', 'preguntas', 'adaptado'].map((tab, index) => `<button type="button" data-draft-tab="${tab}" aria-selected="${index === 0 ? 'true' : 'false'}">${esc(tab === 'guion' ? 'Guion' : tab.charAt(0).toUpperCase() + tab.slice(1))}</button>`).join('')}</nav>
     <div class="draft-panel" data-draft-panel="brief">${draftTabContent(draft, evidences, 'brief')}<p class="counter">${wordCount(draft.brief)}/250 palabras</p></div>
     <div class="draft-panel hidden" data-draft-panel="guion"><div class="timer ${timer.cls}"><strong>${esc(timer.text)}</strong><label>PPM<input id="ppm-input" type="number" min="80" max="240" value="${esc(ppm)}"></label></div>${draftTabContent(draft, evidences, 'guion')}</div>
     <div class="draft-panel hidden" data-draft-panel="copy">${draftTabContent(draft, evidences, 'copy')}<p class="counter">${wordCount(draft.copy)}/80 palabras</p></div>
-    <div class="draft-panel hidden" data-draft-panel="preguntas">${draftTabContent(draft, evidences, 'preguntas')}</div>${removedBlock(draft)}
+    <div class="draft-panel hidden" data-draft-panel="preguntas">${draftTabContent(draft, evidences, 'preguntas')}</div>
+    <div class="draft-panel hidden" data-draft-panel="adaptado">${adaptedTabContent(currentAdaptation, evidences)}</div>${removedBlock(draft)}
     <details class="edit-draft"><summary>Editar en línea</summary><form class="draft-edit-form"><label>Título<input name="titulo" maxlength="180" value="${esc(draft.titulo)}"></label><label>Enfoque<textarea name="enfoque" maxlength="600">${esc(draft.enfoque)}</textarea></label><label>Brief <span class="counter" data-count-for="brief">${wordCount(draft.brief)}/250</span><textarea name="brief" maxlength="4000">${esc(draft.brief)}</textarea></label><label>Guion<textarea name="guion" maxlength="5000">${esc(draft.guion)}</textarea></label><label>Copy <span class="counter" data-count-for="copy">${wordCount(draft.copy)}/80</span><textarea name="copy" maxlength="1200">${esc(draft.copy)}</textarea></label><button class="submit" type="submit">Guardar como versión nueva</button><p class="message" aria-live="polite"></p></form></details>
     <details><summary>Versiones</summary>${versions.map(item => `<p class="version-row"><strong>v${esc(item.version)}</strong> · ${esc(item.generador)} · ${formatPanama(item.fecha_utc)}</p>`).join('')}</details><details><summary>ID técnico</summary><p class="mono">${esc(draft.id)}</p></details></section>`;
 }
@@ -300,6 +312,7 @@ function reviewsBlock(reviews) {
 async function loadDetail(id) {
   selected = id;
   currentDetail = null;
+  currentAdaptation = null;
   document.querySelectorAll('.case').forEach(item => item.classList.toggle('active', item.dataset.id === id));
   detailEl.className = '';
   detailEl.textContent = 'Cargando ficha…';
@@ -324,12 +337,7 @@ function wireDraftControls() {
     detailEl.querySelectorAll('[data-draft-tab]').forEach(item => item.setAttribute('aria-selected', String(item === button)));
     detailEl.querySelectorAll('[data-draft-panel]').forEach(panel => panel.classList.toggle('hidden', panel.dataset.draftPanel !== button.dataset.draftTab));
   }));
-  detailEl.querySelectorAll('[data-cita]').forEach(button => button.addEventListener('click', () => {
-    const id = button.dataset.cita;
-    detailEl.querySelectorAll('.evidence-highlight').forEach(item => item.classList.remove('evidence-highlight'));
-    const target = detailEl.querySelector(`[data-evidence-id="${CSS.escape(id)}"]`);
-    if (target) { target.classList.add('evidence-highlight'); target.scrollIntoView({ block: 'center', behavior: 'smooth' }); }
-  }));
+  wireCitationButtons();
   const ppm = detailEl.querySelector('#ppm-input');
   if (ppm) ppm.addEventListener('change', () => { try { localStorage.setItem('lupa-ppm', ppm.value); } catch (_) {} loadDetail(selected); });
   detailEl.querySelectorAll('.regenerate').forEach(button => button.addEventListener('click', regenerateDraft));
@@ -342,6 +350,19 @@ function wireDraftControls() {
     });
     editForm.addEventListener('submit', saveDraftEdit);
   }
+  const adaptForm = detailEl.querySelector('.adapt-form');
+  if (adaptForm) adaptForm.addEventListener('submit', adaptDraft);
+  const saveAdapted = detailEl.querySelector('.save-adapted');
+  if (saveAdapted) saveAdapted.addEventListener('click', saveAdaptedDraft);
+}
+
+function wireCitationButtons() {
+  detailEl.querySelectorAll('[data-cita]').forEach(button => button.addEventListener('click', () => {
+    const id = button.dataset.cita;
+    detailEl.querySelectorAll('.evidence-highlight').forEach(item => item.classList.remove('evidence-highlight'));
+    const target = detailEl.querySelector(`[data-evidence-id="${CSS.escape(id)}"]`);
+    if (target) { target.classList.add('evidence-highlight'); target.scrollIntoView({ block: 'center', behavior: 'smooth' }); }
+  }));
 }
 
 async function regenerateDraft(event) {
@@ -372,6 +393,47 @@ async function saveDraftEdit(event) {
     await loadDetail(selected);
   } catch (error) {
     message.textContent = error.message;
+  }
+}
+
+async function adaptDraft(event) {
+  event.preventDefault();
+  const form = event.currentTarget;
+  const message = form.querySelector('.message');
+  const draft = currentDetail?.borradores?.[0];
+  if (!draft) return;
+  const data = Object.fromEntries(new FormData(form));
+  if (!data.duracion_s) delete data.duracion_s;
+  else data.duracion_s = Number(data.duracion_s);
+  message.textContent = '◐ Adaptando…';
+  try {
+    currentAdaptation = await api(`/api/borradores/${encodeURIComponent(draft.id)}/adaptar`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+    const panel = detailEl.querySelector('[data-draft-panel="adaptado"]');
+    if (panel) panel.innerHTML = adaptedTabContent(currentAdaptation, currentDetail.evidencias);
+    detailEl.querySelectorAll('[data-draft-tab]').forEach(item => item.setAttribute('aria-selected', String(item.dataset.draftTab === 'adaptado')));
+    detailEl.querySelectorAll('[data-draft-panel]').forEach(item => item.classList.toggle('hidden', item.dataset.draftPanel !== 'adaptado'));
+    detailEl.querySelector('.save-adapted')?.addEventListener('click', saveAdaptedDraft);
+    wireCitationButtons();
+    message.textContent = '✓ Adaptación lista.';
+  } catch (error) {
+    message.textContent = error.message;
+  }
+}
+
+async function saveAdaptedDraft(event) {
+  const button = event.currentTarget;
+  const message = button.parentElement.querySelector('.message');
+  const draft = currentDetail?.borradores?.[0];
+  if (!draft || !currentAdaptation?.payload_version) return;
+  button.disabled = true;
+  message.textContent = '◐ Guardando versión nueva…';
+  try {
+    await api(`/api/borradores/${encodeURIComponent(draft.id)}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(currentAdaptation.payload_version) });
+    await loadDetail(selected);
+  } catch (error) {
+    message.textContent = error.message;
+  } finally {
+    button.disabled = false;
   }
 }
 
