@@ -8,7 +8,7 @@ import numpy as np
 from scripts.importar_csv import run_import
 from scripts.procesar_snapshot import process as process_ia
 from src.ia.agrupacion import agrupar_semantico
-from src.ia.clasificador import ClasificadorTema, clasificar_reglas
+from src.ia.clasificador import ClasificadorTema, clasificar_reglas, sin_clases_pequenas
 from src.ia.embeddings import EXPECTED_DIM, cache_huggingface_existe, vectorizar
 from src.ia.recuperacion import buscar
 from tests.helpers import temporary_directory
@@ -59,6 +59,14 @@ class CapaIATests(unittest.TestCase):
         self.assertEqual(pred["tema"], "sin_clasificar")
         self.assertEqual(pred["motivo"], "confianza baja")
         self.assertTrue(pred["vecinos"])
+
+    def test_clase_con_pocos_ejemplos_no_impide_entrenar(self):
+        # Caso real 2026-10-08: una sola etiqueta «logistica_canal» dejaba el modelo sin entrenar.
+        rows = [{"titulo": f"t{i}", "etiqueta_humana": "economia"} for i in range(5)]
+        rows += [{"titulo": "canal", "etiqueta_humana": "logistica_canal"}]
+        quedan, excluidas = sin_clases_pequenas(rows)
+        self.assertEqual(excluidas, {"logistica_canal": 1})
+        self.assertEqual(len(quedan), 5)
 
     def test_reglas_tematicas_documentadas(self):
         tema, motivo = clasificar_reglas("Nueva ley y decreto regulan el transporte público")

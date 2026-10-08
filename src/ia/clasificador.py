@@ -95,6 +95,16 @@ def clasificar_prototipos(titulos: Sequence[str], vectorizador=None) -> list[str
     return [proto_temas[int(np.argmax(row))] for row in sims]
 
 
+def sin_clases_pequenas(rows: Sequence[dict], k: int = 5) -> tuple[list[dict], dict]:
+    """Quita del entrenamiento las clases con menos de k ejemplos humanos (se declaran, no se inventan).
+
+    Caso real 2026-10-08: una sola etiqueta «logistica_canal» impedía entrenar todo el modelo.
+    """
+    counts = Counter(row["etiqueta_humana"] for row in rows)
+    excluidas = {tema: n for tema, n in counts.items() if n < k}
+    return [row for row in rows if row["etiqueta_humana"] not in excluidas], excluidas
+
+
 def conjunto_suficiente(etiquetas: Sequence[str], k: int = 5) -> tuple[bool, str]:
     counts = Counter(etiquetas)
     if len(counts) < 2:
@@ -108,7 +118,7 @@ def conjunto_suficiente(etiquetas: Sequence[str], k: int = 5) -> tuple[bool, str
 def evaluar(csv_path: Path = Path("evaluation/etiquetas/temas.csv"),
             salida_dir: Path = Path("evaluation/resultados"), vectorizador=None,
             fecha: str | None = None) -> dict:
-    rows = cargar_etiquetas(csv_path)
+    rows, excluidas = sin_clases_pequenas(cargar_etiquetas(csv_path))
     fecha = fecha or datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
     salida_dir.mkdir(parents=True, exist_ok=True)
     y = [row["etiqueta_humana"] for row in rows]
@@ -120,7 +130,7 @@ def evaluar(csv_path: Path = Path("evaluation/etiquetas/temas.csv"),
         "metodo_etiquetado": "CSV de etiquetas humanas; filas vacías ignoradas.",
         "conteo_por_tema": dict(Counter(y)),
         "metricas": {},
-        "advertencias": [],
+        "advertencias": [f"Clases fuera del entrenamiento por tener menos de 5 ejemplos: {excluidas}."] if excluidas else [],
     }
     if not rows:
         report["advertencias"].append("No hay etiquetas humanas; no se calculan métricas.")
