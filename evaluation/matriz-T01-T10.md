@@ -1,6 +1,6 @@
 # Matriz de pruebas de aceptación T01–T10
 
-Ejecutada el 2026-10-07/08 sobre el snapshot real `real-20261007b` (284 titulares de 5 medios, 540 valores del Banco Mundial, 82 sismos USGS) y la base derivada con capa de IA. Código: rama `josue/integracion`. Pruebas automáticas: `python -m unittest discover -s tests -p "test_*.py"` (100/100 al cierre de este registro). Benchmark de desarrollo: `evaluation/resultados/benchmark-20261008T024630Z.md`.
+Ejecutada el 2026-10-07/08 sobre el snapshot real `real-20261007b` (284 titulares de 5 medios, 540 valores del Banco Mundial, 82 sismos USGS) y la base derivada con capa de IA. Código: rama `josue/integracion`. Pruebas automáticas: `python -m unittest discover -s tests -p "test_*.py"` (111/111 al cierre de este registro). Benchmark de desarrollo: `evaluation/resultados/benchmark-20261008T024630Z.md`.
 
 Estados: **Cumple** (ejecutado y observado) · **Parcial** (cumple una parte; se explica qué falta) · **Pendiente** (aún no ejecutado).
 
