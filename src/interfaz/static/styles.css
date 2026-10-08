@@ -546,6 +546,125 @@ textarea {
   -webkit-box-decoration-break: clone;
 }
 
+.citation-chip {
+  min-height: var(--alto-clic);
+  padding: 0 var(--espacio-1);
+  border: 0;
+  border-bottom: var(--borde-fino) solid var(--color-cita-borde);
+  border-radius: 0;
+  font-weight: 500;
+}
+
+.evidence-highlight {
+  background: var(--color-cita-fondo);
+  color: var(--color-cita-tinta);
+}
+
+.draft-head,
+.draft-tabs,
+.timer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espacio-2);
+  flex-wrap: wrap;
+}
+
+.draft-tabs {
+  margin: var(--espacio-3) 0;
+  padding-bottom: var(--espacio-2);
+  border-bottom: var(--borde-fino) solid var(--color-linea);
+}
+
+.draft-tabs button {
+  background: var(--color-boton-secundario);
+  color: var(--color-primario);
+  padding: var(--espacio-2) var(--espacio-3);
+  font-weight: 600;
+}
+
+.draft-tabs button[aria-selected="true"] {
+  background: var(--color-primario);
+  border-color: var(--color-primario);
+  color: var(--color-boton-tinta);
+}
+
+.hidden {
+  display: none;
+}
+
+.draft-sentences,
+.question-list,
+.guardian-removed {
+  display: grid;
+  gap: var(--espacio-2);
+}
+
+.cited-sentence {
+  margin-bottom: var(--espacio-2);
+}
+
+.timer {
+  margin-bottom: var(--espacio-3);
+  padding: var(--espacio-2);
+  border: var(--borde-fino) solid currentColor;
+  border-radius: var(--radio-control);
+  font-family: var(--fuente-mono);
+}
+
+.timer label {
+  display: inline-flex;
+  grid-template-columns: none;
+  align-items: center;
+  gap: var(--espacio-2);
+  margin: 0;
+}
+
+.timer input {
+  width: 80px;
+  font-family: var(--fuente-mono);
+}
+
+.timer-low {
+  color: var(--color-primario);
+}
+
+.timer-high {
+  color: var(--color-urgente);
+}
+
+.timer-ok {
+  color: var(--color-suficiente);
+}
+
+.counter {
+  color: var(--color-secundario);
+  font-family: var(--fuente-mono);
+  font-size: var(--tamano-mono);
+}
+
+.edit-draft form {
+  display: grid;
+  gap: var(--espacio-3);
+  margin-top: var(--espacio-3);
+}
+
+.guardian-removed {
+  margin: var(--espacio-3) 0;
+  border: var(--borde-fino) solid var(--color-insuficiente);
+  border-radius: var(--radio-control);
+  padding: var(--espacio-2);
+}
+
+.guardian-removed article {
+  border-top: var(--borde-fino) solid var(--color-linea);
+  padding-top: var(--espacio-2);
+}
+
+.version-row {
+  margin-bottom: var(--espacio-2);
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--ancho-agenda)), 1fr));

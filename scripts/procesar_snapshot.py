@@ -20,6 +20,8 @@ except ModuleNotFoundError:
 from src.ia.agrupacion import RULES_VERSION, agrupar_semantico, evaluar_pares
 from src.ia.clasificador import ClasificadorTema, cargar_etiquetas, clasificar_reglas, conjunto_suficiente
 from src.ia.embeddings import EXPECTED_DIM, blob_a_vector, nombre_modelo, vector_a_blob, vectorizar
+from src.ia.proveedores import ProviderUnavailable
+from src.ia.redaccion import cargar_evidencias_caso, generar_paquete, guardar_borrador
 
 
 def crear_tablas_ia(db):
@@ -63,7 +65,7 @@ def _clasificar(rows, etiquetas_path, vectorizador=None, umbral=.45):
 
 def process(input_path: Path, output_path: Path, etiquetas_path: Path = Path("evaluation/etiquetas/temas.csv"),
             pares_path: Path = Path("evaluation/etiquetas/pares.csv"), umbral_tema: float = .45,
-            umbral_grupo: float = .78, max_dias: int = 7, vectorizador=None):
+            umbral_grupo: float = .78, max_dias: int = 7, vectorizador=None, borradores: int = 0):
     if output_path.exists():
         raise FileExistsError("La salida ya existe; no se sobrescribe")
     source = sqlite3.connect(input_path)
@@ -132,6 +134,24 @@ def process(input_path: Path, output_path: Path, etiquetas_path: Path = Path("ev
                                 score, json.dumps(explanation, ensure_ascii=False, sort_keys=True), cutoff))
                 created.append({"caso_id": case_id, "grupo_id": group_id, "miembros": member_ids,
                                 "puntaje": score, "procedencias_identificadas": known})
+        borradores_resultado = []
+        for item in sorted(created, key=lambda row: (-row["puntaje"], row["caso_id"]))[:max(0, borradores)]:
+            try:
+                case, evidences = cargar_evidencias_caso(target, item["caso_id"])
+                package = generar_paquete(case, evidences)
+                if package.get("estado") == "abstencion" and not package.get("afirmaciones"):
+                    borradores_resultado.append({"caso_id": item["caso_id"], "estado": "sin_borrador",
+                                                 "motivo": package.get("explicacion")})
+                    continue
+                saved = guardar_borrador(target, item["caso_id"], package, "modelo")
+                borradores_resultado.append({"caso_id": item["caso_id"], "estado": package.get("estado"),
+                                             "borrador_id": saved["id"], "tiempo_ms": package.get("tiempo_ms")})
+            except ProviderUnavailable as exc:
+                borradores_resultado.append({"caso_id": item["caso_id"], "estado": "sin_borrador",
+                                             "motivo": str(exc)})
+            except Exception as exc:
+                borradores_resultado.append({"caso_id": item["caso_id"], "estado": "sin_borrador",
+                                             "motivo": f"Error de redaccion: {exc}"})
         validate_relations(target)
         fk = target.execute("PRAGMA foreign_key_check").fetchall()
         if fk:
@@ -150,6 +170,7 @@ def process(input_path: Path, output_path: Path, etiquetas_path: Path = Path("ev
             "temas": dict(Counter(row["tema"] for row in rows)),
             "casos_creados": len(created),
             "casos": created,
+            "borradores": borradores_resultado,
             "evaluacion_pares": evaluar_pares(rows, pares_path, vectorizador=vectorizador, umbral=umbral_grupo),
             "advertencias": [
                 "Las publicaciones se conservan con URL, medio y origen.",
@@ -176,9 +197,12 @@ def main():
     parser.add_argument("--umbral-tema", type=float, default=.45)
     parser.add_argument("--umbral-grupo", type=float, default=.78)
     parser.add_argument("--max-dias", type=int, default=7)
+    parser.add_argument("--borradores", type=int, default=8,
+                        help="Genera borradores para los N casos de mayor prioridad (0 para omitir).")
     args = parser.parse_args()
     print(json.dumps(process(args.input, args.output, args.etiquetas, args.pares,
-                             args.umbral_tema, args.umbral_grupo, args.max_dias),
+                             args.umbral_tema, args.umbral_grupo, args.max_dias,
+                             borradores=args.borradores),
                      ensure_ascii=False, indent=2))
 
 

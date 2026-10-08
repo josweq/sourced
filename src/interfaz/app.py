@@ -12,6 +12,10 @@ import unicodedata
 from urllib.parse import parse_qs, unquote, urlparse
 import uuid
 
+from src.editorial.cronometro import resumen_cronometro
+from src.ia.proveedores import ProviderUnavailable, estado_proveedor, modelo_activo, proveedor_activo
+from src.ia.redaccion import cargar_evidencias_caso, generar_paquete, guardar_borrador
+
 ROOT = Path(__file__).resolve().parents[2]
 STATIC = Path(__file__).resolve().parent / "static"
 STATIC_TYPES = {
@@ -67,6 +71,14 @@ def snapshot_metadata(db):
     row = db.execute("""SELECT id,version,fecha_corte_utc,descripcion
       FROM snapshots ORDER BY fecha_corte_utc DESC LIMIT 1""").fetchone()
     return dict(row) if row else None
+
+
+def estado_local(db):
+    snapshot = snapshot_metadata(db)
+    provider = estado_proveedor()
+    return {"snapshot": snapshot, "corte": snapshot["fecha_corte_utc"] if snapshot else None,
+            "modelo": {"proveedor": proveedor_activo(), "nombre": modelo_activo(),
+                       "ollama_responde": provider["disponible"], "motivo": provider["motivo"]}}
 
 
 def search_tokens(value):
@@ -168,6 +180,8 @@ def case_detail(db, case_id):
       FROM borradores WHERE snapshot_id=? AND caso_id=? ORDER BY version DESC""", (snapshot_id, case_id))]
     for draft in drafts:
         draft["preguntas"] = json.loads(draft.pop("preguntas_json"))
+        draft["meta"] = parse_draft_meta(draft.get("prompt_version"))
+        draft["cronometro"] = resumen_cronometro(draft["guion"])
         draft["afirmaciones"] = [dict(r) for r in db.execute("""SELECT a.id,a.seccion,a.texto,a.tipo,
           c.evidencia_id,c.relacion,c.explicacion FROM afirmaciones a
           LEFT JOIN citas c ON c.snapshot_id=a.snapshot_id AND c.afirmacion_id=a.id
@@ -182,6 +196,76 @@ def case_detail(db, case_id):
     return {"caso": dict(case), "agrupacion": dict(grouping) if grouping else None,
             "priorizacion": priority_data, "evidencias": evidence,
             "borradores": drafts, "revisiones": reviews, "snapshot": snapshot_metadata(db)}
+
+
+def parse_draft_meta(prompt_version):
+    value = prompt_version or ""
+    if " {" not in value:
+        return {"prompt_version": value}
+    version, raw = value.split(" ", 1)
+    try:
+        parsed = json.loads(raw)
+    except json.JSONDecodeError:
+        parsed = {}
+    parsed["prompt_version"] = version
+    return parsed
+
+
+def latest_draft(db, case_id):
+    detail = case_detail(db, case_id)
+    if not detail:
+        return None
+    return {"caso": detail["caso"], "evidencias": detail["evidencias"],
+            "borrador": detail["borradores"][0] if detail["borradores"] else None,
+            "versiones": detail["borradores"], "snapshot": detail["snapshot"]}
+
+
+def regenerate_draft(db, case_id, proveedor=None):
+    proveedor = proveedor or generar_paquete
+    case, evidences = cargar_evidencias_caso(db, case_id)
+    package = proveedor(case, evidences)
+    if package.get("estado") == "abstencion" and not package.get("afirmaciones"):
+        return {"estado": "abstencion", "explicacion": package.get("explicacion"), "retiradas": package.get("retiradas", [])}
+    saved = guardar_borrador(db, case_id, package, "modelo")
+    return {"estado": package.get("estado"), "borrador": saved, "guardian": package.get("guardian"),
+            "cronometro": package.get("cronometro")}
+
+
+def save_human_version(db, draft_id, payload):
+    row = db.execute("SELECT * FROM borradores WHERE id=?", (draft_id,)).fetchone()
+    if not row:
+        raise LookupError("Borrador no encontrado")
+    allowed = {key: str(payload.get(key, row[key]) or "") for key in ("titulo", "enfoque", "brief", "guion", "copy")}
+    preguntas = payload.get("preguntas")
+    if preguntas is None:
+        preguntas = json.loads(row["preguntas_json"])
+    if not isinstance(preguntas, list):
+        raise ValueError("preguntas debe ser una lista")
+    version = db.execute("SELECT COALESCE(MAX(version),0)+1 FROM borradores WHERE snapshot_id=? AND caso_id=?",
+                         (row["snapshot_id"], row["caso_id"])).fetchone()[0]
+    new_id = "BOR-" + uuid.uuid4().hex
+    now = datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
+    with db:
+        db.execute("""INSERT INTO borradores VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+                   (row["snapshot_id"], new_id, row["caso_id"], version, allowed["titulo"],
+                    allowed["enfoque"], allowed["brief"], allowed["guion"], allowed["copy"],
+                    json.dumps(preguntas[:3], ensure_ascii=False), row["alcance_texto"], "humano",
+                    row["modelo_version"], row["prompt_version"], now))
+        original_claims = db.execute("""SELECT a.*,c.evidencia_id FROM afirmaciones a
+          JOIN citas c ON c.snapshot_id=a.snapshot_id AND c.caso_id=a.caso_id AND c.afirmacion_id=a.id
+          WHERE a.snapshot_id=? AND a.borrador_id=? ORDER BY a.id""",
+          (row["snapshot_id"], row["id"])).fetchall()
+        for index, claim in enumerate(original_claims, 1):
+            section_text = allowed.get(claim["seccion"], "")
+            changed = claim["texto"] not in section_text
+            claim_id = f"AF-{new_id}-{index}"
+            db.execute("INSERT INTO afirmaciones VALUES (?,?,?,?,?,?,?)",
+                       (row["snapshot_id"], claim_id, row["caso_id"], new_id, claim["seccion"],
+                        claim["texto"], claim["tipo"]))
+            explanation = "revisar: la edicion humana modifico la oracion citada." if changed else "Cita heredada sin cambios."
+            db.execute("INSERT INTO citas VALUES (?,?,?,?,?,?)",
+                       (row["snapshot_id"], row["caso_id"], claim_id, claim["evidencia_id"], "sustenta", explanation))
+    return {"id": new_id, "version": version, "fecha_utc": now}
 
 
 def add_review(db, case_id, payload):
@@ -204,6 +288,13 @@ def add_review(db, case_id, payload):
         raise ValueError("El borrador no pertenece al caso")
     if state == "aprobado_como_borrador" and not draft_id:
         raise ValueError("Para aprobar se debe seleccionar un borrador")
+    if state == "aprobado_como_borrador":
+        blocked = db.execute("""SELECT 1 FROM citas WHERE snapshot_id=? AND caso_id=?
+          AND afirmacion_id IN (SELECT id FROM afirmaciones WHERE snapshot_id=? AND borrador_id=?)
+          AND (lower(explicacion) LIKE '%revisar%' OR lower(explicacion) LIKE '%sin fuente%') LIMIT 1""",
+          (snapshot_id, case_id, snapshot_id, draft_id)).fetchone()
+        if blocked:
+            raise ValueError("No se puede aprobar con citas marcadas revisar o sin fuente")
     sequence = db.execute("SELECT COALESCE(MAX(secuencia),0)+1 FROM revisiones WHERE snapshot_id=? AND caso_id=?",
                           (snapshot_id, case_id)).fetchone()[0]
     review_id = "REV-" + uuid.uuid4().hex
@@ -246,6 +337,8 @@ class Handler(BaseHTTPRequestHandler):
                 if route == "/api/cases":
                     return self.send_json(200, {"casos": list_cases(db), "modo": "local",
                                                 "snapshot": snapshot_metadata(db)})
+                if route == "/api/estado":
+                    return self.send_json(200, estado_local(db))
                 if route == "/api/search":
                     params = parse_qs(parsed.query, keep_blank_values=True)
                     get = lambda name: params.get(name, [""])[0].strip()
@@ -258,13 +351,51 @@ class Handler(BaseHTTPRequestHandler):
                 if match:
                     detail = case_detail(db, unquote(match.group(1)))
                     return self.send_json(200, detail) if detail else self.send_json(404, {"error": "Caso no encontrado"})
+                match = re.fullmatch(r"/api/cases/([^/]+)/borrador", route)
+                if match:
+                    draft = latest_draft(db, unquote(match.group(1)))
+                    return self.send_json(200, draft) if draft else self.send_json(404, {"error": "Caso no encontrado"})
         except sqlite3.Error:
             return self.send_json(500, {"error": "No se pudo consultar la base local"})
         self.send_json(404, {"error": "Ruta no encontrada"})
 
     def do_POST(self):
         route = urlparse(self.path).path
-        match = re.fullmatch(r"/api/cases/([^/]+)/reviews", route)
+        match_review = re.fullmatch(r"/api/cases/([^/]+)/reviews", route)
+        match_draft = re.fullmatch(r"/api/cases/([^/]+)/borrador", route)
+        if not match_review and not match_draft:
+            return self.send_json(404, {"error": "Ruta no encontrada"})
+        origin = self.headers.get("Origin")
+        if origin and origin not in {f"http://127.0.0.1:{self.server.server_port}", f"http://localhost:{self.server.server_port}"}:
+            return self.send_json(403, {"error": "Origen no permitido"})
+        try:
+            length = int(self.headers.get("Content-Length", "0"))
+            if length < 0 or length > 8192:
+                raise ValueError("Cuerpo inválido o demasiado grande")
+            payload = json.loads(self.rfile.read(length)) if length else {}
+            with connect(self.db_path) as db:
+                if match_draft:
+                    provider = estado_proveedor()
+                    if not provider["disponible"]:
+                        return self.send_json(503, {"error": provider["motivo"], "modelo": provider})
+                    result = regenerate_draft(db, unquote(match_draft.group(1)))
+                else:
+                    result = add_review(db, unquote(match_review.group(1)), payload)
+            self.send_json(201, result)
+        except json.JSONDecodeError:
+            self.send_json(400, {"error": "JSON inválido"})
+        except ValueError as exc:
+            self.send_json(400, {"error": str(exc)})
+        except LookupError as exc:
+            self.send_json(404, {"error": str(exc)})
+        except ProviderUnavailable as exc:
+            self.send_json(503, {"error": str(exc)})
+        except sqlite3.Error:
+            self.send_json(409, {"error": "No se pudo registrar la revisión"})
+
+    def do_PUT(self):
+        route = urlparse(self.path).path
+        match = re.fullmatch(r"/api/borradores/([^/]+)", route)
         if not match:
             return self.send_json(404, {"error": "Ruta no encontrada"})
         origin = self.headers.get("Origin")
@@ -272,11 +403,11 @@ class Handler(BaseHTTPRequestHandler):
             return self.send_json(403, {"error": "Origen no permitido"})
         try:
             length = int(self.headers.get("Content-Length", "0"))
-            if length <= 0 or length > 8192:
+            if length <= 0 or length > 65536:
                 raise ValueError("Cuerpo inválido o demasiado grande")
             payload = json.loads(self.rfile.read(length))
             with connect(self.db_path) as db:
-                result = add_review(db, unquote(match.group(1)), payload)
+                result = save_human_version(db, unquote(match.group(1)), payload)
             self.send_json(201, result)
         except json.JSONDecodeError:
             self.send_json(400, {"error": "JSON inválido"})
@@ -285,7 +416,7 @@ class Handler(BaseHTTPRequestHandler):
         except LookupError as exc:
             self.send_json(404, {"error": str(exc)})
         except sqlite3.Error:
-            self.send_json(409, {"error": "No se pudo registrar la revisión"})
+            self.send_json(409, {"error": "No se pudo guardar la version humana"})
 
     def is_static_route(self, route):
         name = unquote(route.lstrip("/"))
