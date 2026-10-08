@@ -97,14 +97,56 @@ Cobertura de citas 100 % · abstención correcta ≥ 80 % · ninguna cifra inven
 
 ## 5. Casos y evidencias
 
-> Completar con 5 fichas del snapshot real (una con evidencia insuficiente). Propuesta:
-1. **Donación de EE.UU. a Panamá** — TVN + Crítica, un mismo evento en dos medios.
-2. **Contrato de laptops del Meduca** — La Prensa, tres notas relacionadas.
-3. **Temporada de cruceros en el Canal** — TVN; evidencia insuficiente: un titular, sin fuente primaria.
-4. **Inflación de Panamá** — Banco Mundial 2024 (0,7 %), con el aviso de que no es una medición actual.
-5. **Nota recirculada del papa Francisco** — Crítica, fechada en abril de 2025; Lupa conserva la fecha y le da prioridad baja.
+Snapshot `real-20261007b`. Puntaje P = 30R + 25I + 20U + 15N + 10E (componentes de 0 a 1). Persona revisora: se registra en Lupa al revisar (revisión humana con historial).
 
-Cada ficha incluye ID del caso, fuentes, puntaje desglosado, estado de evidencia, borrador y persona revisora (capturas en `verificacion/capturas/`).
+### Ficha 1 — Donación de equipos de EE.UU. a Panamá (un evento, dos medios)
+| Campo | Valor |
+|---|---|
+| Caso | `CASO-828dcf139d9cf6f0510e` |
+| Publicaciones | Crítica, 7 oct 2026 18:03 (UTC−5): «EE.UU. dona a Panamá equipos de emergencia valorados en $500 mil» · TVN, 7 oct 2026 18:41 (UTC−5): «EEUU dona a Panamá equipos por $500,000 para habilitar albergues…» |
+| Puntaje | 43,5 (R 0,20 · I 0,30 · U 1,00 · N 0,50 · E 0,25) |
+| Evidencia | **Insuficiente**: dos medios lo publican, pero ninguno declara su procedencia; repetición no es corroboración |
+| Falta verificar | Comunicado de la Embajada o del Sinaproc; destino de los equipos |
+| Qué demuestra | Agrupación semántica entre medios (T02) sin inflar la evidencia |
+
+### Ficha 2 — Contratos de laptops del Meduca (seguimiento)
+| Campo | Valor |
+|---|---|
+| Caso | `CASO-d7414efb7cc141eab72c` |
+| Publicaciones | La Prensa, 17 ago 2026: «Meduca contrató $28.4 millones por 54,000 laptops…» · 18 ago 2026: «Meduca tramitó adenda… por $235 mil y 75 días más» |
+| Puntaje | 25,5 (U 0,10: notas de agosto, no de hoy) |
+| Evidencia | **Insuficiente** (un solo medio) |
+| Pregunta en Lupa | «contrato de laptops del Meduca» → responde con 3 titulares citados |
+| Qué demuestra | Las fechas originales mandan sobre la fecha de captura |
+
+### Ficha 3 — Temporada de cruceros en el Canal (prioridad alta, evidencia insuficiente)
+| Campo | Valor |
+|---|---|
+| Caso | `CASO-eac2d70e82de48de49cd` |
+| Publicación | TVN, 7 oct 2026 16:59 (UTC−5): «Canal de Panamá: Carnival Miracle inaugura temporada de cruceros 2026-2027; se contemplan más de 220 tránsitos» |
+| Puntaje | **65,5** (R 0,60 · I 0,70 · U 1,00 · N 0,50 · E 0,25), el más alto del snapshot |
+| Evidencia | **Insuficiente**: un titular, sin fuente primaria |
+| Borrador | Brief, guion y copy citados; el guardián **retiró** un copy publicitario del modelo («¡Reserva tu crucero ahora…!») |
+| Qué demuestra | Prioridad alta ≠ permiso para publicar (T08); la caja «Falta verificar» manda |
+
+### Ficha 4 — Inflación de Panamá (dato oficial, no actual)
+| Campo | Valor |
+|---|---|
+| Pregunta | «¿Cuál es la inflación de Panamá hoy?» |
+| Respuesta | «Panamá, 2024: 0,7 (% anual). Dato anual del Banco Mundial; no es una medición actual» + aviso de que para hoy hace falta la fuente primaria nacional |
+| Cita | Banco Mundial · FP.CPI.TOTL.ZG · 2024 |
+| Qué demuestra | Año y unidad siempre visibles (T04); con «2026» se abstiene (T06) |
+
+### Ficha 5 — Nota recirculada del papa Francisco
+| Campo | Valor |
+|---|---|
+| Caso | `CASO-c89d635822b3f8a2ffc9` |
+| Publicación | Crítica: «EL MUNDO DESPIDE AL PAPA FRANCISCO #ENVIVO», fecha original **26 abr 2025**, servida en el RSS de hoy |
+| Puntaje | 25,5 (U 0,10, mínima) — puesto 101 de 275 |
+| Evidencia | **Insuficiente** |
+| Qué demuestra | Una nota vieja no se presenta como nueva (T03) |
+
+Capturas: `verificacion/capturas/real-caso-mesa.png`, `real-pregunta.png`, `real-cifra.png`, `real-adaptacion.png`.
 
 ---
 
