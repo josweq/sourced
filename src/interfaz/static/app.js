@@ -7,6 +7,8 @@ const cutoffTime = document.querySelector('#cutoff-time');
 const filterCount = document.querySelector('#filter-count');
 const themeButtons = document.querySelectorAll('[data-tema-opcion]');
 const tabButtons = document.querySelectorAll('[data-panel]');
+const quickGuideButton = document.querySelector('#quick-guide');
+const quickGuideDialog = document.querySelector('#quick-guide-dialog');
 let selected = null;
 let lastParams = {};
 let currentDetail = null;
@@ -15,6 +17,26 @@ let currentAdaptation = null;
 const PANAMA_OFFSET_MS = -5 * 60 * 60 * 1000;
 const MONTHS = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
 const esc = value => String(value ?? '').replace(/[&<>'"]/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[char]));
+const GUIDE_TEXT = {
+  reporta: 'Lo que dicen los titulares, tal cual. No confirma el hecho.',
+  quien: 'Medios que publicaron el tema. Varios medios repitiendo una misma fuente cuentan como una sola procedencia.',
+  respaldo: 'Afirmaciones con su cita. Cada una apunta a la evidencia exacta que la sostiene.',
+  falta: 'Lo que hay que confirmar con una fuente primaria antes de publicar.',
+  accion: 'El siguiente paso sugerido según la evidencia disponible.',
+  prioridad: 'Ordena la atención de 0 a 100: Relevancia 30, Impacto 25, Urgencia 20, Novedad 15, Evidencia 10. No mide si es verdad ni autoriza publicar.',
+  evidencia: 'Insuficiente: solo titulares sin fuente primaria. Parcial: alguna procedencia identificada. Suficiente: hay base para un borrador, que igual requiere revisión.',
+  adaptar: 'Reescribe el borrador para otra pantalla (TV, radio, video vertical, web o alerta) sin añadir datos: mismas citas, otro orden y extensión.',
+  revision: 'Registra quién revisó y qué decidió. Nada se publica desde Lupa.',
+  preguntar: 'Responde con titulares o datos oficiales citados, o se abstiene si no hay evidencia.'
+};
+
+function infoButton(key, label) {
+  return `<button class="info-button" type="button" aria-label="Qué significa ${esc(label)}" aria-expanded="false" data-help="${esc(key)}">ⓘ</button>`;
+}
+
+function sectionTitle(title, key, level = 'h3') {
+  return `<div class="section-title"><${level}>${esc(title)}</${level}>${infoButton(key, title)}</div>`;
+}
 
 function parseIsoUtc(value) {
   if (!value) return null;
@@ -179,8 +201,20 @@ async function loadCases(params = lastParams) {
   }
 }
 
-function disabledBlock(title, text) {
-  return `<section class="section disabled-block"><h3>${esc(title)}</h3><p>${esc(text)}</p></section>`;
+function guideKeyForTitle(title) {
+  return {
+    'Qué se reporta': 'reporta',
+    'Quién lo reporta': 'quien',
+    'Qué está respaldado': 'respaldo',
+    'Falta verificar': 'falta',
+    'Acción recomendada': 'accion',
+    'Revisión humana': 'revision'
+  }[title] || '';
+}
+
+function disabledBlock(title, text, key = guideKeyForTitle(title)) {
+  const heading = key ? sectionTitle(title, key) : `<h3>${esc(title)}</h3>`;
+  return `<section class="section disabled-block">${heading}<p>${esc(text)}</p></section>`;
 }
 
 function domainFromUrl(value) {
@@ -204,7 +238,7 @@ function sourceRows(evidences, grouping) {
 }
 
 function supportedClaims(draft, evidences) {
-  if (!draft) return disabledBlock('Qué está respaldado', 'Todavía no hay afirmaciones citadas.');
+  if (!draft) return disabledBlock('Qué está respaldado', 'Todavía no hay afirmaciones citadas.', 'respaldo');
   const byEvidence = new Map(evidences.map(item => [item.id, item]));
   const seen = new Set();
   const claims = (draft.afirmaciones || []).filter(item => {
@@ -213,8 +247,8 @@ function supportedClaims(draft, evidences) {
     seen.add(key);
     return true;
   });
-  if (!claims.length) return disabledBlock('Qué está respaldado', 'El borrador no tiene afirmaciones citadas.');
-  return `<section class="section"><h3>Qué está respaldado</h3><div class="claim-list">${claims.map(item => {
+  if (!claims.length) return disabledBlock('Qué está respaldado', 'El borrador no tiene afirmaciones citadas.', 'respaldo');
+  return `<section class="section">${sectionTitle('Qué está respaldado', 'respaldo')}<div class="claim-list">${claims.map(item => {
     const label = evidenceLabel(byEvidence.get(item.evidencia_id));
     return `<article class="claim-row"><p>${esc(item.texto || 'Afirmación sin texto visible.')}</p>
       <button class="citation citation-chip" type="button" data-cita="${esc(item.evidencia_id || '')}">${esc(label)} · ${esc(humanEnum(item.relacion))}</button>
@@ -223,14 +257,14 @@ function supportedClaims(draft, evidences) {
 }
 
 function scoreBlock(priority, grouping) {
-  if (!priority) return disabledBlock('Puntaje', 'Este caso aún no tiene priorización calculada.');
+  if (!priority) return disabledBlock('Prioridad (puntaje)', 'Este caso aún no tiene priorización calculada.', 'prioridad');
   const rows = Object.keys(priority.componentes).map(key => {
     const value = Number(priority.componentes[key]);
     return `<div class="score-bar"><div class="score-row"><strong>${esc(key)}</strong><span class="mono">${esc(value)} × ${esc(priority.pesos[key])}</span></div>
       <div class="bar-track" aria-hidden="true"><span class="bar-fill" style="--valor:${Math.max(0, Math.min(100, value))}%"></span></div>
       <p class="muted">${esc(priority.explicacion[key])}</p></div>`;
   }).join('');
-  return `<section class="score-card"><h3>Puntaje ${esc(Math.round(Number(priority.puntaje)))}/100</h3><p class="muted">${esc(priority.reglas_version)} · ${esc(plural(grouping?.publicaciones, 'publicación', 'publicaciones'))}</p><div class="score-list">${rows}</div><p class="warning">El puntaje ordena atención; no estima verdad ni habilita publicación.</p></section>`;
+  return `<section class="score-card">${sectionTitle(`Prioridad ${Math.round(Number(priority.puntaje))}/100`, 'prioridad')}<p class="muted">${esc(priority.reglas_version)} · ${esc(plural(grouping?.publicaciones, 'publicación', 'publicaciones'))}</p><div class="score-list">${rows}</div><p class="warning">El puntaje ordena atención; no estima verdad ni habilita publicación.</p></section>`;
 }
 
 function wordCount(text) {
@@ -288,7 +322,7 @@ function draftBlock(draft, evidences, versions) {
   const timer = cronLabel(scriptSeconds(draft.guion, ppm));
   return `<section class="editorial-card"><div class="draft-head"><h3>Borrador v${esc(draft.version)}</h3><button class="submit regenerate" type="button">Regenerar con el modelo local</button></div>
     <p class="warning">Borrador generado por IA — requiere revisión humana</p>${draft.alcance_texto === 'titular_metadatos' ? '<p class="warning">Basado únicamente en titular/metadatos</p>' : ''}
-    <form class="adapt-form"><span class="adapt-label">Adaptar a</span><label><span class="sr-only">Formato</span><select name="formato"><option value="tv">TV</option><option value="radio">Radio 30 s</option><option value="vertical">Vertical 60 s</option><option value="web">Web</option><option value="alerta">Alerta</option></select></label><label>Duración<input name="duracion_s" type="number" min="1" max="600" placeholder="opcional"></label><label><span class="sr-only">Énfasis</span><select name="enfasis"><option value="noticia">Noticia</option><option value="dato">Dato oficial</option><option value="verificacion">Qué falta</option></select></label><label><span class="sr-only">Tono</span><select name="tono"><option value="sobrio">Sobrio</option><option value="explicativo">Explicativo</option></select></label><button class="submit" type="submit">Adaptar</button><p class="message" aria-live="polite"></p></form>
+    <form class="adapt-form"><div class="adapt-main"><span class="adapt-label">Adaptar a ${infoButton('adaptar', 'Adaptar a')}</span><label><span class="sr-only">Formato</span><select name="formato"><option value="tv">TV</option><option value="radio">Radio 30 s</option><option value="vertical">Vertical 60 s</option><option value="web">Web</option><option value="alerta">Alerta</option></select></label><button class="submit" type="submit">Adaptar</button></div><details class="adapt-options"><summary>Opciones</summary><div><label>Duración<input name="duracion_s" type="number" min="1" max="600" placeholder="opcional"></label><label><span class="sr-only">Énfasis</span><select name="enfasis"><option value="noticia">Noticia</option><option value="dato">Dato oficial</option><option value="verificacion">Qué falta</option></select></label><label><span class="sr-only">Tono</span><select name="tono"><option value="sobrio">Sobrio</option><option value="explicativo">Explicativo</option></select></label></div></details><p class="message" aria-live="polite"></p></form>
     <nav class="draft-tabs" aria-label="Secciones del borrador">${['brief', 'guion', 'copy', 'preguntas', 'adaptado'].map((tab, index) => `<button type="button" data-draft-tab="${tab}" aria-selected="${index === 0 ? 'true' : 'false'}">${esc(tab === 'guion' ? 'Guion' : tab.charAt(0).toUpperCase() + tab.slice(1))}</button>`).join('')}</nav>
     <div class="draft-panel" data-draft-panel="brief">${draftTabContent(draft, evidences, 'brief')}<p class="counter">${wordCount(draft.brief)}/250 palabras</p></div>
     <div class="draft-panel hidden" data-draft-panel="guion"><div class="timer ${timer.cls}"><strong>${esc(timer.text)}</strong><label>PPM<input id="ppm-input" type="number" min="80" max="240" value="${esc(ppm)}"></label></div>${draftTabContent(draft, evidences, 'guion')}</div>
@@ -301,7 +335,7 @@ function draftBlock(draft, evidences, versions) {
 
 function reviewForm(draft) {
   const disabled = draft ? '' : 'disabled title="No hay borrador asociado" aria-describedby="disabled-help"';
-  return `<section class="editorial-card"><h3>Revisión humana</h3><form class="review-form"><label>Persona revisora<input name="persona_revisora" required minlength="2" maxlength="80"></label><label>Estado<select name="estado"><option value="en_revision">✎ En revisión</option><option value="requiere_evidencia">! Requiere evidencia</option><option value="aprobado_como_borrador" ${disabled}>✔ Aprobado como borrador</option><option value="descartado">✕ Descartado</option></select></label><label>Comentario<textarea name="comentario" required minlength="3" maxlength="1000"></textarea></label><input type="hidden" name="borrador_id" value="${esc(draft?.id || '')}"><button class="submit" type="submit">Registrar revisión</button><p class="message" aria-live="polite"></p></form></section>`;
+  return `<section class="editorial-card">${sectionTitle('Revisión humana', 'revision')}<form class="review-form"><label>Persona revisora<input name="persona_revisora" required minlength="2" maxlength="80"></label><label>Estado<select name="estado"><option value="en_revision">✎ En revisión</option><option value="requiere_evidencia">! Requiere evidencia</option><option value="aprobado_como_borrador" ${disabled}>✔ Aprobado como borrador</option><option value="descartado">✕ Descartado</option></select></label><label>Comentario<textarea name="comentario" required minlength="3" maxlength="1000"></textarea></label><input type="hidden" name="borrador_id" value="${esc(draft?.id || '')}"><button class="submit" type="submit">Registrar revisión</button><p class="message" aria-live="polite"></p></form></section>`;
 }
 
 function reviewsBlock(reviews) {
@@ -323,7 +357,7 @@ async function loadDetail(id) {
     const caseData = detail.caso;
     const draft = detail.borradores[0];
     const evidence = evidenceState(caseData.estado_evidencia);
-    detailEl.innerHTML = `<div class="panel radiografia-panel"><div class="panel-header"><h2>${esc(caseData.titulo)}</h2><span class="technical-id" title="ID técnico">${esc(caseData.id)}</span><div class="badges"><i class="${evidence.cls}">${evidence.icon} ${evidence.text}</i><i>${reviewState(caseData.estado_revision)}</i></div></div><section class="section"><h3>Qué se reporta</h3><p class="reading">${esc(caseData.titulo)}</p></section><section class="section"><h3>Quién lo reporta</h3>${sourceRows(detail.evidencias, detail.agrupacion)}</section>${supportedClaims(draft, detail.evidencias)}<section class="section"><h3>Falta verificar</h3><p>${esc(caseData.preguntas_pendientes || 'Sin pendientes registrados.')}</p></section><section class="section"><h3>Acción recomendada</h3><p>${caseData.estado_evidencia === 'suficiente_para_borrador' ? 'Revisar el borrador y confirmar citas antes de aprobar.' : 'Completar evidencia independiente antes de publicar.'}</p></section>${scoreBlock(detail.priorizacion, detail.agrupacion)}</div><div class="panel mesa-panel"><div class="panel-header"><h2>Mesa editorial</h2><p class="muted">Borrador y revisión.</p></div>${draftBlock(draft, detail.evidencias, detail.borradores)}${reviewForm(draft)}${reviewsBlock(detail.revisiones)}</div>`;
+    detailEl.innerHTML = `<div class="panel radiografia-panel"><div class="panel-header"><h2>${esc(caseData.titulo)}</h2><span class="technical-id" title="ID técnico">${esc(caseData.id)}</span><div class="badges"><i class="${evidence.cls}">${evidence.icon} ${evidence.text}</i>${infoButton('evidencia', 'Estado de evidencia')}<i>${reviewState(caseData.estado_revision)}</i></div></div><section class="section">${sectionTitle('Qué se reporta', 'reporta')}<p class="reading">${esc(caseData.titulo)}</p></section><section class="section">${sectionTitle('Quién lo reporta', 'quien')}${sourceRows(detail.evidencias, detail.agrupacion)}</section>${supportedClaims(draft, detail.evidencias)}<section class="section">${sectionTitle('Falta verificar', 'falta')}<p>${esc(caseData.preguntas_pendientes || 'Sin pendientes registrados.')}</p></section><section class="section">${sectionTitle('Acción recomendada', 'accion')}<p>${caseData.estado_evidencia === 'suficiente_para_borrador' ? 'Revisar el borrador y confirmar citas antes de aprobar.' : 'Completar evidencia independiente antes de publicar.'}</p></section>${scoreBlock(detail.priorizacion, detail.agrupacion)}</div><div class="panel mesa-panel"><div class="panel-header"><h2>Mesa editorial</h2><p class="muted">Borrador y revisión.</p></div>${draftBlock(draft, detail.evidencias, detail.borradores)}${reviewForm(draft)}${reviewsBlock(detail.revisiones)}</div>`;
     wireDraftControls();
     const review = detailEl.querySelector('.review-form');
     if (review) review.addEventListener('submit', submitReview);
@@ -475,6 +509,49 @@ function renderConsulta(r) {
   detailEl.className = '';
   detailEl.innerHTML = `<div class="panel radiografia-panel"><div class="panel-header"><h2>Respuesta</h2><p class="muted">«${esc(r.pregunta)}»</p><div class="badges">${consultaBadge(r.estado)}</div></div><section class="section"><p>${esc(r.respuesta)}</p>${afirm ? `<ul class="consulta-lista">${afirm}</ul>` : ''}</section>${vacios ? `<section class="section"><h3>Falta verificar</h3><ul>${vacios}</ul></section>` : ''}<p class="technical-id">Método: ${esc(r.metodo)} · ${esc(r.latencia_ms)} ms · modelo local ${esc((r.reglas || {}).modelo || '')}</p></div><div class="panel mesa-panel"><div class="panel-header"><h2>Mesa editorial</h2><p class="muted">Abre un caso de la agenda para trabajar su borrador.</p></div></div>`;
   setPanel('radiografia');
+}
+
+function closeToggletip() {
+  document.querySelectorAll('.info-button[aria-expanded="true"]').forEach(button => {
+    button.setAttribute('aria-expanded', 'false');
+    button.removeAttribute('aria-describedby');
+  });
+  document.querySelectorAll('.toggletip').forEach(node => node.remove());
+}
+
+function openToggletip(button) {
+  const key = button.dataset.help;
+  const text = GUIDE_TEXT[key];
+  if (!text) return;
+  const wasOpen = button.getAttribute('aria-expanded') === 'true';
+  closeToggletip();
+  if (wasOpen) return;
+  const id = `tip-${key}-${Date.now()}`;
+  button.setAttribute('aria-expanded', 'true');
+  button.setAttribute('aria-describedby', id);
+  button.insertAdjacentHTML('afterend', `<span id="${id}" class="toggletip" role="tooltip">${esc(text)}</span>`);
+}
+
+document.addEventListener('click', event => {
+  const button = event.target.closest('.info-button');
+  if (button) {
+    event.preventDefault();
+    openToggletip(button);
+    return;
+  }
+  if (!event.target.closest('.toggletip')) closeToggletip();
+});
+
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape') closeToggletip();
+});
+
+if (quickGuideButton && quickGuideDialog) {
+  quickGuideButton.addEventListener('click', () => {
+    if (quickGuideDialog.open) return;
+    quickGuideDialog.showModal();
+  });
+  quickGuideDialog.addEventListener('close', () => quickGuideButton.focus());
 }
 
 askForm.addEventListener('submit', async event => {

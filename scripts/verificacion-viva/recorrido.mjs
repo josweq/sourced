@@ -74,6 +74,15 @@ async function recorrido(app, { ok, medir, marca }) {
   ok(await app.js(`scrollY === 0 && document.querySelector('header').getBoundingClientRect().top >= 0`), 'abrir un caso no desplaza la página y la cabecera sigue visible')
   await contraste('Redacción · caso abierto')
 
+  ok(await app.js(`(() => { const a = document.querySelector('#agenda-panel'); return a.scrollWidth <= a.clientWidth + 1 })()`),
+    'la agenda no tiene desplazamiento horizontal')
+  ok(await app.js(`(() => { const t = [...document.querySelectorAll('[data-draft-tab]')]; return t.length === 0 || new Set(t.map(b => Math.round(b.getBoundingClientRect().top))).size === 1 })()`),
+    'las pestañas del borrador van en una sola fila')
+  const guia = await app.js(`(() => { const b = document.querySelector('#detail .info-button'); if (!b) return 'sin guía'; b.focus(); b.click(); const abierta = b.getAttribute('aria-expanded'); document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); return abierta + '/' + b.getAttribute('aria-expanded') })()`)
+  ok(guia === 'true/false', 'una guía «qué significa» abre con el botón y cierra con Esc', guia)
+  const rapida = await app.js(`(() => { const b = document.querySelector('#quick-guide'); const d = document.querySelector('#quick-guide-dialog'); if (!b || !d) return 'falta'; b.click(); const abierto = d.open; d.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); if (d.open) d.close(); return String(abierto) })()`)
+  ok(rapida === 'true', 'la guía rápida «Cómo leer Lupa» abre como diálogo', rapida)
+
   if (await app.js(`Boolean(document.querySelector('.adapt-form'))`)) {
     await medir('adaptar a video vertical', app.esperarCambio(
       `document.querySelector('[data-draft-panel="adaptado"]')?.textContent.includes('Qué falta verificar') ?? false`,

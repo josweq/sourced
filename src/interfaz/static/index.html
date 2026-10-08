@@ -17,8 +17,9 @@
       <p>Antes de contar una historia, mostramos qué la sostiene.</p>
     </div>
   </div>
-<form id="ask-form" class="search-row ask-row" autocomplete="off"><label class="sr-label" for="ask">Preguntar a Lupa</label><input id="ask" name="pregunta" type="search" maxlength="300" placeholder="Preguntar: ¿qué se sabe de…?"><button class="submit" type="submit">Preguntar</button></form>
+<form id="ask-form" class="search-row ask-row" autocomplete="off"><label class="sr-label" for="ask">Preguntar a Lupa</label><input id="ask" name="pregunta" type="search" maxlength="300" placeholder="Preguntar: ¿qué se sabe de…?"><button class="submit" type="submit">Preguntar</button><button class="info-button" type="button" aria-label="Qué significa Preguntar" aria-expanded="false" data-help="preguntar">ⓘ</button></form>
   <div class="header-meta" aria-label="Estado del prototipo">
+    <button id="quick-guide" class="guide-button quick-guide-button" type="button" aria-label="Cómo leer Lupa" aria-haspopup="dialog">?</button>
     <span><strong>Snapshot</strong> local</span>
     <time id="cutoff-time" datetime="">Corte: cargando</time>
     <span class="status">Sin conexión: listo</span>
@@ -28,6 +29,23 @@
     </div>
   </div>
 </header>
+<dialog id="quick-guide-dialog" class="quick-guide-dialog" aria-labelledby="quick-guide-title">
+  <form method="dialog">
+    <div class="dialog-head">
+      <h2 id="quick-guide-title">Cómo leer Lupa</h2>
+      <button class="guide-button" type="submit" aria-label="Cerrar guía">×</button>
+    </div>
+    <ol>
+      <li>Agenda: prioriza señales.</li>
+      <li>Radiografía: separa reporte, procedencia, respaldo y vacíos.</li>
+      <li>Mesa: redacta con citas sin añadir datos.</li>
+      <li>Revisión: registra la decisión humana.</li>
+    </ol>
+    <p><strong>Estados:</strong> ✓ suficiente, ◐ parcial, ○ insuficiente. <strong>Revisión:</strong> ● nuevo, ✎ en revisión, ! requiere evidencia, ✔ borrador, ✕ descartado.</p>
+    <p><strong>Puntaje:</strong> Relevancia 30, Impacto 25, Urgencia 20, Novedad 15, Evidencia 10. Ordena atención; no mide verdad.</p>
+    <p><strong>Regla:</strong> Lupa no publica.</p>
+  </form>
+</dialog>
 <main class="shell">
   <nav class="mobile-tabs" aria-label="Vistas">
     <button type="button" data-panel="agenda" aria-controls="agenda-panel">Agenda</button>

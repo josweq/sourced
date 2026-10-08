@@ -220,7 +220,8 @@ footer {
 aside {
   min-width: 0;
   height: 100%;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   padding: var(--espacio-4);
   border-right: var(--borde-fino) solid var(--color-linea);
   background: var(--color-fondo);
@@ -343,6 +344,7 @@ textarea {
 
 .badges,
 .score-row {
+  position: relative;
   justify-content: flex-start;
   flex-wrap: wrap;
 }
@@ -398,6 +400,7 @@ textarea {
 }
 
 .search-row {
+  position: relative;
   display: flex;
   gap: var(--espacio-2);
 }
@@ -496,7 +499,94 @@ textarea {
 .section h3,
 .score-card h3,
 .editorial-card h3 {
+  margin-bottom: 0;
+}
+
+.section-title {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-2);
   margin-bottom: var(--espacio-2);
+}
+
+.info-button,
+.guide-button {
+  position: relative;
+  display: inline-grid;
+  flex: 0 0 var(--alto-clic);
+  place-items: center;
+  width: var(--alto-clic);
+  min-width: var(--alto-clic);
+  min-height: var(--alto-clic);
+  padding: 0;
+  border-color: var(--color-linea);
+  border-radius: 999px;
+  background: var(--color-boton-secundario);
+  color: var(--color-primario);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.info-button:hover,
+.guide-button:hover,
+.info-button[aria-expanded="true"] {
+  border-color: var(--color-primario);
+  background: var(--color-fondo);
+}
+
+.toggletip {
+  position: absolute;
+  z-index: 10;
+  inset-block-start: calc(100% + var(--espacio-1));
+  inset-inline-start: 0;
+  width: min(280px, calc(100vw - var(--espacio-6)));
+  padding: var(--espacio-2) var(--espacio-3);
+  border: var(--borde-fino) solid var(--color-linea);
+  border-radius: var(--radio-control);
+  background: var(--color-superficie);
+  color: var(--color-tinta);
+  box-shadow: 0 var(--espacio-2) var(--espacio-4) var(--color-sombra);
+  font-size: var(--tamano-minimo);
+  font-weight: 400;
+  line-height: var(--linea-base);
+}
+
+.quick-guide-dialog {
+  width: min(420px, calc(100vw - var(--espacio-5)));
+  border: var(--borde-fino) solid var(--color-linea);
+  border-radius: var(--radio-tarjeta);
+  padding: 0;
+  background: var(--color-superficie);
+  color: var(--color-tinta);
+  box-shadow: 0 var(--espacio-5) var(--espacio-7) var(--color-sombra);
+}
+
+.quick-guide-dialog::backdrop {
+  background: var(--color-sombra);
+}
+
+.quick-guide-dialog form {
+  display: grid;
+  gap: var(--espacio-3);
+  padding: var(--espacio-4);
+}
+
+.dialog-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espacio-3);
+}
+
+.dialog-head h2,
+.quick-guide-dialog p,
+.quick-guide-dialog ol {
+  margin: 0;
+}
+
+.quick-guide-dialog ol {
+  padding-left: var(--espacio-5);
 }
 
 .reading {
@@ -547,12 +637,22 @@ textarea {
 }
 
 .citation-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  max-width: 100%;
   min-height: var(--alto-clic);
   padding: 0 var(--espacio-1);
   border: 0;
   border-bottom: var(--borde-fino) solid var(--color-cita-borde);
   border-radius: 0;
   font-weight: 500;
+  white-space: normal;
+}
+
+.claim-row > .citation-chip {
+  justify-self: start;
 }
 
 .evidence-highlight {
@@ -561,9 +661,9 @@ textarea {
 }
 
 .draft-head,
-.draft-tabs,
 .timer,
-.adapt-form {
+.adapt-main,
+.adapt-options > div {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -572,12 +672,20 @@ textarea {
 }
 
 .draft-tabs {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: var(--espacio-1);
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scrollbar-width: thin;
   margin: var(--espacio-3) 0;
   padding-bottom: var(--espacio-2);
   border-bottom: var(--borde-fino) solid var(--color-linea);
 }
 
 .adapt-form {
+  display: grid;
+  gap: var(--espacio-2);
   margin-top: var(--espacio-3);
   padding: var(--espacio-2);
   border: var(--borde-fino) solid var(--color-linea);
@@ -596,8 +704,31 @@ textarea {
 }
 
 .adapt-label {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espacio-1);
   color: var(--color-secundario);
   font-weight: 700;
+}
+
+.adapt-main {
+  flex-wrap: nowrap;
+}
+
+.adapt-main label {
+  flex: 1 1 auto;
+}
+
+.adapt-options summary {
+  min-height: var(--alto-clic);
+  color: var(--color-primario);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.adapt-options > div {
+  margin-top: var(--espacio-2);
 }
 
 .adapted-block {
@@ -614,10 +745,18 @@ textarea {
 }
 
 .draft-tabs button {
+  flex: 0 0 auto;
+  min-height: calc(var(--espacio-5) + var(--espacio-4));
   background: var(--color-boton-secundario);
   color: var(--color-primario);
   padding: var(--espacio-2) var(--espacio-3);
   font-weight: 600;
+}
+
+/* Control segmentado: las cinco pestañas caben en una fila también con la letra mayor del tema Sala. */
+.draft-tabs button {
+  flex: 1 1 auto;
+  padding-inline: var(--espacio-2);
 }
 
 .draft-tabs button[aria-selected="true"] {
@@ -963,6 +1102,16 @@ textarea {
 #cases {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
+}
+
+/* La tarjeta es una rejilla: sin esto sus hijos no bajan del ancho de su texto más largo
+   y se salían de la columna (antes quedaba oculto con overflow-x: hidden). */
+.case {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.case > * {
+  min-width: 0;
 }
 
 .case {
