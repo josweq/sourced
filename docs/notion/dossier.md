@@ -191,10 +191,82 @@ Mismas 40 preguntas, mismas reglas de cifras oficiales, abstención y protecció
 
 ---
 
-## 8. Presentación al jurado (10 min)
-1. **Problema y usuario** (1 min).
-2. **Solución y datos** (1 min).
-3. **Demo** (4 min): agenda → caso con dos medios → borrador citado con cronómetro → pregunta con abstención → cifra «no actual» → revisión.
-4. **IA, baseline y métricas** (2 min).
-5. **Valor** (1 min): hipótesis declarada, no medida.
-6. **Riesgos y próximos pasos** (1 min).
+## 8. Presentación al jurado (10 min + 5 de preguntas)
+Se presenta desde esta página de Notion. La demo corre en una laptop **sin internet** (Wi-Fi apagado a la vista del jurado). Guion general: cualquiera del equipo puede tomar cualquier bloque.
+
+**Antes de empezar (5 min antes):** servidor arriba (`python src/interfaz/app.py --db <base>`), navegador en `http://127.0.0.1:8765`, tema «Redacción», Ollama abierto, una pregunta de calentamiento hecha, esta página abierta en otra pestaña, Wi-Fi apagado.
+
+### 0:00 – 1:00 · Problema
+> En una sala de redacción llegan decenas de titulares por hora. Cinco medios pueden repetir una misma nota y parece que está confirmada. Un dato del Banco Mundial de 2024 se lee como si fuera de hoy. Y con prisa, una IA generativa rellena huecos con cifras que nadie dijo. El problema no es escribir más rápido: es **saber qué sostiene cada cosa antes de contarla**.
+
+Usuario: editor/a, productor/a digital, director/a de noticias.
+
+### 1:00 – 2:00 · Qué es Lupa
+> Lupa es un copiloto editorial que corre en una laptop, sin internet y sin claves. Toma titulares de cinco medios panameños y datos oficiales, los agrupa por evento, los prioriza explicando el porqué y separa siempre dos cosas: **qué tan importante es** y **qué tan respaldado está**. Redacta borradores donde cada oración lleva su cita, y cuando no hay evidencia, lo dice.
+
+Datos: 284 titulares reales del 7 de octubre (TVN, La Prensa, Crítica, Panamá América, En Segundos; solo titular y metadatos), 540 valores del Banco Mundial y 82 sismos de USGS, en un snapshot con huella SHA-256.
+
+### 2:00 – 6:00 · Demo en vivo (4 min)
+1. **Agenda** (30 s). Señalar el primer caso, cruceros del Canal: puntaje 65,5 desglosado (R, I, U, N, E) y, aparte, evidencia **insuficiente**. «Encabezar la agenda no es permiso para publicar.»
+2. **Radiografía** (45 s). Abrir el caso de la donación de EE.UU.: dos medios (Crítica y TVN) en un solo caso. «Dos medios no son dos fuentes: ninguno declara de dónde sale; repetición no es corroboración.» Mostrar «Falta verificar».
+3. **Mesa editorial** (60 s). Abrir el borrador de cruceros: brief, guion con cronómetro, copy y preguntas; cada afirmación con su chip de cita. Mostrar lo que el guardián **retiró** y por qué («¡Reserva tu crucero ahora…!»: tono publicitario). Adaptar a **Radio 30 s**: mismas citas, otro formato, ningún dato nuevo.
+4. **Preguntar** (60 s). «¿Cuál es la inflación de Panamá hoy?» → «Panamá, 2024: 0,7 %… Dato anual del Banco Mundial; no es una medición actual», con cita. Luego «precio del oro en Bolivia» → **abstención**: «No encontré evidencia…».
+5. **Revisión humana** (45 s). Volver a la mesa, marcar «requiere evidencia» con un comentario: queda en el historial con nombre y hora. «No existe el botón publicar: el máximo es aprobado como borrador.»
+
+### 6:00 – 8:00 · La IA y cómo la medimos
+> La IA hace tres cosas medibles, todas locales: agrupa titulares por evento con embeddings (multilingual-e5-small, CPU), busca por significado y redacta con un modelo local (llama3.2:3b). Lo que **no** decide la IA lo decide el código: qué cifra se puede decir, qué cita es válida, cuándo abstenerse.
+
+Mostrar la tabla «IA frente a línea base sin IA» (sección 6): 37/40 contra 35/40; la diferencia que importa es **abstención correcta 7/7 contra 4/7**. La búsqueda por palabras clave, sin evidencia, cita «el precio del clientelismo» para el precio del oro. Matriz T01–T10: 9 cumplen y T05 parcial (o actualizada), T10 probada con el Wi-Fi cortado: 0 salidas a la red.
+
+Una prueba fallida contada sin pena: el centroide unía 102 titulares sin relación → enlace promedio y umbral calibrado con datos reales; el guardián dejaba pasar prosa publicitaria → ahora revisa cada oración.
+
+### 8:00 – 9:00 · Valor (hipótesis, no medido)
+> Si una redacción revisa 50 temas al día y Lupa le ahorra separar duplicados, buscar el dato oficial y armar el primer borrador citado, el valor no es la velocidad: es **no publicar algo que no se sostiene**. No lo medimos con usuarios reales; es la hipótesis que propondríamos validar con TVN en un piloto.
+
+### 9:00 – 10:00 · Límites y próximos pasos
+- Solo titulares: por eso casi todo queda «insuficiente». Con cuerpos de nota autorizados, la evidencia puede subir.
+- Un modelo de 3B redacta sobrio; el guardián retira mucho. Con un modelo local mayor, mejor prosa sin perder control.
+- Clasificación de tema: entrenada con etiquetas revisadas por el equipo (macro-F1 en sección 6, o reglas si no alcanzaron).
+- Próximo: piloto con una mesa de TVN, fuente primaria (comunicados oficiales) y detección de contradicciones entre medios.
+
+> Cierre: «Antes de contar una historia, mostramos qué la sostiene.»
+
+### Plan B si algo falla en vivo
+- Si el servidor no arranca: capturas en esta página (sección 5) y video de respaldo.
+- Si Ollama tarda: el borrador ya está guardado en la base; no se genera en vivo.
+- Si una pregunta sale rara: decirlo («esto es lo que el benchmark mide») y pasar a la siguiente; no improvisar preguntas nuevas.
+
+### Preguntas probables del jurado
+| Pregunta | Respuesta corta |
+|---|---|
+| ¿De dónde sale esa cifra y de qué año es? | Banco Mundial, indicador FP.CPI.TOTL.ZG, 2024, con unidad y aviso de que no es actual. Si se pide 2026, se abstiene. |
+| Cinco medios replican una agencia: ¿cuántas fuentes cuentas? | Una. La procedencia sale solo del origen declarado; repetición no es corroboración (caso de la donación). |
+| ¿Por qué la agenda dice «0 fuentes»? | Los RSS no declaran su fuente primaria; Lupa no la inventa. Es el control, no un error. |
+| ¿Y si una fuente trae instrucciones ocultas? | Se trata como dato, no como orden; el guardián la excluye. En el banco de modelos, qwen3:1.7b la citó: por eso la regla vive en el código. |
+| ¿Qué mejora la IA frente a algo simple? | Abstención correcta 7/7 contra 4/7 de palabras clave, con las mismas reglas. |
+| ¿Funciona sin internet de verdad? | Sí: corrida con el Wi-Fi cortado, 5/5 pasos, una sonda probó 52 veces y no salió nada; y una revisión del código bloquea cualquier cliente de red. |
+| ¿Cuánto cuesta? | Cero por uso: todo local, sin claves ni API de pago. |
+
+---
+
+## 9. Bitácora (cronología con evidencia)
+Hora de Panamá (UTC−5). Cada línea enlaza a un commit del repositorio.
+
+| Fecha y hora | Qué pasó | Commit |
+|---|---|---|
+| 7 oct 09:51 | Diego prepara la base del repo, guías del equipo y estructura compartida | `da0f210`, `9812e32` |
+| 7 oct 14:44–15:22 | Diego: modelo de datos trazable, importador CSV con cuarentena, interfaz local, agenda priorizada y búsqueda explicable (línea base léxica) | `22c93ec`, `6c6b8a6`, `98f5ccd`, `f4e5f74` |
+| 7 oct 18:09 | Josué: extractor de snapshot reproducible y blueprint de arquitectura | `c642468`, `3c027bd` |
+| 7 oct 18:10 | Banco de 5 modelos de redacción local → se elige `llama3.2:3b` (R2-005) | `4da2000` |
+| 7 oct 18:31–18:48 | Sistema visual «Redacción» y «Sala», puerta de contraste y recorrido vivo | `2037a4d`, `dcb87ba` |
+| 7 oct 19:02 | Capa de IA local: embeddings, agrupación semántica y búsqueda híbrida | `14f0fab` |
+| 7 oct 19:21 | GDELT responde 429 → RSS de 5 medios; **fallo**: el centroide unía 102 titulares → enlace promedio y umbral calibrado | `97b86a5` |
+| 7 oct 19:28–20:06 | Redacción con guardián y mesa editorial; **fallo**: prosa publicitaria y sigla mal expandida → el guardián revisa cada oración y las preguntas | `5a38337`, `23c86f2`, `3f00bd5` |
+| 7 oct 20:55 | Preguntas en español con cita o abstención (CU-02, CU-04, CU-05) | `f6d3f52` |
+| 7 oct 21:46–21:49 | Benchmark de 40 preguntas, matriz T01–T10 y primer borrador de este dossier | `687af9e`, `fad697f`, `c512f19` |
+| 7 oct 23:47–8 oct 00:23 | Formatos de adaptación, guías «qué significa», hojas de revisión humana y verificación viva en verde | `2276a27`, `700ddde`, `914451a`, `93c1199` |
+| 8 oct 07:48 | Diego integra la rama en `main` (PR #2) | `b50695f` |
+| 8 oct 09:09 | T10 con el Wi-Fi cortado: 5/5 pasos, 0 salidas a la red; puerta estática sin red | `5780688` |
+| 8 oct 10:20 | Auditoría tipo jurado → **fallo**: todas las noticias apuntaban a la fuente TVN en el catálogo → corregido | `41e03f0` |
+| 8 oct 10:43 | **Fallo**: «turistas en septiembre de 2026» citaba cruceros por el «2026» → años, meses y palabras de tiempo ya no deciden la búsqueda | `e146b2a` |
+| 8 oct 10:48 | IA frente a línea base sin IA en el benchmark | `0ae9c08` |
