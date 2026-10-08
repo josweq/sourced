@@ -19,6 +19,7 @@ except ModuleNotFoundError:
 
 from src.ia.agrupacion import RULES_VERSION, agrupar_semantico, evaluar_pares
 from src.ia.clasificador import ClasificadorTema, cargar_etiquetas, clasificar_reglas, conjunto_suficiente
+from src.ia.contradicciones import detectar as detectar_contradicciones
 from src.ia.embeddings import EXPECTED_DIM, blob_a_vector, nombre_modelo, vector_a_blob, vectorizar
 from src.ia.proveedores import ProviderUnavailable
 from src.ia.redaccion import cargar_evidencias_caso, generar_paquete, guardar_borrador
@@ -44,6 +45,15 @@ def crear_tablas_ia(db):
         metodo TEXT NOT NULL,
         motivo TEXT NOT NULL,
         PRIMARY KEY(snapshot_id,noticia_id,metodo)
+      )
+    """)
+    db.execute("""
+      CREATE TABLE IF NOT EXISTS ia_contradicciones (
+        snapshot_id TEXT NOT NULL,
+        caso_id TEXT NOT NULL,
+        ordinal INTEGER NOT NULL,
+        hallazgo_json TEXT NOT NULL,
+        PRIMARY KEY(snapshot_id,caso_id,ordinal)
       )
     """)
 
@@ -103,6 +113,7 @@ def process(input_path: Path, output_path: Path, etiquetas_path: Path = Path("ev
                 row["tema"] = pred["tema"]
             groups = agrupar_semantico(rows, vectores=vectores, umbral=umbral_grupo, max_dias=max_dias)
             created = []
+            contradicciones_reporte = []
             for members in groups:
                 member_ids = [row["id"] for row in members]
                 group_id = stable_id("GRP", member_ids)
@@ -117,10 +128,22 @@ def process(input_path: Path, output_path: Path, etiquetas_path: Path = Path("ev
                     reason = "Procedencia declarada en origen; repetición no implica corroboración." if provenance else None
                     target.execute("INSERT INTO grupo_noticias VALUES (?,?,?,?,?)",
                                    (snapshot_id, group_id, row["id"], provenance, reason))
+                hallazgos = detectar_contradicciones([
+                    {"noticia_id": row["id"], "titulo": row["titulo"], "medio": row["medio"]}
+                    for row in members
+                ])
                 evidence_state = "parcial" if known else "insuficiente"
                 pending = "Confirmar fuente primaria, relación con Panamá y contenido autorizado antes de publicar."
+                if hallazgos:
+                    evidence_state = "insuficiente"
+                    resumen = "; ".join(h["explicacion"] for h in hallazgos)
+                    pending = f"Cifras incompatibles entre medios: {resumen}. {pending}"
                 target.execute("INSERT INTO casos VALUES (?,?,?,?,?,?,?)",
                                (snapshot_id, case_id, group_id, "editorial", members[0]["titulo"], evidence_state, pending))
+                for ordinal, hallazgo in enumerate(hallazgos, 1):
+                    target.execute("INSERT INTO ia_contradicciones VALUES (?,?,?,?)",
+                                   (snapshot_id, case_id, ordinal,
+                                    json.dumps(hallazgo, ensure_ascii=False, sort_keys=True)))
                 for row in members:
                     evidence_id = stable_id("EVID", [row["id"], "titulo"])
                     target.execute("INSERT INTO evidencias VALUES (?,?,?,?,?,?)",
@@ -134,6 +157,8 @@ def process(input_path: Path, output_path: Path, etiquetas_path: Path = Path("ev
                                 score, json.dumps(explanation, ensure_ascii=False, sort_keys=True), cutoff))
                 created.append({"caso_id": case_id, "grupo_id": group_id, "miembros": member_ids,
                                 "puntaje": score, "procedencias_identificadas": known})
+                if hallazgos:
+                    contradicciones_reporte.append({"caso_id": case_id, "hallazgos": hallazgos})
         borradores_resultado = []
         for item in sorted(created, key=lambda row: (-row["puntaje"], row["caso_id"]))[:max(0, borradores)]:
             try:
@@ -170,6 +195,7 @@ def process(input_path: Path, output_path: Path, etiquetas_path: Path = Path("ev
             "temas": dict(Counter(row["tema"] for row in rows)),
             "casos_creados": len(created),
             "casos": created,
+            "contradicciones": contradicciones_reporte,
             "borradores": borradores_resultado,
             "evaluacion_pares": evaluar_pares(rows, pares_path, vectorizador=vectorizador, umbral=umbral_grupo),
             "advertencias": [
