@@ -4,8 +4,33 @@
 Copiloto editorial para el reto TVN Media. Equipo: **Josué, Juanchi y Diego**.
 Convierte noticias públicas e indicadores oficiales en agenda priorizada, fichas trazables y borradores para revisión humana.
 
-## Estado real
-Base documental, modelo SQLite y prototipo editorial local ejecutables. Hay importación CSV, agrupación, ranking, búsqueda, revisión y ejemplos sintéticos con pruebas; los datos reales, la generación sustentada y las métricas de IA siguen pendientes. No hay tareas ni roles asignados por persona.
+## Estado real (2026-10-07, rama `josue/integracion`)
+Prototipo local funcionando de punta a punta con **datos reales del 7 de octubre de 2026**: 284 titulares de cinco medios panameños (TVN, La Prensa, Crítica, Panamá América, En Segundos; solo titular y metadatos), 540 valores del Banco Mundial y 82 sismos de USGS. GDELT quedó fuera: respondió HTTP 429 a todas las consultas.
+
+| Pieza | Estado |
+|---|---|
+| Snapshot reproducible con manifest SHA-256 | Hecho (`data/snapshot-dev/real-20261007b/processed`) |
+| Embeddings locales (multilingual-e5-small, CPU), agrupación semántica calibrada, búsqueda híbrida | Hecho |
+| Clasificación de tema supervisada | Código listo; **faltan las etiquetas humanas** (hoja de etiquetado repartida). Mientras tanto usa reglas y lo declara |
+| Redacción con Ollama `llama3.2:3b` + guardián (citas, cifras, términos sin respaldo, tono publicitario, inyección) | Hecho |
+| Mesa editorial: brief, guion con cronómetro, copy, preguntas, versiones, revisión humana | Hecho |
+| Preguntas en español con respuesta citada o abstención (CU-02, CU-04, CU-05) | Hecho |
+| Formatos de adaptación (TV, radio, vertical, web) | En construcción |
+| Benchmark, matriz T01–T10 y métricas | Pendiente |
+| Notion | Al final (dossier en `docs/notion/`) |
+
+Pruebas: 86/86. Verificación viva (contraste en ambos temas, 360/390 px) en `verificacion/`.
+
+## Probar en 5 pasos (Windows, macOS o Linux; sin GPU, sin claves)
+```sh
+python -m venv .venv && .venv\Scripts\activate        # en macOS/Linux: source .venv/bin/activate
+pip install -r requirements.txt
+ollama pull llama3.2:3b                                # requiere Ollama instalado
+python scripts/preparar_modelos.py                     # descarga y verifica el modelo de embeddings (una vez)
+python scripts/preparar_demo.py --snapshot data/snapshot-dev/real-20261007b --borradores 3
+python src/interfaz/app.py --db <ruta que imprimió el paso anterior>
+```
+Abrir `http://127.0.0.1:8765`. Con `--borradores 0` el paso 5 tarda ~1 minuto; cada borrador con el modelo local suma ~60–90 s en CPU.
 
 ## Empieza aquí
 1. Lee [AGENTS.md](AGENTS.md), también con una IA que no lo cargue automáticamente.
