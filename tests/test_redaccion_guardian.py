@@ -8,7 +8,7 @@ from unittest.mock import patch
 from scripts.modelo_datos import DEFAULT_FIXTURE, load_fixture, save_new
 from src.editorial.cronometro import estimar_segundos, resumen_cronometro
 from src.ia.guardian import validar_oraciones
-from src.ia.redaccion import cargar_evidencias_caso, generar_paquete, guardar_borrador
+from src.ia.redaccion import _sentences, cargar_evidencias_caso, generar_paquete, guardar_borrador
 from src.interfaz import app as interfaz_app
 from src.interfaz.app import Handler, add_review, connect, save_human_version
 from tests.helpers import temporary_directory
@@ -76,6 +76,11 @@ class RedaccionTests(unittest.TestCase):
         db = load_fixture(json.loads(DEFAULT_FIXTURE.read_text(encoding="utf-8")))
         save_new(db, self.path)
         db.close()
+
+    def test_abreviaturas_no_parten_oraciones(self):
+        # Caso real 2026-10-08: el copy de la donación quedó como «EE.UU.» suelto.
+        self.assertEqual(_sentences("EE.UU. dona a Panamá equipos por $500 mil. Falta verificar."),
+                         ["EE.UU. dona a Panamá equipos por $500 mil.", "Falta verificar."])
 
     def test_cronometro_excluye_acotaciones(self):
         self.assertEqual(estimar_segundos("[VO] (pausa) una dos tres cuatro", 120), 2)

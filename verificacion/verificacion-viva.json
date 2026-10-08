@@ -1,38 +1,38 @@
 {
   "proyecto": "jajanken-lupa",
-  "commit": "6109b69",
+  "commit": "13e6208",
   "fecha": "2026-10-08",
   "estado": "verde",
   "corridas": [
     {
       "n": 1,
-      "comprobaciones": 44,
+      "comprobaciones": 46,
       "fallos": 0,
       "errores": 0,
       "esperas": [
         {
           "que": "cargar la agenda",
-          "ms": 333
+          "ms": 265
         },
         {
           "que": "abrir el primer caso",
-          "ms": 413
+          "ms": 371
         },
         {
-          "que": "adaptar a video vertical",
-          "ms": 292
+          "que": "generar versión reel 30 s",
+          "ms": 8759
         },
         {
           "que": "preguntar algo con evidencia",
-          "ms": 32347
+          "ms": 271
         },
         {
           "que": "preguntar algo sin evidencia",
-          "ms": 578
+          "ms": 260
         },
         {
           "que": "registrar la revisión",
-          "ms": 1160
+          "ms": 654
         },
         {
           "que": "cambiar a tema Sala",
@@ -88,17 +88,17 @@
         {
           "ok": true,
           "que": "contraste · Redacción · caso abierto · en reposo",
-          "detalle": "1491/1491 textos"
+          "detalle": "1497/1497 textos"
         },
         {
           "ok": true,
           "que": "contraste · Redacción · caso abierto · hover",
-          "detalle": "1490/1490 textos"
+          "detalle": "1496/1496 textos"
         },
         {
           "ok": true,
           "que": "contraste · Redacción · caso abierto · hover + active",
-          "detalle": "1491/1491 textos"
+          "detalle": "1497/1497 textos"
         },
         {
           "ok": true,
@@ -117,33 +117,43 @@
         },
         {
           "ok": true,
-          "que": "la guía rápida «Cómo leer Lupa» abre como diálogo",
+          "que": "la guía rápida «Cómo leer Sourced» abre como diálogo",
           "detalle": "true"
         },
         {
           "ok": true,
-          "que": "la adaptación vertical muestra sus tres bloques",
+          "que": "la barra de criterios muestra los desplegables",
+          "detalle": "7 criterios"
+        },
+        {
+          "ok": true,
+          "que": "la versión muestra palabras y segundos frente al objetivo",
           "detalle": ""
         },
         {
           "ok": true,
-          "que": "la adaptación no repite oraciones",
-          "detalle": "3 oraciones"
+          "que": "la versión muestra las instrucciones enviadas al modelo",
+          "detalle": ""
         },
         {
           "ok": true,
-          "que": "contraste · Redacción · adaptación · en reposo",
+          "que": "la versión trae oraciones citadas sin repetir",
+          "detalle": "1 oraciones"
+        },
+        {
+          "ok": true,
+          "que": "contraste · Redacción · versión generada · en reposo",
+          "detalle": "1501/1501 textos"
+        },
+        {
+          "ok": true,
+          "que": "contraste · Redacción · versión generada · hover",
+          "detalle": "1501/1501 textos"
+        },
+        {
+          "ok": true,
+          "que": "contraste · Redacción · versión generada · hover + active",
           "detalle": "1502/1502 textos"
-        },
-        {
-          "ok": true,
-          "que": "contraste · Redacción · adaptación · hover",
-          "detalle": "1503/1503 textos"
-        },
-        {
-          "ok": true,
-          "que": "contraste · Redacción · adaptación · hover + active",
-          "detalle": "1503/1503 textos"
         },
         {
           "ok": true,
@@ -183,17 +193,17 @@
         {
           "ok": true,
           "que": "contraste · Sala · caso abierto · en reposo",
-          "detalle": "1493/1493 textos"
+          "detalle": "1499/1499 textos"
         },
         {
           "ok": true,
           "que": "contraste · Sala · caso abierto · hover",
-          "detalle": "1493/1493 textos"
+          "detalle": "1499/1499 textos"
         },
         {
           "ok": true,
           "que": "contraste · Sala · caso abierto · hover + active",
-          "detalle": "1494/1494 textos"
+          "detalle": "1500/1500 textos"
         },
         {
           "ok": true,
@@ -261,41 +271,41 @@
           "detalle": ""
         }
       ],
-      "segundos": 119
+      "segundos": 104
     },
     {
       "n": 2,
-      "comprobaciones": 44,
+      "comprobaciones": 46,
       "fallos": 0,
       "errores": 0,
       "esperas": [
         {
           "que": "cargar la agenda",
-          "ms": 380
+          "ms": 342
         },
         {
           "que": "abrir el primer caso",
-          "ms": 746
+          "ms": 351
         },
         {
-          "que": "adaptar a video vertical",
-          "ms": 312
+          "que": "generar versión reel 30 s",
+          "ms": 7766
         },
         {
           "que": "preguntar algo con evidencia",
-          "ms": 619
+          "ms": 311
         },
         {
           "que": "preguntar algo sin evidencia",
-          "ms": 369
+          "ms": 304
         },
         {
           "que": "registrar la revisión",
-          "ms": 604
+          "ms": 527
         },
         {
           "que": "cambiar a tema Sala",
-          "ms": 40
+          "ms": 24
         }
       ],
       "detalle": [
@@ -347,17 +357,17 @@
         {
           "ok": true,
           "que": "contraste · Redacción · caso abierto · en reposo",
-          "detalle": "1494/1494 textos"
+          "detalle": "1500/1500 textos"
         },
         {
           "ok": true,
           "que": "contraste · Redacción · caso abierto · hover",
-          "detalle": "1493/1493 textos"
+          "detalle": "1499/1499 textos"
         },
         {
           "ok": true,
           "que": "contraste · Redacción · caso abierto · hover + active",
-          "detalle": "1494/1494 textos"
+          "detalle": "1500/1500 textos"
         },
         {
           "ok": true,
@@ -376,33 +386,43 @@
         },
         {
           "ok": true,
-          "que": "la guía rápida «Cómo leer Lupa» abre como diálogo",
+          "que": "la guía rápida «Cómo leer Sourced» abre como diálogo",
           "detalle": "true"
         },
         {
           "ok": true,
-          "que": "la adaptación vertical muestra sus tres bloques",
+          "que": "la barra de criterios muestra los desplegables",
+          "detalle": "7 criterios"
+        },
+        {
+          "ok": true,
+          "que": "la versión muestra palabras y segundos frente al objetivo",
           "detalle": ""
         },
         {
           "ok": true,
-          "que": "la adaptación no repite oraciones",
-          "detalle": "3 oraciones"
+          "que": "la versión muestra las instrucciones enviadas al modelo",
+          "detalle": ""
         },
         {
           "ok": true,
-          "que": "contraste · Redacción · adaptación · en reposo",
+          "que": "la versión trae oraciones citadas sin repetir",
+          "detalle": "1 oraciones"
+        },
+        {
+          "ok": true,
+          "que": "contraste · Redacción · versión generada · en reposo",
+          "detalle": "1504/1504 textos"
+        },
+        {
+          "ok": true,
+          "que": "contraste · Redacción · versión generada · hover",
+          "detalle": "1504/1504 textos"
+        },
+        {
+          "ok": true,
+          "que": "contraste · Redacción · versión generada · hover + active",
           "detalle": "1505/1505 textos"
-        },
-        {
-          "ok": true,
-          "que": "contraste · Redacción · adaptación · hover",
-          "detalle": "1505/1505 textos"
-        },
-        {
-          "ok": true,
-          "que": "contraste · Redacción · adaptación · hover + active",
-          "detalle": "1506/1506 textos"
         },
         {
           "ok": true,
@@ -442,17 +462,17 @@
         {
           "ok": true,
           "que": "contraste · Sala · caso abierto · en reposo",
-          "detalle": "1497/1497 textos"
+          "detalle": "1503/1503 textos"
         },
         {
           "ok": true,
           "que": "contraste · Sala · caso abierto · hover",
-          "detalle": "1497/1497 textos"
+          "detalle": "1503/1503 textos"
         },
         {
           "ok": true,
           "que": "contraste · Sala · caso abierto · hover + active",
-          "detalle": "1498/1498 textos"
+          "detalle": "1504/1504 textos"
         },
         {
           "ok": true,
@@ -520,7 +540,7 @@
           "detalle": ""
         }
       ],
-      "segundos": 112
+      "segundos": 109
     }
   ]
 }
