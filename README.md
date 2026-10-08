@@ -21,18 +21,20 @@ Prototipo local funcionando de punta a punta con **datos reales del 7 de octubre
 | Matriz T01–T10 | 9 cumplen y T05 parcial; T10 corrida con el Wi-Fi cortado: 5/5 pasos y 0 salidas a la red (`evaluation/matriz-T01-T10.md`, `verificacion/prueba-local.md`) |
 | Notion | Dossier listo para importar (`docs/notion/dossier.md`) |
 
-Pruebas: 100/100. Verificación viva en verde dos veces (contraste en ambos temas, 360/390 px) en `verificacion/`. Prueba sin red: `python scripts/smoke_sin_red.py --db <base>` y puerta estática `python scripts/check_sin_red.py`.
+Pruebas: 104/104. Verificación viva en verde dos veces (contraste en ambos temas, 360/390 px) en `verificacion/`. Prueba sin red: `python scripts/smoke_sin_red.py --db <base>` y puerta estática `python scripts/check_sin_red.py`.
 
-## Probar en 5 pasos (Windows, macOS o Linux; sin GPU, sin claves)
+## Probar en 6 pasos (Windows, macOS o Linux; sin GPU, sin claves)
+Requisitos: Python 3.10+ y [Ollama](https://ollama.com/download) instalado. Un comando por línea (funciona igual en PowerShell 5.1, PowerShell 7, cmd y bash).
+
 ```sh
-python -m venv .venv && .venv\Scripts\activate        # en macOS/Linux: source .venv/bin/activate
-pip install -r requirements.txt
-ollama pull llama3.2:3b                                # requiere Ollama instalado
+python -m venv .venv
+.venv\Scripts\activate                                 # en macOS/Linux: source .venv/bin/activate
+pip install -r requirements.txt                        # ~5 min la primera vez (PyTorch para CPU)
+ollama pull llama3.2:3b
 python scripts/preparar_modelos.py                     # descarga y verifica el modelo de embeddings (una vez)
 python scripts/preparar_demo.py --snapshot data/snapshot-dev/real-20261007b --borradores 3
-python src/interfaz/app.py --db <ruta que imprimió el paso anterior>
 ```
-Abrir `http://127.0.0.1:8765`. Con `--borradores 0` el paso 5 tarda ~1 minuto; cada borrador con el modelo local suma ~60–90 s en CPU.
+El último paso imprime `"siguiente_paso"`: copia y ejecuta ese comando (`python src/interfaz/app.py --db "data/local/demo-<marca>.sqlite"`; usa la base **sin** `-importada` en el nombre) y abre `http://127.0.0.1:8765`. Con `--borradores 0` el paso tarda ~1–3 minutos; cada borrador con el modelo local suma ~60–90 s en CPU. Al arrancar, la interfaz precarga el modelo de embeddings (unos segundos) para que la primera pregunta no espere.
 
 ## Empieza aquí
 1. Lee [AGENTS.md](AGENTS.md), también con una IA que no lo cargue automáticamente.
@@ -84,7 +86,7 @@ El último comando crea una base nueva y nunca sobrescribe. Todos los ejemplos s
 
 ## Importador e interfaz local
 
-El [recorrido local](docs/12-importador-interfaz.md) incluye carga CSV con cuarentena de filas inválidas y una primera interfaz de agenda, evidencia, borrador y revisión. Funciona con biblioteca estándar de Python y datos sintéticos; los datos oficiales siguen pendientes.
+El [recorrido local](docs/12-importador-interfaz.md) incluye carga CSV con cuarentena de filas inválidas y una primera interfaz de agenda, evidencia, borrador y revisión. Funciona con biblioteca estándar de Python; hoy se usa con el snapshot real `real-20261007b` (ver «Probar en 6 pasos»).
 
 El [baseline de agrupación y ranking](docs/13-agrupacion-ranking.md) conecta la importación con la agenda. Es una comparación determinista y explicable, no la capacidad de IA requerida por el reto.
 

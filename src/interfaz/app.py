@@ -529,6 +529,14 @@ def main():
     if not args.db.is_file():
         raise SystemExit(f"Base no encontrada: {args.db}")
     Handler.db_path = args.db.resolve()
+    with connect(Handler.db_path) as db:
+        try:
+            casos = db.execute("SELECT COUNT(*) FROM casos").fetchone()[0]
+        except sqlite3.Error:
+            casos = 0
+    if not casos:
+        print(f"Aviso: {args.db.name} no tiene casos. Si su nombre termina en «-importada», usa la base "
+              "sin ese sufijo (la que imprimió preparar_demo.py en «siguiente_paso»).")
     server = ThreadingHTTPServer(("127.0.0.1", args.port), Handler)
     if not args.sin_calentar:
         threading.Thread(target=calentar_modelo, args=(Handler.db_path,), daemon=True).start()
