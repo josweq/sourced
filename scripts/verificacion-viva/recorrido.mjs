@@ -23,7 +23,7 @@ import { auditarConEstados } from './contraste-vivo.mjs'
 import { medirAnchos } from './anchos-movil.mjs'
 
 // ============================================================ CONFIGURACIÓN
-const PROYECTO = 'jajanken-lupa'
+const PROYECTO = 'sourced'
 const PAGINA = /^https?:\/\/(localhost|127\.0\.0\.1)[:/]|^file:/i
 // ==================================================== FIN DE LA CONFIGURACIÓN
 
@@ -47,7 +47,7 @@ try { commit = execSync('git rev-parse --short HEAD', { encoding: 'utf8', stdio:
 async function recorrido(app, { ok, medir, marca }) {
   await app.tamano(1366, 860, { movil: false })
   await app.recargar()
-  await app.js(`localStorage.removeItem('lupa-tema'); document.documentElement.removeAttribute('data-tema')`)
+  await app.js(`localStorage.removeItem('sourced-tema'); document.documentElement.removeAttribute('data-tema')`)
   await app.recargar()
   const contraste = async (etiqueta) => {
     await app.quieto()

@@ -4,7 +4,7 @@ Preparado 2026-10-07. Propuestas para ratificar; no fingir acuerdo del equipo ni
 D01: modalidad editorial única. Razón: TVN y alcance de tres integrantes. Alternativa: banca simultánea. Consecuencia: CU-01 a CU-04.
 D02: registro manual Notion. Razón: permitido, evita integración prematura. Alternativa: automatización. Consecuencia: cada integrante registra evidencias con IDs.
 D03: snapshot local. Razón: reproducibilidad y T10. Alternativa: fuentes en vivo. Consecuencia: versiones y fallback, sin prometer actualidad.
-D04: Lupa con agenda/radiografía/mesa. Propuesta visual ajustable.
+D04: Sourced con agenda/radiografía/mesa. Propuesta visual ajustable.
 
 ## Organización
 - Alcance filtro temporal de sección 7.
@@ -27,5 +27,5 @@ Estas instrucciones sustituyen el reparto provisional y pausan registros en Noti
 ## D05: modelo de datos de referencia, 2026-10-07
 Diego autorizó proceder con el modelo y ejemplos de prueba. Se implementó un contrato v1 en SQLite con validación Python de biblioteca estándar, sin elegir el stack definitivo de la aplicación. Alternativa: documentación sin esquema ejecutable. Motivo: comprobar claves, relaciones, nulos y citas antes de integrar IA e interfaz. No se descargaron datos reales ni se asignaron tareas. Ver docs/11-modelo-datos.md.
 
-## D-VIS-01: sistema visual base de Lupa, 2026-10-07
+## D-VIS-01: sistema visual base, 2026-10-07 (reemplazado por la identidad Sourced el 2026-10-08)
 Tema claro Redacción por defecto con azul propio afín al ecosistema televisivo, sin usar `#005588`, logo ni nombre de TVN como marca. Tema oscuro Sala conserva el lima `#c9ff68` como acento. Motivo: separar identidad del prototipo y legibilidad editorial. Consecuencia: tokens centralizados, puerta de contraste y cambio de tema local sin llamadas de red.

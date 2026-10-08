@@ -34,18 +34,18 @@ Las ediciones humanas crean una versión nueva del borrador. Si una oración cit
 Por defecto se usa Ollama:
 
 ```sh
-set LUPA_PROVEEDOR=ollama
-set LUPA_MODELO_REDACCION=llama3.2:3b
+set SOURCED_PROVEEDOR=ollama
+set SOURCED_MODELO_REDACCION=llama3.2:3b
 set OLLAMA_HOST=http://127.0.0.1:11434
 ```
 
 Proveedor compatible OpenAI/Groq/OpenCode Zen/Go, apagado si falta clave:
 
 ```sh
-set LUPA_PROVEEDOR=openai_compat
-set LUPA_BASE_URL=https://...
-set LUPA_API_KEY=...
-set LUPA_MODELO_REDACCION=...
+set SOURCED_PROVEEDOR=openai_compat
+set SOURCED_BASE_URL=https://...
+set SOURCED_API_KEY=...
+set SOURCED_MODELO_REDACCION=...
 ```
 
 Las credenciales solo se leen del entorno y no se registran en logs. Cada llamada guarda proveedor, modelo, parámetros, tokens disponibles y milisegundos.

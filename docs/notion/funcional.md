@@ -117,22 +117,25 @@ En la mesa, la persona registra su nombre, el estado (en revisión, requiere evi
 
 ## 8. Gestión del proyecto
 
+### Cómo trabajamos
+Sourced es obra del equipo Jajanken completo: Josué Carrillo, Diego Laverde y Juan Andrés López decidimos juntos el alcance, el diseño y la identidad, etiquetamos y revisamos los datos a mano, probamos la herramienta y preparamos la documentación y la presentación. Por practicidad, el código se integró y publicó desde un solo equipo y una sola cuenta de GitHub, por eso la mayoría de los commits aparecen con un mismo autor. Usamos asistentes de IA (Codex para construir partes del código y Claude para auditarlo y documentarlo), siempre bajo revisión del equipo.
+
 ### Plan
 | # | Tarea | Responsable | Estado |
 |---|---|---|---|
-| 1 | Analizar las bases del reto y el repositorio de partida | Josué, Diego | Hecho |
+| 1 | Analizar las bases del reto y el repositorio de partida | Equipo Jajanken | Hecho |
 | 2 | Modelo de datos, importador, agenda y búsqueda base | Diego | Hecho |
-| 3 | Blueprint de arquitectura | Josué | Hecho |
-| 4 | Snapshot reproducible (5 RSS, Banco Mundial, USGS) | Josué + Codex | Hecho |
-| 5 | Capa de IA local (embeddings, agrupación, búsqueda) | Josué + Codex | Hecho |
-| 6 | Redacción con guardián y mesa editorial | Josué + Codex | Hecho |
-| 7 | Preguntas con cita o abstención | Josué | Hecho |
-| 8 | Benchmark y matriz T01–T10 | Josué | Hecho |
-| 9 | Etiquetado humano de temas y pares | Josué, Juanchi, Diego | Hecho |
-| 10 | Generar versión con criterios opcionales | Josué + Codex | Hecho |
-| 11 | Prueba sin internet, seguridad e instalación en limpio | Josué | Hecho |
-| 12 | Identidad Sourced (nombre, logo, interfaz) | Diego, Josué | Hecho |
-| 13 | Documentación, pitch y entrega | Juanchi, Diego, Josué | Hecho |
+| 3 | Blueprint de arquitectura | Equipo Jajanken | Hecho |
+| 4 | Snapshot reproducible (5 RSS, Banco Mundial, USGS) | Equipo Jajanken | Hecho |
+| 5 | Capa de IA local (embeddings, agrupación, búsqueda) | Equipo Jajanken | Hecho |
+| 6 | Redacción con guardián y mesa editorial | Equipo Jajanken | Hecho |
+| 7 | Preguntas con cita o abstención | Equipo Jajanken | Hecho |
+| 8 | Benchmark y matriz T01–T10 | Equipo Jajanken | Hecho |
+| 9 | Etiquetado humano de temas y pares | Equipo Jajanken | Hecho |
+| 10 | Generar versión con criterios opcionales | Equipo Jajanken | Hecho |
+| 11 | Prueba sin internet, seguridad e instalación en limpio | Equipo Jajanken | Hecho |
+| 12 | Identidad Sourced (nombre, logo, interfaz) | Equipo Jajanken | Hecho |
+| 13 | Documentación, pitch y entrega | Equipo Jajanken | Hecho |
 
 ### Decisiones
 | Decisión | Por qué | Alternativa descartada |
@@ -142,7 +145,7 @@ En la mesa, la persona registra su nombre, el estado (en revisión, requiere evi
 | `llama3.2:3b` elegido en un banco de 5 modelos | El más fiel: no inventó cifras | `qwen3:4b` (mejor prosa, inventó «maíz y frutas tropicales») |
 | RSS de 5 medios panameños en vez de GDELT | GDELT respondió HTTP 429; varios medios permiten distinguir repetición de corroboración | Esperar a GDELT |
 | Agrupación conservadora (umbral 0,945) | Con 0,90 se fusionaban hechos distintos | Umbral bajo (más duplicados unidos, más errores) |
-| Nombre **Sourced** e identidad «papel, tinta y resaltador» | Dice la promesa; evita la estética genérica de las apps de IA | «Jajanken Lupa», paleta azul/lima |
+| Nombre **Sourced** e identidad «papel, tinta y resaltador» | Dice la promesa; evita la estética genérica de las apps de IA | Nombre de trabajo anterior y paleta azul/lima |
 
 ### Bitácora
 La cronología completa con cada commit está en el [dossier del repositorio](https://github.com/pixeltabletop/jajanken-lupa/blob/main/docs/notion/dossier.md#9-bit%C3%A1cora-cronolog%C3%ADa-con-evidencia).

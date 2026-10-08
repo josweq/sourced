@@ -2,7 +2,9 @@
 *Nada sin fuente.*
 **Antes de contar una historia, mostramos qué la sostiene.**
 
-Copiloto editorial para el reto TVN Media. Equipo: **Josué, Juanchi y Diego**.
+Copiloto editorial para el reto TVN Media. Equipo Jajanken: **Josué Carrillo, Diego Laverde y Juan Andrés López**.
+
+**Cómo trabajamos.** Sourced es obra del equipo Jajanken completo: Josué Carrillo, Diego Laverde y Juan Andrés López decidimos juntos el alcance, el diseño y la identidad, etiquetamos y revisamos los datos a mano, probamos la herramienta y preparamos la documentación y la presentación. Por practicidad, el código se integró y publicó desde un solo equipo y una sola cuenta de GitHub, por eso la mayoría de los commits aparecen con un mismo autor. Usamos asistentes de IA (Codex para construir partes del código y Claude para auditarlo y documentarlo), siempre bajo revisión del equipo.
 Convierte noticias públicas e indicadores oficiales en agenda priorizada, fichas trazables y borradores para revisión humana.
 
 ## Estado real (2026-10-08, rama `main`)

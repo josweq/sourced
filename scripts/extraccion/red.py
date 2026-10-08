@@ -9,7 +9,7 @@ import http.client
 # Algunos medios (La Prensa) responden con más de 100 cabeceras; el límite por defecto de http.client corta en 100.
 http.client._MAXHEADERS = 1000
 
-USER_AGENT = "Jajanken-Lupa-Snapshot-Dev/1.0 (+https://github.com/pixeltabletop/jajanken-lupa)"
+USER_AGENT = "Sourced-Snapshot-Dev/1.0 (+https://github.com/pixeltabletop/sourced)"
 
 
 def _retry_after_s(headers):

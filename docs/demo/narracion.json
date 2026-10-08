@@ -1,0 +1,52 @@
+[
+ {
+  "n": 0,
+  "titulo": "Sourced",
+  "texto": "Esto es Sourced: un copiloto editorial para la redacción de TVN. Nada sin fuente."
+ },
+ {
+  "n": 1,
+  "titulo": "Agenda priorizada",
+  "texto": "La agenda ordena los temas del día. Cada tarjeta separa dos cosas: qué tan importante es, y qué tan respaldado está."
+ },
+ {
+  "n": 2,
+  "titulo": "Un hecho, dos medios",
+  "texto": "Crítica y TVN publican la misma donación de Estados Unidos. Sourced las une en un solo caso, pero la evidencia sigue insuficiente: ninguno dice de dónde sale el dato."
+ },
+ {
+  "n": 3,
+  "titulo": "Mesa editorial y guardián",
+  "texto": "En la mesa editorial, cada oración del borrador lleva su cita. El guardián retira cualquier frase con términos que no estén en la evidencia, y dice por qué."
+ },
+ {
+  "n": 4,
+  "titulo": "Generar versión",
+  "texto": "Para otra pieza, eliges solo los criterios que quieras: formato, duración, palabras, tono, enfoque o público. Aquí, un reel de treinta segundos en tono cercano. Sourced arma las instrucciones, el modelo local redacta en la propia laptop, sin internet, y el guardián revisa cada oración."
+ },
+ {
+  "n": 41,
+  "titulo": "Generar versión: alcance",
+  "texto": "Si la evidencia no alcanza para treinta segundos, no rellena: lo dice, y señala que falta la fuente primaria. Las instrucciones que recibió el modelo quedan a la vista."
+ },
+ {
+  "n": 5,
+  "titulo": "Preguntar",
+  "texto": "También responde preguntas. La inflación de hoy no existe en los datos: da la cifra oficial de dos mil veinticuatro y aclara que no es actual. Y si no hay evidencia, como el precio del oro en Bolivia, se abstiene."
+ },
+ {
+  "n": 6,
+  "titulo": "Revisión humana",
+  "texto": "La decisión es siempre de una persona. Quien revisa deja su nombre, el estado y un comentario, y todo queda en el historial. No existe el botón publicar: lo máximo es aprobado como borrador."
+ },
+ {
+  "n": 7,
+  "titulo": "Sala y teléfono",
+  "texto": "Tiene un tema oscuro para la sala de control, y funciona en el teléfono."
+ },
+ {
+  "n": 8,
+  "titulo": "Cierre",
+  "texto": "Sourced corre en una laptop, sin internet y sin claves. Antes de contar una historia, mostramos qué la sostiene."
+ }
+]

@@ -23,7 +23,7 @@ const guardar = async (nombre) => { await app.quieto(); await app.dormir(400); c
 
 await app.tamano(1366, 860, { movil: false })
 await app.recargar()
-await app.js(`localStorage.removeItem('lupa-tema'); document.documentElement.removeAttribute('data-tema')`)
+await app.js(`localStorage.removeItem('sourced-tema'); document.documentElement.removeAttribute('data-tema')`)
 await app.recargar()
 await app.esperarCambio(`document.querySelectorAll('#cases .case').length > 0`, async () => {}, 'la agenda')
 

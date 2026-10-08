@@ -120,11 +120,11 @@ function setTheme(theme) {
   if (safeTheme === 'sala') document.documentElement.dataset.tema = 'sala';
   else delete document.documentElement.dataset.tema;
   themeButtons.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.temaOpcion === safeTheme)));
-  try { localStorage.setItem('lupa-tema', safeTheme); } catch (_) {}
+  try { localStorage.setItem('sourced-tema', safeTheme); } catch (_) {}
 }
 
 function readTheme() {
-  try { return localStorage.getItem('lupa-tema') || 'redaccion'; } catch (_) { return 'redaccion'; }
+  try { return localStorage.getItem('sourced-tema') || 'redaccion'; } catch (_) { return 'redaccion'; }
 }
 
 function setPanel(panel) {
@@ -301,7 +301,7 @@ function scriptSeconds(text, ppm) {
 }
 
 function readPpm() {
-  try { return Number(localStorage.getItem('lupa-ppm')) || 160; } catch (_) { return 160; }
+  try { return Number(localStorage.getItem('sourced-ppm')) || 160; } catch (_) { return 160; }
 }
 
 function cronLabel(seconds) {
@@ -411,7 +411,7 @@ function wireDraftControls() {
   }));
   wireCitationButtons();
   const ppm = detailEl.querySelector('#ppm-input');
-  if (ppm) ppm.addEventListener('change', () => { try { localStorage.setItem('lupa-ppm', ppm.value); } catch (_) {} loadDetail(selected); });
+  if (ppm) ppm.addEventListener('change', () => { try { localStorage.setItem('sourced-ppm', ppm.value); } catch (_) {} loadDetail(selected); });
   detailEl.querySelectorAll('.regenerate').forEach(button => button.addEventListener('click', regenerateDraft));
   const editForm = detailEl.querySelector('.draft-edit-form');
   if (editForm) {

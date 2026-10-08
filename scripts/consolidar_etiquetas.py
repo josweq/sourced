@@ -1,7 +1,7 @@
 """Convierte las hojas de revisión humana en las etiquetas que usa la capa de IA.
 
 Uso:
-    python scripts/consolidar_etiquetas.py data/local/etiquetado/Etiquetado-Lupa-*.xlsx
+    python scripts/consolidar_etiquetas.py data/local/etiquetado/Etiquetado-*.xlsx
 Escribe evaluation/etiquetas/temas.csv y pares.csv. Reglas:
 - «Sí» en «¿De acuerdo?» adopta la propuesta de Codex; «No» usa «Tu tema» (temas) o invierte la propuesta (pares).
 - Una fila sin revisar NO se acepta: queda fuera (las etiquetas deben ser humanas).
