@@ -18,10 +18,10 @@ Prototipo local funcionando de punta a punta con **datos reales del 7 de octubre
 | Adaptar la nota: TV, radio 30 s, video vertical 60 s, web y alerta (duración, énfasis, tono) | Hecho |
 | Guías «qué significa» en cada sección y guía rápida «Cómo leer Lupa» | Hecho |
 | Benchmark de desarrollo (40 preguntas) | 37/40 · abstención correcta 7/7 · citas 33/33 · mediana 58 ms (`evaluation/resultados/`) |
-| Matriz T01–T10 | 8 cumplen, T05 parcial, T10 pendiente de la corrida con la red cortada (`evaluation/matriz-T01-T10.md`) |
+| Matriz T01–T10 | 9 cumplen y T05 parcial; T10 corrida con el Wi-Fi cortado: 5/5 pasos y 0 salidas a la red (`evaluation/matriz-T01-T10.md`, `verificacion/prueba-local.md`) |
 | Notion | Dossier listo para importar (`docs/notion/dossier.md`) |
 
-Pruebas: 96/96. Verificación viva en verde dos veces (contraste en ambos temas, 360/390 px) en `verificacion/`. Prueba sin red: `python scripts/smoke_sin_red.py --db <base>`.
+Pruebas: 100/100. Verificación viva en verde dos veces (contraste en ambos temas, 360/390 px) en `verificacion/`. Prueba sin red: `python scripts/smoke_sin_red.py --db <base>` y puerta estática `python scripts/check_sin_red.py`.
 
 ## Probar en 5 pasos (Windows, macOS o Linux; sin GPU, sin claves)
 ```sh

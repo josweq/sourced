@@ -49,7 +49,7 @@ Cobertura de citas 100 % · abstención correcta ≥ 80 % · ninguna cifra inven
 | 9 | Etiquetado humano de temas y pares (pre-etiquetado por Codex, revisado por persona) | Josué, Diego, Juanchi | En curso |
 | 10 | Formatos de adaptación (TV, radio, vertical, web, alerta) | Josué + Codex | Hecho |
 | 10b | Guías «qué significa» y guía rápida en la interfaz | Josué + Codex | Hecho |
-| 11 | Prueba sin internet (T10) | Josué | Pendiente |
+| 11 | Prueba sin internet (T10) | Josué | Hecho |
 | 12 | Integración, pitch y entrega | Diego, Juanchi, Josué | Pendiente |
 
 ### Decisiones justificadas
@@ -155,7 +155,7 @@ Capturas: `verificacion/capturas/real-caso-mesa.png`, `real-pregunta.png`, `real
 ## 6. Pruebas y métricas
 
 ### Matriz T01–T10
-Ver `evaluation/matriz-T01-T10.md` en el repositorio. Resumen: **8 cumplen, T05 parcial (no detecta contradicciones entre noticias de forma automática) y T10 pendiente** (falta la corrida con la red cortada).
+Ver `evaluation/matriz-T01-T10.md` en el repositorio. Resumen: **9 cumplen y T05 parcial** (no detecta contradicciones entre noticias de forma automática). T10 se corrió con el Wi-Fi cortado: 5/5 pasos, 0 de 52 intentos de la sonda alcanzaron la red.
 
 ### Benchmark de desarrollo (40 preguntas)
 | Métrica | Resultado |
