@@ -1,6 +1,6 @@
 {
   "proyecto": "jajanken-lupa",
-  "commit": "1a79e0f",
+  "commit": "d44278a",
   "fecha": "2026-10-08",
   "estado": "verde",
   "corridas": [
@@ -12,31 +12,31 @@
       "esperas": [
         {
           "que": "cargar la agenda",
-          "ms": 353
+          "ms": 624
         },
         {
           "que": "abrir el primer caso",
-          "ms": 452
+          "ms": 592
         },
         {
           "que": "generar versión reel 30 s",
-          "ms": 30011
+          "ms": 29768
         },
         {
           "que": "preguntar algo con evidencia",
-          "ms": 1083
+          "ms": 1056
         },
         {
           "que": "preguntar algo sin evidencia",
-          "ms": 287
+          "ms": 274
         },
         {
           "que": "registrar la revisión",
-          "ms": 541
+          "ms": 831
         },
         {
           "que": "cambiar a tema Sala",
-          "ms": 253
+          "ms": 29
         }
       ],
       "detalle": [
@@ -88,17 +88,17 @@
         {
           "ok": true,
           "que": "contraste · Redacción · caso abierto · en reposo",
-          "detalle": "1512/1512 textos"
+          "detalle": "1497/1497 textos"
         },
         {
           "ok": true,
           "que": "contraste · Redacción · caso abierto · hover",
-          "detalle": "1511/1511 textos"
+          "detalle": "1496/1496 textos"
         },
         {
           "ok": true,
           "que": "contraste · Redacción · caso abierto · hover + active",
-          "detalle": "1511/1511 textos"
+          "detalle": "1496/1496 textos"
         },
         {
           "ok": true,
@@ -143,17 +143,17 @@
         {
           "ok": true,
           "que": "contraste · Redacción · versión generada · en reposo",
-          "detalle": "1516/1516 textos"
+          "detalle": "1501/1501 textos"
         },
         {
           "ok": true,
           "que": "contraste · Redacción · versión generada · hover",
-          "detalle": "1516/1516 textos"
+          "detalle": "1501/1501 textos"
         },
         {
           "ok": true,
           "que": "contraste · Redacción · versión generada · hover + active",
-          "detalle": "1516/1516 textos"
+          "detalle": "1501/1501 textos"
         },
         {
           "ok": true,
@@ -183,7 +183,7 @@
         {
           "ok": true,
           "que": "la revisión nueva aparece con su persona revisora",
-          "detalle": "antes 4"
+          "detalle": "antes 0"
         },
         {
           "ok": true,
@@ -193,17 +193,17 @@
         {
           "ok": true,
           "que": "contraste · Sala · caso abierto · en reposo",
-          "detalle": "1516/1516 textos"
+          "detalle": "1499/1499 textos"
         },
         {
           "ok": true,
           "que": "contraste · Sala · caso abierto · hover",
-          "detalle": "1515/1515 textos"
+          "detalle": "1499/1499 textos"
         },
         {
           "ok": true,
           "que": "contraste · Sala · caso abierto · hover + active",
-          "detalle": "1515/1515 textos"
+          "detalle": "1499/1499 textos"
         },
         {
           "ok": true,
@@ -271,7 +271,7 @@
           "detalle": ""
         }
       ],
-      "segundos": 311
+      "segundos": 368
     },
     {
       "n": 2,
@@ -281,31 +281,31 @@
       "esperas": [
         {
           "que": "cargar la agenda",
-          "ms": 568
+          "ms": 633
         },
         {
           "que": "abrir el primer caso",
-          "ms": 390
+          "ms": 327
         },
         {
           "que": "generar versión reel 30 s",
-          "ms": 11012
+          "ms": 34840
         },
         {
           "que": "preguntar algo con evidencia",
-          "ms": 1106
+          "ms": 1079
         },
         {
           "que": "preguntar algo sin evidencia",
-          "ms": 285
+          "ms": 315
         },
         {
           "que": "registrar la revisión",
-          "ms": 575
+          "ms": 265
         },
         {
           "que": "cambiar a tema Sala",
-          "ms": 308
+          "ms": 87
         }
       ],
       "detalle": [
@@ -357,17 +357,17 @@
         {
           "ok": true,
           "que": "contraste · Redacción · caso abierto · en reposo",
-          "detalle": "1516/1516 textos"
+          "detalle": "1500/1500 textos"
         },
         {
           "ok": true,
           "que": "contraste · Redacción · caso abierto · hover",
-          "detalle": "1515/1515 textos"
+          "detalle": "1499/1499 textos"
         },
         {
           "ok": true,
           "que": "contraste · Redacción · caso abierto · hover + active",
-          "detalle": "1515/1515 textos"
+          "detalle": "1499/1499 textos"
         },
         {
           "ok": true,
@@ -412,17 +412,17 @@
         {
           "ok": true,
           "que": "contraste · Redacción · versión generada · en reposo",
-          "detalle": "1520/1520 textos"
+          "detalle": "1504/1504 textos"
         },
         {
           "ok": true,
           "que": "contraste · Redacción · versión generada · hover",
-          "detalle": "1520/1520 textos"
+          "detalle": "1504/1504 textos"
         },
         {
           "ok": true,
           "que": "contraste · Redacción · versión generada · hover + active",
-          "detalle": "1520/1520 textos"
+          "detalle": "1504/1504 textos"
         },
         {
           "ok": true,
@@ -452,7 +452,7 @@
         {
           "ok": true,
           "que": "la revisión nueva aparece con su persona revisora",
-          "detalle": "antes 5"
+          "detalle": "antes 1"
         },
         {
           "ok": true,
@@ -462,17 +462,17 @@
         {
           "ok": true,
           "que": "contraste · Sala · caso abierto · en reposo",
-          "detalle": "1520/1520 textos"
+          "detalle": "1504/1504 textos"
         },
         {
           "ok": true,
           "que": "contraste · Sala · caso abierto · hover",
-          "detalle": "1519/1519 textos"
+          "detalle": "1503/1503 textos"
         },
         {
           "ok": true,
           "que": "contraste · Sala · caso abierto · hover + active",
-          "detalle": "1519/1519 textos"
+          "detalle": "1503/1503 textos"
         },
         {
           "ok": true,
@@ -540,7 +540,7 @@
           "detalle": ""
         }
       ],
-      "segundos": 298
+      "segundos": 282
     }
   ]
 }
