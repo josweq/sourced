@@ -49,6 +49,17 @@ class GuardianTests(unittest.TestCase):
         self.assertTrue(result.abstencion)
         self.assertIn("Terminos sin respaldo", result.retiradas[0]["motivo"])
 
+    def test_rechaza_negacion_y_multiplicador_sin_respaldo(self):
+        # Auditoría 2026-10-08 (CN-002): solo se revisaban palabras de 4+ letras.
+        result = validar_oraciones([
+            {"texto": "Canal de Panamá no reduce calado máximo por sequía en el lago Gatún.", "evidencia_id": "EV1", "tipo": "inferencia"},
+            {"texto": "Navieras reportan demoras de hasta 10 mil días en tránsitos por el Canal.", "evidencia_id": "EV2", "tipo": "inferencia"},
+            {"texto": "Canal de Panamá reduce calado máximo por sequía en el lago Gatún.", "evidencia_id": "EV1", "tipo": "declaracion"},
+        ], EV)
+        self.assertEqual(len(result.retiradas), 2, result.retiradas)
+        self.assertTrue(all("Negación o escala" in r["motivo"] for r in result.retiradas))
+        self.assertEqual(len(result.aceptadas), 1)
+
     def test_excluye_evidencia_maliciosa_y_cita_de_otro_caso(self):
         result = validar_oraciones([
             {"texto": "El Canal cerró definitivamente.", "evidencia_id": "EV4", "tipo": "declaracion"},

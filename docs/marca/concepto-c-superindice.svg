@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 96" role="img" aria-label="Sourced con llamada de nota">
+  <rect width="360" height="96" fill="#fbfbf8"/>
+  <text x="26" y="64" font-family="Source Serif 4, Georgia, serif" font-weight="600" font-size="52" letter-spacing="-1" fill="#1a1a1c">Sourced</text>
+  <rect x="236" y="18" width="26" height="30" rx="3" fill="#ffd84d"/>
+  <text x="249" y="41" text-anchor="middle" font-family="Source Code Pro, monospace" font-weight="500" font-size="22" fill="#1a1a1c">1</text>
+</svg>

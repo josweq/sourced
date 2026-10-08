@@ -1,6 +1,6 @@
 {
   "proyecto": "jajanken-lupa",
-  "commit": "13e6208",
+  "commit": "1a79e0f",
   "fecha": "2026-10-08",
   "estado": "verde",
   "corridas": [
@@ -12,31 +12,31 @@
       "esperas": [
         {
           "que": "cargar la agenda",
-          "ms": 265
+          "ms": 353
         },
         {
           "que": "abrir el primer caso",
-          "ms": 371
+          "ms": 452
         },
         {
           "que": "generar versión reel 30 s",
-          "ms": 8759
+          "ms": 30011
         },
         {
           "que": "preguntar algo con evidencia",
-          "ms": 271
+          "ms": 1083
         },
         {
           "que": "preguntar algo sin evidencia",
-          "ms": 260
+          "ms": 287
         },
         {
           "que": "registrar la revisión",
-          "ms": 654
+          "ms": 541
         },
         {
           "que": "cambiar a tema Sala",
-          "ms": 16
+          "ms": 253
         }
       ],
       "detalle": [
@@ -73,7 +73,7 @@
         {
           "ok": true,
           "que": "caben ≥ 5 tarjetas a 1366×860",
-          "detalle": "capacidad 5 en 552 px"
+          "detalle": "capacidad 5 en 551 px"
         },
         {
           "ok": true,
@@ -88,17 +88,17 @@
         {
           "ok": true,
           "que": "contraste · Redacción · caso abierto · en reposo",
-          "detalle": "1497/1497 textos"
+          "detalle": "1512/1512 textos"
         },
         {
           "ok": true,
           "que": "contraste · Redacción · caso abierto · hover",
-          "detalle": "1496/1496 textos"
+          "detalle": "1511/1511 textos"
         },
         {
           "ok": true,
           "que": "contraste · Redacción · caso abierto · hover + active",
-          "detalle": "1497/1497 textos"
+          "detalle": "1511/1511 textos"
         },
         {
           "ok": true,
@@ -143,17 +143,17 @@
         {
           "ok": true,
           "que": "contraste · Redacción · versión generada · en reposo",
-          "detalle": "1501/1501 textos"
+          "detalle": "1516/1516 textos"
         },
         {
           "ok": true,
           "que": "contraste · Redacción · versión generada · hover",
-          "detalle": "1501/1501 textos"
+          "detalle": "1516/1516 textos"
         },
         {
           "ok": true,
           "que": "contraste · Redacción · versión generada · hover + active",
-          "detalle": "1502/1502 textos"
+          "detalle": "1516/1516 textos"
         },
         {
           "ok": true,
@@ -183,7 +183,7 @@
         {
           "ok": true,
           "que": "la revisión nueva aparece con su persona revisora",
-          "detalle": "antes 0"
+          "detalle": "antes 4"
         },
         {
           "ok": true,
@@ -193,17 +193,17 @@
         {
           "ok": true,
           "que": "contraste · Sala · caso abierto · en reposo",
-          "detalle": "1499/1499 textos"
+          "detalle": "1516/1516 textos"
         },
         {
           "ok": true,
           "que": "contraste · Sala · caso abierto · hover",
-          "detalle": "1499/1499 textos"
+          "detalle": "1515/1515 textos"
         },
         {
           "ok": true,
           "que": "contraste · Sala · caso abierto · hover + active",
-          "detalle": "1500/1500 textos"
+          "detalle": "1515/1515 textos"
         },
         {
           "ok": true,
@@ -218,7 +218,7 @@
         {
           "ok": true,
           "que": "ancho sala · 360 px Mesa",
-          "detalle": "{\"ancho\":360,\"pestana\":\"Mesa\",\"ventana\":360,\"pagina\":345,\"peor\":{\"derecha\":412,\"que\":\"button\"},\"ok\":true}"
+          "detalle": "{\"ancho\":360,\"pestana\":\"Mesa\",\"ventana\":360,\"pagina\":345,\"peor\":{\"derecha\":380,\"que\":\"button\"},\"ok\":true}"
         },
         {
           "ok": true,
@@ -233,7 +233,7 @@
         {
           "ok": true,
           "que": "ancho sala · 390 px Mesa",
-          "detalle": "{\"ancho\":390,\"pestana\":\"Mesa\",\"ventana\":390,\"pagina\":375,\"peor\":{\"derecha\":412,\"que\":\"button\"},\"ok\":true}"
+          "detalle": "{\"ancho\":390,\"pestana\":\"Mesa\",\"ventana\":390,\"pagina\":375,\"peor\":null,\"ok\":true}"
         },
         {
           "ok": true,
@@ -248,7 +248,7 @@
         {
           "ok": true,
           "que": "ancho redaccion · 360 px Mesa",
-          "detalle": "{\"ancho\":360,\"pestana\":\"Mesa\",\"ventana\":360,\"pagina\":345,\"peor\":{\"derecha\":378,\"que\":\"button\"},\"ok\":true}"
+          "detalle": "{\"ancho\":360,\"pestana\":\"Mesa\",\"ventana\":360,\"pagina\":345,\"peor\":null,\"ok\":true}"
         },
         {
           "ok": true,
@@ -271,7 +271,7 @@
           "detalle": ""
         }
       ],
-      "segundos": 104
+      "segundos": 311
     },
     {
       "n": 2,
@@ -281,31 +281,31 @@
       "esperas": [
         {
           "que": "cargar la agenda",
-          "ms": 342
+          "ms": 568
         },
         {
           "que": "abrir el primer caso",
-          "ms": 351
+          "ms": 390
         },
         {
           "que": "generar versión reel 30 s",
-          "ms": 7766
+          "ms": 11012
         },
         {
           "que": "preguntar algo con evidencia",
-          "ms": 311
+          "ms": 1106
         },
         {
           "que": "preguntar algo sin evidencia",
-          "ms": 304
+          "ms": 285
         },
         {
           "que": "registrar la revisión",
-          "ms": 527
+          "ms": 575
         },
         {
           "que": "cambiar a tema Sala",
-          "ms": 24
+          "ms": 308
         }
       ],
       "detalle": [
@@ -342,7 +342,7 @@
         {
           "ok": true,
           "que": "caben ≥ 5 tarjetas a 1366×860",
-          "detalle": "capacidad 5 en 552 px"
+          "detalle": "capacidad 5 en 551 px"
         },
         {
           "ok": true,
@@ -357,17 +357,17 @@
         {
           "ok": true,
           "que": "contraste · Redacción · caso abierto · en reposo",
-          "detalle": "1500/1500 textos"
+          "detalle": "1516/1516 textos"
         },
         {
           "ok": true,
           "que": "contraste · Redacción · caso abierto · hover",
-          "detalle": "1499/1499 textos"
+          "detalle": "1515/1515 textos"
         },
         {
           "ok": true,
           "que": "contraste · Redacción · caso abierto · hover + active",
-          "detalle": "1500/1500 textos"
+          "detalle": "1515/1515 textos"
         },
         {
           "ok": true,
@@ -412,17 +412,17 @@
         {
           "ok": true,
           "que": "contraste · Redacción · versión generada · en reposo",
-          "detalle": "1504/1504 textos"
+          "detalle": "1520/1520 textos"
         },
         {
           "ok": true,
           "que": "contraste · Redacción · versión generada · hover",
-          "detalle": "1504/1504 textos"
+          "detalle": "1520/1520 textos"
         },
         {
           "ok": true,
           "que": "contraste · Redacción · versión generada · hover + active",
-          "detalle": "1505/1505 textos"
+          "detalle": "1520/1520 textos"
         },
         {
           "ok": true,
@@ -452,7 +452,7 @@
         {
           "ok": true,
           "que": "la revisión nueva aparece con su persona revisora",
-          "detalle": "antes 1"
+          "detalle": "antes 5"
         },
         {
           "ok": true,
@@ -462,17 +462,17 @@
         {
           "ok": true,
           "que": "contraste · Sala · caso abierto · en reposo",
-          "detalle": "1503/1503 textos"
+          "detalle": "1520/1520 textos"
         },
         {
           "ok": true,
           "que": "contraste · Sala · caso abierto · hover",
-          "detalle": "1503/1503 textos"
+          "detalle": "1519/1519 textos"
         },
         {
           "ok": true,
           "que": "contraste · Sala · caso abierto · hover + active",
-          "detalle": "1504/1504 textos"
+          "detalle": "1519/1519 textos"
         },
         {
           "ok": true,
@@ -487,7 +487,7 @@
         {
           "ok": true,
           "que": "ancho sala · 360 px Mesa",
-          "detalle": "{\"ancho\":360,\"pestana\":\"Mesa\",\"ventana\":360,\"pagina\":345,\"peor\":{\"derecha\":412,\"que\":\"button\"},\"ok\":true}"
+          "detalle": "{\"ancho\":360,\"pestana\":\"Mesa\",\"ventana\":360,\"pagina\":345,\"peor\":{\"derecha\":380,\"que\":\"button\"},\"ok\":true}"
         },
         {
           "ok": true,
@@ -502,7 +502,7 @@
         {
           "ok": true,
           "que": "ancho sala · 390 px Mesa",
-          "detalle": "{\"ancho\":390,\"pestana\":\"Mesa\",\"ventana\":390,\"pagina\":375,\"peor\":{\"derecha\":412,\"que\":\"button\"},\"ok\":true}"
+          "detalle": "{\"ancho\":390,\"pestana\":\"Mesa\",\"ventana\":390,\"pagina\":375,\"peor\":null,\"ok\":true}"
         },
         {
           "ok": true,
@@ -517,7 +517,7 @@
         {
           "ok": true,
           "que": "ancho redaccion · 360 px Mesa",
-          "detalle": "{\"ancho\":360,\"pestana\":\"Mesa\",\"ventana\":360,\"pagina\":345,\"peor\":{\"derecha\":378,\"que\":\"button\"},\"ok\":true}"
+          "detalle": "{\"ancho\":360,\"pestana\":\"Mesa\",\"ventana\":360,\"pagina\":345,\"peor\":null,\"ok\":true}"
         },
         {
           "ok": true,
@@ -540,7 +540,7 @@
           "detalle": ""
         }
       ],
-      "segundos": 109
+      "segundos": 298
     }
   ]
 }

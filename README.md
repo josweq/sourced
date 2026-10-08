@@ -5,37 +5,47 @@
 Copiloto editorial para el reto TVN Media. Equipo: **Josué, Juanchi y Diego**.
 Convierte noticias públicas e indicadores oficiales en agenda priorizada, fichas trazables y borradores para revisión humana.
 
-## Estado real (2026-10-08, rama `josue/integracion`)
+## Estado real (2026-10-08, rama `main`)
 Prototipo local funcionando de punta a punta con **datos reales del 7 de octubre de 2026**: 284 titulares de cinco medios panameños (TVN, La Prensa, Crítica, Panamá América, En Segundos; solo titular y metadatos), 540 valores del Banco Mundial y 82 sismos de USGS. GDELT quedó fuera: respondió HTTP 429 a todas las consultas.
 
 | Pieza | Estado |
 |---|---|
 | Snapshot reproducible con manifest SHA-256 | Hecho (`data/snapshot-dev/real-20261007b/processed`) |
 | Embeddings locales (multilingual-e5-small, CPU), agrupación semántica calibrada, búsqueda híbrida | Hecho |
-| Clasificación de tema supervisada | Hecho con 189 etiquetas humanas (Josué y Juanchi): macro-F1 0,479 frente a 0,254 de reglas y 0,210 sin entrenar; agrupación evaluada con 27 pares (`evaluation/resultados/etiquetas-humanas-20261008.md`) |
+| Clasificación de tema supervisada | Hecho con 284 etiquetas revisadas por las tres personas del equipo: macro-F1 0,449 frente a 0,259 de reglas y 0,163 sin entrenar; agrupación evaluada con 40 pares (`evaluation/resultados/etiquetas-humanas-20261008.md`) |
 | Redacción con Ollama `llama3.2:3b` + guardián (citas, cifras, términos sin respaldo, tono publicitario, inyección) | Hecho |
 | Mesa editorial: brief, guion con cronómetro, copy, preguntas, versiones, revisión humana | Hecho |
 | Preguntas en español con respuesta citada o abstención (CU-02, CU-04, CU-05) | Hecho |
-| Adaptar la nota: TV, radio 30 s, video vertical 60 s, web y alerta (duración, énfasis, tono) | Hecho |
+| Generar versión: formato, duración, palabras, tono, enfoque, público y énfasis como criterios opcionales; arma el prompt, el guardián valida y no rellena lo que la evidencia no sostiene | Hecho |
+| Seguridad: auditoría OWASP/CWE sin hallazgos críticos ni altos; los medios y bajos corregidos con prueba (Host, cuerpo JSON, timeout, negaciones en el guardián) | Hecho |
 | Guías «qué significa» en cada sección y guía rápida «Cómo leer Sourced» | Hecho |
 | Benchmark de desarrollo (40 preguntas) | 37/40 · abstención correcta 7/7 · citas 33/33 · mediana 92 ms; línea base sin IA (palabras clave): 35/40 y abstención correcta 4/7 (`evaluation/resultados/`) |
 | Matriz T01–T10 | 10/10 cumplen; T05 detecta cifras incompatibles entre medios (0 en el snapshot real, sintético SYN detectado); T10 corrida con el Wi-Fi cortado: 5/5 pasos y 0 salidas a la red (`evaluation/matriz-T01-T10.md`, `verificacion/prueba-local.md`) |
 | Dossier | [`docs/notion/dossier.md`](docs/notion/dossier.md): fuente completa con capturas, decisiones, fichas, pruebas, riesgos, guion del pitch y bitácora. Copia en el espacio de Notion «hackIAthon 4taEd» (la organización indicó avanzar sin depender de Notion) |
 
-Pruebas: 121/121. Verificación viva en verde dos veces (contraste en ambos temas, 360/390 px) en `verificacion/`. Prueba sin red: `python scripts/smoke_sin_red.py --db <base>` y puerta estática `python scripts/check_sin_red.py`.
+Pruebas: 125/125. Instalación probada desde cero en un entorno limpio (clon nuevo, venv nuevo, caché de modelos vacía). Verificación viva en verde dos veces (contraste en ambos temas, 360/390 px) en `verificacion/`. Prueba sin red: `python scripts/smoke_sin_red.py --db <base>` y puerta estática `python scripts/check_sin_red.py`.
 
 ## Probar en 6 pasos (Windows, macOS o Linux; sin GPU, sin claves)
-Requisitos: Python 3.10+ y [Ollama](https://ollama.com/download) instalado. Un comando por línea (funciona igual en PowerShell 5.1, PowerShell 7, cmd y bash).
+Requisitos: Git, Python 3.10+ y [Ollama](https://ollama.com/download) instalado. Un comando por línea (funciona igual en PowerShell 5.1, PowerShell 7, cmd y bash).
 
 ```sh
+git clone https://github.com/pixeltabletop/jajanken-lupa.git
+cd jajanken-lupa
 python -m venv .venv
-.venv\Scripts\activate                                 # en macOS/Linux: source .venv/bin/activate
+.venv\Scripts\activate                                 # macOS/Linux: source .venv/bin/activate · si PowerShell lo bloquea: Set-ExecutionPolicy -Scope Process Bypass
 pip install -r requirements.txt                        # ~5 min la primera vez (PyTorch para CPU)
 ollama pull llama3.2:3b
-python scripts/preparar_modelos.py                     # descarga y verifica el modelo de embeddings (una vez)
+python scripts/preparar_modelos.py                     # descarga y verifica el modelo de embeddings (una vez); el aviso sobre HF_TOKEN es normal: no hace falta clave
 python scripts/preparar_demo.py --snapshot data/snapshot-dev/real-20261007b --borradores 3
 ```
-El último paso imprime `"siguiente_paso"`: copia y ejecuta ese comando (`python src/interfaz/app.py --db "data/local/demo-<marca>.sqlite"`; usa la base **sin** `-importada` en el nombre) y abre `http://127.0.0.1:8765`. Con `--borradores 0` el paso tarda ~1–3 minutos; cada borrador con el modelo local suma ~60–90 s en CPU. Al arrancar, la interfaz precarga el modelo de embeddings (unos segundos) para que la primera pregunta no espere.
+El último paso termina con **«Siguiente paso (cópialo tal cual)»**: copia esa línea (`python src/interfaz/app.py --db "data/local/demo-<marca>.sqlite"`) y abre `http://127.0.0.1:8765`. Con `--borradores 0` el paso tarda ~1–3 minutos; cada borrador con el modelo local suma ~60–90 s en CPU. Al arrancar, la interfaz precarga el modelo de embeddings: espera unos 20 s antes de la primera pregunta.
+
+Comprobaciones opcionales (las mismas que corre el equipo):
+```sh
+python -m unittest discover -s tests -p "test_*.py"
+python scripts/check_sin_red.py
+python scripts/check_contraste.py
+```
 
 ## Empieza aquí
 1. Lee [AGENTS.md](AGENTS.md), también con una IA que no lo cargue automáticamente.

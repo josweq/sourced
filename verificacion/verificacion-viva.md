@@ -2,7 +2,7 @@
 skill: verificar-app-viva
 estado: verde
 fecha: 2026-10-08
-commit: 13e6208
+commit: 1a79e0f
 ---
 
 # Verificación viva · jajanken-lupa
@@ -11,25 +11,25 @@ commit: 13e6208
 
 | Corrida | Comprobaciones | Fallos | Duración |
 |---|---|---|---|
-| 1 | 46 | 0 | 104 s |
-| 2 | 46 | 0 | 109 s |
+| 1 | 46 | 0 | 311 s |
+| 2 | 46 | 0 | 298 s |
 
 ## Esperas medidas
 
-- corrida 1 · cargar la agenda: 265 ms
-- corrida 1 · abrir el primer caso: 371 ms
-- corrida 1 · generar versión reel 30 s: 8759 ms
-- corrida 1 · preguntar algo con evidencia: 271 ms
-- corrida 1 · preguntar algo sin evidencia: 260 ms
-- corrida 1 · registrar la revisión: 654 ms
-- corrida 1 · cambiar a tema Sala: 16 ms
-- corrida 2 · cargar la agenda: 342 ms
-- corrida 2 · abrir el primer caso: 351 ms
-- corrida 2 · generar versión reel 30 s: 7766 ms
-- corrida 2 · preguntar algo con evidencia: 311 ms
-- corrida 2 · preguntar algo sin evidencia: 304 ms
-- corrida 2 · registrar la revisión: 527 ms
-- corrida 2 · cambiar a tema Sala: 24 ms
+- corrida 1 · cargar la agenda: 353 ms
+- corrida 1 · abrir el primer caso: 452 ms
+- corrida 1 · generar versión reel 30 s: 30011 ms
+- corrida 1 · preguntar algo con evidencia: 1083 ms
+- corrida 1 · preguntar algo sin evidencia: 287 ms
+- corrida 1 · registrar la revisión: 541 ms
+- corrida 1 · cambiar a tema Sala: 253 ms
+- corrida 2 · cargar la agenda: 568 ms
+- corrida 2 · abrir el primer caso: 390 ms
+- corrida 2 · generar versión reel 30 s: 11012 ms
+- corrida 2 · preguntar algo con evidencia: 1106 ms
+- corrida 2 · preguntar algo sin evidencia: 285 ms
+- corrida 2 · registrar la revisión: 575 ms
+- corrida 2 · cambiar a tema Sala: 308 ms
 
 ## Fallos
 
