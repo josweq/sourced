@@ -1,6 +1,6 @@
 {
   "proyecto": "jajanken-lupa",
-  "commit": "914451a",
+  "commit": "6109b69",
   "fecha": "2026-10-08",
   "estado": "verde",
   "corridas": [
@@ -12,31 +12,31 @@
       "esperas": [
         {
           "que": "cargar la agenda",
-          "ms": 317
+          "ms": 333
         },
         {
           "que": "abrir el primer caso",
-          "ms": 533
+          "ms": 413
         },
         {
           "que": "adaptar a video vertical",
-          "ms": 289
+          "ms": 292
         },
         {
           "que": "preguntar algo con evidencia",
-          "ms": 304
+          "ms": 32347
         },
         {
           "que": "preguntar algo sin evidencia",
-          "ms": 254
+          "ms": 578
         },
         {
           "que": "registrar la revisión",
-          "ms": 1077
+          "ms": 1160
         },
         {
           "que": "cambiar a tema Sala",
-          "ms": 40
+          "ms": 16
         }
       ],
       "detalle": [
@@ -261,7 +261,7 @@
           "detalle": ""
         }
       ],
-      "segundos": 72
+      "segundos": 119
     },
     {
       "n": 2,
@@ -271,31 +271,31 @@
       "esperas": [
         {
           "que": "cargar la agenda",
-          "ms": 316
+          "ms": 380
         },
         {
           "que": "abrir el primer caso",
-          "ms": 664
+          "ms": 746
         },
         {
           "que": "adaptar a video vertical",
-          "ms": 317
+          "ms": 312
         },
         {
           "que": "preguntar algo con evidencia",
-          "ms": 606
+          "ms": 619
         },
         {
           "que": "preguntar algo sin evidencia",
-          "ms": 338
+          "ms": 369
         },
         {
           "que": "registrar la revisión",
-          "ms": 627
+          "ms": 604
         },
         {
           "que": "cambiar a tema Sala",
-          "ms": 16
+          "ms": 40
         }
       ],
       "detalle": [
@@ -520,7 +520,7 @@
           "detalle": ""
         }
       ],
-      "segundos": 92
+      "segundos": 112
     }
   ]
 }
