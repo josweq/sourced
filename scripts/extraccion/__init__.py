@@ -1,2 +1,2 @@
-"""Extractores del snapshot de desarrollo de Jajanken Lupa."""
+"""Extractores del snapshot de desarrollo de Sourced."""
 

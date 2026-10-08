@@ -1,2 +1,2 @@
-"""Capa local de IA para Jajanken Lupa."""
+"""Capa local de IA para Sourced."""
 

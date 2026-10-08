@@ -559,7 +559,7 @@ def main():
     server = ThreadingHTTPServer(("127.0.0.1", args.port), Handler)
     if not args.sin_calentar:
         threading.Thread(target=calentar_modelo, args=(Handler.db_path,), daemon=True).start()
-    print(f"Jajanken Lupa: http://127.0.0.1:{args.port}")
+    print(f"Sourced: http://127.0.0.1:{args.port}")
     try:
         server.serve_forever()
     except KeyboardInterrupt:

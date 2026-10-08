@@ -1,4 +1,4 @@
-Quiero revisar Jajanken Lupa y decidir cómo contribuir.
+Quiero revisar Sourced y decidir cómo contribuir.
 Lee README.md, AGENTS.md y docs/, especialmente el backlog y el mapa de módulos.
 No asumas mi rol por mi nombre ni me asignes trabajo automáticamente.
 Resume el estado real: preparado, implementado y pendiente.

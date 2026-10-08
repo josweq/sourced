@@ -1,4 +1,5 @@
-# Jajanken Lupa — Dossier del reto TVN Media
+# Sourced — Dossier del reto TVN Media
+*Nada sin fuente.* (Antes «Jajanken Lupa»; el nombre cambió el 8 de octubre para decir la promesa: ninguna afirmación sin su fuente.)
 
 > **Antes de contar una historia, mostramos qué la sostiene.** Prototipo del equipo Jajanken para el hackIAthon Panamá 4ª edición, reto «De la señal a la decisión». No es una herramienta oficial de TVN.
 
@@ -8,7 +9,7 @@
 **Demo:** local, sin internet ni GPU (instrucciones en el README)
 **Notion:** la organización indicó avanzar sin depender de Notion (la cuenta Business del reto no funciona); este documento es la fuente completa y hay una copia en el espacio «hackIAthon 4taEd».
 
-![Lupa con datos reales del 7 de octubre: agenda priorizada, radiografía del caso y mesa editorial](../../verificacion/capturas/final-escritorio-guia.png)
+![Sourced con datos reales del 7 de octubre: agenda priorizada, radiografía del caso y mesa editorial](../../verificacion/capturas/final-escritorio-guia.png)
 *Agenda con puntaje y evidencia por separado (izquierda), radiografía del caso (centro) y mesa editorial con borrador citado, adaptación de formato y lo que retiró el guardián (derecha).*
 
 ---
@@ -21,7 +22,7 @@ Una redacción revisa fuentes dispersas, elimina duplicados y prepara piezas con
 ### Usuario
 Editor/a, periodista, productor/a digital, director/a de noticias y presentador/a.
 
-### Qué hace Lupa
+### Qué hace Sourced
 1. **Agenda priorizada** con el porqué de cada tema (puntaje desglosado) y su estado de evidencia, por separado.
 2. **Radiografía** de cada tema: qué se reporta, quién lo reporta, qué está respaldado, qué falta verificar.
 3. **Mesa editorial**: brief, guion cronometrado, copy y preguntas de investigación, con una cita por afirmación.
@@ -103,7 +104,7 @@ Cobertura de citas 100 % · abstención correcta ≥ 80 % · ninguna cifra inven
 
 ## 5. Casos y evidencias
 
-Snapshot `real-20261007b`. Puntaje P = 30R + 25I + 20U + 15N + 10E (componentes de 0 a 1). Persona revisora: se registra en Lupa al revisar (revisión humana con historial).
+Snapshot `real-20261007b`. Puntaje P = 30R + 25I + 20U + 15N + 10E (componentes de 0 a 1). Persona revisora: se registra en Sourced al revisar (revisión humana con historial).
 
 ### Ficha 1 — Donación de equipos de EE.UU. a Panamá (un evento, dos medios)
 | Campo | Valor |
@@ -122,7 +123,7 @@ Snapshot `real-20261007b`. Puntaje P = 30R + 25I + 20U + 15N + 10E (componentes 
 | Publicaciones | La Prensa, 17 ago 2026: «Meduca contrató $28.4 millones por 54,000 laptops…» · 18 ago 2026: «Meduca tramitó adenda… por $235 mil y 75 días más» |
 | Puntaje | 25,5 (U 0,10: notas de agosto, no de hoy) |
 | Evidencia | **Insuficiente** (un solo medio) |
-| Pregunta en Lupa | «contrato de laptops del Meduca» → responde con 3 titulares citados |
+| Pregunta en Sourced | «contrato de laptops del Meduca» → responde con 3 titulares citados |
 | Qué demuestra | Las fechas originales mandan sobre la fecha de captura |
 
 ### Ficha 3 — Temporada de cruceros en el Canal (primero de la agenda, evidencia insuficiente)
@@ -152,7 +153,7 @@ Snapshot `real-20261007b`. Puntaje P = 30R + 25I + 20U + 15N + 10E (componentes 
 | Evidencia | **Insuficiente** |
 | Qué demuestra | Una nota vieja no se presenta como nueva (T03) |
 
-### Lupa en acción (capturas con los datos reales)
+### Sourced en acción (capturas con los datos reales)
 
 **Caso y mesa editorial** — un titular de TVN, evidencia insuficiente, borrador citado y la oración que retiró el guardián:
 ![Caso de cruceros con mesa editorial](../../verificacion/capturas/real-caso-mesa.png)
@@ -180,7 +181,7 @@ Ver `evaluation/matriz-T01-T10.md` en el repositorio. Resumen: **10 de 10 cumple
 ### Benchmark de desarrollo (40 preguntas): IA frente a línea base sin IA
 Mismas 40 preguntas, mismas reglas de cifras oficiales, abstención y protección; solo cambia cómo se buscan las noticias. Línea base: palabras clave (basta una palabra de contenido en común, como la búsqueda de la agenda).
 
-| Métrica | Lupa (búsqueda semántica local) | Línea base (palabras clave) |
+| Métrica | Sourced (búsqueda semántica local) | Línea base (palabras clave) |
 |---|---|---|
 | Aciertos | **37/40 (92 %)** | 35/40 (88 %) |
 | Abstención correcta (sin respuesta en el corpus) | **7/7 (100 %)** | 4/7 (57 %) |
@@ -189,7 +190,7 @@ Mismas 40 preguntas, mismas reglas de cifras oficiales, abstención y protecció
 | Cobertura de citas | 33/33 (100 %) | 47/47 (100 %) |
 | Latencia mediana / p95 | 92 / 106 ms | 22 / 47 ms |
 
-**Qué significa:** las palabras clave responden más, pero responden mal cuando no hay evidencia: a «precio del oro en Bolivia» cita «el precio del clientelismo» y a «resultado de las elecciones en Japón» cita un titular de béisbol porque comparte la palabra «resultado». En una redacción, una cita pertinente equivocada es peor que una abstención. Lupa paga ese control con una abstención indebida más (2 vs 1).
+**Qué significa:** las palabras clave responden más, pero responden mal cuando no hay evidencia: a «precio del oro en Bolivia» cita «el precio del clientelismo» y a «resultado de las elecciones en Japón» cita un titular de béisbol porque comparte la palabra «resultado». En una redacción, una cita pertinente equivocada es peor que una abstención. Sourced paga ese control con una abstención indebida más (2 vs 1).
 
 **Sesgo declarado:** las preguntas y los umbrales los preparó el equipo con el sistema a la vista (conjunto de desarrollo, no reservado); la diferencia es indicativa, no una medición independiente. Resultados: `evaluation/resultados/benchmark-20261008T154642Z.md` y `benchmark-20261008T154554Z-lexico.md`.
 
@@ -221,8 +222,8 @@ Se presenta desde esta página de Notion. La demo corre en una laptop **sin inte
 
 Usuario: editor/a, productor/a digital, director/a de noticias.
 
-### 1:00 – 2:00 · Qué es Lupa
-> Lupa es un copiloto editorial que corre en una laptop, sin internet y sin claves. Toma titulares de cinco medios panameños y datos oficiales, los agrupa por evento, los prioriza explicando el porqué y separa siempre dos cosas: **qué tan importante es** y **qué tan respaldado está**. Redacta borradores donde cada oración lleva su cita, y cuando no hay evidencia, lo dice.
+### 1:00 – 2:00 · Qué es Sourced
+> Sourced es un copiloto editorial que corre en una laptop, sin internet y sin claves. Toma titulares de cinco medios panameños y datos oficiales, los agrupa por evento, los prioriza explicando el porqué y separa siempre dos cosas: **qué tan importante es** y **qué tan respaldado está**. Redacta borradores donde cada oración lleva su cita, y cuando no hay evidencia, lo dice.
 
 Datos: 284 titulares reales del 7 de octubre (TVN, La Prensa, Crítica, Panamá América, En Segundos; solo titular y metadatos), 540 valores del Banco Mundial y 82 sismos de USGS, en un snapshot con huella SHA-256.
 
@@ -241,7 +242,7 @@ Mostrar la tabla «IA frente a línea base sin IA» (sección 6): 37/40 contra 3
 Una prueba fallida contada sin pena: el centroide unía 102 titulares sin relación → enlace promedio y umbral calibrado con datos reales; el guardián dejaba pasar prosa publicitaria → ahora revisa cada oración.
 
 ### 8:00 – 9:00 · Valor (hipótesis, no medido)
-> Si una redacción revisa 50 temas al día y Lupa le ahorra separar duplicados, buscar el dato oficial y armar el primer borrador citado, el valor no es la velocidad: es **no publicar algo que no se sostiene**. No lo medimos con usuarios reales; es la hipótesis que propondríamos validar con TVN en un piloto.
+> Si una redacción revisa 50 temas al día y Sourced le ahorra separar duplicados, buscar el dato oficial y armar el primer borrador citado, el valor no es la velocidad: es **no publicar algo que no se sostiene**. No lo medimos con usuarios reales; es la hipótesis que propondríamos validar con TVN en un piloto.
 
 ### 9:00 – 10:00 · Límites y próximos pasos
 - Solo titulares: por eso casi todo queda «insuficiente». Con cuerpos de nota autorizados, la evidencia puede subir.
@@ -261,7 +262,7 @@ Una prueba fallida contada sin pena: el centroide unía 102 titulares sin relaci
 |---|---|
 | ¿De dónde sale esa cifra y de qué año es? | Banco Mundial, indicador FP.CPI.TOTL.ZG, 2024, con unidad y aviso de que no es actual. Si se pide 2026, se abstiene. |
 | Cinco medios replican una agencia: ¿cuántas fuentes cuentas? | Una. La procedencia sale solo del origen declarado; repetición no es corroboración (caso de la donación). |
-| ¿Por qué la agenda dice «0 fuentes»? | Los RSS no declaran su fuente primaria; Lupa no la inventa. Es el control, no un error. |
+| ¿Por qué la agenda dice «0 fuentes»? | Los RSS no declaran su fuente primaria; Sourced no la inventa. Es el control, no un error. |
 | ¿Y si una fuente trae instrucciones ocultas? | Se trata como dato, no como orden; el guardián la excluye. En el banco de modelos, qwen3:1.7b la citó: por eso la regla vive en el código. |
 | ¿Qué mejora la IA frente a algo simple? | Abstención correcta 7/7 contra 4/7 de palabras clave, con las mismas reglas. |
 | ¿Funciona sin internet de verdad? | Sí: corrida con el Wi-Fi cortado, 5/5 pasos, una sonda probó 52 veces y no salió nada; y una revisión del código bloquea cualquier cliente de red. |
@@ -290,3 +291,6 @@ Hora de Panamá (UTC−5). Cada línea enlaza a un commit del repositorio.
 | 8 oct 10:20 | Auditoría tipo jurado → **fallo**: todas las noticias apuntaban a la fuente TVN en el catálogo → corregido | `41e03f0` |
 | 8 oct 10:43 | **Fallo**: «turistas en septiembre de 2026» citaba cruceros por el «2026» → años, meses y palabras de tiempo ya no deciden la búsqueda | `e146b2a` |
 | 8 oct 10:48 | IA frente a línea base sin IA en el benchmark | `0ae9c08` |
+| 8 oct 11:09 | T05: cifras incompatibles entre medios (Codex construye, Claude audita y corrige falsos positivos); matriz 10/10 | `e6c4ec4` |
+| 8 oct 11:20 | Generar versión: barra de criterios opcionales (formato, duración, palabras, tono, enfoque, público) que arma el prompt; tope sin relleno | `d8aaf7c` |
+| 8 oct 11:45 | El producto pasa a llamarse **Sourced** («nada sin fuente») | este commit |
