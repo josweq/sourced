@@ -1,23 +1,24 @@
 """La puerta estática de T10 pasa sobre el repo y falla cuando se le mete una salida a la red."""
 from pathlib import Path
 import shutil
-import tempfile
 import unittest
 
 from scripts.check_sin_red import revisar
+from tests.helpers import temporary_directory
 
 RAIZ = Path(__file__).resolve().parents[1]
 
 
 class CheckSinRedTest(unittest.TestCase):
     def setUp(self):
-        self.tmp = Path(tempfile.mkdtemp())
+        self.tmpdir = temporary_directory()
+        self.tmp = Path(self.tmpdir.name)
         shutil.copytree(RAIZ / "src", self.tmp / "src", ignore=shutil.ignore_patterns("__pycache__", "fonts", "img"))
         (self.tmp / "scripts").mkdir()
         shutil.copy(RAIZ / "scripts" / "smoke_sin_red.py", self.tmp / "scripts")
 
     def tearDown(self):
-        shutil.rmtree(self.tmp, ignore_errors=True)
+        self.tmpdir.cleanup()
 
     def test_repo_pasa(self):
         self.assertEqual(revisar(RAIZ), [])

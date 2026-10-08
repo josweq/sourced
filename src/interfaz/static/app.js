@@ -256,6 +256,18 @@ function supportedClaims(draft, evidences) {
   }).join('')}</div></section>`;
 }
 
+function contradictionBlock(contradicciones = []) {
+  if (!contradicciones.length) return '';
+  return `<div class="contradiction-list"><p class="warning">Lupa no elige una cifra: requiere fuente primaria antes de usar cualquiera.</p>${contradicciones.map(item => {
+    const lados = (item.lados || []).slice(0, 2);
+    return `<article class="contradiction-row"><div class="contradiction-sides">${lados.map(lado => `<div class="contradiction-side"><strong>${esc(lado.medio || 'Medio')}</strong><span>${esc(lado.texto_cifra || '')}</span><small class="mono">${esc(lado.noticia_id || '')}</small></div>`).join('')}</div><p>${esc(item.explicacion || 'Cifras incompatibles entre medios.')}</p></article>`;
+  }).join('')}</div>`;
+}
+
+function pendingBlock(caseData, contradicciones) {
+  return `<section class="section">${sectionTitle('Falta verificar', 'falta')}<p>${esc(caseData.preguntas_pendientes || 'Sin pendientes registrados.')}</p>${contradictionBlock(contradicciones)}</section>`;
+}
+
 function scoreBlock(priority, grouping) {
   if (!priority) return disabledBlock('Prioridad (puntaje)', 'Este caso aún no tiene priorización calculada.', 'prioridad');
   const rows = Object.keys(priority.componentes).map(key => {
@@ -357,7 +369,7 @@ async function loadDetail(id) {
     const caseData = detail.caso;
     const draft = detail.borradores[0];
     const evidence = evidenceState(caseData.estado_evidencia);
-    detailEl.innerHTML = `<div class="panel radiografia-panel"><div class="panel-header"><h2>${esc(caseData.titulo)}</h2><span class="technical-id" title="ID técnico">${esc(caseData.id)}</span><div class="badges"><i class="${evidence.cls}">${evidence.icon} ${evidence.text}</i>${infoButton('evidencia', 'Estado de evidencia')}<i>${reviewState(caseData.estado_revision)}</i></div></div><section class="section">${sectionTitle('Qué se reporta', 'reporta')}<p class="reading">${esc(caseData.titulo)}</p></section><section class="section">${sectionTitle('Quién lo reporta', 'quien')}${sourceRows(detail.evidencias, detail.agrupacion)}</section>${supportedClaims(draft, detail.evidencias)}<section class="section">${sectionTitle('Falta verificar', 'falta')}<p>${esc(caseData.preguntas_pendientes || 'Sin pendientes registrados.')}</p></section><section class="section">${sectionTitle('Acción recomendada', 'accion')}<p>${caseData.estado_evidencia === 'suficiente_para_borrador' ? 'Revisar el borrador y confirmar citas antes de aprobar.' : 'Completar evidencia independiente antes de publicar.'}</p></section>${scoreBlock(detail.priorizacion, detail.agrupacion)}</div><div class="panel mesa-panel"><div class="panel-header"><h2>Mesa editorial</h2><p class="muted">Borrador y revisión.</p></div>${draftBlock(draft, detail.evidencias, detail.borradores)}${reviewForm(draft)}${reviewsBlock(detail.revisiones)}</div>`;
+    detailEl.innerHTML = `<div class="panel radiografia-panel"><div class="panel-header"><h2>${esc(caseData.titulo)}</h2><span class="technical-id" title="ID técnico">${esc(caseData.id)}</span><div class="badges"><i class="${evidence.cls}">${evidence.icon} ${evidence.text}</i>${infoButton('evidencia', 'Estado de evidencia')}<i>${reviewState(caseData.estado_revision)}</i></div></div><section class="section">${sectionTitle('Qué se reporta', 'reporta')}<p class="reading">${esc(caseData.titulo)}</p></section><section class="section">${sectionTitle('Quién lo reporta', 'quien')}${sourceRows(detail.evidencias, detail.agrupacion)}</section>${supportedClaims(draft, detail.evidencias)}${pendingBlock(caseData, detail.contradicciones || [])}<section class="section">${sectionTitle('Acción recomendada', 'accion')}<p>${caseData.estado_evidencia === 'suficiente_para_borrador' ? 'Revisar el borrador y confirmar citas antes de aprobar.' : 'Completar evidencia independiente antes de publicar.'}</p></section>${scoreBlock(detail.priorizacion, detail.agrupacion)}</div><div class="panel mesa-panel"><div class="panel-header"><h2>Mesa editorial</h2><p class="muted">Borrador y revisión.</p></div>${draftBlock(draft, detail.evidencias, detail.borradores)}${reviewForm(draft)}${reviewsBlock(detail.revisiones)}</div>`;
     wireDraftControls();
     const review = detailEl.querySelector('.review-form');
     if (review) review.addEventListener('submit', submitReview);

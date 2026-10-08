@@ -196,6 +196,12 @@ def case_detail(db, case_id):
           WHERE a.snapshot_id=? AND a.borrador_id=? ORDER BY a.id,c.evidencia_id""", (snapshot_id, draft["id"]))]
     reviews = [dict(r) for r in db.execute("""SELECT secuencia,persona_revisora,estado,comentario,fecha_utc,borrador_id
       FROM revisiones WHERE snapshot_id=? AND caso_id=? ORDER BY secuencia DESC""", (snapshot_id, case_id))]
+    contradicciones = []
+    if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='ia_contradicciones'").fetchone():
+        contradicciones = [json.loads(r["hallazgo_json"]) for r in db.execute("""
+          SELECT hallazgo_json FROM ia_contradicciones
+          WHERE snapshot_id=? AND caso_id=? ORDER BY ordinal
+        """, (snapshot_id, case_id))]
     priority_data = dict(priority) if priority else None
     if priority_data:
         priority_data["componentes"] = json.loads(priority_data.pop("componentes_json"))
@@ -203,7 +209,8 @@ def case_detail(db, case_id):
         priority_data["explicacion"] = json.loads(priority_data["explicacion"])
     return {"caso": dict(case), "agrupacion": dict(grouping) if grouping else None,
             "priorizacion": priority_data, "evidencias": evidence,
-            "borradores": drafts, "revisiones": reviews, "snapshot": snapshot_metadata(db)}
+            "borradores": drafts, "revisiones": reviews,
+            "contradicciones": contradicciones, "snapshot": snapshot_metadata(db)}
 
 
 def parse_draft_meta(prompt_version):
