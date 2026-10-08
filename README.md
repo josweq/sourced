@@ -89,3 +89,7 @@ El [recorrido local](docs/12-importador-interfaz.md) incluye carga CSV con cuare
 El [baseline de agrupación y ranking](docs/13-agrupacion-ranking.md) conecta la importación con la agenda. Es una comparación determinista y explicable, no la capacidad de IA requerida por el reto.
 
 La [búsqueda editorial](docs/14-busqueda-baseline.md) filtra la agenda por texto y metadatos, explica coincidencias y se abstiene cuando no encuentra un caso sustentado.
+
+## Licencia
+
+MIT (ver `LICENSE`). Las fuentes tipográficas incluidas conservan su licencia SIL OFL 1.1.
