@@ -18,7 +18,7 @@ except ModuleNotFoundError:
     from procesar_agenda import stable_id, ranking, WEIGHTS
 
 from src.ia.agrupacion import RULES_VERSION, agrupar_semantico, evaluar_pares
-from src.ia.clasificador import UMBRAL_INICIAL, ClasificadorTema, cargar_etiquetas, clasificar_reglas, conjunto_suficiente
+from src.ia.clasificador import UMBRAL_INICIAL, ClasificadorTema, cargar_etiquetas, clasificar_reglas, conjunto_suficiente, sin_clases_pequenas
 from src.ia.contradicciones import detectar as detectar_contradicciones
 from src.ia.embeddings import EXPECTED_DIM, blob_a_vector, nombre_modelo, vector_a_blob, vectorizar
 from src.ia.proveedores import ProviderUnavailable
@@ -59,8 +59,10 @@ def crear_tablas_ia(db):
 
 
 def _clasificar(rows, etiquetas_path, vectorizador=None, umbral=UMBRAL_INICIAL):
-    etiquetas = cargar_etiquetas(etiquetas_path)
+    etiquetas, excluidas = sin_clases_pequenas(cargar_etiquetas(etiquetas_path))
     ok, reason = conjunto_suficiente([r["etiqueta_humana"] for r in etiquetas])
+    if excluidas:
+        reason += f" Clases fuera del entrenamiento por tener menos de 5 ejemplos: {excluidas}."
     if ok:
         clf = ClasificadorTema.entrenar(etiquetas, vectorizador=vectorizador, umbral=umbral)
         preds = clf.predecir([row["titulo"] for row in rows])
