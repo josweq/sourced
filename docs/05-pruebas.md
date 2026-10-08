@@ -1,5 +1,5 @@
 # Pruebas y métricas
-Todas pendientes. No hay resultados todavía.
+Estado (8 de octubre de 2026): las diez pruebas ya se ejecutaron y cumplen; lo observado en cada una está en [`evaluation/matriz-T01-T10.md`](../evaluation/matriz-T01-T10.md) y las mediciones en [`evaluation/resultados/`](../evaluation/resultados/). Lo que sigue es el plan de pruebas y métricas que se planteó al inicio del reto.
 
 | ID | Escenario | Resultado esperado |
 |---|---|---|
