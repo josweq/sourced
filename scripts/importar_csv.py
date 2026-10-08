@@ -173,6 +173,11 @@ def run_import(news_path, indicators_path, output, report_path, snapshot_id,
     db.executemany("INSERT INTO fuentes VALUES (?,?,?,?,?,?,?)",
                    [(snapshot_id, *row) for row in source_rows])
     news_source = next(row[0] for row in source_rows if row[2] == "noticias")
+    # Cada noticia apunta a la fuente de su medio («La Prensa» → «La Prensa (RSS)»), no a la primera del catálogo.
+    news_source_by_medio = {}
+    for row in source_rows:
+        if row[2] == "noticias":
+            news_source_by_medio.setdefault(row[1].split(" (")[0].strip().casefold(), row[0])
     indicator_source = next(row[0] for row in source_rows if row[2] == "indicadores")
     db.commit()  # Una fila rechazada no debe revertir el snapshot ni su catálogo.
 
@@ -181,7 +186,9 @@ def run_import(news_path, indicators_path, output, report_path, snapshot_id,
           (snapshot_id,id,fuente_id,titulo,url,medio,idioma,fecha_publicacion,
            fecha_deteccion,fecha_extraccion,tema,origen,alcance_texto,texto_disponible)
           VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,NULL)""",
-          (snapshot_id, row["id_noticia"], news_source, row["titulo"], row["url"],
+          (snapshot_id, row["id_noticia"],
+           news_source_by_medio.get(row["medio"].strip().casefold(), news_source),
+           row["titulo"], row["url"],
            row["medio"], row["idioma"], row["fecha_publicacion"], row["fecha_deteccion"],
            row["fecha_extraccion"], row["tema"], row["origen"], row["alcance_texto"]))
 

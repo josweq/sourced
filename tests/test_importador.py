@@ -30,6 +30,24 @@ class ImporterTests(unittest.TestCase):
                 db.close()
             self.assertEqual(json.loads(report.read_text(encoding="utf-8"))["errores"], result["errores"])
 
+    def test_each_news_points_to_its_own_outlet_source(self):
+        snapshot = ROOT / "data/snapshot-dev/real-20261007b/processed"
+        with temporary_directory() as folder:
+            output, report = Path(folder) / "data.sqlite", Path(folder) / "report.json"
+            run_import(snapshot / "noticias.csv", snapshot / "indicadores.csv", output, report,
+                       "TEST-REAL", "test-v1", "2026-10-08T00:08:55Z", snapshot / "fuentes.json")
+            db = sqlite3.connect(output)
+            try:
+                pares = dict(db.execute("""SELECT n.medio, GROUP_CONCAT(DISTINCT f.nombre)
+                  FROM noticias n JOIN fuentes f ON f.snapshot_id=n.snapshot_id AND f.id=n.fuente_id
+                  GROUP BY n.medio""").fetchall())
+            finally:
+                db.close()
+        self.assertEqual(pares["La Prensa"], "La Prensa (RSS)")
+        self.assertEqual(pares["Crítica"], "Crítica (RSS)")
+        self.assertEqual(pares["En Segundos"], "En Segundos (RSS)")
+        self.assertEqual(pares["TVN"], "TVN (RSS)")
+
     def test_headers_are_exact(self):
         with temporary_directory() as folder:
             folder = Path(folder)
