@@ -121,15 +121,15 @@ Snapshot `real-20261007b`. Puntaje P = 30R + 25I + 20U + 15N + 10E (componentes 
 | Pregunta en Lupa | «contrato de laptops del Meduca» → responde con 3 titulares citados |
 | Qué demuestra | Las fechas originales mandan sobre la fecha de captura |
 
-### Ficha 3 — Temporada de cruceros en el Canal (prioridad alta, evidencia insuficiente)
+### Ficha 3 — Temporada de cruceros en el Canal (primero de la agenda, evidencia insuficiente)
 | Campo | Valor |
 |---|---|
 | Caso | `CASO-eac2d70e82de48de49cd` |
 | Publicación | TVN, 7 oct 2026 16:59 (UTC−5): «Canal de Panamá: Carnival Miracle inaugura temporada de cruceros 2026-2027; se contemplan más de 220 tránsitos» |
-| Puntaje | **65,5** (R 0,60 · I 0,70 · U 1,00 · N 0,50 · E 0,25), el más alto del snapshot |
+| Puntaje | **65,5** (R 0,60 · I 0,70 · U 1,00 · N 0,50 · E 0,25): el más alto del snapshot, en rango **medio** (alto ≥ 70; con solo titulares, ningún caso real llega ahí porque E y N quedan bajos) |
 | Evidencia | **Insuficiente**: un titular, sin fuente primaria |
 | Borrador | Brief, guion y copy citados; el guardián **retiró** un copy publicitario del modelo («¡Reserva tu crucero ahora…!») |
-| Qué demuestra | Prioridad alta ≠ permiso para publicar (T08); la caja «Falta verificar» manda |
+| Qué demuestra | Encabezar la agenda ≠ permiso para publicar (T08); la caja «Falta verificar» manda |
 
 ### Ficha 4 — Inflación de Panamá (dato oficial, no actual)
 | Campo | Valor |
