@@ -1,5 +1,5 @@
 # Datos y contratos
-No hay datos reales descargados. Organización debe congelar snapshot común al menos 72 horas antes.
+Estado (8 de octubre de 2026): el snapshot real `real-20261007b` ya existe y es el que usa la demo; su contenido, conteos y condiciones están en [`data/README.md`](../data/README.md) y en [`15-snapshot-dev.md`](15-snapshot-dev.md). Lo que sigue es el contrato de datos que se planteó al inicio del reto, antes de tener datos.
 
 ## A obligatorio: TVN RSS + GDELT DOC 2.0
 Meta 200 únicos; mínimo 100 y al menos 20 TVN.
