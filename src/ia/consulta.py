@@ -43,6 +43,10 @@ PAISES = {
 }
 NOMBRES_PAIS = {"PAN": "Panamá", "CRI": "Costa Rica", "COL": "Colombia", "DOM": "República Dominicana",
                 "MEX": "México", "GTM": "Guatemala"}
+# Países que la gente puede nombrar pero que el snapshot no incluye: se abstiene en vez de asumir Panamá.
+PAISES_FUERA = ("argentina", "bolivia", "brasil", "chile", "ecuador", "el salvador", "honduras", "nicaragua",
+                "paraguay", "peru", "uruguay", "venezuela", "cuba", "haiti", "estados unidos", "eeuu",
+                "espana", "canada", "china", "japon", "jamaica", "puerto rico", "belice")
 LOGISTICA = re.compile(r"\b(logistic\w*|canal|puerto\w*|navier\w*|carga|transito\w*|buques?)\b")
 ENTORNO = re.compile(r"\b(senales?|entorno|sector\w*|monitorear|revisar)\b")
 
@@ -64,7 +68,15 @@ def _ruta_indicador(db, pregunta_norm: str) -> dict | None:
     indicador = _detectar(pregunta_norm, INDICADORES)
     if not indicador:
         return None
-    pais = _detectar(pregunta_norm, PAISES) or "PAN"
+    pais = _detectar(pregunta_norm, PAISES)
+    fuera = next((p for p in PAISES_FUERA if re.search(rf"\b{p}\b", pregunta_norm)), None)
+    if not pais and fuera:
+        return {"estado": "abstencion", "metodo": "indicador",
+                "respuesta": (f"El snapshot no incluye datos de {fuera.title()}: solo Panamá, Costa Rica, Colombia, "
+                              "República Dominicana, México y Guatemala. No se responde con otro país."),
+                "afirmaciones": [], "vacios": [f"Serie oficial de {fuera.title()}: fuera del paquete de datos."]}
+    asumido = pais is None
+    pais = pais or "PAN"
     anio_pedido = next((int(a) for a in re.findall(r"\b(20\d\d|19\d\d)\b", pregunta_norm)), None)
     pide_actual = bool(re.search(r"\b(hoy|actual\w*|ahora|este ano|esta semana|este mes)\b", pregunta_norm))
     filas = db.execute(
@@ -97,6 +109,8 @@ def _ruta_indicador(db, pregunta_norm: str) -> dict | None:
                 "afirmaciones": [afirmacion(ultimo, "contexto")],
                 "vacios": [f"Dato oficial de {anio_pedido}: consultar la fuente primaria nacional."]}
     vacios = []
+    if asumido:
+        vacios.append("No indicaste país: se asumió Panamá.")
     if pide_actual:
         vacios.append("Se pidió un dato actual: el snapshot solo tiene series anuales; el último año es "
                       f"{ultimo['anio']}. Para hoy hace falta la fuente primaria nacional.")
