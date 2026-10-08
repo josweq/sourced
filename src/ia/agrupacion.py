@@ -37,8 +37,8 @@ def coseno(a: np.ndarray, b: np.ndarray) -> float:
 
 
 def agrupar_semantico(rows: Sequence[dict], vectores: np.ndarray | None = None, vectorizador=None,
-                      umbral: float = 0.78, max_dias: int = 7,
-                      umbral_muy_alto: float = 0.92) -> list[list[dict]]:
+                      umbral: float = 0.945, max_dias: int = 7,
+                      umbral_muy_alto: float = 0.97) -> list[list[dict]]:
     if not rows:
         return []
     if vectores is None:
@@ -50,7 +50,10 @@ def agrupar_semantico(rows: Sequence[dict], vectores: np.ndarray | None = None, 
     for idx, row in sorted(enumerate(rows), key=lambda item: item[1]["id"]):
         best_group, best_score = None, -1.0
         for group_idx, group in enumerate(groups):
-            score = coseno(vectores[idx], group_vectors[group_idx])
+            # Enlace promedio contra los miembros: el centroide normalizado de un grupo
+            # grande se parece a todo y producía grupos bola de nieve de 100+ titulares.
+            miembros = [row_index[id(member)] for member in group]
+            score = float(np.mean([coseno(vectores[idx], vectores[m]) for m in miembros]))
             if score < umbral:
                 continue
             separaciones = [dias_separacion(row, member) for member in group]
@@ -70,7 +73,7 @@ def agrupar_semantico(rows: Sequence[dict], vectores: np.ndarray | None = None, 
     return groups
 
 
-def evaluar_pares(rows: Sequence[dict], pares_csv: Path, vectorizador=None, umbral: float = 0.78) -> dict:
+def evaluar_pares(rows: Sequence[dict], pares_csv: Path, vectorizador=None, umbral: float = 0.945) -> dict:
     por_id = {row["id"]: row for row in rows}
     if not pares_csv.exists():
         return {"advertencia": "No existe pares.csv; no se calculan métricas.", "pares": 0}

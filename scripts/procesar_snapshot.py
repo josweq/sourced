@@ -63,7 +63,7 @@ def _clasificar(rows, etiquetas_path, vectorizador=None, umbral=.45):
 
 def process(input_path: Path, output_path: Path, etiquetas_path: Path = Path("evaluation/etiquetas/temas.csv"),
             pares_path: Path = Path("evaluation/etiquetas/pares.csv"), umbral_tema: float = .45,
-            umbral_grupo: float = .78, max_dias: int = 7, vectorizador=None):
+            umbral_grupo: float = .945, max_dias: int = 7, vectorizador=None):
     if output_path.exists():
         raise FileExistsError("La salida ya existe; no se sobrescribe")
     source = sqlite3.connect(input_path)
@@ -174,7 +174,7 @@ def main():
     parser.add_argument("--etiquetas", type=Path, default=Path("evaluation/etiquetas/temas.csv"))
     parser.add_argument("--pares", type=Path, default=Path("evaluation/etiquetas/pares.csv"))
     parser.add_argument("--umbral-tema", type=float, default=.45)
-    parser.add_argument("--umbral-grupo", type=float, default=.78)
+    parser.add_argument("--umbral-grupo", type=float, default=.945)
     parser.add_argument("--max-dias", type=int, default=7)
     args = parser.parse_args()
     print(json.dumps(process(args.input, args.output, args.etiquetas, args.pares,
