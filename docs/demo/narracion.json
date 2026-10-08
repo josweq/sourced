@@ -2,51 +2,97 @@
  {
   "n": 0,
   "titulo": "Sourced",
-  "texto": "Esto es Sourced: un copiloto editorial para la redacción de TVN. Nada sin fuente."
+  "texto": "Esto es Sourced: un copiloto editorial para la redacción de TVN. Usa inteligencia artificial local en cada etapa, y una sola regla: nada sin fuente.",
+  "voz": 11.95
  },
  {
   "n": 1,
-  "titulo": "Agenda priorizada",
-  "texto": "La agenda ordena los temas del día. Cada tarjeta separa dos cosas: qué tan importante es, y qué tan respaldado está."
+  "titulo": "Antes de abrir",
+  "texto": "Antes de que abras la aplicación, Sourced ya trabajó. Capturó los titulares de cinco medios panameños y datos oficiales del Banco Mundial y de USGS, y los selló con una huella para que nadie los altere. Un modelo de lenguaje que corre en la laptop los leyó: clasificó cada tema y juntó los titulares que cuentan el mismo hecho.",
+  "voz": 22.51
+ },
+ {
+  "n": 11,
+  "titulo": "Agenda",
+  "texto": "La agenda ordena los temas del día con un puntaje que se puede explicar. Cada tarjeta separa dos preguntas: qué tan importante es, y qué tan respaldado está. Este tema importa, pero todavía no tiene ninguna fuente primaria.",
+  "voz": 16.32
  },
  {
   "n": 2,
-  "titulo": "Un hecho, dos medios",
-  "texto": "Crítica y TVN publican la misma donación de Estados Unidos. Sourced las une en un solo caso, pero la evidencia sigue insuficiente: ninguno dice de dónde sale el dato."
+  "titulo": "Radiografía",
+  "texto": "Al abrir un caso, ves su radiografía: qué se reporta, quién lo reporta y qué está respaldado. Crítica y TVN publican la misma donación de Estados Unidos, y la inteligencia artificial las reconoce como un solo hecho. Pero dos medios no son dos fuentes: ninguno dice de dónde sale el dato.",
+  "voz": 20.86
+ },
+ {
+  "n": 21,
+  "titulo": "Falta verificar",
+  "texto": "Por eso la evidencia queda como insuficiente, y Sourced te dice qué falta verificar antes de publicar.",
+  "voz": 6.86
  },
  {
   "n": 3,
-  "titulo": "Mesa editorial y guardián",
-  "texto": "En la mesa editorial, cada oración del borrador lleva su cita. El guardián retira cualquier frase con términos que no estén en la evidencia, y dice por qué."
+  "titulo": "Mesa y guardián",
+  "texto": "En la mesa editorial, el modelo local redacta el borrador con una condición: cada oración se apoya en una afirmación citada y lleva su etiqueta de fuente. Luego entra el guardián. No es otra inteligencia artificial: son reglas que se pueden verificar. Revisa oración por oración, retira la que usa términos que no están en la evidencia, y explica por qué.",
+  "voz": 24.6
  },
  {
   "n": 4,
-  "titulo": "Generar versión",
-  "texto": "Para otra pieza, eliges solo los criterios que quieras: formato, duración, palabras, tono, enfoque o público. Aquí, un reel de treinta segundos en tono cercano. Sourced arma las instrucciones, el modelo local redacta en la propia laptop, sin internet, y el guardián revisa cada oración."
+  "titulo": "Criterios",
+  "texto": "Para otra pieza, eliges solo los criterios que te sirven: formato, duración, tono, enfoque o público. Aquí, un reel de treinta segundos en tono cercano.",
+  "voz": 12.24
  },
  {
   "n": 41,
-  "titulo": "Generar versión: alcance",
-  "texto": "Si la evidencia no alcanza para treinta segundos, no rellena: lo dice, y señala que falta la fuente primaria. Las instrucciones que recibió el modelo quedan a la vista."
+  "titulo": "Dentro de la laptop",
+  "texto": "Lo que ocurre ahora pasa dentro de la laptop. Sourced no le pide al modelo que escriba libremente: arma un prompt con instrucciones fijas y le entrega solo las afirmaciones citadas del caso, cada una con su identificador de fuente. El modelo local redacta en el formato pedido, sin internet y sin enviar nada a la nube. Cuando responde, cada oración vuelve a pasar por el guardián: lo que no se puede rastrear a una evidencia, no se queda.",
+  "voz": 29.42
+ },
+ {
+  "n": 42,
+  "titulo": "Alcance",
+  "texto": "Resultado: la evidencia alcanza para unas dieciséis palabras, no para treinta segundos. Sourced no rellena. Lo dice, y te indica que falta la fuente primaria.",
+  "voz": 12.96
+ },
+ {
+  "n": 43,
+  "titulo": "Prompt a la vista",
+  "texto": "Y el prompt exacto que recibió el modelo queda a la vista, para que cualquiera en la redacción pueda auditarlo.",
+  "voz": 7.06
  },
  {
   "n": 5,
   "titulo": "Preguntar",
-  "texto": "También responde preguntas. La inflación de hoy no existe en los datos: da la cifra oficial de dos mil veinticuatro y aclara que no es actual. Y si no hay evidencia, como el precio del oro en Bolivia, se abstiene."
+  "texto": "También puedes preguntar en lenguaje natural. Un modelo local de búsqueda semántica encuentra la evidencia que responde. Si preguntas por la inflación de hoy, te da la cifra oficial más reciente, de dos mil veinticuatro, con su fuente, y aclara que no es una medición actual.",
+  "voz": 18.58
+ },
+ {
+  "n": 51,
+  "titulo": "Abstención",
+  "texto": "Y si no hay evidencia, como con el precio del oro en Bolivia, se abstiene. Prefiere decir que no sabe antes que inventar.",
+  "voz": 8.98
  },
  {
   "n": 6,
-  "titulo": "Revisión humana",
-  "texto": "La decisión es siempre de una persona. Quien revisa deja su nombre, el estado y un comentario, y todo queda en el historial. No existe el botón publicar: lo máximo es aprobado como borrador."
+  "titulo": "Revisión",
+  "texto": "La decisión final es siempre de una persona. Quien revisa deja su nombre, el estado y un comentario.",
+  "voz": 8.04
+ },
+ {
+  "n": 61,
+  "titulo": "Historial",
+  "texto": "Todo queda en el historial. Y no existe un botón de publicar: lo máximo es aprobado como borrador.",
+  "voz": 7.75
  },
  {
   "n": 7,
   "titulo": "Sala y teléfono",
-  "texto": "Tiene un tema oscuro para la sala de control, y funciona en el teléfono."
+  "texto": "Tiene un tema oscuro para la sala de control, y funciona en el teléfono.",
+  "voz": 5.18
  },
  {
   "n": 8,
   "titulo": "Cierre",
-  "texto": "Sourced corre en una laptop, sin internet y sin claves. Antes de contar una historia, mostramos qué la sostiene."
+  "texto": "Sourced usa inteligencia artificial local para entender, ordenar, redactar y buscar. Y en cada etapa, la misma regla. Antes de contar una historia, mostramos qué la sostiene.",
+  "voz": 13.73
  }
 ]
