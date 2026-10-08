@@ -2,9 +2,9 @@ import copy
 import json
 from pathlib import Path
 import sqlite3
-import tempfile
 import unittest
 from scripts.modelo_datos import DEFAULT_FIXTURE, load_fixture, save_new
+from tests.helpers import temporary_directory
 
 
 class DataContractTests(unittest.TestCase):
@@ -123,7 +123,7 @@ class DataContractTests(unittest.TestCase):
         self.rejected()
 
     def test_persistence_and_no_overwrite(self):
-        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parent) as folder:
+        with temporary_directory() as folder:
             path = Path(folder) / "demo.sqlite"
             save_new(self.load(), path)
             db = sqlite3.connect(path)

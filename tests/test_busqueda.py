@@ -1,10 +1,10 @@
 from pathlib import Path
-import tempfile
 import unittest
 
 from scripts.importar_csv import run_import
 from scripts.procesar_agenda import process
 from src.interfaz.app import connect, search_cases
+from tests.helpers import temporary_directory
 
 ROOT = Path(__file__).resolve().parents[1]
 FIXTURES = ROOT / "tests/fixtures/csv"
@@ -12,7 +12,7 @@ FIXTURES = ROOT / "tests/fixtures/csv"
 
 class SearchTests(unittest.TestCase):
     def setUp(self):
-        self.temp = tempfile.TemporaryDirectory(dir=ROOT / "tests")
+        self.temp = temporary_directory()
         self.addCleanup(self.temp.cleanup)
         folder = Path(self.temp.name)
         imported = folder / "imported.sqlite"
