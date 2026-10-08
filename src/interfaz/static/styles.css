@@ -691,7 +691,8 @@ textarea {
 .draft-head,
 .timer,
 .adapt-main,
-.adapt-options > div {
+.adapt-options > div,
+.criteria-toolbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -721,14 +722,27 @@ textarea {
   background: var(--color-fondo);
 }
 
+.criteria-toolbar {
+  justify-content: flex-start;
+  align-items: end;
+}
+
 .adapt-form label {
   flex: 1 1 96px;
   min-width: 0;
 }
 
+.adapt-form .criterion {
+  flex: 1 1 112px;
+  max-width: 180px;
+  gap: 2px;
+  font-size: var(--tamano-minimo);
+}
+
 .adapt-form input,
 .adapt-form select {
   min-height: 32px;
+  padding-block: var(--espacio-1);
 }
 
 .adapt-label {
@@ -746,6 +760,25 @@ textarea {
 
 .adapt-main label {
   flex: 1 1 auto;
+}
+
+.generate-button,
+.reset-criteria {
+  flex: 0 0 auto;
+  min-height: var(--alto-clic);
+  align-self: end;
+}
+
+.secondary {
+  background: var(--color-boton-secundario);
+  color: var(--color-primario);
+  border-color: var(--color-linea);
+  padding: var(--espacio-2) var(--espacio-3);
+  font-weight: 600;
+}
+
+.secondary:hover {
+  border-color: var(--color-primario);
 }
 
 .adapt-options summary {
@@ -770,6 +803,22 @@ textarea {
   margin: 0;
   color: var(--color-secundario);
   font-size: var(--tamano-minimo);
+}
+
+.model-prompt {
+  margin-top: var(--espacio-3);
+}
+
+.model-prompt pre {
+  max-height: 280px;
+  overflow: auto;
+  padding: var(--espacio-2);
+  border: var(--borde-fino) solid var(--color-linea);
+  border-radius: var(--radio-control);
+  background: var(--color-fondo);
+  color: var(--color-tinta);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
 }
 
 .draft-tabs button {
@@ -1063,6 +1112,15 @@ textarea {
 
   .contradiction-sides {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .adapt-form .criterion {
+    flex-basis: min(46%, 180px);
+  }
+
+  .generate-button,
+  .reset-criteria {
+    flex: 1 1 128px;
   }
 }
 

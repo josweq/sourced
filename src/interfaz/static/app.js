@@ -25,10 +25,22 @@ const GUIDE_TEXT = {
   accion: 'El siguiente paso sugerido según la evidencia disponible.',
   prioridad: 'Ordena la atención de 0 a 100: Relevancia 30, Impacto 25, Urgencia 20, Novedad 15, Evidencia 10. No mide si es verdad ni autoriza publicar.',
   evidencia: 'Insuficiente: solo titulares sin fuente primaria. Parcial: alguna procedencia identificada. Suficiente: hay base para un borrador, que igual requiere revisión.',
-  adaptar: 'Reescribe el borrador para otra pantalla (TV, radio, video vertical, web o alerta) sin añadir datos: mismas citas, otro orden y extensión.',
+  adaptar: 'Genera una versión con criterios editoriales. El modelo solo puede usar afirmaciones citadas y el guardián retira lo no sustentado.',
   revision: 'Registra quién revisó y qué decidió. Nada se publica desde Lupa.',
   preguntar: 'Responde con titulares o datos oficiales citados, o se abstiene si no hay evidencia.'
 };
+
+const CRITERIA = {
+  formato: [['', 'Libre'], ['tv', 'Guion de TV'], ['web', 'Nota web'], ['redes', 'Redes'], ['vertical', 'Reel / Short'], ['youtube', 'YouTube'], ['radio', 'Radio'], ['revista', 'Revista'], ['alerta', 'Push'], ['boletin', 'Boletín']],
+  duracion_s: [['', 'Libre'], ['15', '15 s'], ['30', '30 s'], ['60', '60 s'], ['120', '2 min'], ['300', '5 min'], ['600', '10 min']],
+  palabras: [['', 'Libre'], ['50', '50'], ['100', '100'], ['250', '250'], ['500', '500'], ['1000', '1.000']],
+  tono: [['', 'Libre'], ['sobrio', 'Sobrio'], ['profesional', 'Profesional'], ['explicativo', 'Explicativo'], ['cercano', 'Cercano'], ['alegre', 'Alegre'], ['infantil', 'Infantil']],
+  enfoque: [['', 'Libre'], ['economia', 'Economía'], ['politica', 'Política'], ['servicios_publicos', 'Servicios públicos'], ['logistica_canal', 'Logística y Canal'], ['turismo', 'Turismo'], ['impacto_gente', 'Impacto en la gente']],
+  publico: [['', 'Libre'], ['general', 'General'], ['jovenes', 'Jóvenes'], ['ninos', 'Niños'], ['especializado', 'Especializado']],
+  enfasis: [['', 'Libre'], ['noticia', 'Noticia'], ['dato', 'Dato oficial'], ['verificacion', 'Qué falta verificar']]
+};
+const CRITERIA_DEFAULTS = { formato: 'tv', duracion_s: '', palabras: '', tono: 'sobrio', enfoque: '', publico: '', enfasis: 'noticia' };
+const CRITERIA_LABELS = { formato: 'Formato', duracion_s: 'Duración', palabras: 'Palabras', tono: 'Tono', enfoque: 'Enfoque', publico: 'Público', enfasis: 'Énfasis' };
 
 function infoButton(key, label) {
   return `<button class="info-button" type="button" aria-label="Qué significa ${esc(label)}" aria-expanded="false" data-help="${esc(key)}">ⓘ</button>`;
@@ -319,13 +331,27 @@ function removedBlock(draft) {
   return `<details class="guardian-removed"><summary>Retirado por el guardián (${removed.length})</summary>${removed.map(item => `<article><p>${esc(item.texto || '')}</p><small>${esc(item.motivo || 'Sin motivo registrado')}</small></article>`).join('')}</details>`;
 }
 
+function criteriaSelect(name) {
+  return `<label class="criterion"><span>${esc(CRITERIA_LABELS[name])}</span><select name="${esc(name)}" aria-label="${esc(CRITERIA_LABELS[name])}">${CRITERIA[name].map(([value, label]) => `<option value="${esc(value)}" ${CRITERIA_DEFAULTS[name] === value ? 'selected' : ''}>${esc(label)}</option>`).join('')}</select></label>`;
+}
+
+function generationToolbar() {
+  return `<form class="adapt-form version-form"><div class="criteria-toolbar"><span class="adapt-label">Generar versión ${infoButton('adaptar', 'Generar versión')}</span>${['formato', 'duracion_s', 'palabras', 'tono', 'enfoque', 'publico', 'enfasis'].map(criteriaSelect).join('')}<button class="submit generate-button" type="submit">Generar</button><button class="secondary reset-criteria" type="button">Restablecer</button></div><p class="message" aria-live="polite"></p></form>`;
+}
+
 function adaptedTabContent(adapted, evidences) {
-  if (!adapted) return '<p class="muted">○ Elige un formato y pulsa Adaptar.</p>';
-  const timer = adapted.cronometro ? `<div class="timer ${adapted.cronometro.estado === 'dentro' ? 'timer-ok' : adapted.cronometro.estado === 'pasa' ? 'timer-high' : 'timer-low'}"><strong>${esc(adapted.cronometro.texto)}</strong></div>` : '';
-  const counter = adapted.contador?.limite_caracteres ? `${adapted.contador.caracteres}/${adapted.contador.limite_caracteres} caracteres` : `${adapted.contador?.palabras || 0}${adapted.contador?.limite_palabras ? `/${adapted.contador.limite_palabras}` : ''} palabras`;
-  const blocks = (adapted.bloques || []).map(block => `<section class="adapted-block"><h4>${esc(block.titulo)}</h4>${(block.oraciones || []).map(item => `<p class="reading cited-sentence"><span>${esc(item.texto)}</span> ${citationButton(item, evidences)}</p>`).join('') || '<p class="muted">Sin oraciones aceptadas.</p>'}</section>`).join('');
+  if (!adapted) return '<p class="muted">Elige criterios y pulsa Generar.</p>';
+  const objective = [];
+  if (adapted.objetivo?.palabras) objective.push(`${adapted.objetivo.palabras} palabras`);
+  if (adapted.objetivo?.segundos) objective.push(`~${adapted.objetivo.segundos} s`);
+  const counter = `${adapted.palabras || 0} palabras · ~${adapted.segundos_estimados || 0} s${objective.length ? ` (objetivo ${objective.join(' · ')})` : ''}`;
+  const blocks = adapted.bloques?.length
+    ? adapted.bloques.map(block => `<section class="adapted-block"><h4>${esc(block.titulo)}</h4>${(block.oraciones || []).map(item => `<p class="reading cited-sentence"><span>${esc(item.texto)}</span> ${citationButton(item, evidences)}</p>`).join('') || '<p class="muted">Sin oraciones aceptadas.</p>'}</section>`).join('')
+    : `<section class="adapted-block"><h4>Versión generada</h4>${(adapted.oraciones || []).map(item => `<p class="reading cited-sentence"><span>${esc(item.texto)}</span> ${citationButton(item, evidences)}</p>`).join('') || '<p class="muted">Sin oraciones aceptadas.</p>'}</section>`;
+  const alcance = adapted.alcance ? `<p class="warning">${esc(adapted.alcance)}</p>` : '';
   const removed = adapted.retiradas?.length ? `<details class="guardian-removed"><summary>Retirado por el guardián (${adapted.retiradas.length})</summary>${adapted.retiradas.map(item => `<article><p>${esc(item.texto || '')}</p><small>${esc(item.motivo || 'Sin motivo registrado')}</small></article>`).join('')}</details>` : '';
-  return `${(adapted.avisos || []).map(text => `<p class="warning">${esc(text)}</p>`).join('')}${timer}<p class="counter">${esc(counter)}</p>${blocks}${removed}<button class="submit save-adapted" type="button">Guardar como versión nueva</button><p class="message" aria-live="polite"></p>`;
+  const prompt = adapted.prompt ? `<details class="model-prompt"><summary>Instrucciones enviadas al modelo</summary><pre>${esc(adapted.prompt)}</pre></details>` : '';
+  return `${(adapted.avisos || []).map(text => `<p class="warning">${esc(text)}</p>`).join('')}<p class="counter">${esc(counter)}</p>${alcance}${blocks}${removed}${prompt}<p class="message" aria-live="polite"></p>`;
 }
 
 function draftBlock(draft, evidences, versions) {
@@ -334,7 +360,7 @@ function draftBlock(draft, evidences, versions) {
   const timer = cronLabel(scriptSeconds(draft.guion, ppm));
   return `<section class="editorial-card"><div class="draft-head"><h3>Borrador v${esc(draft.version)}</h3><button class="submit regenerate" type="button">Regenerar con el modelo local</button></div>
     <p class="warning">Borrador generado por IA — requiere revisión humana</p>${draft.alcance_texto === 'titular_metadatos' ? '<p class="warning">Basado únicamente en titular/metadatos</p>' : ''}
-    <form class="adapt-form"><div class="adapt-main"><span class="adapt-label">Adaptar a ${infoButton('adaptar', 'Adaptar a')}</span><label><span class="sr-only">Formato</span><select name="formato"><option value="tv">TV</option><option value="radio">Radio 30 s</option><option value="vertical">Vertical 60 s</option><option value="web">Web</option><option value="alerta">Alerta</option></select></label><button class="submit" type="submit">Adaptar</button></div><details class="adapt-options"><summary>Opciones</summary><div><label>Duración<input name="duracion_s" type="number" min="1" max="600" placeholder="opcional"></label><label><span class="sr-only">Énfasis</span><select name="enfasis"><option value="noticia">Noticia</option><option value="dato">Dato oficial</option><option value="verificacion">Qué falta</option></select></label><label><span class="sr-only">Tono</span><select name="tono"><option value="sobrio">Sobrio</option><option value="explicativo">Explicativo</option></select></label></div></details><p class="message" aria-live="polite"></p></form>
+    ${generationToolbar()}
     <nav class="draft-tabs" aria-label="Secciones del borrador">${['brief', 'guion', 'copy', 'preguntas', 'adaptado'].map((tab, index) => `<button type="button" data-draft-tab="${tab}" aria-selected="${index === 0 ? 'true' : 'false'}">${esc(tab === 'guion' ? 'Guion' : tab.charAt(0).toUpperCase() + tab.slice(1))}</button>`).join('')}</nav>
     <div class="draft-panel" data-draft-panel="brief">${draftTabContent(draft, evidences, 'brief')}<p class="counter">${wordCount(draft.brief)}/250 palabras</p></div>
     <div class="draft-panel hidden" data-draft-panel="guion"><div class="timer ${timer.cls}"><strong>${esc(timer.text)}</strong><label>PPM<input id="ppm-input" type="number" min="80" max="240" value="${esc(ppm)}"></label></div>${draftTabContent(draft, evidences, 'guion')}</div>
@@ -397,7 +423,17 @@ function wireDraftControls() {
     editForm.addEventListener('submit', saveDraftEdit);
   }
   const adaptForm = detailEl.querySelector('.adapt-form');
-  if (adaptForm) adaptForm.addEventListener('submit', adaptDraft);
+  if (adaptForm) {
+    adaptForm.addEventListener('submit', adaptDraft);
+    adaptForm.querySelector('.reset-criteria')?.addEventListener('click', () => {
+      for (const [name, value] of Object.entries(CRITERIA_DEFAULTS)) {
+        const field = adaptForm.elements[name];
+        if (field) field.value = value;
+      }
+      const message = adaptForm.querySelector('.message');
+      if (message) message.textContent = 'Criterios restablecidos.';
+    });
+  }
   const saveAdapted = detailEl.querySelector('.save-adapted');
   if (saveAdapted) saveAdapted.addEventListener('click', saveAdaptedDraft);
 }
@@ -446,23 +482,38 @@ async function adaptDraft(event) {
   event.preventDefault();
   const form = event.currentTarget;
   const message = form.querySelector('.message');
+  const button = form.querySelector('.generate-button');
   const draft = currentDetail?.borradores?.[0];
   if (!draft) return;
-  const data = Object.fromEntries(new FormData(form));
-  if (!data.duracion_s) delete data.duracion_s;
-  else data.duracion_s = Number(data.duracion_s);
-  message.textContent = '◐ Adaptando…';
+  const data = {};
+  for (const [key, value] of new FormData(form).entries()) {
+    data[key] = value;
+  }
+  for (const numeric of ['duracion_s', 'palabras']) {
+    if (!data[numeric]) delete data[numeric];
+    else data[numeric] = Number(data[numeric]);
+  }
+  if (button) {
+    button.disabled = true;
+    button.textContent = 'Generando…';
+  }
+  message.textContent = 'Generando versión con el modelo local…';
   try {
-    currentAdaptation = await api(`/api/borradores/${encodeURIComponent(draft.id)}/adaptar`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+    currentAdaptation = await api(`/api/borradores/${encodeURIComponent(draft.id)}/generar`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
     const panel = detailEl.querySelector('[data-draft-panel="adaptado"]');
     if (panel) panel.innerHTML = adaptedTabContent(currentAdaptation, currentDetail.evidencias);
     detailEl.querySelectorAll('[data-draft-tab]').forEach(item => item.setAttribute('aria-selected', String(item.dataset.draftTab === 'adaptado')));
     detailEl.querySelectorAll('[data-draft-panel]').forEach(item => item.classList.toggle('hidden', item.dataset.draftPanel !== 'adaptado'));
     detailEl.querySelector('.save-adapted')?.addEventListener('click', saveAdaptedDraft);
     wireCitationButtons();
-    message.textContent = '✓ Adaptación lista.';
+    message.textContent = 'Versión lista.';
   } catch (error) {
     message.textContent = error.message;
+  } finally {
+    if (button) {
+      button.disabled = false;
+      button.textContent = 'Generar';
+    }
   }
 }
 
