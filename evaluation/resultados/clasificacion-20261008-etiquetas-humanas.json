@@ -1,0 +1,384 @@
+{
+  "fecha_utc": "20261008-etiquetas-humanas",
+  "archivo_etiquetas": "evaluation\\etiquetas\\temas.csv",
+  "tamano_conjunto": {
+    "numerador": 189,
+    "denominador": 189
+  },
+  "metodo_etiquetado": "CSV de etiquetas humanas; filas vacías ignoradas.",
+  "conteo_por_tema": {
+    "regulacion": 22,
+    "servicios_publicos": 19,
+    "economia": 13,
+    "turismo": 5,
+    "eventos_naturales": 8,
+    "sin_clasificar": 122
+  },
+  "metricas": {
+    "reglas_tematicas": {
+      "macro_f1": {
+        "valor": 0.25356346795167173,
+        "numerador": 125,
+        "denominador": 189
+      },
+      "por_tema": {
+        "economia": {
+          "precision": 0.5,
+          "recall": 0.23076923076923078,
+          "f1-score": 0.3157894736842105,
+          "support": 13.0
+        },
+        "eventos_naturales": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1-score": 0.0,
+          "support": 8.0
+        },
+        "regulacion": {
+          "precision": 1.0,
+          "recall": 0.045454545454545456,
+          "f1-score": 0.08695652173913043,
+          "support": 22.0
+        },
+        "servicios_publicos": {
+          "precision": 0.6666666666666666,
+          "recall": 0.21052631578947367,
+          "f1-score": 0.32,
+          "support": 19.0
+        },
+        "sin_clasificar": {
+          "precision": 0.6842105263157895,
+          "recall": 0.9590163934426229,
+          "f1-score": 0.7986348122866894,
+          "support": 122.0
+        },
+        "turismo": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1-score": 0.0,
+          "support": 5.0
+        },
+        "micro avg": {
+          "precision": 0.6684491978609626,
+          "recall": 0.6613756613756614,
+          "f1-score": 0.6648936170212766,
+          "support": 189.0
+        },
+        "macro avg": {
+          "precision": 0.4751461988304093,
+          "recall": 0.24096108090931212,
+          "f1-score": 0.25356346795167173,
+          "support": 189.0
+        },
+        "weighted avg": {
+          "precision": 0.659472755963984,
+          "recall": 0.6613756613756614,
+          "f1-score": 0.5795330885456704,
+          "support": 189.0
+        }
+      },
+      "matriz_confusion": {
+        "labels": [
+          "economia",
+          "eventos_naturales",
+          "regulacion",
+          "servicios_publicos",
+          "sin_clasificar",
+          "turismo"
+        ],
+        "valores": [
+          [
+            3,
+            0,
+            0,
+            0,
+            10,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            8,
+            0
+          ],
+          [
+            2,
+            0,
+            1,
+            0,
+            18,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            4,
+            15,
+            0
+          ],
+          [
+            0,
+            1,
+            0,
+            2,
+            117,
+            2
+          ],
+          [
+            1,
+            0,
+            0,
+            0,
+            3,
+            0
+          ]
+        ]
+      }
+    },
+    "prototipos_e5_zero_shot": {
+      "macro_f1": {
+        "valor": 0.20978835978835977,
+        "numerador": 23,
+        "denominador": 189
+      },
+      "por_tema": {
+        "economia": {
+          "precision": 0.8,
+          "recall": 0.3076923076923077,
+          "f1-score": 0.4444444444444444,
+          "support": 13.0
+        },
+        "eventos_naturales": {
+          "precision": 0.2727272727272727,
+          "recall": 0.75,
+          "f1-score": 0.4,
+          "support": 8.0
+        },
+        "regulacion": {
+          "precision": 0.5,
+          "recall": 0.13636363636363635,
+          "f1-score": 0.21428571428571427,
+          "support": 22.0
+        },
+        "servicios_publicos": {
+          "precision": 0.12345679012345678,
+          "recall": 0.5263157894736842,
+          "f1-score": 0.2,
+          "support": 19.0
+        },
+        "sin_clasificar": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1-score": 0.0,
+          "support": 122.0
+        },
+        "turismo": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1-score": 0.0,
+          "support": 5.0
+        },
+        "micro avg": {
+          "precision": 0.17829457364341086,
+          "recall": 0.12169312169312169,
+          "f1-score": 0.14465408805031446,
+          "support": 189.0
+        },
+        "macro avg": {
+          "precision": 0.28269734380845496,
+          "recall": 0.28672862225493806,
+          "f1-score": 0.20978835978835977,
+          "support": 189.0
+        },
+        "weighted avg": {
+          "precision": 0.13718252483684584,
+          "recall": 0.12169312169312169,
+          "f1-score": 0.09255060048710843,
+          "support": 189.0
+        }
+      },
+      "matriz_confusion": {
+        "labels": [
+          "economia",
+          "eventos_naturales",
+          "regulacion",
+          "servicios_publicos",
+          "sin_clasificar",
+          "turismo"
+        ],
+        "valores": [
+          [
+            4,
+            1,
+            0,
+            4,
+            0,
+            0
+          ],
+          [
+            0,
+            6,
+            0,
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            3,
+            9,
+            0,
+            0
+          ],
+          [
+            0,
+            3,
+            1,
+            10,
+            0,
+            1
+          ],
+          [
+            0,
+            11,
+            2,
+            56,
+            0,
+            14
+          ],
+          [
+            0,
+            0,
+            0,
+            1,
+            0,
+            0
+          ]
+        ]
+      }
+    },
+    "logreg_supervisado": {
+      "macro_f1": {
+        "valor": 0.4785494669155697,
+        "numerador": 121,
+        "denominador": 189
+      },
+      "por_tema": {
+        "economia": {
+          "precision": 0.25,
+          "recall": 0.23076923076923078,
+          "f1-score": 0.24,
+          "support": 13.0
+        },
+        "eventos_naturales": {
+          "precision": 0.5,
+          "recall": 0.75,
+          "f1-score": 0.6,
+          "support": 8.0
+        },
+        "regulacion": {
+          "precision": 0.41379310344827586,
+          "recall": 0.5454545454545454,
+          "f1-score": 0.47058823529411764,
+          "support": 22.0
+        },
+        "servicios_publicos": {
+          "precision": 0.35714285714285715,
+          "recall": 0.5263157894736842,
+          "f1-score": 0.425531914893617,
+          "support": 19.0
+        },
+        "sin_clasificar": {
+          "precision": 0.9157894736842105,
+          "recall": 0.7131147540983607,
+          "f1-score": 0.8018433179723502,
+          "support": 122.0
+        },
+        "turismo": {
+          "precision": 0.23076923076923078,
+          "recall": 0.6,
+          "f1-score": 0.3333333333333333,
+          "support": 5.0
+        },
+        "accuracy": 0.6402116402116402,
+        "macro avg": {
+          "precision": 0.44458244417409576,
+          "recall": 0.5609423866326368,
+          "f1-score": 0.4785494669155697,
+          "support": 189.0
+        },
+        "weighted avg": {
+          "precision": 0.7196789656343714,
+          "recall": 0.6402116402116402,
+          "f1-score": 0.6658708942790619,
+          "support": 189.0
+        }
+      },
+      "matriz_confusion": {
+        "labels": [
+          "economia",
+          "eventos_naturales",
+          "regulacion",
+          "servicios_publicos",
+          "sin_clasificar",
+          "turismo"
+        ],
+        "valores": [
+          [
+            3,
+            1,
+            3,
+            3,
+            2,
+            1
+          ],
+          [
+            0,
+            6,
+            0,
+            1,
+            1,
+            0
+          ],
+          [
+            2,
+            0,
+            12,
+            5,
+            2,
+            1
+          ],
+          [
+            2,
+            1,
+            3,
+            10,
+            2,
+            1
+          ],
+          [
+            5,
+            3,
+            11,
+            9,
+            87,
+            7
+          ],
+          [
+            0,
+            1,
+            0,
+            0,
+            1,
+            3
+          ]
+        ]
+      }
+    }
+  },
+  "advertencias": []
+}

@@ -84,15 +84,19 @@ async function recorrido(app, { ok, medir, marca }) {
   ok(rapida === 'true', 'la guía rápida «Cómo leer Sourced» abre como diálogo', rapida)
 
   if (await app.js(`Boolean(document.querySelector('.adapt-form'))`)) {
-    await medir('adaptar a video vertical', app.esperarCambio(
-      `document.querySelector('[data-draft-panel="adaptado"]')?.textContent.includes('Qué falta verificar') ?? false`,
-      () => app.js(`(() => { const f = document.querySelector('.adapt-form'); f.formato.value = 'vertical'; f.formato.dispatchEvent(new Event('change', { bubbles: true })); f.requestSubmit() })()`),
-      'la versión adaptada'))
+    // Generar versión: criterios opcionales en la barra; el modelo local redacta y el guardián valida.
+    const criterios = await app.js(`document.querySelectorAll('.criteria-toolbar select').length`)
+    ok(criterios >= 6, 'la barra de criterios muestra los desplegables', `${criterios} criterios`)
+    await medir('generar versión reel 30 s', app.esperarCambio(
+      `/palabras ·/.test(document.querySelector('[data-draft-panel="adaptado"]')?.textContent ?? '')`,
+      () => app.js(`(() => { const f = document.querySelector('.adapt-form'); f.formato.value = 'vertical'; f.duracion_s.value = '30'; f.tono.value = 'cercano'; f.requestSubmit() })()`),
+      'la versión generada', { limite: 180000 }))
     const adaptado = await app.js(`document.querySelector('[data-draft-panel="adaptado"]').innerText`)
-    ok(/0-5 s/.test(adaptado) && /Qué falta verificar/.test(adaptado), 'la adaptación vertical muestra sus tres bloques')
+    ok(/objetivo/.test(adaptado), 'la versión muestra palabras y segundos frente al objetivo')
+    ok(await app.js(`Boolean(document.querySelector('[data-draft-panel="adaptado"] .model-prompt'))`), 'la versión muestra las instrucciones enviadas al modelo')
     const frases = await app.js(`[...document.querySelectorAll('[data-draft-panel="adaptado"] .cited-sentence span')].map(s => s.textContent.trim())`)
-    ok(new Set(frases).size === frases.length, 'la adaptación no repite oraciones', `${frases.length} oraciones`)
-    await contraste('Redacción · adaptación')
+    ok(frases.length > 0 && new Set(frases).size === frases.length, 'la versión trae oraciones citadas sin repetir', `${frases.length} oraciones`)
+    await contraste('Redacción · versión generada')
   }
 
 

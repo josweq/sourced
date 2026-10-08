@@ -28,9 +28,17 @@ SCHEMA = {
 }
 
 
+# Abreviaturas cuyo punto no cierra oración: «EE.UU. dona…» se partía y dejaba «EE.UU.» suelto.
+ABREVIATURAS = ("EE.UU.", "EE. UU.", "Sr.", "Sra.", "Dr.", "Dra.", "Lic.", "Ing.", "No.", "Núm.", "aprox.", "etc.", "B/.")
+
+
 def _sentences(texto: str) -> list[str]:
-    parts = re.split(r"(?<=[.!?])\s+", (texto or "").strip())
-    return [part.strip() for part in parts if part.strip()]
+    protegido = texto or ""
+    for i, abrev in enumerate(ABREVIATURAS):
+        protegido = protegido.replace(abrev, f"\x00{i}\x00")
+    parts = re.split(r"(?<=[.!?])\s+", protegido.strip())
+    restaurar = lambda s: re.sub(r"\x00(\d+)\x00", lambda m: ABREVIATURAS[int(m.group(1))], s)
+    return [restaurar(part).strip() for part in parts if part.strip()]
 
 
 def recortar_por_oracion(texto: str, limite: int) -> tuple[str, bool]:

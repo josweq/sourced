@@ -21,7 +21,10 @@ from src.ia.embeddings import vectorizar
 TOPICS = ("economia", "logistica_canal", "turismo", "servicios_publicos",
           "eventos_naturales", "regulacion")
 SIN_CLASIFICAR = "sin_clasificar"
-UMBRAL_INICIAL = 0.45
+# «sin_clasificar» es una clase etiquetada por personas; un umbral de confianza extra la duplicaba.
+# Calibrado 2026-10-08 con validación cruzada sobre 189 etiquetas: con 0,45 ningún titular
+# recibía tema (confianza máxima mediana 0,20); con 0,0 macro-F1 0,479.
+UMBRAL_INICIAL = 0.0
 
 # Baseline documentado: reglas léxicas deliberadamente simples para comparación.
 REGLAS_TEMATICAS = {

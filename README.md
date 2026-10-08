@@ -12,7 +12,7 @@ Prototipo local funcionando de punta a punta con **datos reales del 7 de octubre
 |---|---|
 | Snapshot reproducible con manifest SHA-256 | Hecho (`data/snapshot-dev/real-20261007b/processed`) |
 | Embeddings locales (multilingual-e5-small, CPU), agrupación semántica calibrada, búsqueda híbrida | Hecho |
-| Clasificación de tema supervisada | Código listo; **faltan las etiquetas humanas** (hoja de etiquetado repartida). Mientras tanto usa reglas y lo declara |
+| Clasificación de tema supervisada | Hecho con 189 etiquetas humanas (Josué y Juanchi): macro-F1 0,479 frente a 0,254 de reglas y 0,210 sin entrenar; agrupación evaluada con 27 pares (`evaluation/resultados/etiquetas-humanas-20261008.md`) |
 | Redacción con Ollama `llama3.2:3b` + guardián (citas, cifras, términos sin respaldo, tono publicitario, inyección) | Hecho |
 | Mesa editorial: brief, guion con cronómetro, copy, preguntas, versiones, revisión humana | Hecho |
 | Preguntas en español con respuesta citada o abstención (CU-02, CU-04, CU-05) | Hecho |
@@ -22,7 +22,7 @@ Prototipo local funcionando de punta a punta con **datos reales del 7 de octubre
 | Matriz T01–T10 | 10/10 cumplen; T05 detecta cifras incompatibles entre medios (0 en el snapshot real, sintético SYN detectado); T10 corrida con el Wi-Fi cortado: 5/5 pasos y 0 salidas a la red (`evaluation/matriz-T01-T10.md`, `verificacion/prueba-local.md`) |
 | Dossier | [`docs/notion/dossier.md`](docs/notion/dossier.md): fuente completa con capturas, decisiones, fichas, pruebas, riesgos, guion del pitch y bitácora. Copia en el espacio de Notion «hackIAthon 4taEd» (la organización indicó avanzar sin depender de Notion) |
 
-Pruebas: 111/111. Verificación viva en verde dos veces (contraste en ambos temas, 360/390 px) en `verificacion/`. Prueba sin red: `python scripts/smoke_sin_red.py --db <base>` y puerta estática `python scripts/check_sin_red.py`.
+Pruebas: 121/121. Verificación viva en verde dos veces (contraste en ambos temas, 360/390 px) en `verificacion/`. Prueba sin red: `python scripts/smoke_sin_red.py --db <base>` y puerta estática `python scripts/check_sin_red.py`.
 
 ## Probar en 6 pasos (Windows, macOS o Linux; sin GPU, sin claves)
 Requisitos: Python 3.10+ y [Ollama](https://ollama.com/download) instalado. Un comando por línea (funciona igual en PowerShell 5.1, PowerShell 7, cmd y bash).

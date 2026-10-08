@@ -9,8 +9,8 @@
 **Demo:** local, sin internet ni GPU (instrucciones en el README)
 **Notion:** la organización indicó avanzar sin depender de Notion (la cuenta Business del reto no funciona); este documento es la fuente completa y hay una copia en el espacio «hackIAthon 4taEd».
 
-![Sourced con datos reales del 7 de octubre: agenda priorizada, radiografía del caso y mesa editorial](../../verificacion/capturas/final-escritorio-guia.png)
-*Agenda con puntaje y evidencia por separado (izquierda), radiografía del caso (centro) y mesa editorial con borrador citado, adaptación de formato y lo que retiró el guardián (derecha).*
+![Sourced con datos reales del 7 de octubre: agenda priorizada, radiografía del caso y mesa editorial](../../verificacion/capturas/sourced-escritorio.png)
+*Agenda con puntaje y evidencia por separado (izquierda), radiografía del caso (centro) y mesa editorial con borrador citado y la barra «Generar versión» (derecha).*
 
 ---
 
@@ -51,7 +51,7 @@ Cobertura de citas 100 % · abstención correcta ≥ 80 % · ninguna cifra inven
 | 6 | Redacción con guardián y mesa editorial | Josué + Codex | Hecho |
 | 7 | Preguntas con abstención (CU-02, CU-04, CU-05) | Josué | Hecho |
 | 8 | Benchmark de desarrollo y matriz T01–T10 | Josué | Hecho |
-| 9 | Etiquetado humano de temas y pares (pre-etiquetado por Codex, revisado por persona) | Josué, Diego, Juanchi | En curso |
+| 9 | Etiquetado humano de temas y pares (pre-etiquetado por Codex, revisado por persona) | Josué, Juanchi (Diego no llegó a tiempo) | Hecho |
 | 10 | Formatos de adaptación (TV, radio, vertical, web, alerta) | Josué + Codex | Hecho |
 | 10b | Guías «qué significa» y guía rápida en la interfaz | Josué + Codex | Hecho |
 | 11 | Prueba sin internet (T10) | Josué | Hecho |
@@ -111,7 +111,7 @@ Snapshot `real-20261007b`. Puntaje P = 30R + 25I + 20U + 15N + 10E (componentes 
 |---|---|
 | Caso | `CASO-828dcf139d9cf6f0510e` |
 | Publicaciones | Crítica, 7 oct 2026 18:03 (UTC−5): «EE.UU. dona a Panamá equipos de emergencia valorados en $500 mil» · TVN, 7 oct 2026 18:41 (UTC−5): «EEUU dona a Panamá equipos por $500,000 para habilitar albergues…» |
-| Puntaje | 43,5 (R 0,20 · I 0,30 · U 1,00 · N 0,50 · E 0,25) |
+| Puntaje | 64,25 (R 0,60 · I 0,65 · U 1,00 · N 0,50 · E 0,25) · tema «servicios públicos» asignado por el clasificador entrenado · puesto 26 de 275 |
 | Evidencia | **Insuficiente**: dos medios lo publican, pero ninguno declara su procedencia; repetición no es corroboración |
 | Falta verificar | Comunicado de la Embajada o del Sinaproc; destino de los equipos |
 | Qué demuestra | Agrupación semántica entre medios (T02) sin inflar la evidencia |
@@ -121,20 +121,20 @@ Snapshot `real-20261007b`. Puntaje P = 30R + 25I + 20U + 15N + 10E (componentes 
 |---|---|
 | Caso | `CASO-d7414efb7cc141eab72c` |
 | Publicaciones | La Prensa, 17 ago 2026: «Meduca contrató $28.4 millones por 54,000 laptops…» · 18 ago 2026: «Meduca tramitó adenda… por $235 mil y 75 días más» |
-| Puntaje | 25,5 (U 0,10: notas de agosto, no de hoy) |
+| Puntaje | 46,25 (U 0,10: notas de agosto, no de hoy) · tema «regulación» · puesto 116 de 275 |
 | Evidencia | **Insuficiente** (un solo medio) |
 | Pregunta en Sourced | «contrato de laptops del Meduca» → responde con 3 titulares citados |
 | Qué demuestra | Las fechas originales mandan sobre la fecha de captura |
 
-### Ficha 3 — Temporada de cruceros en el Canal (primero de la agenda, evidencia insuficiente)
+### Ficha 3 — Temporada de cruceros en el Canal (prioridad media, evidencia insuficiente)
 | Campo | Valor |
 |---|---|
 | Caso | `CASO-eac2d70e82de48de49cd` |
 | Publicación | TVN, 7 oct 2026 16:59 (UTC−5): «Canal de Panamá: Carnival Miracle inaugura temporada de cruceros 2026-2027; se contemplan más de 220 tránsitos» |
-| Puntaje | **65,5** (R 0,60 · I 0,70 · U 1,00 · N 0,50 · E 0,25): el más alto del snapshot, en rango **medio** (alto ≥ 70; con solo titulares, ningún caso real llega ahí porque E y N quedan bajos) |
+| Puntaje | **61,75** (R 0,60 · I 0,55 · U 1,00 · N 0,50 · E 0,25) · tema «turismo» · puesto 47 de 275. El máximo del snapshot es 65,5, en rango **medio** (alto ≥ 70; con solo titulares, ningún caso real llega ahí porque E y N quedan bajos) |
 | Evidencia | **Insuficiente**: un titular, sin fuente primaria |
 | Borrador | Brief, guion y copy citados; el guardián **retiró** un copy publicitario del modelo («¡Reserva tu crucero ahora…!») |
-| Qué demuestra | Encabezar la agenda ≠ permiso para publicar (T08); la caja «Falta verificar» manda |
+| Qué demuestra | Prioridad ≠ permiso para publicar (T08); la caja «Falta verificar» manda |
 
 ### Ficha 4 — Inflación de Panamá (dato oficial, no actual)
 | Campo | Valor |
@@ -149,27 +149,29 @@ Snapshot `real-20261007b`. Puntaje P = 30R + 25I + 20U + 15N + 10E (componentes 
 |---|---|
 | Caso | `CASO-c89d635822b3f8a2ffc9` |
 | Publicación | Crítica: «EL MUNDO DESPIDE AL PAPA FRANCISCO #ENVIVO», fecha original **26 abr 2025**, servida en el RSS de hoy |
-| Puntaje | 25,5 (U 0,10, mínima) — puesto 101 de 275 |
+| Puntaje | 25,5 (U 0,10, mínima) — puesto 258 de 275 |
 | Evidencia | **Insuficiente** |
 | Qué demuestra | Una nota vieja no se presenta como nueva (T03) |
 
 ### Sourced en acción (capturas con los datos reales)
 
-**Caso y mesa editorial** — un titular de TVN, evidencia insuficiente, borrador citado y la oración que retiró el guardián:
-![Caso de cruceros con mesa editorial](../../verificacion/capturas/real-caso-mesa.png)
+**Caso, radiografía y mesa editorial** — un titular de TVN, evidencia insuficiente, borrador citado y la barra «Generar versión» con criterios opcionales:
+![Caso de cruceros con mesa editorial](../../verificacion/capturas/sourced-escritorio.png)
 
-**Pregunta con cita** — respuesta armada solo con titulares del snapshot, cada uno con su medio:
-![Pregunta con respuesta citada](../../verificacion/capturas/real-pregunta.png)
+**Generar versión** — reel/short de 30 s en tono cercano: la versión no rellena; dice cuánto alcanza con la evidencia y qué faltaría para llegar al objetivo:
+![Versión generada con aviso de alcance](../../verificacion/capturas/sourced-generar-version.png)
 
-**Cifra oficial, no actual** — país, año, unidad y fuente; el aviso de que no es una medición de hoy:
-![Cifra del Banco Mundial con aviso](../../verificacion/capturas/real-cifra.png)
+**Un hecho, dos medios** — Crítica y TVN en un solo caso; 0 fuentes independientes porque ninguno declara su origen:
+![Caso con dos medios](../../verificacion/capturas/sourced-dos-medios.png)
 
-**Adaptar la nota** — mismo contenido y mismas citas, otro formato:
-![Adaptación de formato](../../verificacion/capturas/real-adaptacion.png)
+**Cifra oficial, no actual** — país, año, unidad y fuente, con el aviso de que no es una medición de hoy:
+![Cifra del Banco Mundial con aviso](../../verificacion/capturas/sourced-cifra-oficial.png)
 
-**En el teléfono y en tema oscuro «Sala»:**
-![Agenda en móvil](../../verificacion/capturas/final-movil-agenda.png)
-![Tema Sala](../../verificacion/capturas/final-sala.png)
+**Abstención** — sin evidencia en el snapshot, no responde:
+![Abstención explícita](../../verificacion/capturas/sourced-abstencion.png)
+
+**En el teléfono:**
+![Agenda en móvil](../../verificacion/capturas/sourced-movil.png)
 
 ---
 
@@ -193,6 +195,17 @@ Mismas 40 preguntas, mismas reglas de cifras oficiales, abstención y protecció
 **Qué significa:** las palabras clave responden más, pero responden mal cuando no hay evidencia: a «precio del oro en Bolivia» cita «el precio del clientelismo» y a «resultado de las elecciones en Japón» cita un titular de béisbol porque comparte la palabra «resultado». En una redacción, una cita pertinente equivocada es peor que una abstención. Sourced paga ese control con una abstención indebida más (2 vs 1).
 
 **Sesgo declarado:** las preguntas y los umbrales los preparó el equipo con el sistema a la vista (conjunto de desarrollo, no reservado); la diferencia es indicativa, no una medición independiente. Resultados: `evaluation/resultados/benchmark-20261008T154642Z.md` y `benchmark-20261008T154554Z-lexico.md`.
+
+### Clasificación de tema y agrupación con etiquetas humanas
+189 titulares y 27 pares revisados fila por fila por dos personas del equipo (pre-etiquetado por Codex, revisado por persona; 72 temas corregidos). Validación cruzada de 5 pliegues:
+
+| Método | Macro-F1 | Aciertos |
+|---|---|---|
+| **Clasificador entrenado con etiquetas humanas** (embeddings locales + regresión logística) | **0,479** | 121/189 |
+| Reglas por palabras clave (sin IA) | 0,254 | 125/189 |
+| Embeddings sin entrenar | 0,210 | 23/189 |
+
+**Qué significa:** el modelo entrenado casi duplica a las reglas en macro-F1 (acierta en temas que las reglas nunca ven: regulación 0,47 frente a 0,09; eventos naturales 0,60 frente a 0). Las reglas empatan en aciertos totales porque mandan casi todo a «sin clasificar», la clase más grande. Agrupación: con el umbral en uso (0,945) la precisión es 0,75 y la cobertura 0,18; preferimos no fusionar hechos distintos aunque queden tarjetas repetidas. Detalle y curva completa: `evaluation/resultados/etiquetas-humanas-20261008.md`.
 
 ### Una prueba fallida y su corrección
 **Fallo:** con noticias reales, el borrador del modelo dijo «¡Reserva tu crucero ahora y prepárate para una aventura inolvidable!» y expandió «RSE» como «Resolución de Situaciones Económicas». **Causa:** el guardián validaba las afirmaciones, pero no la prosa libre. **Corrección:** cada oración del modelo pasa por el guardián; lo retirado sale con su motivo. Hay prueba automática con esos casos reales.
@@ -228,7 +241,7 @@ Usuario: editor/a, productor/a digital, director/a de noticias.
 Datos: 284 titulares reales del 7 de octubre (TVN, La Prensa, Crítica, Panamá América, En Segundos; solo titular y metadatos), 540 valores del Banco Mundial y 82 sismos de USGS, en un snapshot con huella SHA-256.
 
 ### 2:00 – 6:00 · Demo en vivo (4 min)
-1. **Agenda** (30 s). Señalar el primer caso, cruceros del Canal: puntaje 65,5 desglosado (R, I, U, N, E) y, aparte, evidencia **insuficiente**. «Encabezar la agenda no es permiso para publicar.»
+1. **Agenda** (30 s). Señalar el primer caso (65,5, rango medio): puntaje desglosado (R, I, U, N, E) y, aparte, evidencia **insuficiente**. Abrir el caso de cruceros del Canal (61,75). «Encabezar la agenda no es permiso para publicar.»
 2. **Radiografía** (45 s). Abrir el caso de la donación de EE.UU.: dos medios (Crítica y TVN) en un solo caso. «Dos medios no son dos fuentes: ninguno declara de dónde sale; repetición no es corroboración.» Mostrar «Falta verificar».
 3. **Mesa editorial** (60 s). Abrir el borrador de cruceros: brief, guion con cronómetro, copy y preguntas; cada afirmación con su chip de cita. Mostrar lo que el guardián **retiró** y por qué («¡Reserva tu crucero ahora…!»: tono publicitario). Adaptar a **Radio 30 s**: mismas citas, otro formato, ningún dato nuevo.
 4. **Preguntar** (60 s). «¿Cuál es la inflación de Panamá hoy?» → «Panamá, 2024: 0,7 %… Dato anual del Banco Mundial; no es una medición actual», con cita. Luego «precio del oro en Bolivia» → **abstención**: «No encontré evidencia…».
@@ -247,7 +260,7 @@ Una prueba fallida contada sin pena: el centroide unía 102 titulares sin relaci
 ### 9:00 – 10:00 · Límites y próximos pasos
 - Solo titulares: por eso casi todo queda «insuficiente». Con cuerpos de nota autorizados, la evidencia puede subir.
 - Un modelo de 3B redacta sobrio; el guardián retira mucho. Con un modelo local mayor, mejor prosa sin perder control.
-- Clasificación de tema: entrenada con etiquetas revisadas por el equipo (macro-F1 en sección 6, o reglas si no alcanzaron).
+- Clasificación de tema: entrenada con 189 etiquetas revisadas por dos personas (macro-F1 0,479 frente a 0,254 de reglas). Con más etiquetas y la categoría «logística y Canal» (sin ejemplos humanos hoy) mejoraría.
 - Próximo: piloto con una mesa de TVN, fuente primaria (comunicados oficiales) y detección de contradicciones entre medios.
 
 > Cierre: «Antes de contar una historia, mostramos qué la sostiene.»
@@ -293,4 +306,5 @@ Hora de Panamá (UTC−5). Cada línea enlaza a un commit del repositorio.
 | 8 oct 10:48 | IA frente a línea base sin IA en el benchmark | `0ae9c08` |
 | 8 oct 11:09 | T05: cifras incompatibles entre medios (Codex construye, Claude audita y corrige falsos positivos); matriz 10/10 | `e6c4ec4` |
 | 8 oct 11:20 | Generar versión: barra de criterios opcionales (formato, duración, palabras, tono, enfoque, público) que arma el prompt; tope sin relleno | `d8aaf7c` |
-| 8 oct 11:45 | El producto pasa a llamarse **Sourced** («nada sin fuente») | este commit |
+| 8 oct 11:45 | El producto pasa a llamarse **Sourced** («nada sin fuente») | `6a6a51f` |
+| 8 oct 12:20 | Etiquetas humanas (Josué y Juanchi): clasificador entrenado macro-F1 0,479 frente a 0,254 de reglas; **fallo**: el umbral heredado de 0,45 dejaba todo sin tema → calibrado a 0; **fallo**: «EE.UU.» partía oraciones → corregido; capturas y verificación viva rehechas | este commit |

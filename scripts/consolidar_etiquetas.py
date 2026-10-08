@@ -60,7 +60,7 @@ def main():
     with (SALIDA / "pares.csv").open("w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, ["id_a", "id_b", "mismo_evento", "revisor"]); w.writeheader(); w.writerows(todos_p)
     corregidas = sum(1 for t in todos_t if t["fuente"] == "corregida")
-    print(f"Total: {len(todos_t)} temas ({corregidas} corregidos por persona), {len(todos_p)} pares → {SALIDA}")
+    print(f"Total: {len(todos_t)} temas ({corregidas} corregidos por persona), {len(todos_p)} pares; escritos en {SALIDA}")
 
 
 if __name__ == "__main__":

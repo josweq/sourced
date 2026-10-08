@@ -18,7 +18,7 @@ except ModuleNotFoundError:
     from procesar_agenda import stable_id, ranking, WEIGHTS
 
 from src.ia.agrupacion import RULES_VERSION, agrupar_semantico, evaluar_pares
-from src.ia.clasificador import ClasificadorTema, cargar_etiquetas, clasificar_reglas, conjunto_suficiente
+from src.ia.clasificador import UMBRAL_INICIAL, ClasificadorTema, cargar_etiquetas, clasificar_reglas, conjunto_suficiente
 from src.ia.contradicciones import detectar as detectar_contradicciones
 from src.ia.embeddings import EXPECTED_DIM, blob_a_vector, nombre_modelo, vector_a_blob, vectorizar
 from src.ia.proveedores import ProviderUnavailable
@@ -58,7 +58,7 @@ def crear_tablas_ia(db):
     """)
 
 
-def _clasificar(rows, etiquetas_path, vectorizador=None, umbral=.45):
+def _clasificar(rows, etiquetas_path, vectorizador=None, umbral=UMBRAL_INICIAL):
     etiquetas = cargar_etiquetas(etiquetas_path)
     ok, reason = conjunto_suficiente([r["etiqueta_humana"] for r in etiquetas])
     if ok:
@@ -74,7 +74,7 @@ def _clasificar(rows, etiquetas_path, vectorizador=None, umbral=.45):
 
 
 def process(input_path: Path, output_path: Path, etiquetas_path: Path = Path("evaluation/etiquetas/temas.csv"),
-            pares_path: Path = Path("evaluation/etiquetas/pares.csv"), umbral_tema: float = .45,
+            pares_path: Path = Path("evaluation/etiquetas/pares.csv"), umbral_tema: float = UMBRAL_INICIAL,
             umbral_grupo: float = .945, max_dias: int = 7, vectorizador=None, borradores: int = 0):
     if output_path.exists():
         raise FileExistsError("La salida ya existe; no se sobrescribe")
@@ -220,7 +220,7 @@ def main():
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--etiquetas", type=Path, default=Path("evaluation/etiquetas/temas.csv"))
     parser.add_argument("--pares", type=Path, default=Path("evaluation/etiquetas/pares.csv"))
-    parser.add_argument("--umbral-tema", type=float, default=.45)
+    parser.add_argument("--umbral-tema", type=float, default=UMBRAL_INICIAL)
     parser.add_argument("--umbral-grupo", type=float, default=.945)
     parser.add_argument("--max-dias", type=int, default=7)
     parser.add_argument("--borradores", type=int, default=8,
