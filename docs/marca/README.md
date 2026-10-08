@@ -4,6 +4,14 @@
 
 ![Lámina de conceptos](lamina-conceptos.png)
 
+## Logo elegido (8-oct-2026)
+![Logo final](lamina-logo-final.png)
+
+- **Ícono (A):** `[S]` — corchetes de cita y la S atravesada por el resaltador. Favicon, ícono de la app y avatar. Archivos: `logo-icono.svg`, `logo-icono.png`.
+- **Logotipo (B):** `[ Sourced ]` — la palabra entre corchetes, atravesada por el mismo resaltador. Portada, Notion y pitch. Archivos: `logo-completo.svg`, `logo-completo.png`.
+- Negro sobre papel, resaltador amarillo **detrás** de las letras (encima se leía como tachado). Tipografía: Source Serif 4 Semibold.
+- Para producción, convertir el texto a contornos en el editor vectorial, para no depender de la fuente instalada.
+
 ## Idea central: los materiales de la verificación
 La marca sale del producto, no de una moda. En una redacción, verificar es **papel, tinta y resaltador**: se lee el original, se subraya lo que lo sostiene y se anota la fuente al margen. En Sourced cada cita ya aparece resaltada en amarillo; ese resaltador es la marca.
 
