@@ -192,11 +192,11 @@ Mismas 40 preguntas, mismas reglas de cifras oficiales, abstención y protecció
 | Abstención indebida (sí había respuesta) | 2/20 (10 %) | **1/20 (5 %)** |
 | Adversariales | 6/6 | 6/6 |
 | Cobertura de citas | 33/33 (100 %) | 47/47 (100 %) |
-| Latencia mediana / p95 | 92 / 106 ms | 22 / 47 ms |
+| Latencia mediana / p95 | 84 / 114 ms | 16 / 26 ms |
 
 **Qué significa:** las palabras clave responden más, pero responden mal cuando no hay evidencia: a «precio del oro en Bolivia» cita «el precio del clientelismo» y a «resultado de las elecciones en Japón» cita un titular de béisbol porque comparte la palabra «resultado». En una redacción, una cita pertinente equivocada es peor que una abstención. Sourced paga ese control con una abstención indebida más (2 vs 1).
 
-**Sesgo declarado:** las preguntas y los umbrales los preparó el equipo con el sistema a la vista (conjunto de desarrollo, no reservado); la diferencia es indicativa, no una medición independiente. Resultados: `evaluation/resultados/benchmark-20261008T154642Z.md` y `benchmark-20261008T154554Z-lexico.md`.
+**Sesgo declarado:** las preguntas y los umbrales los preparó el equipo con el sistema a la vista (conjunto de desarrollo, no reservado); la diferencia es indicativa, no una medición independiente. Resultados: `evaluation/resultados/benchmark-20261008T205820Z.md` y `benchmark-20261008T205856Z-lexico.md`.
 
 ### Clasificación de tema y agrupación con etiquetas humanas
 284 titulares y 40 pares revisados fila por fila por las tres personas del equipo (pre-etiquetado por Codex, revisado por persona; 81 temas corregidos). Validación cruzada de 5 pliegues:

@@ -71,7 +71,7 @@ Comprobaciones: `python -m unittest discover -s tests -p "test_*.py"` (125 prueb
 | Abstención correcta (no había respuesta) | **7/7** | 4/7 |
 | Abstención indebida (sí había respuesta) | 2/20 | **1/20** |
 | Cobertura de citas | 100 % | 100 % |
-| Latencia mediana | 92 ms | 22 ms |
+| Latencia mediana | 84 ms | 16 ms |
 
 Las palabras clave responden más, pero mal cuando no hay evidencia: a «precio del oro en Bolivia» citan «el precio del clientelismo». Sesgo declarado: conjunto de desarrollo preparado por el equipo, no reservado.
 

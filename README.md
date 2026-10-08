@@ -21,7 +21,7 @@ Prototipo local funcionando de punta a punta con **datos reales del 7 de octubre
 | Generar versión: formato, duración, palabras, tono, enfoque, público y énfasis como criterios opcionales; arma el prompt, el guardián valida y no rellena lo que la evidencia no sostiene | Hecho |
 | Seguridad: auditoría OWASP/CWE sin hallazgos críticos ni altos; los medios y bajos corregidos con prueba (Host, cuerpo JSON, timeout, negaciones en el guardián) | Hecho |
 | Guías «qué significa» en cada sección y guía rápida «Cómo leer Sourced» | Hecho |
-| Benchmark de desarrollo (40 preguntas) | 37/40 · abstención correcta 7/7 · citas 33/33 · mediana 92 ms; línea base sin IA (palabras clave): 35/40 y abstención correcta 4/7 (`evaluation/resultados/`) |
+| Benchmark de desarrollo (40 preguntas) | 37/40 · abstención correcta 7/7 · citas 33/33 · mediana 84 ms; línea base sin IA (palabras clave): 35/40 y abstención correcta 4/7 (`evaluation/resultados/`) |
 | Matriz T01–T10 | 10/10 cumplen; T05 detecta cifras incompatibles entre medios (0 en el snapshot real, sintético SYN detectado); T10 corrida con el Wi-Fi cortado: 5/5 pasos y 0 salidas a la red (`evaluation/matriz-T01-T10.md`, `verificacion/prueba-local.md`) |
 | Dossier | [`docs/notion/dossier.md`](docs/notion/dossier.md): fuente completa con capturas, decisiones, fichas, pruebas, riesgos, guion del pitch y bitácora. Copia en el espacio de Notion «hackIAthon 4taEd» (la organización indicó avanzar sin depender de Notion) |
 

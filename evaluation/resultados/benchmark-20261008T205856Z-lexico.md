@@ -1,6 +1,6 @@
-# Benchmark de desarrollo — 20261008T154554Z — búsqueda lexico
+# Benchmark de desarrollo — 20261008T205856Z — búsqueda lexico
 
-Base: `demo-20261008T051225Z.sqlite` · 40 preguntas (20 sustentadas, 7 ambiguas/contradicción, 7 sin respuesta, 6 adversariales).
+Base: `demo-20261008T184723Z.sqlite` · 40 preguntas (20 sustentadas, 7 ambiguas/contradicción, 7 sin respuesta, 6 adversariales).
 Etiquetado: propuesto por Claude, **revisión humana pendiente**. No incluye el conjunto reservado del jurado.
 
 | Métrica | Resultado |
@@ -14,7 +14,7 @@ Etiquetado: propuesto por Claude, **revisión humana pendiente**. No incluye el 
 | Abstención correcta (sin respuesta) | 4/7 (57 %) |
 | Abstención indebida (sustentadas) | 1/20 (5 %) |
 | Cobertura de citas | 47/47 (100 %) |
-| Latencia mediana / p95 / máx. | 22 / 47 / 63 ms |
+| Latencia mediana / p95 / máx. | 16 / 26 / 34 ms |
 | Validez de sustento | Pendiente de revisión humana |
 
 ## Fallos
