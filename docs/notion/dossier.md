@@ -155,7 +155,7 @@ Capturas: `verificacion/capturas/real-caso-mesa.png`, `real-pregunta.png`, `real
 ## 6. Pruebas y métricas
 
 ### Matriz T01–T10
-Ver `evaluation/matriz-T01-T10.md` en el repositorio. Resumen: **9 cumplen y T05 parcial** (no detecta contradicciones entre noticias de forma automática). T10 se corrió con el Wi-Fi cortado: 5/5 pasos, 0 de 52 intentos de la sonda alcanzaron la red.
+Ver `evaluation/matriz-T01-T10.md` en el repositorio. Resumen: **10 de 10 cumplen**. T05: un detector determinista compara cifras (dinero, porcentaje, conteo, magnitud) entre medios del mismo caso y, si chocan, muestra ambas y deja el caso «insuficiente» sin elegir una; en el snapshot real hay 0 contradicciones («$500 mil» y «$500,000» son la misma cifra) y se ejerce con un par sintético marcado SYN. T10 se corrió con el Wi-Fi cortado: 5/5 pasos, 0 de 52 intentos de la sonda alcanzaron la red.
 
 ### Benchmark de desarrollo (40 preguntas): IA frente a línea base sin IA
 Mismas 40 preguntas, mismas reglas de cifras oficiales, abstención y protección; solo cambia cómo se buscan las noticias. Línea base: palabras clave (basta una palabra de contenido en común, como la búsqueda de la agenda).
@@ -216,7 +216,7 @@ Datos: 284 titulares reales del 7 de octubre (TVN, La Prensa, Crítica, Panamá 
 ### 6:00 – 8:00 · La IA y cómo la medimos
 > La IA hace tres cosas medibles, todas locales: agrupa titulares por evento con embeddings (multilingual-e5-small, CPU), busca por significado y redacta con un modelo local (llama3.2:3b). Lo que **no** decide la IA lo decide el código: qué cifra se puede decir, qué cita es válida, cuándo abstenerse.
 
-Mostrar la tabla «IA frente a línea base sin IA» (sección 6): 37/40 contra 35/40; la diferencia que importa es **abstención correcta 7/7 contra 4/7**. La búsqueda por palabras clave, sin evidencia, cita «el precio del clientelismo» para el precio del oro. Matriz T01–T10: 9 cumplen y T05 parcial (o actualizada), T10 probada con el Wi-Fi cortado: 0 salidas a la red.
+Mostrar la tabla «IA frente a línea base sin IA» (sección 6): 37/40 contra 35/40; la diferencia que importa es **abstención correcta 7/7 contra 4/7**. La búsqueda por palabras clave, sin evidencia, cita «el precio del clientelismo» para el precio del oro. Matriz T01–T10: 10 de 10 cumplen; T10 probada con el Wi-Fi cortado: 0 salidas a la red.
 
 Una prueba fallida contada sin pena: el centroide unía 102 titulares sin relación → enlace promedio y umbral calibrado con datos reales; el guardián dejaba pasar prosa publicitaria → ahora revisa cada oración.
 
