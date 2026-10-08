@@ -47,6 +47,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--db", type=Path, required=True)
     parser.add_argument("--salida", type=Path, default=ROOT / "evaluation" / "resultados")
+    parser.add_argument("--modo", choices=("semantico", "lexico"), default="semantico",
+                        help="lexico = línea base sin IA (palabras clave) con las mismas reglas de cifras y abstención")
     args = parser.parse_args()
     items = [json.loads(linea) for linea in BENCHMARK.read_text(encoding="utf-8").splitlines() if linea.strip()]
     db = sqlite3.connect(args.db)
@@ -54,7 +56,7 @@ def main():
     responder(db, "calentamiento del modelo local")  # la primera carga no cuenta en la latencia
     filas = []
     for item in items:
-        r = responder(db, item["pregunta"])
+        r = responder(db, item["pregunta"], modo=args.modo)
         fallos = evaluar_item(item, r)
         filas.append({"id": item["id"], "tipo": item["tipo"], "pregunta": item["pregunta"], "esperado": item.get("esperado"),
                       "observado": r["estado"], "metodo": r.get("metodo"), "latencia_ms": r["latencia_ms"],
@@ -81,11 +83,11 @@ def main():
     }
     marca = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     args.salida.mkdir(parents=True, exist_ok=True)
-    base = args.salida / f"benchmark-{marca}"
+    base = args.salida / (f"benchmark-{marca}" + ("-lexico" if args.modo == "lexico" else ""))
     (base.with_suffix(".json")).write_text(json.dumps({"db": str(args.db), "metricas": metricas, "filas": filas},
                                                       ensure_ascii=False, indent=2), encoding="utf-8")
     pct = lambda par: f"{par[0]}/{par[1]}" + (f" ({100 * par[0] / par[1]:.0f} %)" if par[1] else "")
-    md = [f"# Benchmark de desarrollo — {marca}", "",
+    md = [f"# Benchmark de desarrollo — {marca} — búsqueda {args.modo}", "",
           f"Base: `{args.db.name}` · 40 preguntas (20 sustentadas, 7 ambiguas/contradicción, 7 sin respuesta, 6 adversariales).",
           "Etiquetado: propuesto por Claude, **revisión humana pendiente**. No incluye el conjunto reservado del jurado.", "",
           "| Métrica | Resultado |", "|---|---|",

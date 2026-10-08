@@ -76,6 +76,16 @@ class ConsultaTests(unittest.TestCase):
         r = responder(base(), "Shakira en septiembre de 2026", vectorizador=vec)
         self.assertEqual(r["estado"], "respondida", "la palabra de tema sí cuenta")
 
+    def test_linea_base_lexica_responde_por_palabra_comun(self):
+        # La línea base sin IA no usa embeddings: basta una palabra de contenido común.
+        def sin_embeddings(textos, tipo="passage"):
+            raise AssertionError("el modo léxico no debe vectorizar")
+        r = responder(base(), "equipos donados", vectorizador=sin_embeddings, modo="lexico")
+        self.assertEqual(r["estado"], "respondida")
+        self.assertEqual(r["reglas"]["modelo"], "palabras-clave-v1")
+        r = responder(base(), "receta de sancocho", vectorizador=sin_embeddings, modo="lexico")
+        self.assertEqual(r["estado"], "abstencion")
+
     def test_el_anio_no_entra_en_la_busqueda_semantica(self):
         consultas = []
         base_vec = vectorizador_falso({})

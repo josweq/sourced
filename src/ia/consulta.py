@@ -132,7 +132,8 @@ def _contenido(texto: str) -> set[str]:
     return {t for t in tokens(texto) if t not in VACIAS and t not in MESES and not t.isdigit()}
 
 
-def _ruta_noticias(db, pregunta: str, *, vectorizador=vectorizar, solo_logistica: bool = False) -> dict:
+def _ruta_noticias(db, pregunta: str, *, vectorizador=vectorizar, solo_logistica: bool = False,
+                   modo: str = "semantico") -> dict:
     filas = db.execute(
         "SELECT n.id, n.titulo, n.medio, n.url, n.fecha_publicacion, n.fecha_deteccion, n.tema, "
         "gn.grupo_id FROM noticias n LEFT JOIN grupo_noticias gn ON gn.noticia_id=n.id "
@@ -142,24 +143,31 @@ def _ruta_noticias(db, pregunta: str, *, vectorizador=vectorizar, solo_logistica
     if not filas:
         return {"estado": "abstencion", "metodo": "noticias", "respuesta": "No hay noticias en el snapshot para esta consulta.",
                 "afirmaciones": [], "vacios": ["Sin noticias pertinentes."], "mejor_similitud": None}
-    if vectorizador is vectorizar:
-        V = np.asarray(vectorizar([f["titulo"] for f in filas], tipo="passage", db=db), dtype="float32")
-    else:
-        V = np.asarray(vectorizador([f["titulo"] for f in filas], tipo="passage"), dtype="float32")
-    # El año pesa demasiado en preguntas cortas: «sismos en 2024» se parecía más a «Premios Victoria 2024»
-    # que a cualquier nota de sismos. Se busca por el tema; la fecha la juzga quien lee la cita.
-    consulta_texto = re.sub(r"\b(19|20)\d\d\b", " ", pregunta).strip() or pregunta
-    q = np.asarray(vectorizador([consulta_texto], tipo="query"), dtype="float32")[0]
-    sims = V @ q
-    orden = np.argsort(-sims)
     pregunta_contenido = _contenido(pregunta)
+    if modo == "lexico":
+        # Línea base sin IA (palabras-clave-v1): proporción de palabras de contenido de la pregunta que
+        # aparecen en el titular; responde solo si hay al menos una. Mismas reglas de cifras y abstención.
+        sims = np.array([len(pregunta_contenido & _contenido(f["titulo"])) / max(1, len(pregunta_contenido))
+                         for f in filas], dtype="float32")
+    else:
+        if vectorizador is vectorizar:
+            V = np.asarray(vectorizar([f["titulo"] for f in filas], tipo="passage", db=db), dtype="float32")
+        else:
+            V = np.asarray(vectorizador([f["titulo"] for f in filas], tipo="passage"), dtype="float32")
+        # El año pesa demasiado en preguntas cortas: «sismos en 2024» se parecía más a «Premios Victoria 2024»
+        # que a cualquier nota de sismos. Se busca por el tema; la fecha la juzga quien lee la cita.
+        consulta_texto = re.sub(r"\b(19|20)\d\d\b", " ", pregunta).strip() or pregunta
+        q = np.asarray(vectorizador([consulta_texto], tipo="query"), dtype="float32")[0]
+        sims = V @ q
+    orden = np.argsort(-sims, kind="stable")
     elegidas, vistos_grupo = [], set()
     for i in orden[:20]:
         s = float(sims[i]); f = filas[int(i)]
         if elegidas and s < elegidas[0][1] - MARGEN_SECUNDARIOS:
             break
         comun = pregunta_contenido & _contenido(f["titulo"])
-        if not (s >= UMBRAL_DIRECTO or (s >= UMBRAL_CON_COINCIDENCIA and comun)):
+        acepta = bool(comun) if modo == "lexico" else (s >= UMBRAL_DIRECTO or (s >= UMBRAL_CON_COINCIDENCIA and comun))
+        if not acepta:
             continue
         if f["grupo_id"] and f["grupo_id"] in vistos_grupo:
             continue
@@ -197,7 +205,8 @@ def _ruta_noticias(db, pregunta: str, *, vectorizador=vectorizar, solo_logistica
             "vacios": ["Confirmar con la fuente primaria; repetición entre medios no equivale a corroboración."]}
 
 
-def responder(db, pregunta: str, *, vectorizador=vectorizar) -> dict:
+def responder(db, pregunta: str, *, vectorizador=vectorizar, modo: str = "semantico") -> dict:
+    """modo="lexico" es la línea base sin IA para el benchmark; la interfaz usa siempre "semantico"."""
     inicio = time.perf_counter()
     pregunta = (pregunta or "").strip()
     if not pregunta:
@@ -212,7 +221,7 @@ def responder(db, pregunta: str, *, vectorizador=vectorizar) -> dict:
                              "Reformula la pregunta sobre el tema que quieres investigar."),
                "afirmaciones": [], "vacios": []}
     elif LOGISTICA.search(norm) and ENTORNO.search(norm):
-        res = _ruta_noticias(db, pregunta, vectorizador=vectorizador, solo_logistica=True)
+        res = _ruta_noticias(db, pregunta, vectorizador=vectorizador, solo_logistica=True, modo=modo)
         expo = _ruta_indicador(db, "exportaciones panama")
         if expo and expo["afirmaciones"]:
             res["afirmaciones"].append(expo["afirmaciones"][0])
@@ -221,9 +230,9 @@ def responder(db, pregunta: str, *, vectorizador=vectorizar) -> dict:
                                   "no un puntaje de clientes ni una alerta regulatoria."),
                     "vacios": res.get("vacios", []) + ["Sin datos de cartera ni de clientes: el análisis de exposición no corresponde a este snapshot."]})
     else:
-        res = _ruta_indicador(db, norm) or _ruta_noticias(db, pregunta, vectorizador=vectorizador)
+        res = _ruta_indicador(db, norm) or _ruta_noticias(db, pregunta, vectorizador=vectorizador, modo=modo)
     res["pregunta"] = pregunta
     res["latencia_ms"] = round((time.perf_counter() - inicio) * 1000)
     res["reglas"] = {"umbral_directo": UMBRAL_DIRECTO, "umbral_con_coincidencia": UMBRAL_CON_COINCIDENCIA,
-                     "modelo": "intfloat/multilingual-e5-small"}
+                     "modelo": "palabras-clave-v1" if modo == "lexico" else "intfloat/multilingual-e5-small"}
     return res

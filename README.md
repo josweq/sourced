@@ -17,7 +17,7 @@ Prototipo local funcionando de punta a punta con **datos reales del 7 de octubre
 | Preguntas en español con respuesta citada o abstención (CU-02, CU-04, CU-05) | Hecho |
 | Adaptar la nota: TV, radio 30 s, video vertical 60 s, web y alerta (duración, énfasis, tono) | Hecho |
 | Guías «qué significa» en cada sección y guía rápida «Cómo leer Lupa» | Hecho |
-| Benchmark de desarrollo (40 preguntas) | 37/40 · abstención correcta 7/7 · citas 33/33 · mediana 58 ms (`evaluation/resultados/`) |
+| Benchmark de desarrollo (40 preguntas) | 37/40 · abstención correcta 7/7 · citas 33/33 · mediana 92 ms; línea base sin IA (palabras clave): 35/40 y abstención correcta 4/7 (`evaluation/resultados/`) |
 | Matriz T01–T10 | 9 cumplen y T05 parcial; T10 corrida con el Wi-Fi cortado: 5/5 pasos y 0 salidas a la red (`evaluation/matriz-T01-T10.md`, `verificacion/prueba-local.md`) |
 | Notion | Dossier listo para importar (`docs/notion/dossier.md`) |
 

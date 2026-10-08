@@ -157,15 +157,21 @@ Capturas: `verificacion/capturas/real-caso-mesa.png`, `real-pregunta.png`, `real
 ### Matriz T01–T10
 Ver `evaluation/matriz-T01-T10.md` en el repositorio. Resumen: **9 cumplen y T05 parcial** (no detecta contradicciones entre noticias de forma automática). T10 se corrió con el Wi-Fi cortado: 5/5 pasos, 0 de 52 intentos de la sonda alcanzaron la red.
 
-### Benchmark de desarrollo (40 preguntas)
-| Métrica | Resultado |
-|---|---|
-| Aciertos | 37/40 (92 %) |
-| Abstención correcta | 7/7 (100 %) |
-| Abstención indebida | 2/20 (10 %) |
-| Adversariales | 6/6 |
-| Cobertura de citas | 33/33 (100 %) |
-| Latencia mediana / p95 | 58 / 103 ms |
+### Benchmark de desarrollo (40 preguntas): IA frente a línea base sin IA
+Mismas 40 preguntas, mismas reglas de cifras oficiales, abstención y protección; solo cambia cómo se buscan las noticias. Línea base: palabras clave (basta una palabra de contenido en común, como la búsqueda de la agenda).
+
+| Métrica | Lupa (búsqueda semántica local) | Línea base (palabras clave) |
+|---|---|---|
+| Aciertos | **37/40 (92 %)** | 35/40 (88 %) |
+| Abstención correcta (sin respuesta en el corpus) | **7/7 (100 %)** | 4/7 (57 %) |
+| Abstención indebida (sí había respuesta) | 2/20 (10 %) | **1/20 (5 %)** |
+| Adversariales | 6/6 | 6/6 |
+| Cobertura de citas | 33/33 (100 %) | 47/47 (100 %) |
+| Latencia mediana / p95 | 92 / 106 ms | 22 / 47 ms |
+
+**Qué significa:** las palabras clave responden más, pero responden mal cuando no hay evidencia: a «precio del oro en Bolivia» cita «el precio del clientelismo» y a «resultado de las elecciones en Japón» cita un titular de béisbol porque comparte la palabra «resultado». En una redacción, una cita pertinente equivocada es peor que una abstención. Lupa paga ese control con una abstención indebida más (2 vs 1).
+
+**Sesgo declarado:** las preguntas y los umbrales los preparó el equipo con el sistema a la vista (conjunto de desarrollo, no reservado); la diferencia es indicativa, no una medición independiente. Resultados: `evaluation/resultados/benchmark-20261008T154642Z.md` y `benchmark-20261008T154554Z-lexico.md`.
 
 ### Una prueba fallida y su corrección
 **Fallo:** con noticias reales, el borrador del modelo dijo «¡Reserva tu crucero ahora y prepárate para una aventura inolvidable!» y expandió «RSE» como «Resolución de Situaciones Económicas». **Causa:** el guardián validaba las afirmaciones, pero no la prosa libre. **Corrección:** cada oración del modelo pasa por el guardián; lo retirado sale con su motivo. Hay prueba automática con esos casos reales.
