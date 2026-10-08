@@ -4,7 +4,7 @@ Estado: implementación inicial de embeddings, tema, agrupación y búsqueda hí
 
 ## Piezas
 
-- `src/ia/embeddings.py`: carga `intfloat/multilingual-e5-small` por defecto (`LUPA_EMBEDDINGS`), usa prefijos obligatorios `passage: ` y `query: `, normaliza vectores y guarda caché SQLite por `(modelo, sha256(texto prefijado))`.
+- `src/ia/embeddings.py`: carga `intfloat/multilingual-e5-small` por defecto (`SOURCED_EMBEDDINGS`), usa prefijos obligatorios `passage: ` y `query: `, normaliza vectores y guarda caché SQLite por `(modelo, sha256(texto prefijado))`.
 - `scripts/preparar_modelos.py`: descarga/verifica embeddings y comprueba si Ollama tiene `llama3.2:3b`. Si falta Ollama o el modelo, solo lo informa y termina con salida distinta de cero; no instala nada.
 - `src/ia/clasificador.py`: entrena regresión logística balanceada sobre `evaluation/etiquetas/temas.csv`. Evalúa contra reglas temáticas y prototipos e5 zero-shot en el mismo conjunto, con macro-F1, precisión, recall y matriz de confusión.
 - `src/ia/agrupacion.py`: agrupa por coseno con umbral calibrable y límite de días. Conserva cada publicación, URL, medio y `origen`; la procedencia sale solo de `origen`.
@@ -33,8 +33,8 @@ El reporte queda en `evaluation/resultados/clasificacion-<fecha>.json` y `.md`. 
 
 ```sh
 python scripts/preparar_modelos.py
-python scripts/procesar_snapshot.py --input data/local/importacion.sqlite --output data/local/lupa-ia.sqlite
-python src/interfaz/app.py --db data/local/lupa-ia.sqlite --port 8765
+python scripts/procesar_snapshot.py --input data/local/importacion.sqlite --output data/local/sourced-ia.sqlite
+python src/interfaz/app.py --db data/local/sourced-ia.sqlite --port 8765
 ```
 
 La salida nunca sobrescribe una base existente. Si no hay etiquetas suficientes, el tema usa el baseline de reglas y el reporte lo declara.

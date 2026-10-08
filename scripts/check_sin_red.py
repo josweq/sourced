@@ -11,7 +11,7 @@ Revisa lo que se ejecuta durante la demo (`src/` y `scripts/smoke_sin_red.py`):
   2. Toda URL literal en .py/.js/.html/.css apunta a 127.0.0.1 o localhost (se excluye el espacio
      de nombres de SVG, que no es una petición).
   3. Los valores por defecto del proveedor son locales: proveedor `ollama` y host 127.0.0.1.
-     El adaptador `openai_compat` existe pero solo se activa con LUPA_PROVEEDOR explícito.
+     El adaptador `openai_compat` existe pero solo se activa con SOURCED_PROVEEDOR explícito.
 La extracción del snapshot (`scripts/extraccion/`) sí usa la red y queda fuera: corre antes,
 no durante la demo.
 """
@@ -60,7 +60,7 @@ def revisar(raiz: Path) -> list[str]:
         texto = proveedores.read_text(encoding="utf-8")
         if 'DEFAULT_OLLAMA_HOST = "http://127.0.0.1:11434"' not in texto:
             fallos.append("src/ia/proveedores.py: el host por defecto de Ollama no es 127.0.0.1")
-        if 'os.environ.get("LUPA_PROVEEDOR", "ollama")' not in texto:
+        if 'os.environ.get("SOURCED_PROVEEDOR", "ollama")' not in texto:
             fallos.append("src/ia/proveedores.py: el proveedor por defecto no es ollama")
     else:
         fallos.append("src/ia/proveedores.py: no existe")

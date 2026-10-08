@@ -35,11 +35,11 @@ ULTIMA_LLAMADA: CallRecord | None = None
 
 
 def proveedor_activo() -> str:
-    return os.environ.get("LUPA_PROVEEDOR", "ollama").strip().lower() or "ollama"
+    return os.environ.get("SOURCED_PROVEEDOR", "ollama").strip().lower() or "ollama"
 
 
 def modelo_activo() -> str:
-    return os.environ.get("LUPA_MODELO_REDACCION", DEFAULT_MODEL).strip() or DEFAULT_MODEL
+    return os.environ.get("SOURCED_MODELO_REDACCION", DEFAULT_MODEL).strip() or DEFAULT_MODEL
 
 
 def _post_json(url: str, payload: dict, headers: dict | None = None, timeout: int = 120) -> dict:
@@ -91,10 +91,10 @@ def generar_ollama(prompt: str, esquema: dict | None, *, timeout: int = 120) -> 
 
 
 def generar_openai_compat(prompt: str, esquema: dict | None, *, timeout: int = 120) -> dict:
-    base = os.environ.get("LUPA_BASE_URL", "").strip().rstrip("/")
-    key = os.environ.get("LUPA_API_KEY", "").strip()
+    base = os.environ.get("SOURCED_BASE_URL", "").strip().rstrip("/")
+    key = os.environ.get("SOURCED_API_KEY", "").strip()
     if not base or not key:
-        raise ProviderUnavailable("Proveedor compatible apagado: falta LUPA_BASE_URL o LUPA_API_KEY")
+        raise ProviderUnavailable("Proveedor compatible apagado: falta SOURCED_BASE_URL o SOURCED_API_KEY")
     modelo = modelo_activo()
     parametros = {"temperature": 0.2}
     payload = {
@@ -133,7 +133,7 @@ def estado_proveedor(timeout: int = 2) -> dict:
     proveedor = proveedor_activo()
     modelo = modelo_activo()
     if proveedor != "ollama":
-        return {"proveedor": proveedor, "modelo": modelo, "disponible": bool(os.environ.get("LUPA_API_KEY")),
+        return {"proveedor": proveedor, "modelo": modelo, "disponible": bool(os.environ.get("SOURCED_API_KEY")),
                 "motivo": "Proveedor compatible requiere clave por entorno."}
     host = os.environ.get("OLLAMA_HOST", DEFAULT_OLLAMA_HOST).rstrip("/")
     try:

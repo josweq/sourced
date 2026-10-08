@@ -3,7 +3,9 @@
 ![Sourced](../marca/logo-completo.png)
 
 ## Nada sin fuente.
-Copiloto editorial para la redacción de TVN · Equipo **Jajanken** · hackIAthon Panamá 2026 · Reto «De la señal a la decisión»
+Copiloto editorial para la redacción de TVN · Equipo **Jajanken** (Josué Carrillo · Diego Laverde · Juan Andrés López) · hackIAthon Panamá 2026 · Reto «De la señal a la decisión»
+
+**Video de demostración (2:50):** la aplicación real, con datos reales, de principio a fin.
 
 ---
 
@@ -15,97 +17,121 @@ Copiloto editorial para la redacción de TVN · Equipo **Jajanken** · hackIAtho
 - Un dato de 2024 se lee como si fuera **de hoy**.
 - Con prisa, una IA generativa **rellena** con cifras que nadie dijo.
 
-El problema no es escribir más rápido. Es **saber qué sostiene cada cosa antes de contarla**.
-
 ---
 
 # 2 · Qué es Sourced
 
 > Un copiloto editorial que separa siempre dos preguntas: **¿qué tan importante es?** y **¿qué tan respaldado está?**
 
-- Agenda priorizada que explica el porqué de cada tema.
-- Borradores donde **cada oración lleva su cita**.
+- Ordena la agenda del día y explica el porqué de cada tema.
+- Redacta borradores donde **cada oración lleva su cita**.
 - Cuando no hay evidencia, **lo dice**.
 - Corre en una laptop: **sin internet, sin GPU, sin claves, costo cero por uso**.
 
-![Sourced con datos reales](../../verificacion/capturas/sourced-escritorio.png)
+---
+
+# 3 · Cómo funciona por dentro
+
+1. **Captura** — titulares de 5 medios panameños (TVN, La Prensa, Crítica, Panamá América, En Segundos), indicadores del Banco Mundial y sismos de USGS, en un paquete con huella SHA-256.
+2. **Valida** — filas inválidas a cuarentena; los nulos nunca se vuelven cero.
+3. **Entiende** — un modelo local de embeddings clasifica el tema y agrupa los titulares que cuentan el mismo hecho.
+4. **Prioriza** — puntaje explicable: relevancia, impacto, urgencia, novedad y evidencia, cada uno visible.
+5. **Redacta** — un modelo local escribe solo con las afirmaciones citadas.
+6. **Vigila** — un guardián revisa cada oración: sin cita, sin cifra inventada, sin tono publicitario, sin instrucciones escondidas.
+7. **Decide una persona** — revisión con nombre y hora; nada se publica solo.
 
 ---
 
-# 3 · Con datos reales del 7 de octubre
+# 4 · Paso 1 — La agenda
 
-| 284 | 5 | 540 | 82 |
-|---|---|---|---|
-| titulares | medios panameños | valores oficiales del Banco Mundial | sismos de USGS |
+> Los temas del día ordenados por prioridad. Cada tarjeta muestra, **por separado**, cuánto importa y qué tan respaldado está.
 
-TVN · La Prensa · Crítica · Panamá América · En Segundos — solo titular y metadatos, en un snapshot con huella SHA-256.
+![Agenda priorizada](../../verificacion/capturas/sourced-agenda.png)
 
 ---
 
-# 4 · Dos medios no son dos fuentes
+# 5 · Paso 2 — La radiografía
 
-> Crítica y TVN publican la misma donación de EE.UU. Sourced las une en **un caso**… y la evidencia sigue **insuficiente**: ninguno declara de dónde sale el dato.
+> Qué se reporta, quién lo reporta, qué está respaldado y qué falta verificar.
+
+Crítica y TVN publican la misma donación de EE.UU.: Sourced las une en **un caso**, y la evidencia sigue **insuficiente** porque ninguno declara de dónde sale el dato. **Dos medios no son dos fuentes.**
 
 ![Un hecho, dos medios](../../verificacion/capturas/sourced-dos-medios.png)
 
 ---
 
-# 5 · La nota que pides, sin inventar
+# 6 · Paso 3 — La mesa editorial
 
-> Formato, duración, palabras, tono, enfoque y público: **eliges solo lo que quieres**. Sourced arma las instrucciones, el modelo redacta y un guardián revisa cada oración.
+> Brief, guion con cronómetro, copy y preguntas de investigación. Cada oración con su cita; lo que el guardián retira aparece con su motivo.
 
-**Si la evidencia no alcanza, no rellena:** «alcanza para ~16 palabras; para llegar a 30 s hace falta la fuente primaria».
+![Mesa editorial y guardián](../../verificacion/capturas/sourced-guardian.png)
+
+---
+
+# 7 · Paso 4 — Generar versión
+
+> La misma nota en otro formato, eligiendo solo los criterios que quieras: formato, duración, palabras, tono, enfoque o público.
+
+**No rellena:** si la evidencia no alcanza para el objetivo, lo dice — «alcanza para ~16 palabras; para llegar a 30 s hace falta la fuente primaria». Las instrucciones que recibió el modelo quedan a la vista.
 
 ![Generar versión](../../verificacion/capturas/sourced-generar-version.png)
 
 ---
 
-# 6 · Responde con cita… o no responde
+# 8 · Paso 5 — Preguntar
 
 | «¿Cuál es la inflación de Panamá hoy?» | «Precio del oro en Bolivia» |
 |---|---|
-| Panamá, 2024: 0,7 %. Dato anual del Banco Mundial; **no es una medición actual**. | **Me abstengo:** no hay evidencia en el snapshot. |
+| Panamá, 2024: 0,7 %. Dato anual del Banco Mundial; **no es una medición actual**. | **Me abstengo:** no hay evidencia en los datos. |
 
 ![Cifra oficial con aviso](../../verificacion/capturas/sourced-cifra-oficial.png)
 
 ---
 
-# 7 · La IA, medida
+# 9 · Paso 6 — Decide una persona
 
-| | Sourced | Búsqueda por palabras clave |
-|---|---|---|
-| Aciertos (40 preguntas) | **37/40** | 35/40 |
-| Se abstiene cuando no hay respuesta | **7/7** | 4/7 |
+> Quien revisa deja su nombre, el estado y un comentario. Todo queda en el historial. **No existe el botón «publicar»:** lo máximo es «aprobado como borrador».
 
-| Clasificación de tema (284 etiquetas revisadas por el equipo) | Macro-F1 |
+![Revisión humana con historial](../../verificacion/capturas/sourced-revision.png)
+
+---
+
+# 10 · Medido, no prometido
+
+| Qué medimos | Resultado |
 |---|---|
-| Entrenada con etiquetas humanas | **0,45** |
-| Reglas | 0,26 |
-
-> Las palabras clave, sin evidencia, citan «el precio del clientelismo» para el precio del oro. **Una cita equivocada es peor que una abstención.**
-
----
-
-# 8 · Confiable de punta a punta
-
-- **10/10** pruebas de aceptación del reto (T01–T10).
-- **Sin internet de verdad:** probado con el Wi-Fi cortado — 0 de 52 intentos salieron a la red.
-- **Seguridad:** auditoría OWASP/CWE con 0 hallazgos críticos o altos; el resto, corregido.
-- **125** pruebas automáticas · instalación probada desde cero en otro entorno.
-- **Nada se publica solo:** el máximo estado es «aprobado como borrador», con nombre y hora de quien revisó.
+| Preguntas respondidas bien (40) | **37/40** · búsqueda simple sin IA: 35/40 |
+| Se abstiene cuando no hay respuesta | **7/7** · búsqueda simple: 4/7 |
+| Clasificación de tema (284 etiquetas revisadas por el equipo) | macro-F1 **0,45** · reglas: 0,26 |
+| Pruebas de aceptación del reto (T01–T10) | **10/10** |
+| Sin internet, con el Wi-Fi cortado | **0 de 52** intentos salieron a la red |
+| Seguridad (OWASP / CWE) | **0** hallazgos críticos o altos |
+| Pruebas automáticas | **125** |
 
 ---
 
-# 9 · Valor, límites y próximo paso
+# 11 · Lo que viene (planeado)
 
-**Hipótesis de valor (no medida):** no publicar algo que no se sostiene.
+- **Cuerpo de la nota autorizado** — hoy solo usa titulares; con el texto completo, la evidencia de cada caso puede subir de «insuficiente» a «suficiente para borrador».
+- **Fuente primaria integrada** — comunicados oficiales (Gaceta Oficial, ACP, ministerios) y datos nacionales (INEC, Contraloría) para confirmar, no solo repetir.
+- **Contradicciones en el texto completo** — hoy compara cifras entre titulares; después, entre notas completas.
+- **Video y audio de TVN como evidencia** — transcripción local de piezas de televisión y radio, con la cita al minuto exacto.
+- **Modelo local más capaz** — mejor prosa sin perder el control del guardián.
+- **Más etiquetas de la redacción** — para afinar la clasificación de temas con el criterio de TVN.
 
-**Límites que declaramos:**
-- Solo titulares → casi todo queda «insuficiente». Con el cuerpo de la nota, la evidencia sube.
-- Un modelo local pequeño redacta sobrio; el guardián retira mucho.
-- La clasificación de tema todavía se equivoca a la vista.
+---
 
-**Próximo paso:** piloto con una mesa de TVN, con comunicados oficiales como fuente primaria.
+# 12 · Integraciones futuras
+
+| Integración | Qué haría | Regla que no cambia |
+|---|---|---|
+| **Redes sociales** (X, Instagram, TikTok, Facebook) | Publicar la versión aprobada directamente, con su formato (reel, post, hilo) | Solo después de aprobación humana; cada publicación queda registrada con su cita |
+| **CMS de la web de TVN** | Enviar la nota aprobada como borrador al gestor de contenidos | Nunca se publica sin un editor |
+| **Sistema de guiones del noticiero** | Llevar el guion cronometrado al rundown y al teleprompter | La cita viaja con el guion |
+| **Agencias y cables** (EFE, AP, Reuters) | Más señales de entrada, con procedencia declarada | Repetición no es corroboración |
+| **Monitoreo de redes de instituciones** | Detectar anuncios oficiales en cuentas verificadas | Una publicación no confirma un hecho por sí sola |
+| **Alertas al equipo** (Teams, Slack, WhatsApp) | Avisar cuando un tema sube en la agenda o aparece una contradicción | La alerta lleva su evidencia |
+| **Procedencia de imágenes** (C2PA) | Verificar el origen de fotos y videos | Sin procedencia, se marca como no verificada |
 
 ---
 
@@ -113,37 +139,7 @@ TVN · La Prensa · Crítica · Panamá América · En Segundos — solo titular
 
 **Sourced · nada sin fuente.**
 
-- Repositorio público: https://github.com/pixeltabletop/jajanken-lupa
-- Documentación técnica y funcional: en esta misma página del equipo, en Notion.
+- Repositorio público: https://github.com/pixeltabletop/sourced
+- Documentación técnica y funcional: en la página del equipo, en este mismo espacio.
 
 Equipo Jajanken: Josué Carrillo · Diego Laverde · Juan Andrés López
-
----
----
-
-# Guion del orador (no se proyecta)
-
-**Antes de empezar (5 min antes):** servidor arriba, navegador en `http://127.0.0.1:8765`, tema Redacción, Ollama abierto, una pregunta de calentamiento hecha, esta página en otra pestaña, **Wi-Fi apagado a la vista del jurado**.
-
-| Tiempo | Diapositiva | Qué decir / hacer |
-|---|---|---|
-| 0:00–1:00 | 1 · El problema | Los tres errores con ejemplos. Cerrar con «saber qué sostiene cada cosa antes de contarla». |
-| 1:00–2:00 | 2 · Qué es · 3 · Datos | Las dos preguntas (importancia y respaldo). Datos reales del 7 de octubre, sin internet. |
-| 2:00–6:00 | **Demo en vivo** (4 · 5 · 6) | **Agenda** (30 s): puntaje desglosado y, aparte, «insuficiente». **Radiografía** (45 s): donación de EE.UU., dos medios, «dos medios no son dos fuentes». **Mesa** (60 s): borrador de cruceros, chips de cita, «Retirado por el guardián»; **Generar versión** reel 30 s tono cercano → aviso de alcance. **Preguntar** (60 s): inflación de hoy → dato 2024 con aviso; oro en Bolivia → abstención. **Revisión** (45 s): marcar «requiere evidencia» con comentario; «no existe el botón publicar». |
-| 6:00–8:00 | 7 · IA medida · 8 · Confiable | 7/7 contra 4/7; el ejemplo del «precio del clientelismo». Prueba sin red y seguridad. Contar una prueba fallida: el guardián dejaba pasar «¡Reserva tu crucero ahora!» → ahora revisa cada oración. |
-| 8:00–9:00 | 9 · Valor y límites | Hipótesis, no medida. Límites sin pena. Piloto con TVN. |
-| 9:00–10:00 | Cierre | Frase final y enlaces. |
-
-**Plan B:** si el servidor no arranca, mostrar las capturas de esta página; si el modelo tarda, el borrador ya está guardado; si una pregunta sale rara, decirlo y pasar a la siguiente.
-
-### Preguntas probables del jurado
-| Pregunta | Respuesta corta |
-|---|---|
-| ¿De dónde sale esa cifra y de qué año es? | Banco Mundial, FP.CPI.TOTL.ZG, 2024, con unidad y aviso de que no es actual. Si se pide 2026, se abstiene. |
-| Cinco medios replican una agencia: ¿cuántas fuentes cuentas? | Una. La procedencia solo cuenta si se declara. |
-| ¿Por qué la agenda dice «0 fuentes»? | Los RSS no declaran su fuente primaria; Sourced no la inventa. Es el control, no un error. |
-| ¿Y si una fuente trae instrucciones ocultas? | Se trata como dato y se aparta. En el banco de modelos uno la citó: por eso la regla vive en el código. |
-| ¿Qué mejora la IA frente a algo simple? | Abstención correcta 7/7 contra 4/7; clasificación 0,45 contra 0,26. |
-| ¿Funciona sin internet de verdad? | Sí: Wi-Fi cortado, 5/5 pasos, la sonda probó 52 veces y no salió nada. |
-| ¿Cuánto cuesta? | Cero por uso: todo local, sin claves ni API de pago. |
-| ¿Por qué no está en línea? | Por diseño: la redacción trabaja sin depender de la red ni enviar datos a terceros. El repositorio se instala en ~8 minutos. |

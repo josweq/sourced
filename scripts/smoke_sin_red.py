@@ -59,7 +59,7 @@ def main():
         return r["afirmaciones"][0]["texto"][:60]
 
     def redaccion_local():
-        cuerpo = json.dumps({"model": os.environ.get("LUPA_MODELO_REDACCION", "llama3.2:3b"),
+        cuerpo = json.dumps({"model": os.environ.get("SOURCED_MODELO_REDACCION", "llama3.2:3b"),
                              "prompt": "Responde solo: listo", "stream": False,
                              "options": {"num_predict": 5}}).encode()
         req = urllib.request.Request(f"{args.ollama}/api/generate", cuerpo, {"Content-Type": "application/json"})

@@ -18,7 +18,7 @@ PREFIXES = {"passage": "passage: ", "query": "query: "}
 
 
 def nombre_modelo() -> str:
-    return os.environ.get("LUPA_EMBEDDINGS", DEFAULT_MODEL)
+    return os.environ.get("SOURCED_EMBEDDINGS", DEFAULT_MODEL)
 
 
 def sha256_texto(texto: str) -> str:
@@ -29,7 +29,7 @@ def cache_huggingface_existe(modelo: str | None = None) -> bool:
     modelo = modelo or nombre_modelo()
     folder = "models--" + modelo.replace("/", "--")
     candidates = [
-        Path(os.environ.get("LUPA_MODELOS_DIR", "")) / folder if os.environ.get("LUPA_MODELOS_DIR") else None,
+        Path(os.environ.get("SOURCED_MODELOS_DIR", "")) / folder if os.environ.get("SOURCED_MODELOS_DIR") else None,
         Path("modelos") / folder,
         Path(os.environ.get("TRANSFORMERS_CACHE", "")) / folder if os.environ.get("TRANSFORMERS_CACHE") else None,
         Path(os.environ.get("HF_HOME", "")) / "hub" / folder if os.environ.get("HF_HOME") else None,

@@ -1,7 +1,7 @@
-# Jajanken Lupa — Blueprint
+# Sourced — Blueprint
 
 > Generado con The Architect el 2026-10-07 · Arquetipo: herramienta interna local + capa de IA verificable
-> Repositorio: `pixeltabletop/jajanken-lupa` (privado). Base: rama `feature/modelo-datos-v1` de Diego.
+> Repositorio: `pixeltabletop/sourced`. Base: rama `feature/modelo-datos-v1` de Diego.
 > Reto: hackIAthon Panamá 4ª edición, «De la señal a la decisión» (TVN Media). Evento: jueves 2026-10-08, 3 días.
 > Equipo Jajanken: Josué (construye la capa de datos e IA), Diego (interfaz, integración, pitch), Juanchi (redes; Notion al final).
 
@@ -10,7 +10,7 @@
 ## 1. Visión general
 
 ### Visión
-Lupa es el escritorio de verificación de una redacción. Toma noticias públicas (titulares y metadatos de TVN y de GDELT) e indicadores oficiales (Banco Mundial; sismos de USGS) y entrega cinco cosas: una **agenda priorizada** que explica por qué cada tema merece atención; una **radiografía** de cada tema (qué se reporta, quién lo reporta, qué está respaldado, qué falta comprobar); un **paquete editorial** (brief, guion de 45–60 s, copy digital) donde cada afirmación lleva su cita; un **historial de revisión humana**; y una **abstención honesta** cuando no hay evidencia.
+Sourced es el escritorio de verificación de una redacción. Toma noticias públicas (titulares y metadatos de TVN y de GDELT) e indicadores oficiales (Banco Mundial; sismos de USGS) y entrega cinco cosas: una **agenda priorizada** que explica por qué cada tema merece atención; una **radiografía** de cada tema (qué se reporta, quién lo reporta, qué está respaldado, qué falta comprobar); un **paquete editorial** (brief, guion de 45–60 s, copy digital) donde cada afirmación lleva su cita; un **historial de revisión humana**; y una **abstención honesta** cuando no hay evidencia.
 Lema: **«Antes de contar una historia, mostramos qué la sostiene.»**
 
 Usuarios: editor/a y periodista (agenda, ficha, preguntas), productor/a digital (titulares, copy), director/a de noticias y presentador/a (guion cronometrado). Uso en laptop y en la pantalla de la sala de redacción.
@@ -41,22 +41,22 @@ Usuarios: editor/a y periodista (agenda, ficha, preguntas), productor/a digital 
 | Embeddings | `sentence-transformers` + `intfloat/multilingual-e5-small` (CPU) | IA sustantiva (R10) en español; ~120 M parámetros, rápido en CPU. Alternativa si la instalación pesa: `fastembed` (ONNX) con `paraphrase-multilingual-MiniLM-L12-v2` |
 | Clasificador | Prototipos por tema + regresión logística (`scikit-learn`) sobre etiquetas humanas | Medible con macro-F1, explicable |
 | Redacción | **Ollama local** (modelo elegido por el banco, §5.4) con salida en esquema JSON forzado | Sin costo por uso; un tercero lo instala con `ollama pull` |
-| Proveedores opcionales | Adaptador Anthropic/OpenAI/Groq **apagado por defecto** (`LUPA_PROVEEDOR`) | Comparación en el banco; nunca requisito |
+| Proveedores opcionales | Adaptador Anthropic/OpenAI/Groq **apagado por defecto** (`SOURCED_PROVEEDOR`) | Comparación en el banco; nunca requisito |
 | Pruebas | `unittest` (existente) | Sin dependencias extra |
 | Verificación viva | skill `verificar-app-viva` (CDP, contraste, 360/390 px) | Puertas visuales medibles |
 | Gestión de paquetes | `pip` + `requirements.txt` con versiones fijadas; `requirements-dev.txt` vacío o mínimo | El jurado exige dependencias fijadas |
-| Despliegue | Local (`python -m lupa` o comandos del README). Sin nube | T10 y costo cero |
+| Despliegue | Local (`python src/interfaz/app.py` o comandos del README). Sin nube | T10 y costo cero |
 
 ---
 
 ## 3. Estructura de directorios (objetivo)
 
 ```
-jajanken-lupa/
+sourced/
   AGENTS.md                      # Reglas para cualquier IA (actualizar con §15)
   README.md                      # Ruta del evaluador: instalar → preparar modelos → procesar → abrir
   requirements.txt               # Versiones fijadas (sentence-transformers, scikit-learn, numpy)
-  .env.example                   # LUPA_PROVEEDOR, LUPA_MODELO_REDACCION, OLLAMA_HOST, claves opcionales vacías
+  .env.example                   # SOURCED_PROVEEDOR, SOURCED_MODELO_REDACCION, OLLAMA_HOST, claves opcionales vacías
   contracts/
     sqlite/schema.sql            # v1 (Diego). Cambios solo por migración acordada (§4.3)
     sqlite/migraciones/          # 001_ia.sql: embeddings, clasificaciones, relaciones de contexto, versiones editadas
@@ -92,7 +92,7 @@ jajanken-lupa/
         index.html, app.js, styles.css
         tokens.css               # Variables de diseño (§7); ningún color fuera de aquí
         fonts/                   # Inter, Source Serif 4, JetBrains Mono (licencia OFL incluida)
-        img/lupa.svg             # Logo de una tinta
+        img/sourced.svg          # Ícono [S]
   evaluation/
     benchmark/desarrollo.jsonl   # 40 consultas etiquetadas por humanos (30/10/10/10 proporcional)
     etiquetas/                   # Etiquetas humanas de tema y grupos (método y tamaño documentados)
@@ -192,7 +192,7 @@ Laptop ≥ 1280 px: tres columnas (agenda 320 px · radiografía flexible · mes
 
 ### Jerarquía de componentes (agenda → ficha)
 ```
-Cabecera (logo Lupa · snapshot y corte en hora de Panamá · modelo activo · «sin conexión: listo»)
+Cabecera (logo Sourced · snapshot y corte en hora de Panamá · modelo activo · «sin conexión: listo»)
 ├─ Agenda
 │  ├─ Filtros (búsqueda, tema, evidencia, medio, fechas)
 │  └─ TarjetaCaso × n (puntaje, nivel+motivo, tema, evidencia, publicaciones/procedencias, hora)
@@ -226,7 +226,7 @@ Sin framework: el estado vive en el servidor (SQLite) y el cliente guarda solo l
 6. Movimiento 180–220 ms, nunca sobre datos que se leen, respetando `prefers-reduced-motion`.
 7. Ningún texto bajo 13 px.
 
-**Identidad.** Se conservan el nombre **Jajanken Lupa** y el lema. **Decisión D-VIS-01 (Josué, 2026-10-07):** la paleta pasa del verde y lima actual a un **azul propio afín al ecosistema de TVN** (sin usar su `#005588` ni su par azul y rojo como identidad, su logo o su nombre). El lima de Diego sobrevive como acento del modo oscuro. Pie fijo: «Lupa · prototipo del equipo Jajanken para el hackIAthon Panamá. No es una herramienta oficial de TVN.»
+**Identidad.** El producto se llama **Sourced** y conserva el lema. **Decisión D-VIS-01 (Josué, 2026-10-07):** la paleta pasa del verde y lima actual a un **azul propio afín al ecosistema de TVN** (sin usar su `#005588` ni su par azul y rojo como identidad, su logo o su nombre). El lima de Diego sobrevive como acento del modo oscuro. Pie fijo: «Sourced · prototipo del equipo Jajanken para el hackIAthon Panamá. No es una herramienta oficial de TVN.»
 
 ### Colores — tema claro «Redacción» (por defecto)
 | Rol | Hex | Uso |
@@ -268,7 +268,7 @@ Todos los pares se validan con la puerta de contraste antes de aceptarse; si uno
 Escala 4 px (4, 8, 12, 16, 24, 32, 48). Radios: 6 px controles, 10 px tarjetas. Áreas de clic ≥ 24×24 px (WCAG 2.5.8). Ancho máximo 1600 px. Densidad «Compacta» (laptop) y «Sala» (más grande, alto contraste). Foco visible 2 px + separación 2 px, nunca tapado por paneles fijos (2.4.11). Atajos de una tecla desactivables (2.1.4).
 
 ### Logo
-Lupa sobre una línea de texto, SVG de una sola tinta (`currentColor`), `viewBox` 64, sin recuadro detrás; legible a 16, 24 y 32 px en ambos temas.
+Ícono [S]: corchetes de cita y la S atravesada por el resaltador; logotipo [ Sourced ]. Ver `docs/marca/`.
 
 ### Convenciones de redacción
 - Hora: **hora de Panamá primero** `14:32 (UTC−5)`, UTC al pasar el cursor y en exportaciones; relativa al lado («hace 40 min»). Publicación, detección y año del dato nunca se confunden.
@@ -316,10 +316,10 @@ Cada paso termina con su puerta: pruebas completas en verde (las corre Claude, n
 ### Variables de entorno
 | Variable | Descripción | Valor por defecto |
 |---|---|---|
-| `LUPA_PROVEEDOR` | `ollama` \| `anthropic` \| `openai` \| `groq` | `ollama` |
-| `LUPA_MODELO_REDACCION` | Modelo de redacción | El ganador del banco (§5.4) |
+| `SOURCED_PROVEEDOR` | `ollama` \| `anthropic` \| `openai` \| `groq` | `ollama` |
+| `SOURCED_MODELO_REDACCION` | Modelo de redacción | El ganador del banco (§5.4) |
 | `OLLAMA_HOST` | URL local de Ollama | `http://127.0.0.1:11434` |
-| `LUPA_EMBEDDINGS` | Modelo de embeddings | `intfloat/multilingual-e5-small` |
+| `SOURCED_EMBEDDINGS` | Modelo de embeddings | `intfloat/multilingual-e5-small` |
 | `ANTHROPIC_API_KEY` / `OPENAI_API_KEY` / `GROQ_API_KEY` | Solo si se elige ese proveedor | vacías |
 
 ### Puesta en marcha (objetivo del README)
@@ -328,8 +328,8 @@ python -m venv .venv && .venv\Scripts\activate
 pip install -r requirements.txt
 ollama pull <modelo-de-redaccion>
 python scripts/preparar_modelos.py
-python scripts/procesar_snapshot.py --snapshot data/snapshot-dev/<version> --output data/local/lupa.sqlite
-python src/interfaz/app.py --db data/local/lupa.sqlite --port 8765
+python scripts/procesar_snapshot.py --snapshot data/snapshot-dev/<version> --output data/local/sourced.sqlite
+python src/interfaz/app.py --db data/local/sourced.sqlite --port 8765
 ```
 
 ---
@@ -379,15 +379,15 @@ Local, sin nube. «Despliegue» = clon limpio + instalación + modelos preparado
 ## 15. AGENTS.md / CLAUDE.md para el repositorio (propuesta de actualización)
 
 ```markdown
-# Jajanken Lupa
+# Sourced
 Escritorio de verificación para redacciones: agenda priorizada, radiografía con evidencia, borradores citados y revisión humana. Local, sin GPU, sin internet.
 
 ## Comandos
 - `pip install -r requirements.txt` — dependencias fijadas
 - `python scripts/preparar_modelos.py` — descarga/verifica embeddings y modelo Ollama (una vez)
 - `python scripts/extraccion/construir_snapshot.py --version <v> [--offline]` — snapshot reproducible
-- `python scripts/procesar_snapshot.py --snapshot <dir> --output data/local/lupa.sqlite` — tubería con IA
-- `python src/interfaz/app.py --db data/local/lupa.sqlite --port 8765` — interfaz en 127.0.0.1
+- `python scripts/procesar_snapshot.py --snapshot <dir> --output data/local/sourced.sqlite` — tubería con IA
+- `python src/interfaz/app.py --db data/local/sourced.sqlite --port 8765` — interfaz en 127.0.0.1
 - `python -m unittest discover -s tests -p "test_*.py" -v` — pruebas
 - `python scripts/check_contraste.py` — puerta de contraste de tokens
 
@@ -416,7 +416,7 @@ Tema Sala: fondo #0b1620, superficie #12212e, tinta #eef3f7, primario #6cb4ee, a
 Inter 14 px (UI), Source Serif 4 17 px (borradores), JetBrains Mono 13 px (IDs, horas, puntajes). Escala 4 px; radios 6/10 px; clic ≥ 24 px.
 
 ## Variables
-LUPA_PROVEEDOR (ollama), LUPA_MODELO_REDACCION, OLLAMA_HOST, LUPA_EMBEDDINGS; claves de proveedores opcionales vacías.
+SOURCED_PROVEEDOR (ollama), SOURCED_MODELO_REDACCION, OLLAMA_HOST, SOURCED_EMBEDDINGS; claves de proveedores opcionales vacías.
 
 ## No negociable
 No publicar automáticamente. No inventar cifras, citas, entrevistados ni resultados. Prioridad ≠ verdad; repetición ≠ corroboración. Solo titular/metadatos salvo autorización. Sin datos personales. Sin secretos en código, logs ni Notion. No usar respuestas reservadas del jurado.

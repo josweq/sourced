@@ -59,7 +59,7 @@ def preparar_raw_offline(raw):
 
 
 def acumulado_rss():
-    return Path(os.environ.get("LUPA_RSS_ACUMULADO") or Path(__file__).resolve().parents[2] / "data" / "raw" / "rss")
+    return Path(os.environ.get("SOURCED_RSS_ACUMULADO") or Path(__file__).resolve().parents[2] / "data" / "raw" / "rss")
 
 
 def cargar_raw(raw, fecha_extraccion):

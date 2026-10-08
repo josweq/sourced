@@ -36,7 +36,7 @@ class CheckSinRedTest(unittest.TestCase):
 
     def test_proveedor_por_defecto_remoto_falla(self):
         ruta = self.tmp / "src" / "ia" / "proveedores.py"
-        ruta.write_text(ruta.read_text(encoding="utf-8").replace('"LUPA_PROVEEDOR", "ollama"', '"LUPA_PROVEEDOR", "openai_compat"'), encoding="utf-8")
+        ruta.write_text(ruta.read_text(encoding="utf-8").replace('"SOURCED_PROVEEDOR", "ollama"', '"SOURCED_PROVEEDOR", "openai_compat"'), encoding="utf-8")
         fallos = revisar(self.tmp)
         self.assertTrue(any("proveedor por defecto" in f for f in fallos), fallos)
 

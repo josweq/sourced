@@ -5,7 +5,7 @@ fecha: 2026-10-08
 commit: 93c11999985eb3cda6653e8c660c80da6fca0ec8
 ---
 
-# Prueba local · jajanken-lupa
+# Prueba local · Sourced
 
 Generado por `corrida-sin-red.mjs`. Datos crudos en `prueba-local.json`.
 Commit tomado de: HEAD de la copia local del repositorio (la corrida con la red cortada se hizo en el equipo del autor).
