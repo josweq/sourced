@@ -4,7 +4,7 @@
 Copiloto editorial para el reto TVN Media. Equipo: **Josué, Juanchi y Diego**.
 Convierte noticias públicas e indicadores oficiales en agenda priorizada, fichas trazables y borradores para revisión humana.
 
-## Estado real (2026-10-07, rama `josue/integracion`)
+## Estado real (2026-10-08, rama `josue/integracion`)
 Prototipo local funcionando de punta a punta con **datos reales del 7 de octubre de 2026**: 284 titulares de cinco medios panameños (TVN, La Prensa, Crítica, Panamá América, En Segundos; solo titular y metadatos), 540 valores del Banco Mundial y 82 sismos de USGS. GDELT quedó fuera: respondió HTTP 429 a todas las consultas.
 
 | Pieza | Estado |
@@ -15,11 +15,13 @@ Prototipo local funcionando de punta a punta con **datos reales del 7 de octubre
 | Redacción con Ollama `llama3.2:3b` + guardián (citas, cifras, términos sin respaldo, tono publicitario, inyección) | Hecho |
 | Mesa editorial: brief, guion con cronómetro, copy, preguntas, versiones, revisión humana | Hecho |
 | Preguntas en español con respuesta citada o abstención (CU-02, CU-04, CU-05) | Hecho |
-| Formatos de adaptación (TV, radio, vertical, web) | En construcción |
-| Benchmark, matriz T01–T10 y métricas | Pendiente |
-| Notion | Al final (dossier en `docs/notion/`) |
+| Adaptar la nota: TV, radio 30 s, video vertical 60 s, web y alerta (duración, énfasis, tono) | Hecho |
+| Guías «qué significa» en cada sección y guía rápida «Cómo leer Lupa» | Hecho |
+| Benchmark de desarrollo (40 preguntas) | 37/40 · abstención correcta 7/7 · citas 33/33 · mediana 58 ms (`evaluation/resultados/`) |
+| Matriz T01–T10 | 8 cumplen, T05 parcial, T10 pendiente de la corrida con la red cortada (`evaluation/matriz-T01-T10.md`) |
+| Notion | Dossier listo para importar (`docs/notion/dossier.md`) |
 
-Pruebas: 86/86. Verificación viva (contraste en ambos temas, 360/390 px) en `verificacion/`.
+Pruebas: 96/96. Verificación viva en verde dos veces (contraste en ambos temas, 360/390 px) en `verificacion/`. Prueba sin red: `python scripts/smoke_sin_red.py --db <base>`.
 
 ## Probar en 5 pasos (Windows, macOS o Linux; sin GPU, sin claves)
 ```sh

@@ -22,7 +22,8 @@ Editor/a, periodista, productor/a digital, director/a de noticias y presentador/
 2. **Radiografía** de cada tema: qué se reporta, quién lo reporta, qué está respaldado, qué falta verificar.
 3. **Mesa editorial**: brief, guion cronometrado, copy y preguntas de investigación, con una cita por afirmación.
 4. **Preguntas en español** con respuesta citada o abstención explícita.
-5. **Revisión humana** con historial: nada se publica automáticamente.
+5. **Adaptar la nota** a TV, radio 30 s, video vertical 60 s, web o alerta, sin añadir datos: mismas citas, otro orden y extensión.
+6. **Revisión humana** con historial: nada se publica automáticamente.
 
 ### Alcance
 Incluye CU-01 a CU-05 sobre un snapshot público reproducible. No incluye: rating o audiencia, detección de «noticias falsas», datos personales, producción audiovisual ni publicación automática.
@@ -45,8 +46,9 @@ Cobertura de citas 100 % · abstención correcta ≥ 80 % · ninguna cifra inven
 | 6 | Redacción con guardián y mesa editorial | Josué + Codex | Hecho |
 | 7 | Preguntas con abstención (CU-02, CU-04, CU-05) | Josué | Hecho |
 | 8 | Benchmark de desarrollo y matriz T01–T10 | Josué | Hecho |
-| 9 | Etiquetado humano de temas y pares | Josué, Diego, Juanchi | En curso |
-| 10 | Formatos de adaptación (TV, radio, vertical, web, alerta) | Josué + Codex | En curso |
+| 9 | Etiquetado humano de temas y pares (pre-etiquetado por Codex, revisado por persona) | Josué, Diego, Juanchi | En curso |
+| 10 | Formatos de adaptación (TV, radio, vertical, web, alerta) | Josué + Codex | Hecho |
+| 10b | Guías «qué significa» y guía rápida en la interfaz | Josué + Codex | Hecho |
 | 11 | Prueba sin internet (T10) | Josué | Pendiente |
 | 12 | Integración, pitch y entrega | Diego, Juanchi, Josué | Pendiente |
 
