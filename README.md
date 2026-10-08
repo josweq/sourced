@@ -7,6 +7,8 @@ Copiloto editorial para el reto TVN Media. Equipo Jajanken: **Josué Carrillo, D
 **Cómo trabajamos.** Sourced es obra del equipo Jajanken completo: Josué Carrillo, Diego Laverde y Juan Andrés López decidimos juntos el alcance, el diseño y la identidad, etiquetamos y revisamos los datos a mano, probamos la herramienta y preparamos la documentación y la presentación. Por practicidad, el código se integró y publicó desde un solo equipo y una sola cuenta de GitHub, por eso la mayoría de los commits aparecen con un mismo autor. Usamos asistentes de IA (Codex para construir partes del código y Claude para auditarlo y documentarlo), siempre bajo revisión del equipo.
 Convierte noticias públicas e indicadores oficiales en agenda priorizada, fichas trazables y borradores para revisión humana.
 
+**Video de demostración (4:43):** [`docs/demo/sourced-demo.mp4`](docs/demo/sourced-demo.mp4), también adjunto al [release v1.0.0](https://github.com/josweq/sourced/releases/tag/v1.0.0). Recorre la aplicación real con datos reales y explica qué hace la IA local en cada etapa. Música: «Inspired», de Kevin MacLeod (incompetech.com), bajo Creative Commons Atribución 4.0; no forma parte de la aplicación.
+
 ## Estado real (2026-10-08, rama `main`)
 Prototipo local funcionando de punta a punta con **datos reales del 7 de octubre de 2026**: 284 titulares de cinco medios panameños (TVN, La Prensa, Crítica, Panamá América, En Segundos; solo titular y metadatos), 540 valores del Banco Mundial y 82 sismos de USGS. GDELT quedó fuera: respondió HTTP 429 a todas las consultas.
 
@@ -23,7 +25,7 @@ Prototipo local funcionando de punta a punta con **datos reales del 7 de octubre
 | Guías «qué significa» en cada sección y guía rápida «Cómo leer Sourced» | Hecho |
 | Benchmark de desarrollo (40 preguntas) | 37/40 · abstención correcta 7/7 · citas 33/33 · mediana 84 ms; línea base sin IA (palabras clave): 35/40 y abstención correcta 4/7 (`evaluation/resultados/`) |
 | Matriz T01–T10 | 10/10 cumplen; T05 detecta cifras incompatibles entre medios (0 en el snapshot real, sintético SYN detectado); T10 corrida con el Wi-Fi cortado: 5/5 pasos y 0 salidas a la red (`evaluation/matriz-T01-T10.md`, `verificacion/prueba-local.md`) |
-| Dossier | [`docs/notion/dossier.md`](docs/notion/dossier.md): fuente completa con capturas, decisiones, fichas, pruebas, riesgos, guion del pitch y bitácora. Copia en el espacio de Notion «hackIAthon 4taEd» (la organización indicó avanzar sin depender de Notion) |
+| Dossier | [`docs/notion/dossier.md`](docs/notion/dossier.md): fuente completa con capturas, decisiones, fichas, pruebas, riesgos, presentación y bitácora. Copia en el espacio de Notion «hackIAthon 4taEd» (la organización indicó avanzar sin depender de Notion) |
 
 Pruebas: 125/125. Instalación probada desde cero en un entorno limpio (clon nuevo, venv nuevo, caché de modelos vacía). Verificación viva en verde dos veces (contraste en ambos temas, 360/390 px) en `verificacion/`. Prueba sin red: `python scripts/smoke_sin_red.py --db <base>` y puerta estática `python scripts/check_sin_red.py`.
 

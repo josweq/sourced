@@ -5,7 +5,7 @@
 ## Nada sin fuente.
 Copiloto editorial para la redacción de TVN · Equipo **Jajanken** (Josué Carrillo · Diego Laverde · Juan Andrés López) · hackIAthon Panamá 2026 · Reto «De la señal a la decisión»
 
-**Video de demostración (2:50):** la aplicación real, con datos reales, de principio a fin.
+**Video de demostración (4:43):** la aplicación real, con datos reales, de principio a fin, con la inteligencia artificial de cada etapa explicada.
 
 ---
 
@@ -40,13 +40,15 @@ Copiloto editorial para la redacción de TVN · Equipo **Jajanken** (Josué Carr
 6. **Vigila** — un guardián revisa cada oración: sin cita, sin cifra inventada, sin tono publicitario, sin instrucciones escondidas.
 7. **Decide una persona** — revisión con nombre y hora; nada se publica solo.
 
+![Antes de abrir la aplicación](../../verificacion/capturas/pitch-01-antes.png)
+
 ---
 
 # 4 · Paso 1 — La agenda
 
 > Los temas del día ordenados por prioridad. Cada tarjeta muestra, **por separado**, cuánto importa y qué tan respaldado está.
 
-![Agenda priorizada](../../verificacion/capturas/sourced-agenda.png)
+![Agenda priorizada](../../verificacion/capturas/pitch-02-agenda.png)
 
 ---
 
@@ -56,7 +58,7 @@ Copiloto editorial para la redacción de TVN · Equipo **Jajanken** (Josué Carr
 
 Crítica y TVN publican la misma donación de EE.UU.: Sourced las une en **un caso**, y la evidencia sigue **insuficiente** porque ninguno declara de dónde sale el dato. **Dos medios no son dos fuentes.**
 
-![Un hecho, dos medios](../../verificacion/capturas/sourced-dos-medios.png)
+![Un hecho, dos medios](../../verificacion/capturas/pitch-03-dos-medios.png)
 
 ---
 
@@ -64,7 +66,7 @@ Crítica y TVN publican la misma donación de EE.UU.: Sourced las une en **un ca
 
 > Brief, guion con cronómetro, copy y preguntas de investigación. Cada oración con su cita; lo que el guardián retira aparece con su motivo.
 
-![Mesa editorial y guardián](../../verificacion/capturas/sourced-guardian.png)
+![Mesa editorial y guardián](../../verificacion/capturas/pitch-04-guardian.png)
 
 ---
 
@@ -74,7 +76,11 @@ Crítica y TVN publican la misma donación de EE.UU.: Sourced las une en **un ca
 
 **No rellena:** si la evidencia no alcanza para el objetivo, lo dice — «alcanza para ~16 palabras; para llegar a 30 s hace falta la fuente primaria». Las instrucciones que recibió el modelo quedan a la vista.
 
-![Generar versión](../../verificacion/capturas/sourced-generar-version.png)
+**Dentro de la laptop:** Sourced arma el prompt con instrucciones fijas y solo las afirmaciones citadas; el modelo local (llama3.2:3b) redacta sin internet; el guardián vuelve a revisar cada oración.
+
+![Dentro de la laptop](../../verificacion/capturas/pitch-05-laptop.png)
+
+![Generar versión: no rellena](../../verificacion/capturas/pitch-06-version.png)
 
 ---
 
@@ -84,7 +90,9 @@ Crítica y TVN publican la misma donación de EE.UU.: Sourced las une en **un ca
 |---|---|
 | Panamá, 2024: 0,7 %. Dato anual del Banco Mundial; **no es una medición actual**. | **Me abstengo:** no hay evidencia en los datos. |
 
-![Cifra oficial con aviso](../../verificacion/capturas/sourced-cifra-oficial.png)
+![Cifra oficial con aviso](../../verificacion/capturas/pitch-07-cifra.png)
+
+![Abstención](../../verificacion/capturas/pitch-08-abstencion.png)
 
 ---
 
@@ -92,7 +100,7 @@ Crítica y TVN publican la misma donación de EE.UU.: Sourced las une en **un ca
 
 > Quien revisa deja su nombre, el estado y un comentario. Todo queda en el historial. **No existe el botón «publicar»:** lo máximo es «aprobado como borrador».
 
-![Revisión humana con historial](../../verificacion/capturas/sourced-revision.png)
+![Revisión humana con historial](../../verificacion/capturas/pitch-09-historial.png)
 
 ---
 
