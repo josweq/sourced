@@ -1,0 +1,526 @@
+{
+  "proyecto": "jajanken-lupa",
+  "commit": "914451a",
+  "fecha": "2026-10-08",
+  "estado": "verde",
+  "corridas": [
+    {
+      "n": 1,
+      "comprobaciones": 44,
+      "fallos": 0,
+      "errores": 0,
+      "esperas": [
+        {
+          "que": "cargar la agenda",
+          "ms": 317
+        },
+        {
+          "que": "abrir el primer caso",
+          "ms": 533
+        },
+        {
+          "que": "adaptar a video vertical",
+          "ms": 289
+        },
+        {
+          "que": "preguntar algo con evidencia",
+          "ms": 304
+        },
+        {
+          "que": "preguntar algo sin evidencia",
+          "ms": 254
+        },
+        {
+          "que": "registrar la revisión",
+          "ms": 1077
+        },
+        {
+          "que": "cambiar a tema Sala",
+          "ms": 40
+        }
+      ],
+      "detalle": [
+        {
+          "ok": true,
+          "que": "arranca en tema Redacción",
+          "detalle": "redaccion"
+        },
+        {
+          "ok": true,
+          "que": "la agenda muestra casos",
+          "detalle": "275"
+        },
+        {
+          "ok": true,
+          "que": "contraste · Redacción · agenda · en reposo",
+          "detalle": "1399/1399 textos"
+        },
+        {
+          "ok": true,
+          "que": "contraste · Redacción · agenda · hover",
+          "detalle": "1399/1399 textos"
+        },
+        {
+          "ok": true,
+          "que": "contraste · Redacción · agenda · hover + active",
+          "detalle": "1399/1399 textos"
+        },
+        {
+          "ok": true,
+          "que": "tarjeta de agenda compacta (≤ 120 px)",
+          "detalle": "101 px"
+        },
+        {
+          "ok": true,
+          "que": "caben ≥ 5 tarjetas a 1366×860",
+          "detalle": "capacidad 5 en 552 px"
+        },
+        {
+          "ok": true,
+          "que": "el detalle muestra la radiografía",
+          "detalle": ""
+        },
+        {
+          "ok": true,
+          "que": "abrir un caso no desplaza la página y la cabecera sigue visible",
+          "detalle": ""
+        },
+        {
+          "ok": true,
+          "que": "contraste · Redacción · caso abierto · en reposo",
+          "detalle": "1491/1491 textos"
+        },
+        {
+          "ok": true,
+          "que": "contraste · Redacción · caso abierto · hover",
+          "detalle": "1490/1490 textos"
+        },
+        {
+          "ok": true,
+          "que": "contraste · Redacción · caso abierto · hover + active",
+          "detalle": "1491/1491 textos"
+        },
+        {
+          "ok": true,
+          "que": "la agenda no tiene desplazamiento horizontal",
+          "detalle": ""
+        },
+        {
+          "ok": true,
+          "que": "las pestañas del borrador van en una sola fila",
+          "detalle": ""
+        },
+        {
+          "ok": true,
+          "que": "una guía «qué significa» abre con el botón y cierra con Esc",
+          "detalle": "true/false"
+        },
+        {
+          "ok": true,
+          "que": "la guía rápida «Cómo leer Lupa» abre como diálogo",
+          "detalle": "true"
+        },
+        {
+          "ok": true,
+          "que": "la adaptación vertical muestra sus tres bloques",
+          "detalle": ""
+        },
+        {
+          "ok": true,
+          "que": "la adaptación no repite oraciones",
+          "detalle": "3 oraciones"
+        },
+        {
+          "ok": true,
+          "que": "contraste · Redacción · adaptación · en reposo",
+          "detalle": "1502/1502 textos"
+        },
+        {
+          "ok": true,
+          "que": "contraste · Redacción · adaptación · hover",
+          "detalle": "1503/1503 textos"
+        },
+        {
+          "ok": true,
+          "que": "contraste · Redacción · adaptación · hover + active",
+          "detalle": "1503/1503 textos"
+        },
+        {
+          "ok": true,
+          "que": "una pregunta con evidencia responde con citas",
+          "detalle": ""
+        },
+        {
+          "ok": true,
+          "que": "una pregunta sin evidencia se abstiene",
+          "detalle": ""
+        },
+        {
+          "ok": true,
+          "que": "contraste · Redacción · respuesta · en reposo",
+          "detalle": "1406/1406 textos"
+        },
+        {
+          "ok": true,
+          "que": "contraste · Redacción · respuesta · hover",
+          "detalle": "1406/1406 textos"
+        },
+        {
+          "ok": true,
+          "que": "contraste · Redacción · respuesta · hover + active",
+          "detalle": "1406/1406 textos"
+        },
+        {
+          "ok": true,
+          "que": "la revisión nueva aparece con su persona revisora",
+          "detalle": "antes 0"
+        },
+        {
+          "ok": true,
+          "que": "el conmutador activa Sala",
+          "detalle": ""
+        },
+        {
+          "ok": true,
+          "que": "contraste · Sala · caso abierto · en reposo",
+          "detalle": "1493/1493 textos"
+        },
+        {
+          "ok": true,
+          "que": "contraste · Sala · caso abierto · hover",
+          "detalle": "1493/1493 textos"
+        },
+        {
+          "ok": true,
+          "que": "contraste · Sala · caso abierto · hover + active",
+          "detalle": "1494/1494 textos"
+        },
+        {
+          "ok": true,
+          "que": "ancho sala · 360 px Agenda",
+          "detalle": "{\"ancho\":360,\"pestana\":\"Agenda\",\"ventana\":360,\"pagina\":345,\"peor\":null,\"ok\":true}"
+        },
+        {
+          "ok": true,
+          "que": "ancho sala · 360 px Radiografía",
+          "detalle": "{\"ancho\":360,\"pestana\":\"Radiografía\",\"ventana\":360,\"pagina\":345,\"peor\":null,\"ok\":true}"
+        },
+        {
+          "ok": true,
+          "que": "ancho sala · 360 px Mesa",
+          "detalle": "{\"ancho\":360,\"pestana\":\"Mesa\",\"ventana\":360,\"pagina\":345,\"peor\":{\"derecha\":412,\"que\":\"button\"},\"ok\":true}"
+        },
+        {
+          "ok": true,
+          "que": "ancho sala · 390 px Agenda",
+          "detalle": "{\"ancho\":390,\"pestana\":\"Agenda\",\"ventana\":390,\"pagina\":375,\"peor\":null,\"ok\":true}"
+        },
+        {
+          "ok": true,
+          "que": "ancho sala · 390 px Radiografía",
+          "detalle": "{\"ancho\":390,\"pestana\":\"Radiografía\",\"ventana\":390,\"pagina\":375,\"peor\":null,\"ok\":true}"
+        },
+        {
+          "ok": true,
+          "que": "ancho sala · 390 px Mesa",
+          "detalle": "{\"ancho\":390,\"pestana\":\"Mesa\",\"ventana\":390,\"pagina\":375,\"peor\":{\"derecha\":412,\"que\":\"button\"},\"ok\":true}"
+        },
+        {
+          "ok": true,
+          "que": "ancho redaccion · 360 px Agenda",
+          "detalle": "{\"ancho\":360,\"pestana\":\"Agenda\",\"ventana\":360,\"pagina\":345,\"peor\":null,\"ok\":true}"
+        },
+        {
+          "ok": true,
+          "que": "ancho redaccion · 360 px Radiografía",
+          "detalle": "{\"ancho\":360,\"pestana\":\"Radiografía\",\"ventana\":360,\"pagina\":345,\"peor\":null,\"ok\":true}"
+        },
+        {
+          "ok": true,
+          "que": "ancho redaccion · 360 px Mesa",
+          "detalle": "{\"ancho\":360,\"pestana\":\"Mesa\",\"ventana\":360,\"pagina\":345,\"peor\":{\"derecha\":378,\"que\":\"button\"},\"ok\":true}"
+        },
+        {
+          "ok": true,
+          "que": "ancho redaccion · 390 px Agenda",
+          "detalle": "{\"ancho\":390,\"pestana\":\"Agenda\",\"ventana\":390,\"pagina\":375,\"peor\":null,\"ok\":true}"
+        },
+        {
+          "ok": true,
+          "que": "ancho redaccion · 390 px Radiografía",
+          "detalle": "{\"ancho\":390,\"pestana\":\"Radiografía\",\"ventana\":390,\"pagina\":375,\"peor\":null,\"ok\":true}"
+        },
+        {
+          "ok": true,
+          "que": "ancho redaccion · 390 px Mesa",
+          "detalle": "{\"ancho\":390,\"pestana\":\"Mesa\",\"ventana\":390,\"pagina\":375,\"peor\":null,\"ok\":true}"
+        },
+        {
+          "ok": true,
+          "que": "sin errores de consola",
+          "detalle": ""
+        }
+      ],
+      "segundos": 72
+    },
+    {
+      "n": 2,
+      "comprobaciones": 44,
+      "fallos": 0,
+      "errores": 0,
+      "esperas": [
+        {
+          "que": "cargar la agenda",
+          "ms": 316
+        },
+        {
+          "que": "abrir el primer caso",
+          "ms": 664
+        },
+        {
+          "que": "adaptar a video vertical",
+          "ms": 317
+        },
+        {
+          "que": "preguntar algo con evidencia",
+          "ms": 606
+        },
+        {
+          "que": "preguntar algo sin evidencia",
+          "ms": 338
+        },
+        {
+          "que": "registrar la revisión",
+          "ms": 627
+        },
+        {
+          "que": "cambiar a tema Sala",
+          "ms": 16
+        }
+      ],
+      "detalle": [
+        {
+          "ok": true,
+          "que": "arranca en tema Redacción",
+          "detalle": "redaccion"
+        },
+        {
+          "ok": true,
+          "que": "la agenda muestra casos",
+          "detalle": "275"
+        },
+        {
+          "ok": true,
+          "que": "contraste · Redacción · agenda · en reposo",
+          "detalle": "1399/1399 textos"
+        },
+        {
+          "ok": true,
+          "que": "contraste · Redacción · agenda · hover",
+          "detalle": "1399/1399 textos"
+        },
+        {
+          "ok": true,
+          "que": "contraste · Redacción · agenda · hover + active",
+          "detalle": "1399/1399 textos"
+        },
+        {
+          "ok": true,
+          "que": "tarjeta de agenda compacta (≤ 120 px)",
+          "detalle": "101 px"
+        },
+        {
+          "ok": true,
+          "que": "caben ≥ 5 tarjetas a 1366×860",
+          "detalle": "capacidad 5 en 552 px"
+        },
+        {
+          "ok": true,
+          "que": "el detalle muestra la radiografía",
+          "detalle": ""
+        },
+        {
+          "ok": true,
+          "que": "abrir un caso no desplaza la página y la cabecera sigue visible",
+          "detalle": ""
+        },
+        {
+          "ok": true,
+          "que": "contraste · Redacción · caso abierto · en reposo",
+          "detalle": "1494/1494 textos"
+        },
+        {
+          "ok": true,
+          "que": "contraste · Redacción · caso abierto · hover",
+          "detalle": "1493/1493 textos"
+        },
+        {
+          "ok": true,
+          "que": "contraste · Redacción · caso abierto · hover + active",
+          "detalle": "1494/1494 textos"
+        },
+        {
+          "ok": true,
+          "que": "la agenda no tiene desplazamiento horizontal",
+          "detalle": ""
+        },
+        {
+          "ok": true,
+          "que": "las pestañas del borrador van en una sola fila",
+          "detalle": ""
+        },
+        {
+          "ok": true,
+          "que": "una guía «qué significa» abre con el botón y cierra con Esc",
+          "detalle": "true/false"
+        },
+        {
+          "ok": true,
+          "que": "la guía rápida «Cómo leer Lupa» abre como diálogo",
+          "detalle": "true"
+        },
+        {
+          "ok": true,
+          "que": "la adaptación vertical muestra sus tres bloques",
+          "detalle": ""
+        },
+        {
+          "ok": true,
+          "que": "la adaptación no repite oraciones",
+          "detalle": "3 oraciones"
+        },
+        {
+          "ok": true,
+          "que": "contraste · Redacción · adaptación · en reposo",
+          "detalle": "1505/1505 textos"
+        },
+        {
+          "ok": true,
+          "que": "contraste · Redacción · adaptación · hover",
+          "detalle": "1505/1505 textos"
+        },
+        {
+          "ok": true,
+          "que": "contraste · Redacción · adaptación · hover + active",
+          "detalle": "1506/1506 textos"
+        },
+        {
+          "ok": true,
+          "que": "una pregunta con evidencia responde con citas",
+          "detalle": ""
+        },
+        {
+          "ok": true,
+          "que": "una pregunta sin evidencia se abstiene",
+          "detalle": ""
+        },
+        {
+          "ok": true,
+          "que": "contraste · Redacción · respuesta · en reposo",
+          "detalle": "1406/1406 textos"
+        },
+        {
+          "ok": true,
+          "que": "contraste · Redacción · respuesta · hover",
+          "detalle": "1406/1406 textos"
+        },
+        {
+          "ok": true,
+          "que": "contraste · Redacción · respuesta · hover + active",
+          "detalle": "1406/1406 textos"
+        },
+        {
+          "ok": true,
+          "que": "la revisión nueva aparece con su persona revisora",
+          "detalle": "antes 1"
+        },
+        {
+          "ok": true,
+          "que": "el conmutador activa Sala",
+          "detalle": ""
+        },
+        {
+          "ok": true,
+          "que": "contraste · Sala · caso abierto · en reposo",
+          "detalle": "1497/1497 textos"
+        },
+        {
+          "ok": true,
+          "que": "contraste · Sala · caso abierto · hover",
+          "detalle": "1497/1497 textos"
+        },
+        {
+          "ok": true,
+          "que": "contraste · Sala · caso abierto · hover + active",
+          "detalle": "1498/1498 textos"
+        },
+        {
+          "ok": true,
+          "que": "ancho sala · 360 px Agenda",
+          "detalle": "{\"ancho\":360,\"pestana\":\"Agenda\",\"ventana\":360,\"pagina\":345,\"peor\":null,\"ok\":true}"
+        },
+        {
+          "ok": true,
+          "que": "ancho sala · 360 px Radiografía",
+          "detalle": "{\"ancho\":360,\"pestana\":\"Radiografía\",\"ventana\":360,\"pagina\":345,\"peor\":null,\"ok\":true}"
+        },
+        {
+          "ok": true,
+          "que": "ancho sala · 360 px Mesa",
+          "detalle": "{\"ancho\":360,\"pestana\":\"Mesa\",\"ventana\":360,\"pagina\":345,\"peor\":{\"derecha\":412,\"que\":\"button\"},\"ok\":true}"
+        },
+        {
+          "ok": true,
+          "que": "ancho sala · 390 px Agenda",
+          "detalle": "{\"ancho\":390,\"pestana\":\"Agenda\",\"ventana\":390,\"pagina\":375,\"peor\":null,\"ok\":true}"
+        },
+        {
+          "ok": true,
+          "que": "ancho sala · 390 px Radiografía",
+          "detalle": "{\"ancho\":390,\"pestana\":\"Radiografía\",\"ventana\":390,\"pagina\":375,\"peor\":null,\"ok\":true}"
+        },
+        {
+          "ok": true,
+          "que": "ancho sala · 390 px Mesa",
+          "detalle": "{\"ancho\":390,\"pestana\":\"Mesa\",\"ventana\":390,\"pagina\":375,\"peor\":{\"derecha\":412,\"que\":\"button\"},\"ok\":true}"
+        },
+        {
+          "ok": true,
+          "que": "ancho redaccion · 360 px Agenda",
+          "detalle": "{\"ancho\":360,\"pestana\":\"Agenda\",\"ventana\":360,\"pagina\":345,\"peor\":null,\"ok\":true}"
+        },
+        {
+          "ok": true,
+          "que": "ancho redaccion · 360 px Radiografía",
+          "detalle": "{\"ancho\":360,\"pestana\":\"Radiografía\",\"ventana\":360,\"pagina\":345,\"peor\":null,\"ok\":true}"
+        },
+        {
+          "ok": true,
+          "que": "ancho redaccion · 360 px Mesa",
+          "detalle": "{\"ancho\":360,\"pestana\":\"Mesa\",\"ventana\":360,\"pagina\":345,\"peor\":{\"derecha\":378,\"que\":\"button\"},\"ok\":true}"
+        },
+        {
+          "ok": true,
+          "que": "ancho redaccion · 390 px Agenda",
+          "detalle": "{\"ancho\":390,\"pestana\":\"Agenda\",\"ventana\":390,\"pagina\":375,\"peor\":null,\"ok\":true}"
+        },
+        {
+          "ok": true,
+          "que": "ancho redaccion · 390 px Radiografía",
+          "detalle": "{\"ancho\":390,\"pestana\":\"Radiografía\",\"ventana\":390,\"pagina\":375,\"peor\":null,\"ok\":true}"
+        },
+        {
+          "ok": true,
+          "que": "ancho redaccion · 390 px Mesa",
+          "detalle": "{\"ancho\":390,\"pestana\":\"Mesa\",\"ventana\":390,\"pagina\":375,\"peor\":null,\"ok\":true}"
+        },
+        {
+          "ok": true,
+          "que": "sin errores de consola",
+          "detalle": ""
+        }
+      ],
+      "segundos": 92
+    }
+  ]
+}

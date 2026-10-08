@@ -1,0 +1,77 @@
+id_a,id_b,propuesta_codex,confianza,motivo
+N-4db5663dddf5f212,N-7e4b4f1b3decbfc2,No,baja,Títulos genéricos iguales
+N-21da167b7b868c46,N-6ab59e6437fce646,No,media,Juegos distintos relacionados
+N-074474bd6c0dd42c,N-851fd7fc469365c7,No,media,Premios distintos de Mundo Verde
+N-e308b9fd03c9c5cf,N-f8bf4dc63fdd32d1,No,alta,Patrocinios distintos
+N-167313d4f4b5b518,N-e9d318e24538779c,No,alta,Alianzas distintas
+N-8695516318c42fb9,N-c342607a9a1c83ea,No,alta,Alianzas distintas
+N-628d8a8aac8b6a9b,N-c24d610c47c6d2bc,No,alta,Tema común movilidad
+N-8f740d0bffb60a13,N-d10acb369a16d507,No,media,Rankings diferentes
+N-e64737f416e0e893,N-f93471166e656f74,Sí,alta,Mismo sorteo LNB
+N-09ff7132e4ca8010,N-21afb7babaf94edf,Sí,media,Misma adenda Meduca
+N-7bf1cad0ec5d1f73,N-abf69789a02d268a,Sí,alta,Misma donación de equipos
+N-03af01cecca5711b,N-1a1d2a9dbb4d7478,Sí,alta,Misma aclaración de Defensoría
+N-2eb8c64845db0afd,N-38360e4fc25d4823,No,alta,Exclusivos distintos
+N-2eb8c64845db0afd,N-864873a6e01b52d1,No,alta,Exclusivos distintos
+N-34bc7a037e357de8,N-5cd66e716ea45bcf,No,alta,Alianzas distintas
+N-38360e4fc25d4823,N-864873a6e01b52d1,No,alta,Exclusivos distintos
+N-3f45efd0f74222d6,N-93597c7aad0a2c9e,No,alta,Alianzas distintas
+N-84d3346198e7f27e,N-a20cb5b0b573f13f,No,alta,Convenio y ranking distintos
+N-187c0effb4ad0977,N-cba8e8179564a698,Sí,media,Mismo perfil de Castrellón
+N-17e2c4b8df8bcdd3,N-ae29b96b7637ccc1,Sí,alta,Muerte de Piero
+N-21afb7babaf94edf,N-afe58f861a3ab3d7,No,alta,Adendas de proyectos distintos
+N-5c0af2e4243dd1bf,N-dc61221959b10ffc,No,alta,"Ballenas, enfoques distintos"
+N-93597c7aad0a2c9e,N-aeec9b3fee36249e,No,alta,Alianzas distintas
+N-09ff7132e4ca8010,N-83218bd140239277,No,media,Contrato y adenda distintos
+N-06717a5e842083e0,N-65e667356c282827,No,alta,Visita y partido distintos
+N-57eb80bbad056153,N-c1eaddd682abf1d6,No,media,Reacción y despedida distintas
+N-7a0580223f289ec2,N-7c4ee122e5f119e2,No,alta,Alianzas distintas
+N-942e764db66028b7,N-e73a6f14a55a2357,No,alta,Reconocimientos distintos
+N-32f0cafe386506c1,N-d10acb369a16d507,No,alta,Premios distintos
+N-589ef3b092adf07f,N-99f00898d981a73c,No,alta,Alianzas distintas
+N-0b2e881dd2d52371,N-522c905704b4d0f6,No,alta,Celebraciones distintas
+N-0c0d3ddccc124193,N-3f45efd0f74222d6,No,alta,Alianzas distintas
+N-18bacfb531c7e7d5,N-c6f44203d6f6fe79,No,alta,Alianzas distintas
+N-21da167b7b868c46,N-6045f2e17387cb19,No,alta,Juegos distintos
+N-227972bc10d7ac00,N-ac75f81dce3795f2,No,media,Programa y estreno relacionados
+N-589ef3b092adf07f,N-e73a6f14a55a2357,No,alta,Eventos distintos
+N-5e7dbe8c1faf4696,N-ca609fe9d2e615f5,No,media,Opinión educativa común
+N-6045f2e17387cb19,N-6ab59e6437fce646,No,alta,Juegos distintos
+N-26aa6ef8e89fb11a,N-55c1f718c3ee5176,Sí,media,Mismo entrevistado en Líderes
+N-a9411cbfffca0d92,N-e308b9fd03c9c5cf,No,alta,Ranking y patrocinio distintos
+N-21da167b7b868c46,N-6ab59e6437fce646,No,media,Juegos distintos relacionados
+N-074474bd6c0dd42c,N-851fd7fc469365c7,No,media,Premios distintos de Mundo Verde
+N-e308b9fd03c9c5cf,N-f8bf4dc63fdd32d1,No,alta,Patrocinios distintos
+N-167313d4f4b5b518,N-e9d318e24538779c,No,alta,Alianzas distintas
+N-8695516318c42fb9,N-c342607a9a1c83ea,No,alta,Alianzas distintas
+N-628d8a8aac8b6a9b,N-c24d610c47c6d2bc,No,alta,Tema común movilidad
+N-8f740d0bffb60a13,N-d10acb369a16d507,No,media,Rankings diferentes
+N-e64737f416e0e893,N-f93471166e656f74,Sí,alta,Mismo sorteo LNB
+N-09ff7132e4ca8010,N-21afb7babaf94edf,Sí,media,Misma adenda Meduca
+N-7bf1cad0ec5d1f73,N-abf69789a02d268a,Sí,alta,Misma donación de equipos
+N-03af01cecca5711b,N-1a1d2a9dbb4d7478,Sí,alta,Misma aclaración de Defensoría
+N-2eb8c64845db0afd,N-38360e4fc25d4823,No,alta,Exclusivos distintos
+N-2eb8c64845db0afd,N-864873a6e01b52d1,No,alta,Exclusivos distintos
+N-34bc7a037e357de8,N-5cd66e716ea45bcf,No,alta,Alianzas distintas
+N-38360e4fc25d4823,N-864873a6e01b52d1,No,alta,Exclusivos distintos
+N-3f45efd0f74222d6,N-93597c7aad0a2c9e,No,alta,Alianzas distintas
+N-84d3346198e7f27e,N-a20cb5b0b573f13f,No,alta,Convenio y ranking distintos
+N-187c0effb4ad0977,N-cba8e8179564a698,Sí,media,Mismo perfil de Castrellón
+N-17e2c4b8df8bcdd3,N-ae29b96b7637ccc1,Sí,alta,Muerte de Piero
+N-21afb7babaf94edf,N-afe58f861a3ab3d7,No,alta,Adendas de proyectos distintos
+N-5c0af2e4243dd1bf,N-dc61221959b10ffc,No,alta,"Ballenas, enfoques distintos"
+N-93597c7aad0a2c9e,N-aeec9b3fee36249e,No,alta,Alianzas distintas
+N-09ff7132e4ca8010,N-83218bd140239277,No,media,Contrato y adenda distintos
+N-06717a5e842083e0,N-65e667356c282827,No,alta,Visita y partido distintos
+N-57eb80bbad056153,N-c1eaddd682abf1d6,No,media,Reacción y despedida distintas
+N-7a0580223f289ec2,N-7c4ee122e5f119e2,No,alta,Alianzas distintas
+N-942e764db66028b7,N-e73a6f14a55a2357,No,alta,Reconocimientos distintos
+N-32f0cafe386506c1,N-d10acb369a16d507,No,alta,Premios distintos
+N-589ef3b092adf07f,N-99f00898d981a73c,No,alta,Alianzas distintas
+N-0b2e881dd2d52371,N-522c905704b4d0f6,No,alta,Celebraciones distintas
+N-0c0d3ddccc124193,N-3f45efd0f74222d6,No,alta,Alianzas distintas
+N-18bacfb531c7e7d5,N-c6f44203d6f6fe79,No,alta,Alianzas distintas
+N-21da167b7b868c46,N-6045f2e17387cb19,No,alta,Juegos distintos
+N-227972bc10d7ac00,N-ac75f81dce3795f2,No,media,Programa y estreno relacionados
+N-589ef3b092adf07f,N-e73a6f14a55a2357,No,alta,Eventos distintos
+N-5e7dbe8c1faf4696,N-ca609fe9d2e615f5,No,media,Opinión educativa común

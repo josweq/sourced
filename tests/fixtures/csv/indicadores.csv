@@ -1,0 +1,5 @@
+pais_iso3,indicador_id,anio,valor,unidad,fuente_url,fecha_extraccion,licencia
+PAN,SYN.TEST,2023,7.25,porcentaje ficticio,https://example.invalid/indicador/2023,2024-06-02T12:00:00Z,Sintético
+PAN,SYN.TEST,2024,,porcentaje ficticio,https://example.invalid/indicador/2024,2024-06-02T12:00:00Z,Sintético
+PA,SYN.BAD,2024,1.0,porcentaje ficticio,https://example.invalid/indicador/bad,2024-06-02T12:00:00Z,Sintético
+PAN,SYN.TEXT,2024,no-es-numero,porcentaje ficticio,https://example.invalid/indicador/text,2024-06-02T12:00:00Z,Sintético

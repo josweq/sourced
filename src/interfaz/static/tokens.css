@@ -1,0 +1,146 @@
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Source Serif 4";
+  src: url("/fonts/SourceSerif4-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Source Serif 4";
+  src: url("/fonts/SourceSerif4-Semibold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/fonts/JetBrainsMono-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/fonts/JetBrainsMono-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  color-scheme: light;
+  --color-fondo: #f5f7f9;
+  --color-superficie: #ffffff;
+  --color-linea: #d3dbe3;
+  --color-tinta: #14212b;
+  --color-secundario: #4a5966;
+  --color-primario: #0b4f7c;
+  --color-primario-hover: #083c5f;
+  --color-foco: #0b4f7c;
+  --color-acento: #0b4f7c;
+  --color-cita-fondo: #ffe98a;
+  --color-cita-tinta: #1c1a12;
+  --color-cita-borde: #a37d00;
+  --color-suficiente: #17794a;
+  --color-parcial: #8a5410;
+  --color-insuficiente: #a12f2f;
+  --color-urgente: #b3261e;
+  --color-deshabilitado-fondo: #eef1f4;
+  --color-deshabilitado-texto: #5d6a75;
+  --color-boton-tinta: #ffffff;
+  --color-boton-secundario: #ffffff;
+  --color-sombra: rgb(20 33 43 / 0.08);
+  --color-transparente: rgb(255 255 255 / 0);
+
+  --fuente-ui: "Inter", system-ui, "Segoe UI", Arial, sans-serif;
+  --fuente-lectura: "Source Serif 4", Georgia, serif;
+  --fuente-mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+
+  --tamano-base: 14px;
+  --tamano-h1: 24px;
+  --tamano-h2: 18px;
+  --tamano-h3: 15px;
+  --tamano-lectura: 17px;
+  --tamano-mono: 13px;
+  --tamano-minimo: 13px;
+  --linea-base: 1.5;
+  --linea-lectura: 1.6;
+
+  --espacio-1: 4px;
+  --espacio-2: 8px;
+  --espacio-3: 12px;
+  --espacio-4: 16px;
+  --espacio-5: 24px;
+  --espacio-6: 32px;
+  --espacio-7: 48px;
+
+  --radio-control: 6px;
+  --radio-tarjeta: 10px;
+  --ancho-agenda: 320px;
+  --ancho-mesa: 440px;
+  --alto-clic: 24px;
+  --foco-ancho: 2px;
+  --foco-separacion: 2px;
+  --borde-fino: 1px;
+  --borde-estado: 3px;
+  --duracion-rapida: 180ms;
+  --duracion-media: 220ms;
+  --easing: ease;
+}
+
+[data-tema="sala"] {
+  color-scheme: dark;
+  --color-fondo: #0b1620;
+  --color-superficie: #12212e;
+  --color-linea: #2b3f50;
+  --color-tinta: #eef3f7;
+  --color-secundario: #a9b8c5;
+  --color-primario: #6cb4ee;
+  --color-primario-hover: #95c9f2;
+  --color-foco: #6cb4ee;
+  --color-acento: #c9ff68;
+  --color-suficiente: #5fd39a;
+  --color-parcial: #f0b45a;
+  --color-insuficiente: #ff8b8b;
+  --color-urgente: #ff6b5e;
+  --color-deshabilitado-fondo: #1a2a37;
+  --color-deshabilitado-texto: #c2ced8;
+  --color-boton-tinta: #08111a;
+  --color-boton-secundario: #12212e;
+  --color-sombra: rgb(0 0 0 / 0.24);
+  --tamano-base: 16px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duracion-rapida: 0ms;
+    --duracion-media: 0ms;
+  }
+}

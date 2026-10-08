@@ -1,0 +1,1645 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "us6000pgcx",
+      "properties": {
+        "mag": 4,
+        "time": 1735513210566,
+        "updated": 1741473552040,
+        "place": "9 km NW of San Juan del Sur, Nicaragua",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000pgcx"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -85.9299,
+          11.3207,
+          100.943
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us6000pfl4",
+      "properties": {
+        "mag": 4.5,
+        "time": 1735148873483,
+        "updated": 1741473550040,
+        "place": "13 km SE of San Juan del Sur, Nicaragua",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000pfl4"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -85.7826,
+          11.1725,
+          90.305
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us7000nznx",
+      "properties": {
+        "mag": 4.3,
+        "time": 1734477812608,
+        "updated": 1740677452040,
+        "place": "86 km SSE of Burica, Panama",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000nznx"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -82.5032,
+          7.3463,
+          10
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us6000ph6u",
+      "properties": {
+        "mag": 4.5,
+        "time": 1734200390214,
+        "updated": 1739908979040,
+        "place": "11 km NW of Limones, Panama",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000ph6u"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -82.9302,
+          8.1818,
+          35
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us7000nyii",
+      "properties": {
+        "mag": 4.4,
+        "time": 1733154450446,
+        "updated": 1739644274040,
+        "place": "53 km SW of Golfito, Costa Rica",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000nyii"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -83.3941,
+          8.2092,
+          10
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us6000p6p4",
+      "properties": {
+        "mag": 4.8,
+        "time": 1732155823731,
+        "updated": 1738256431040,
+        "place": "3 km SW of Burica, Panama",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000p6p4"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -82.8917,
+          8.0131,
+          10
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us7000nrwt",
+      "properties": {
+        "mag": 4.9,
+        "time": 1731642407213,
+        "updated": 1737908997040,
+        "place": "164 km SSE of Burica, Panama",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000nrwt"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -82.3689,
+          6.6353,
+          10
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us7000nqwx",
+      "properties": {
+        "mag": 5.8,
+        "time": 1731180618781,
+        "updated": 1737748288040,
+        "place": "77 km SE of Burica, Panama",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000nqwx"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -82.3895,
+          7.5218,
+          10
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us7000nqvb",
+      "properties": {
+        "mag": 4.5,
+        "time": 1731150242567,
+        "updated": 1737748287040,
+        "place": "63 km SE of Burica, Panama",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000nqvb"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -82.4935,
+          7.5987,
+          10
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us7000nqv1",
+      "properties": {
+        "mag": 5.6,
+        "time": 1731146620690,
+        "updated": 1737748287040,
+        "place": "79 km SE of Burica, Panama",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000nqv1"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -82.3993,
+          7.4901,
+          10
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us7000npzi",
+      "properties": {
+        "mag": 5,
+        "time": 1730776446554,
+        "updated": 1737748274040,
+        "place": "41 km NNW of Pizarro, Colombia",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000npzi"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.462,
+          5.3197,
+          31.25
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us7000nnla",
+      "properties": {
+        "mag": 4.6,
+        "time": 1730099317689,
+        "updated": 1737053051040,
+        "place": "6 km NW of Murindó, Colombia",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000nnla"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.8664,
+          7.0174,
+          10
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us7000nnia",
+      "properties": {
+        "mag": 4.4,
+        "time": 1730054697656,
+        "updated": 1736032110040,
+        "place": "200 km SW of Puerto Cortés, Costa Rica",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000nnia"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.7881,
+          7.6611,
+          10
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us7000nn8v",
+      "properties": {
+        "mag": 4.6,
+        "time": 1729893333326,
+        "updated": 1736032092040,
+        "place": "75 km S of Boca Chica, Panama",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000nn8v"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -82.3132,
+          7.5445,
+          10
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us7000nmzv",
+      "properties": {
+        "mag": 4.6,
+        "time": 1729801919106,
+        "updated": 1736032079040,
+        "place": "125 km WNW of Pizarro, Colombia",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000nmzv"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -78.3798,
+          5.4511,
+          10
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us6000nzql",
+      "properties": {
+        "mag": 4.6,
+        "time": 1729339317611,
+        "updated": 1735254246040,
+        "place": "281 km S of Burica, Panama",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000nzql"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -82.6346,
+          5.4996,
+          10
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us7000nqel",
+      "properties": {
+        "mag": 4.3,
+        "time": 1729228155349,
+        "updated": 1735254231040,
+        "place": "13 km WSW of Tamarindo, Costa Rica",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000nqel"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -85.9504,
+          10.2375,
+          31.131
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us6000nz32",
+      "properties": {
+        "mag": 4.3,
+        "time": 1729088976482,
+        "updated": 1735254222040,
+        "place": "13 km N of Cañas, Costa Rica",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000nz32"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -85.0775,
+          10.5508,
+          65.437
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us6000nyb6",
+      "properties": {
+        "mag": 4.9,
+        "time": 1728757071475,
+        "updated": 1734968830040,
+        "place": "33 km WNW of Sardinal, Costa Rica",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000nyb6"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -85.9454,
+          10.5949,
+          64.679
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us6000ny8a",
+      "properties": {
+        "mag": 4.3,
+        "time": 1728699883065,
+        "updated": 1734968821040,
+        "place": "14 km S of Parrita, Costa Rica",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000ny8a"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.3375,
+          9.3926,
+          11.644
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us6000nxsq",
+      "properties": {
+        "mag": 4.5,
+        "time": 1728547378934,
+        "updated": 1734968792040,
+        "place": "254 km S of Burica, Panama",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000nxsq"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -82.5629,
+          5.7512,
+          10
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us6000nsuw",
+      "properties": {
+        "mag": 5,
+        "time": 1726645948320,
+        "updated": 1732404351040,
+        "place": "south of Panama",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000nsuw"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -82.659,
+          5.1719,
+          10
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us7000ndd6",
+      "properties": {
+        "mag": 4.3,
+        "time": 1726175226516,
+        "updated": 1732229936040,
+        "place": "14 km NNW of Belén, Nicaragua",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000ndd6"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -85.9199,
+          11.6268,
+          163.008
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us6000npq3",
+      "properties": {
+        "mag": 4.8,
+        "time": 1725471045997,
+        "updated": 1731687594040,
+        "place": "298 km SW of Arenas, Panama",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000npq3"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -82.5432,
+          5.2666,
+          10
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us6000nppn",
+      "properties": {
+        "mag": 4.8,
+        "time": 1725467965394,
+        "updated": 1731687594040,
+        "place": "south of Panama",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000nppn"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -82.5712,
+          5.2462,
+          10
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us6000nnrw",
+      "properties": {
+        "mag": 5.1,
+        "time": 1725053134385,
+        "updated": 1731187130040,
+        "place": "288 km SW of Arenas, Panama",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000nnrw"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -82.5537,
+          5.3837,
+          10
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us7000n9fn",
+      "properties": {
+        "mag": 5.8,
+        "time": 1724648924183,
+        "updated": 1731187153040,
+        "place": "83 km S of Boca Chica, Panama",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000n9fn"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -82.2687,
+          7.4653,
+          10
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us7000n75q",
+      "properties": {
+        "mag": 3.2,
+        "time": 1723702830787,
+        "updated": 1729957724040,
+        "place": "10 km ENE of Ipís, Costa Rica",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000n75q"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -83.9366,
+          10.0189,
+          10
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us6000npnk",
+      "properties": {
+        "mag": 4.1,
+        "time": 1723427925738,
+        "updated": 1729957680040,
+        "place": "47 km S of Quepos, Costa Rica",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000npnk"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.1434,
+          9.0007,
+          28.729
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us6000nhsy",
+      "properties": {
+        "mag": 4.2,
+        "time": 1722658148735,
+        "updated": 1728675549040,
+        "place": "3 km SSE of La Esperanza, Panama",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000nhsy"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -82.7776,
+          8.3764,
+          10
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us6000ngni",
+      "properties": {
+        "mag": 4.6,
+        "time": 1722259463469,
+        "updated": 1728675546040,
+        "place": "19 km W of Burica, Panama",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000ngni"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -83.0467,
+          8.0051,
+          10
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us6000nekl",
+      "properties": {
+        "mag": 4.9,
+        "time": 1721681486203,
+        "updated": 1728424150005,
+        "place": "5 km NE of Limones, Panama",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000nekl"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -82.8309,
+          8.1415,
+          10
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us6000nekb",
+      "properties": {
+        "mag": 5.6,
+        "time": 1721679474414,
+        "updated": 1728424150005,
+        "place": "11 km ESE of Puerto Armuelles, Panama",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000nekb"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -82.7686,
+          8.2256,
+          7
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us6000ni7v",
+      "properties": {
+        "mag": 4.5,
+        "time": 1721676600263,
+        "updated": 1728424154005,
+        "place": "22 km SE of Manaca Civil, Panama",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000ni7v"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -82.672,
+          8.183,
+          10
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us6000nejs",
+      "properties": {
+        "mag": 4.4,
+        "time": 1721676489354,
+        "updated": 1728424150005,
+        "place": "2 km ESE of Manaca Civil, Panama",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000nejs"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -82.7985,
+          8.3169,
+          10
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us6000nejp",
+      "properties": {
+        "mag": 5.7,
+        "time": 1721675975070,
+        "updated": 1742569829125,
+        "place": "8 km SE of Puerto Armuelles, Panama",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000nejp"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -82.8075,
+          8.22,
+          7
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us7000mzyv",
+      "properties": {
+        "mag": 4.4,
+        "time": 1721292764553,
+        "updated": 1727563337040,
+        "place": "south of Panama",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000mzyv"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -82.6026,
+          5.0943,
+          10
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us7000mzaj",
+      "properties": {
+        "mag": 4.2,
+        "time": 1721023176284,
+        "updated": 1727563306040,
+        "place": "5 km S of Puerto Armuelles, Panama",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000mzaj"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -82.86,
+          8.2318,
+          10
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us7000mzah",
+      "properties": {
+        "mag": 4.4,
+        "time": 1721022541941,
+        "updated": 1727563306040,
+        "place": "6 km SSE of Manaca Civil, Panama",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000mzah"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -82.7987,
+          8.2717,
+          10
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us7000mz83",
+      "properties": {
+        "mag": 4.3,
+        "time": 1720975739153,
+        "updated": 1726848056040,
+        "place": "6 km SSW of Puerto Armuelles, Panama",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000mz83"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -82.8776,
+          8.2214,
+          22.913
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us7000mz5u",
+      "properties": {
+        "mag": 4.4,
+        "time": 1720936385471,
+        "updated": 1726848056040,
+        "place": "4 km S of Manaca Civil, Panama",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000mz5u"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -82.8119,
+          8.2877,
+          10
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us7000mz45",
+      "properties": {
+        "mag": 5.4,
+        "time": 1720906440227,
+        "updated": 1728411768343,
+        "place": "17 km ENE of Limones, Panama",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000mz45"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -82.7179,
+          8.1564,
+          10
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us7000myjw",
+      "properties": {
+        "mag": 4.6,
+        "time": 1720699449229,
+        "updated": 1726848054040,
+        "place": "5 km NNW of Belén, Nicaragua",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000myjw"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -85.9086,
+          11.5502,
+          190.558
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us7000mxrn",
+      "properties": {
+        "mag": 4.3,
+        "time": 1720441889719,
+        "updated": 1726848052040,
+        "place": "0 km SSW of Sioguí Arriba, Panama",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000mxrn"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -82.686,
+          8.5352,
+          7.272
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us7000mxr8",
+      "properties": {
+        "mag": 5.3,
+        "time": 1720432493671,
+        "updated": 1751786289292,
+        "place": "2 km SSW of Sioguí Abajo, Panama",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000mxr8"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -82.676,
+          8.4598,
+          26.677
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us6000n91g",
+      "properties": {
+        "mag": 4.8,
+        "time": 1719612116399,
+        "updated": 1725487063040,
+        "place": "231 km S of Burica, Panama",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000n91g"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -82.6481,
+          5.9482,
+          10
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us6000n84y",
+      "properties": {
+        "mag": 4.6,
+        "time": 1719342206123,
+        "updated": 1725487060040,
+        "place": "27 km WSW of Murindó, Colombia",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000n84y"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.0329,
+          6.848,
+          41.197
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us7000mu61",
+      "properties": {
+        "mag": 4.6,
+        "time": 1719174484985,
+        "updated": 1725041825040,
+        "place": "78 km S of Boca Chica, Panama",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000mu61"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -82.342,
+          7.5184,
+          10
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us7000mqxx",
+      "properties": {
+        "mag": 4.6,
+        "time": 1717768162995,
+        "updated": 1723845564040,
+        "place": "57 km SSW of Boca Chica, Panama",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000mqxx"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -82.3251,
+          7.7136,
+          9.366
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us7000mpi9",
+      "properties": {
+        "mag": 4.1,
+        "time": 1717273972547,
+        "updated": 1722976369040,
+        "place": "13 km SW of San Marcos, Costa Rica",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000mpi9"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.1168,
+          9.5901,
+          56.621
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us7000mnxc",
+      "properties": {
+        "mag": 4.3,
+        "time": 1717053046431,
+        "updated": 1722976368040,
+        "place": "south of Panama",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000mnxc"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -82.743,
+          5.2718,
+          10
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us6000n11l",
+      "properties": {
+        "mag": 4.6,
+        "time": 1716698230845,
+        "updated": 1722910215040,
+        "place": "14 km WSW of Canoas, Costa Rica",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000n11l"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -82.9655,
+          8.4976,
+          10
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us6000n0zu",
+      "properties": {
+        "mag": 4.8,
+        "time": 1716667897138,
+        "updated": 1722910223040,
+        "place": "12 km WNW of Progreso, Panama",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000n0zu"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -82.9421,
+          8.4841,
+          8.724
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us6000n0mu",
+      "properties": {
+        "mag": 5.1,
+        "time": 1716527629751,
+        "updated": 1722910213040,
+        "place": "199 km SSE of Burica, Panama",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000n0mu"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -82.5111,
+          6.2666,
+          10
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us6000n00i",
+      "properties": {
+        "mag": 4.3,
+        "time": 1716285498662,
+        "updated": 1722910190040,
+        "place": "31 km SW of Dabeiba, Colombia",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000n00i"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.5066,
+          6.8392,
+          48.925
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us6000muue",
+      "properties": {
+        "mag": 4.5,
+        "time": 1714381203317,
+        "updated": 1721015938040,
+        "place": "60 km SSW of Boca Chica, Panama",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000muue"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -82.3909,
+          7.6981,
+          10
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us6000muin",
+      "properties": {
+        "mag": 4.2,
+        "time": 1714270048062,
+        "updated": 1719958368040,
+        "place": "71 km SE of Burica, Panama",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000muin"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -82.4869,
+          7.5103,
+          10
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us6000mvsk",
+      "properties": {
+        "mag": 4,
+        "time": 1713924628569,
+        "updated": 1719958376040,
+        "place": "45 km SE of Burica, Panama",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000mvsk"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -82.5491,
+          7.7773,
+          10
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us6000mvsh",
+      "properties": {
+        "mag": 4,
+        "time": 1713922529726,
+        "updated": 1719958376040,
+        "place": "35 km SE of Burica, Panama",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000mvsh"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -82.6111,
+          7.8482,
+          10
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us6000mtc6",
+      "properties": {
+        "mag": 5.4,
+        "time": 1713921642573,
+        "updated": 1720441234228,
+        "place": "77 km SSW of Boca Chica, Panama",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000mtc6"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -82.372,
+          7.5347,
+          10
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us7000mdd4",
+      "properties": {
+        "mag": 4.3,
+        "time": 1713574789254,
+        "updated": 1719349391040,
+        "place": "52 km SSE of Quepos, Costa Rica",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000mdd4"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.055,
+          8.9686,
+          15.199
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us7000mcrs",
+      "properties": {
+        "mag": 5.5,
+        "time": 1713388914614,
+        "updated": 1719349376040,
+        "place": "20 km ESE of Cárdenas, Nicaragua",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000mcrs"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -85.3325,
+          11.1271,
+          154
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us7000manz",
+      "properties": {
+        "mag": 4.3,
+        "time": 1712525321657,
+        "updated": 1718229116040,
+        "place": "18 km NW of Cárdenas, Nicaragua",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000manz"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -85.61,
+          11.327,
+          193.447
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us7000mam4",
+      "properties": {
+        "mag": 4.3,
+        "time": 1712497527540,
+        "updated": 1718229116040,
+        "place": "232 km SSW of Río Grande, Panama",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000mam4"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -82.3932,
+          5.8994,
+          10
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us7000mam6",
+      "properties": {
+        "mag": 4.3,
+        "time": 1712424340808,
+        "updated": 1718229116040,
+        "place": "12 km W of Guápiles, Costa Rica",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000mam6"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -83.8935,
+          10.2007,
+          10
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us7000m8pn",
+      "properties": {
+        "mag": 4.4,
+        "time": 1711687121170,
+        "updated": 1717278948040,
+        "place": "20 km WSW of Pie de Pató, Colombia",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000m8pn"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.1372,
+          5.4232,
+          41.556
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us6000mjk7",
+      "properties": {
+        "mag": 4.5,
+        "time": 1710756534535,
+        "updated": 1716819558040,
+        "place": "89 km SW of Puerto Cortés, Costa Rica",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000mjk7"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.1576,
+          8.4554,
+          10
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us7000m46g",
+      "properties": {
+        "mag": 4.4,
+        "time": 1709591156002,
+        "updated": 1715794506040,
+        "place": "15 km WSW of Frontino, Colombia",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000m46g"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.2688,
+          6.7417,
+          37.524
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us6000mfie",
+      "properties": {
+        "mag": 4.5,
+        "time": 1709073712312,
+        "updated": 1715376354040,
+        "place": "29 km SSE of Bellavista, Colombia",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000mfie"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.7456,
+          6.3284,
+          51.878
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us7000m1gm",
+      "properties": {
+        "mag": 4.5,
+        "time": 1708847469149,
+        "updated": 1714665014040,
+        "place": "7 km WSW of Uramita, Colombia",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000m1gm"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.2307,
+          6.8709,
+          49.262
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us7000m01m",
+      "properties": {
+        "mag": 4.4,
+        "time": 1708278143689,
+        "updated": 1713969725040,
+        "place": "28 km WSW of Necoclí, Colombia",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000m01m"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.0365,
+          8.3606,
+          50.379
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us7000lzsx",
+      "properties": {
+        "mag": 4.2,
+        "time": 1708136966926,
+        "updated": 1713969724040,
+        "place": "3 km NW of San Isidro, Costa Rica",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000lzsx"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -83.7243,
+          9.3855,
+          12.424
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us7000lzgv",
+      "properties": {
+        "mag": 4.7,
+        "time": 1708021632430,
+        "updated": 1713969723040,
+        "place": "26 km WNW of Murindó, Colombia",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000lzgv"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.0477,
+          7.0504,
+          38.654
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us7000ly8f",
+      "properties": {
+        "mag": 4.4,
+        "time": 1707550100053,
+        "updated": 1713641704040,
+        "place": "8 km W of Puerto Armuelles, Panama",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000ly8f"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -82.9428,
+          8.2673,
+          10
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us7000lxb1",
+      "properties": {
+        "mag": 4.8,
+        "time": 1707226652568,
+        "updated": 1713641606040,
+        "place": "11 km S of La Tronosa, Panama",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000lxb1"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.5906,
+          7.328,
+          16.804
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us7000luhv",
+      "properties": {
+        "mag": 4.5,
+        "time": 1706429875788,
+        "updated": 1711838082040,
+        "place": "19 km W of Bahía Solano, Colombia",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000luhv"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.5807,
+          6.2056,
+          21.804
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us7000lwas",
+      "properties": {
+        "mag": 4.4,
+        "time": 1706422238878,
+        "updated": 1711838124040,
+        "place": "53 km W of Nuquí, Colombia",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000lwas"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.752,
+          5.7787,
+          17.402
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us7000ltuw",
+      "properties": {
+        "mag": 4.4,
+        "time": 1706226640773,
+        "updated": 1711838019040,
+        "place": "18 km N of San Isidro, Costa Rica",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000ltuw"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -83.7184,
+          9.5312,
+          55.183
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us6000m501",
+      "properties": {
+        "mag": 4.1,
+        "time": 1705761534429,
+        "updated": 1711733875040,
+        "place": "5 km S of Quepos, Costa Rica",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000m501"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.1682,
+          9.3835,
+          47.467
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us6000m3yi",
+      "properties": {
+        "mag": 4.4,
+        "time": 1705401322056,
+        "updated": 1713884969274,
+        "place": "47 km SE of Pedasí, Panama",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000m3yi"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -79.7804,
+          7.1797,
+          10
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us6000m385",
+      "properties": {
+        "mag": 4.3,
+        "time": 1705023845766,
+        "updated": 1711891327933,
+        "place": "19 km W of Sardinal, Costa Rica",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000m385"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -85.8273,
+          10.5395,
+          51.564
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "us6000m2a6",
+      "properties": {
+        "mag": 4.6,
+        "time": 1704589328686,
+        "updated": 1710020391040,
+        "place": "south of Panama",
+        "status": "reviewed",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000m2a6"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -82.4658,
+          5.0822,
+          10
+        ]
+      }
+    }
+  ]
+}

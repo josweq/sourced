@@ -1,0 +1,108 @@
+[
+ {
+  "page": 1,
+  "pages": 1,
+  "per_page": 50,
+  "total": 6,
+  "sourceid": "2",
+  "lastupdated": "2026-07-13"
+ },
+ [
+  {
+   "indicator": {
+    "id": "NY.GDP.MKTP.KD.ZG",
+    "value": "GDP growth (annual %)"
+   },
+   "country": {
+    "id": "CR",
+    "value": "Costa Rica"
+   },
+   "countryiso3code": "CRI",
+   "date": "2024",
+   "value": 4.08292444182048,
+   "unit": "",
+   "obs_status": "",
+   "decimal": 1
+  },
+  {
+   "indicator": {
+    "id": "NY.GDP.MKTP.KD.ZG",
+    "value": "GDP growth (annual %)"
+   },
+   "country": {
+    "id": "CR",
+    "value": "Costa Rica"
+   },
+   "countryiso3code": "CRI",
+   "date": "2023",
+   "value": 4.79187732359398,
+   "unit": "",
+   "obs_status": "",
+   "decimal": 1
+  },
+  {
+   "indicator": {
+    "id": "NY.GDP.MKTP.KD.ZG",
+    "value": "GDP growth (annual %)"
+   },
+   "country": {
+    "id": "CR",
+    "value": "Costa Rica"
+   },
+   "countryiso3code": "CRI",
+   "date": "2022",
+   "value": 5.46119455235068,
+   "unit": "",
+   "obs_status": "",
+   "decimal": 1
+  },
+  {
+   "indicator": {
+    "id": "NY.GDP.MKTP.KD.ZG",
+    "value": "GDP growth (annual %)"
+   },
+   "country": {
+    "id": "PA",
+    "value": "Panama"
+   },
+   "countryiso3code": "PAN",
+   "date": "2024",
+   "value": 2.74784148771307,
+   "unit": "",
+   "obs_status": "",
+   "decimal": 1
+  },
+  {
+   "indicator": {
+    "id": "NY.GDP.MKTP.KD.ZG",
+    "value": "GDP growth (annual %)"
+   },
+   "country": {
+    "id": "PA",
+    "value": "Panama"
+   },
+   "countryiso3code": "PAN",
+   "date": "2023",
+   "value": 7.16634016390665,
+   "unit": "",
+   "obs_status": "",
+   "decimal": 1
+  },
+  {
+   "indicator": {
+    "id": "NY.GDP.MKTP.KD.ZG",
+    "value": "GDP growth (annual %)"
+   },
+   "country": {
+    "id": "PA",
+    "value": "Panama"
+   },
+   "countryiso3code": "PAN",
+   "date": "2022",
+   "value": 11.0386022908773,
+   "unit": "",
+   "obs_status": "",
+   "decimal": 1
+  }
+ ]
+]

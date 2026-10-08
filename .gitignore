@@ -19,3 +19,12 @@ data/processed/*
 !data/processed/.gitkeep
 data/reserved/
 secrets/
+data/local/
+*.sqlite
+*.sqlite-*
+# Snapshots: solo se versiona processed/ (titulares, metadatos y datos abiertos);
+# las capturas crudas del RSS traen descripciones con derechos.
+data/snapshot-dev/*/raw/
+data/snapshot-dev/*.parcial*
+data/snapshot-dev/dev-*/
+data/snapshot-dev/real-20261007/

@@ -1,5 +1,5 @@
 # Plantilla para Notion
-Contenido preparado, espacio y accesos pendientes. GitHub no reemplaza Notion.
+Solo plantilla en GitHub. Diego mostró acceso al espacio hackIAthon 4taEd; ubicación de Jajanken y accesos del jurado sin verificar. No se ha creado contenido del proyecto. Operaciones en Notion pausadas por petición de Diego. GitHub no reemplaza el requisito final.
 1. Inicio: equipo, modalidad, problema, usuario, alcance, éxito, demo y repo.
 2. Plan y decisiones: mínimo ocho tareas y tres decisiones justificadas durante ejecución; responsables, estados, cronología.
 3. Catálogo: fuente, URL, extracción, cobertura, campos, condiciones, transformaciones, hash.

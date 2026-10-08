@@ -1,0 +1,5 @@
+--extra-index-url https://download.pytorch.org/whl/cpu
+sentence-transformers==6.1.0
+scikit-learn==1.9.1
+torch==2.13.0+cpu
+numpy==2.4.6

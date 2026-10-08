@@ -1,0 +1,63 @@
+{
+  "version": "real-20261007b",
+  "fecha_corte_utc": "2026-10-08T00:08:55Z",
+  "consultas": [
+    "https://www.tvn-2.com/rss/",
+    "https://www.prensa.com/arc/outboundfeeds/rss/",
+    "https://www.critica.com.pa/rss.xml",
+    "https://www.panamaamerica.com.pa/rss.xml",
+    "https://ensegundos.com.pa/feed/",
+    "https://api.worldbank.org/v2/country/PAN;CRI;COL;DOM;MEX;GTM/indicator/NY.GDP.MKTP.KD.ZG?format=json&date=2010%3A2024&page=1&per_page=20000",
+    "https://api.worldbank.org/v2/country/PAN;CRI;COL;DOM;MEX;GTM/indicator/FP.CPI.TOTL.ZG?format=json&date=2010%3A2024&page=1&per_page=20000",
+    "https://api.worldbank.org/v2/country/PAN;CRI;COL;DOM;MEX;GTM/indicator/SL.UEM.TOTL.ZS?format=json&date=2010%3A2024&page=1&per_page=20000",
+    "https://api.worldbank.org/v2/country/PAN;CRI;COL;DOM;MEX;GTM/indicator/SP.POP.TOTL?format=json&date=2010%3A2024&page=1&per_page=20000",
+    "https://api.worldbank.org/v2/country/PAN;CRI;COL;DOM;MEX;GTM/indicator/IT.NET.USER.ZS?format=json&date=2010%3A2024&page=1&per_page=20000",
+    "https://api.worldbank.org/v2/country/PAN;CRI;COL;DOM;MEX;GTM/indicator/NE.EXP.GNFS.ZS?format=json&date=2010%3A2024&page=1&per_page=20000",
+    "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2024-01-01&endtime=2024-12-31&minlatitude=5&maxlatitude=12&minlongitude=-86&maxlongitude=-76&minmagnitude=3&orderby=time&limit=20000&offset=1"
+  ],
+  "consultas_fallidas": [],
+  "conteos": {
+    "noticias.csv": 284,
+    "indicadores.csv": 540,
+    "eventos.geojson": 82,
+    "fuentes.json": 8,
+    "excluidos.json": 322
+  },
+  "condiciones_por_fuente": {
+    "SRC-RSS-TVN": "Solo titulares y metadatos del RSS público; no se copia description, contenido ni imágenes.",
+    "SRC-RSS-PRENSA": "Solo titulares y metadatos del RSS público; no se copia description, contenido ni imágenes.",
+    "SRC-RSS-CRITICA": "Solo titulares y metadatos del RSS público; no se copia description, contenido ni imágenes.",
+    "SRC-RSS-PANAMAAMERICA": "Solo titulares y metadatos del RSS público; no se copia description, contenido ni imágenes.",
+    "SRC-RSS-ENSEGUNDOS": "Solo titulares y metadatos del RSS público; no se copia description, contenido ni imágenes.",
+    "SRC-TVN-RSS": "Solo titulares y metadatos; no se copia description ni media:content.",
+    "SRC-GDELT": "Metadatos de ArtList; seendate es fecha de detección, no publicación.",
+    "SRC-BANCO-MUNDIAL": "CC BY 4.0 (verificar excepciones por indicador)"
+  },
+  "sha256": {
+    "eventos.geojson": "422920ad834839c9968a06b7bf93ccabfa97fb6809e151f05567fc0aef4f018e",
+    "excluidos.json": "0fe7f0b705689d813a6bcc5c0b9d252cff6c508ad7ff9b6e7f3211ada2745a8a",
+    "fuentes.json": "0d16195acade828a784dabaae4bec5d76e062f4b2973af96474e778df1abae32",
+    "indicadores.csv": "d0985efb56edd0f962067e9275a1e3daa803c4989edc10e6913a561598f54435",
+    "noticias.csv": "ae9f65c9e99c3b9b3885a958b344e21f1968b9ac67bb1fd0ce949eba41cf1db6"
+  },
+  "transformaciones": [
+    "Normalización de URL: host en minúsculas, sin utm_*, sin /amp ni barra final.",
+    "ID estable N- con 16 hex de SHA-256 de URL normalizada.",
+    "RSS de TVN, La Prensa, Crítica, Panamá América y En Segundos: solo titular y metadatos; no se copia description ni media:content.",
+    "GDELT seendate se registra como fecha_deteccion; fecha_publicacion queda vacía.",
+    "Las consultas fallidas de GDELT se registran y no abortan el snapshot completo.",
+    "Banco Mundial completa la cuadrícula explícita 6 países x 6 indicadores x 15 años; ausencias como valor vacío, nunca cero.",
+    "Filtro temporal [2024-01-01, 2025-10-01) no aplicado, pendiente de la organización."
+  ],
+  "cobertura_temporal_efectiva": {
+    "tvn_rss": "capturas disponibles en raw/tvn_rss",
+    "gdelt": {
+      "omitido": "GDELT respondió HTTP 429 a todas las consultas el 2026-10-07; se omite con --sin-gdelt",
+      "declara_sin_aportes": true
+    },
+    "rss_medios": {
+      "capturas_copiadas": 10
+    }
+  },
+  "nota_cuadricula": "Los parámetros explícitos producen 540 combinaciones; no se inventan combinaciones para llegar a 1.350."
+}

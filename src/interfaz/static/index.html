@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Jajanken Lupa</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/tokens.css">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="app-header">
+  <div class="brand" title="Antes de contar una historia, mostramos qué la sostiene.">
+    <img class="brand-logo" src="/img/lupa.svg" alt="">
+    <div>
+      <h1>Lupa</h1>
+      <p>Antes de contar una historia, mostramos qué la sostiene.</p>
+    </div>
+  </div>
+<form id="ask-form" class="search-row ask-row" autocomplete="off"><label class="sr-label" for="ask">Preguntar a Lupa</label><input id="ask" name="pregunta" type="search" maxlength="300" placeholder="Preguntar: ¿qué se sabe de…?"><button class="submit" type="submit">Preguntar</button><button class="info-button" type="button" aria-label="Qué significa Preguntar" aria-expanded="false" data-help="preguntar">ⓘ</button></form>
+  <div class="header-meta" aria-label="Estado del prototipo">
+    <button id="quick-guide" class="guide-button quick-guide-button" type="button" aria-label="Cómo leer Lupa" aria-haspopup="dialog">?</button>
+    <span><strong>Snapshot</strong> local</span>
+    <time id="cutoff-time" datetime="">Corte: cargando</time>
+    <span class="status">Sin conexión: listo</span>
+    <div class="theme-switch" role="group" aria-label="Tema visual">
+      <button id="tema-redaccion" type="button" data-tema-opcion="redaccion" aria-label="Usar tema Redacción"><span class="theme-icon" aria-hidden="true">☀</span><span class="theme-label">Redacción</span></button>
+      <button id="tema-sala" type="button" data-tema-opcion="sala" aria-label="Usar tema Sala"><span class="theme-icon" aria-hidden="true">☾</span><span class="theme-label">Sala</span></button>
+    </div>
+  </div>
+</header>
+<dialog id="quick-guide-dialog" class="quick-guide-dialog" aria-labelledby="quick-guide-title">
+  <form method="dialog">
+    <div class="dialog-head">
+      <h2 id="quick-guide-title">Cómo leer Lupa</h2>
+      <button class="guide-button" type="submit" aria-label="Cerrar guía">×</button>
+    </div>
+    <ol>
+      <li>Agenda: prioriza señales.</li>
+      <li>Radiografía: separa reporte, procedencia, respaldo y vacíos.</li>
+      <li>Mesa: redacta con citas sin añadir datos.</li>
+      <li>Revisión: registra la decisión humana.</li>
+    </ol>
+    <p><strong>Estados:</strong> ✓ suficiente, ◐ parcial, ○ insuficiente. <strong>Revisión:</strong> ● nuevo, ✎ en revisión, ! requiere evidencia, ✔ borrador, ✕ descartado.</p>
+    <p><strong>Puntaje:</strong> Relevancia 30, Impacto 25, Urgencia 20, Novedad 15, Evidencia 10. Ordena atención; no mide verdad.</p>
+    <p><strong>Regla:</strong> Lupa no publica.</p>
+  </form>
+</dialog>
+<main class="shell">
+  <nav class="mobile-tabs" aria-label="Vistas">
+    <button type="button" data-panel="agenda" aria-controls="agenda-panel">Agenda</button>
+    <button type="button" data-panel="radiografia" aria-controls="detail">Radiografía</button>
+    <button type="button" data-panel="mesa" aria-controls="detail">Mesa</button>
+  </nav>
+  <aside id="agenda-panel" data-panel-region="agenda">
+    <div class="aside-title">
+      <h2>Agenda</h2>
+      <button id="refresh" type="button">Limpiar</button>
+    </div>
+    <form id="search-form" class="filters">
+      <div class="search-row"><label class="sr-label" for="q">Buscar en la agenda</label><input id="q" name="q" type="search" maxlength="200" placeholder="Buscar: tema, lugar, institución"><button class="submit" type="submit">Buscar</button></div>
+      <details class="filter-details">
+        <summary>Filtros <span id="filter-count">0 activos</span></summary>
+        <label>Tema<select name="tema"><option value="">Todos</option><option value="economia">Economía</option><option value="logistica_canal">Logística/Canal</option><option value="turismo">Turismo</option><option value="servicios_publicos">Servicios públicos</option><option value="eventos_naturales">Eventos naturales</option><option value="regulacion">Regulación</option><option value="sin_clasificar">Sin clasificar</option></select></label>
+        <label>Evidencia<select name="evidencia"><option value="">Todos</option><option value="insuficiente">Insuficiente</option><option value="parcial">Parcial</option><option value="suficiente_para_borrador">Suficiente</option></select></label>
+        <label>Medio<input name="medio" maxlength="100" placeholder="Medio"></label>
+        <div class="date-grid"><label>Desde<input name="desde" type="date"></label><label>Hasta<input name="hasta" type="date"></label></div>
+      </details>
+    </form>
+    <p id="search-meta" class="hint" aria-live="polite"></p>
+    <div id="cases" aria-live="polite"></div>
+  </aside>
+  <section id="detail" class="empty" data-panel-region="radiografia mesa">
+    <div>
+      <strong>Selecciona un caso</strong>
+      <p>Abre su evidencia, borrador y registro de revisión.</p>
+    </div>
+  </section>
+</main>
+<footer>Lupa · prototipo del equipo Jajanken para el hackIAthon Panamá. No es una herramienta oficial de TVN.</footer>
+<template id="case-template">
+  <button class="case" type="button">
+    <span class="case-top"><span class="case-meta"></span><span class="score"></span></span>
+    <strong></strong>
+    <span class="case-line"><i class="evidence"></i><span class="source-count"></span></span>
+    <small class="reason"></small>
+  </button>
+</template>
+<p id="disabled-help" class="sr-only">Este control está deshabilitado porque el caso no tiene un borrador asociado.</p>
+<script src="/app.js" defer></script>
+</body></html>
