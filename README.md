@@ -25,7 +25,7 @@ Prototipo local funcionando de punta a punta con **datos reales del 7 de octubre
 | Guías «qué significa» en cada sección y guía rápida «Cómo leer Sourced» | Hecho |
 | Benchmark de desarrollo (40 preguntas) | 37/40 · abstención correcta 7/7 · citas 33/33 · mediana 84 ms; línea base sin IA (palabras clave): 35/40 y abstención correcta 4/7 (`evaluation/resultados/`) |
 | Matriz T01–T10 | 10/10 cumplen; T05 detecta cifras incompatibles entre medios (0 en el snapshot real, sintético SYN detectado); T10 corrida con el Wi-Fi cortado: 5/5 pasos y 0 salidas a la red (`evaluation/matriz-T01-T10.md`, `verificacion/prueba-local.md`) |
-| Dossier | [`docs/notion/dossier.md`](docs/notion/dossier.md): fuente completa con capturas, decisiones, fichas, pruebas, riesgos, presentación y bitácora. Copia en el espacio de Notion «hackIAthon 4taEd» (la organización indicó avanzar sin depender de Notion) |
+| Dossier | [`docs/notion/dossier.md`](docs/notion/dossier.md): fuente completa con capturas, decisiones, fichas, pruebas, riesgos, presentación y bitácora. Publicado en Notion (ver sección «Notion») |
 
 Pruebas: 125/125. Instalación probada desde cero en un entorno limpio (clon nuevo, venv nuevo, caché de modelos vacía). Verificación viva en verde dos veces (contraste en ambos temas, 360/390 px) en `verificacion/`. Prueba sin red: `python scripts/smoke_sin_red.py --db <base>` y puerta estática `python scripts/check_sin_red.py`.
 
@@ -86,7 +86,7 @@ La demo funciona sin internet (prueba con la red cortada en `verificacion/prueba
 Plan derivado del documento del reto «hackIAthon - reto TVN Media» (fuentes consultadas el 05/10/2026). No se incluye el PDF ni contenido protegido.
 
 ## Notion
-La organización indicó avanzar sin depender de Notion porque la cuenta Business del reto no funciona. La documentación completa está en [`docs/notion/dossier.md`](docs/notion/dossier.md) y hay una copia en el espacio «hackIAthon 4taEd».
+Publicado y accesible sin sesión: la página pública del equipo en Notion tiene la [documentación técnica](https://conscious-handbell-91a.notion.site/Documentaci-n-t-cnica-3f36d0f0b114803e8a83dba0c7d1cfc4), la [documentación funcional](https://conscious-handbell-91a.notion.site/Documentaci-n-funcional-3f36d0f0b11480d89602d5296e6d6846) y la [presentación para el Pitch Day](https://conscious-handbell-91a.notion.site/Presentaci-n-Pitch-Day-3f36d0f0b114807081ebdfc46ca9e875), con el video. Las fuentes de esas páginas están en [`docs/notion/`](docs/notion/) y el expediente completo en [`docs/notion/dossier.md`](docs/notion/dossier.md).
 
 ## Probar el modelo de datos
 Lee el [modelo y diagrama](docs/11-modelo-datos.md) y el [diccionario](contracts/diccionario.md).
