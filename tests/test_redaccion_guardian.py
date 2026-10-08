@@ -183,3 +183,20 @@ class ProsaLibreTests(unittest.TestCase):
         p = self._paquete({"titulo": "Carnival Miracle", "apertura": "", "copy": "", "preguntas": [],
                            "enfoque": "La empresa Carnival Cruise Line anuncia la temporada en el Canal de Panamá."})
         self.assertNotIn("Cruise Line", p["enfoque"])
+
+
+class PreguntasTests(unittest.TestCase):
+    def test_preguntas_al_publico_o_con_datos_ajenos_se_reemplazan(self):
+        from src.ia.redaccion import generar_paquete
+        caso = {"id": "C1", "titulo": "Sumarse: segundo día de la Semana de la RSE aborda empleo juvenil"}
+        evidencias = [{"id": "E1", "campo": "titulo", "medio": "TVN", "alcance_texto": "titular_metadatos",
+                       "noticia_titulo": "Sumarse: segundo día de la Semana de la RSE aborda empleo juvenil y decisiones empresariales"}]
+        respuesta = {"titulo": "x", "enfoque": "", "apertura": "", "copy": "",
+                     "preguntas": ["¿Qué temas te gustaría ver abordados en la Semana de la RSE?",
+                                   "¿Cómo puede la juventud contribuir a la resolución de situaciones económicas?",
+                                   "¿Cuántos jóvenes participaron en la Semana de la RSE?"]}
+        p = generar_paquete(caso, evidencias, proveedor=lambda prompt, schema, timeout=0: respuesta)
+        self.assertEqual(len(p["preguntas"]), 3)
+        self.assertFalse(any("gustaría" in q or "situaciones económicas" in q for q in p["preguntas"]))
+        self.assertIn("¿Cuántos jóvenes participaron en la Semana de la RSE?", p["preguntas"])
+        self.assertTrue(any(r["seccion"] == "preguntas" for r in p["retiradas"]))

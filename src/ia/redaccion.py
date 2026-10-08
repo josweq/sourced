@@ -126,6 +126,50 @@ def _depurar_prosa(campo: str, texto: str, evidencias: list[dict], cita: dict, r
     return (aceptado or respaldo), retiradas
 
 
+PREGUNTA_PERMITIDAS = {
+    "cual", "cuales", "cuanto", "cuanta", "cuantos", "cuantas", "quien", "quienes", "donde", "cuando",
+    "como", "fuente", "primaria", "institucion", "entidad", "confirma", "confirmar", "oficial",
+    "oficiales", "datos", "dato", "respaldo", "respalda", "monto", "fecha", "plazo", "afectados",
+    "afecta", "impacto", "responsable", "responsables", "documento", "documentos", "detalle",
+    "detalles", "cifra", "cifras", "version", "versiones", "existe", "existen", "hay", "otros",
+    "medios", "independiente", "independientes", "publico", "publica", "anuncio", "anunciado",
+    "proximo", "proximos", "pasos", "estado", "actual", "registro", "registros", "contrato",
+}
+SEGUNDA_PERSONA = re.compile(r"\b(te|tu|tus|crees|piensas|opinas|gustar[ií]a)\b", re.I)
+
+
+def _preguntas_seguras(preguntas: list, evidencias: list[dict], primera: dict) -> tuple[list[str], list]:
+    """Las preguntas también pasan por el guardián; si no sobreviven, se usan plantillas de investigación."""
+    aceptadas, retiradas = [], []
+    for texto in [str(p).strip() for p in (preguntas or []) if str(p).strip()]:
+        if SEGUNDA_PERSONA.search(texto):
+            retiradas.append({"texto": texto, "seccion": "preguntas", "motivo": "Le habla al público; no es una pregunta de investigación."})
+            continue
+        # Una pregunta pregunta lo que falta: se toleran hasta 2 términos nuevos; más indica datos ajenos.
+        corpus = guardian.tokens(" ".join(guardian.texto_evidencia(e) for e in evidencias))
+        nuevos = [t for t in guardian.tokens(texto) if t not in corpus and t not in PREGUNTA_PERMITIDAS
+                  and t not in guardian.PALABRAS_PERMITIDAS]
+        tolerados = set(nuevos) if len(nuevos) <= 2 else set()
+        r = guardian.validar_oraciones([{"texto": texto, "evidencia_id": primera["evidencia_id"], "tipo": "hipotesis"}],
+                                       evidencias, permitidas=PREGUNTA_PERMITIDAS | tolerados)
+        if r.aceptadas:
+            aceptadas.append(texto)
+        else:
+            retiradas += [{**o, "seccion": "preguntas"} for o in r.retiradas]
+    base = primera.get("cita_label", "el titular")
+    plantillas = [
+        f"¿Cuál es la fuente primaria que confirma lo reportado ({base})?",
+        "¿Qué institución u oficina pública puede confirmar el dato y con qué documento?",
+        "¿Otros medios independientes reportan el mismo hecho con los mismos datos?",
+    ]
+    for plantilla in plantillas:
+        if len(aceptadas) >= 3:
+            break
+        if plantilla not in aceptadas:
+            aceptadas.append(plantilla)
+    return aceptadas[:3], retiradas
+
+
 def generar_paquete(caso: dict, evidencias: list[dict], proveedor=generar_modelo, timeout: int = 120) -> dict:
     started = time.perf_counter()
     afirmaciones, sospechosas = afirmaciones_desde_evidencias(evidencias)
@@ -155,6 +199,8 @@ def generar_paquete(caso: dict, evidencias: list[dict], proveedor=generar_modelo
     copy_modelo, r = _depurar_prosa("copy", str(data.get("copy") or ""), evidencias, primera, copy_respaldo)
     retiradas_prosa += r
     data["copy"] = copy_modelo
+    preguntas, r = _preguntas_seguras(data.get("preguntas"), evidencias, primera)
+    retiradas_prosa += r
     guion_oraciones = [{"texto": f"{af['texto']} ({af['cita_label']}).", "evidencia_id": af["evidencia_id"],
                         "tipo": af["tipo"], "afirmacion_id": af["id"]} for af in afirmaciones]
     cierre = "Falta verificar: " + str(caso.get("preguntas_pendientes") or "fuente primaria, contexto y alcance antes de publicar.")
@@ -176,7 +222,7 @@ def generar_paquete(caso: dict, evidencias: list[dict], proveedor=generar_modelo
         "brief": brief,
         "guion": guion,
         "copy": copy,
-        "preguntas": [str(p) for p in (data.get("preguntas") or [])][:3],
+        "preguntas": preguntas,
         "afirmaciones": afirmaciones,
         "brief_oraciones": brief_oraciones,
         "guion_oraciones": guion_oraciones,
