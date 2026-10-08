@@ -2,6 +2,8 @@
 
 **Sourced · nada sin fuente.** Un copiloto editorial que no afirma nada sin señalar de dónde sale.
 
+![Lámina de conceptos](lamina-conceptos.png)
+
 ## Idea central: los materiales de la verificación
 La marca sale del producto, no de una moda. En una redacción, verificar es **papel, tinta y resaltador**: se lee el original, se subraya lo que lo sostiene y se anota la fuente al margen. En Sourced cada cita ya aparece resaltada en amarillo; ese resaltador es la marca.
 

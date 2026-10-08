@@ -47,38 +47,39 @@ python scripts/check_sin_red.py
 python scripts/check_contraste.py
 ```
 
-## Empieza aquí
-1. Lee [AGENTS.md](AGENTS.md), también con una IA que no lo cargue automáticamente.
-2. Revisa [producto](docs/01-producto.md), [requisitos](docs/02-requisitos.md) y [backlog](docs/06-backlog.md).
-3. Usa [la guía para tu IA](prompts/README.md).
-4. Trabaja en una rama y abre un PR siguiendo [CONTRIBUTING.md](CONTRIBUTING.md).
+## Cómo está organizado
+| Carpeta | Qué contiene |
+|---|---|
+| `src/ia/` | Embeddings locales, clasificador de tema, agrupación, búsqueda, consulta con abstención, redacción y guardián, contradicciones |
+| `src/editorial/` | Cronómetro, formatos y «Generar versión» (criterios → prompt) |
+| `src/interfaz/` | Servidor local (solo 127.0.0.1) y la interfaz HTML/CSS/JS sin dependencias externas |
+| `scripts/` | Extracción del snapshot, importación, preparación de la demo, benchmark, puertas sin red y de contraste, verificación viva |
+| `data/snapshot-dev/` | Snapshot real del 7-oct-2026 con manifest SHA-256 |
+| `evaluation/` | Benchmark, matriz T01–T10, etiquetas humanas y resultados |
+| `verificacion/` | Prueba sin red, verificación viva y capturas |
+| `contracts/` | Esquema SQLite y diccionario de datos |
+| `docs/` | Dossier del reto, marca y documentación técnica |
 
 ## Documentación
-- [Producto y demo](docs/01-producto.md)
-- [Requisitos y rúbrica](docs/02-requisitos.md)
-- [Arquitectura propuesta](docs/03-arquitectura.md)
-- [Datos y contratos](docs/04-datos.md)
-- [Pruebas y métricas](docs/05-pruebas.md)
-- [Backlog sin asignaciones](docs/06-backlog.md)
-- [Plantilla de Notion y pitch](docs/07-notion.md)
-- [Decisiones y dudas abiertas](docs/08-decisiones.md)
-- [Seguridad y derechos](docs/09-seguridad.md)
-- [Búsqueda editorial baseline](docs/14-busqueda-baseline.md)
+- [Dossier del reto (decisiones, fichas, pruebas, riesgos, pitch y bitácora)](docs/notion/dossier.md)
+- [Marca Sourced: dirección visual y conceptos de logo](docs/marca/README.md)
+- [Blueprint de arquitectura](docs/00-blueprint.md)
+- [Producto y demo](docs/01-producto.md) · [Requisitos y rúbrica](docs/02-requisitos.md) · [Arquitectura](docs/03-arquitectura.md) · [Datos](docs/04-datos.md) · [Pruebas](docs/05-pruebas.md)
+- [Decisiones](docs/08-decisiones.md) · [Seguridad y derechos](docs/09-seguridad.md)
+- [Modelo de datos](docs/11-modelo-datos.md) · [Importador e interfaz](docs/12-importador-interfaz.md) · [Agrupación y ranking](docs/13-agrupacion-ranking.md) · [Búsqueda baseline](docs/14-busqueda-baseline.md)
+- [Snapshot](docs/15-snapshot-dev.md) · [Sistema visual](docs/16-sistema-visual.md) · [Capa de IA](docs/17-capa-ia.md) · [Redacción y guardián](docs/18-redaccion-guardian.md) · [Formatos](docs/19-formatos.md)
+- [Guía para asistentes de IA que trabajen en el repo](AGENTS.md)
 
 ## Flujo
-Snapshot → validación → organización → contexto → ranking → ficha → borrador → revisión humana → Notion.
+Snapshot → validación → embeddings y temas → agrupación → ranking explicable → ficha → borrador citado → guardián → revisión humana.
 
 ## Reglas esenciales
-La documentación del reto (decisiones, fichas, pruebas, riesgos y pitch) está en el dossier; Notion la replica cuando la cuenta del reto lo permite.
 No publicar automáticamente. No inventar cifras, citas ni resultados.
 Separar prioridad editorial de suficiencia de evidencia.
-La demo debe funcionar sin internet con fallback documentado.
+La demo funciona sin internet (prueba con la red cortada en `verificacion/prueba-local.md`).
 
 ## Origen
-Plan derivado del PDF de 12 páginas «hackIAthon - reto TVN Media.pdf» facilitado por Diego, cuyas fuentes llevan fecha de consulta 05/10/2026. No se incluye el PDF ni contenido protegido. Confirmar reglas definitivas y snapshot con organización.
-
-## Estructura compartida
-Consulta [el mapa de módulos](docs/10-estructura.md), [los contratos propuestos](contracts/README.md) y [las plantillas](templates/tarea.md). `src/`, `scripts/`, `tests/` y `evaluation/` contienen el prototipo local, sus utilidades y la evidencia de prueba.
+Plan derivado del documento del reto «hackIAthon - reto TVN Media» (fuentes consultadas el 05/10/2026). No se incluye el PDF ni contenido protegido.
 
 ## Notion
 La organización indicó avanzar sin depender de Notion porque la cuenta Business del reto no funciona. La documentación completa está en [`docs/notion/dossier.md`](docs/notion/dossier.md) y hay una copia en el espacio «hackIAthon 4taEd».
