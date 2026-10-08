@@ -21,6 +21,8 @@ if str(Path(__file__).resolve().parents[2]) not in sys.path:
 
 from src.editorial.cronometro import resumen_cronometro  # noqa: E402
 from src.editorial.formatos import adaptar  # noqa: E402
+from src.editorial.criterios import validar as validar_criterios  # noqa: E402
+from src.editorial.generar_version import generar_version  # noqa: E402
 from src.ia.proveedores import ProviderUnavailable, estado_proveedor, modelo_activo, proveedor_activo
 from src.ia.redaccion import cargar_evidencias_caso, generar_paquete, guardar_borrador
 
@@ -295,6 +297,7 @@ def package_from_draft(db, draft_id):
         raise LookupError("Borrador no encontrado")
     case = detail["caso"]
     return {
+        "caso": case,
         "titulo": draft.get("titulo", ""),
         "enfoque": draft.get("enfoque", ""),
         "brief": draft.get("brief", ""),
@@ -325,6 +328,12 @@ def adapt_draft(db, draft_id, payload):
     return adaptar(paquete, formato, duracion_s=duracion,
                    enfasis=payload.get("enfasis", "noticia"),
                    tono=payload.get("tono", "sobrio"))
+
+
+def generate_draft_version(db, draft_id, payload):
+    criterios = validar_criterios(payload)
+    paquete = package_from_draft(db, draft_id)
+    return generar_version(paquete, criterios)
 
 
 def add_review(db, case_id, payload):
@@ -423,8 +432,9 @@ class Handler(BaseHTTPRequestHandler):
         match_review = re.fullmatch(r"/api/cases/([^/]+)/reviews", route)
         match_draft = re.fullmatch(r"/api/cases/([^/]+)/borrador", route)
         match_adapt = re.fullmatch(r"/api/borradores/([^/]+)/adaptar", route)
+        match_generate = re.fullmatch(r"/api/borradores/([^/]+)/generar", route)
         is_query = route == "/api/consulta"
-        if not match_review and not match_draft and not match_adapt and not is_query:
+        if not match_review and not match_draft and not match_adapt and not match_generate and not is_query:
             return self.send_json(404, {"error": "Ruta no encontrada"})
         origin = self.headers.get("Origin")
         if origin and origin not in {f"http://127.0.0.1:{self.server.server_port}", f"http://localhost:{self.server.server_port}"}:
@@ -446,9 +456,11 @@ class Handler(BaseHTTPRequestHandler):
                     result = regenerate_draft(db, unquote(match_draft.group(1)))
                 elif match_adapt:
                     result = adapt_draft(db, unquote(match_adapt.group(1)), payload)
+                elif match_generate:
+                    result = generate_draft_version(db, unquote(match_generate.group(1)), payload)
                 else:
                     result = add_review(db, unquote(match_review.group(1)), payload)
-            self.send_json(200 if match_adapt else 201, result)
+            self.send_json(200 if match_adapt or match_generate else 201, result)
         except UnicodeDecodeError:
             self.send_json(400, {"error": "El texto debe enviarse en UTF-8"})
         except json.JSONDecodeError:
