@@ -7,7 +7,7 @@
 **Modalidad:** editorial (con consulta de entorno logístico, CU-05)
 **Repositorio:** https://github.com/josweq/sourced (rama de entrega: ver README)
 **Demo:** local, sin internet ni GPU (instrucciones en el README)
-**Notion:** la organización indicó avanzar sin depender de Notion (la cuenta Business del reto no funciona); este documento es la fuente completa y hay una copia en el espacio «hackIAthon 4taEd».
+**Notion:** La página pública del equipo en Notion tiene la [documentación técnica](https://conscious-handbell-91a.notion.site/Documentaci-n-t-cnica-3f36d0f0b114803e8a83dba0c7d1cfc4), la [documentación funcional](https://conscious-handbell-91a.notion.site/Documentaci-n-funcional-3f36d0f0b11480d89602d5296e6d6846) y la [presentación para el Pitch Day](https://conscious-handbell-91a.notion.site/Presentaci-n-Pitch-Day-3f36d0f0b114807081ebdfc46ca9e875), con el video.
 
 ![Sourced con datos reales del 7 de octubre: agenda priorizada, radiografía del caso y mesa editorial](../../verificacion/capturas/sourced-escritorio.png)
 *Agenda con puntaje y evidencia por separado (izquierda), radiografía del caso (centro) y mesa editorial con borrador citado y la barra «Generar versión» (derecha).*
