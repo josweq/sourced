@@ -6,6 +6,10 @@
 **Modalidad:** editorial (con consulta de entorno logístico, CU-05)
 **Repositorio:** https://github.com/pixeltabletop/jajanken-lupa (rama de entrega: ver README)
 **Demo:** local, sin internet ni GPU (instrucciones en el README)
+**Notion:** la organización indicó avanzar sin depender de Notion (la cuenta Business del reto no funciona); este documento es la fuente completa y hay una copia en el espacio «hackIAthon 4taEd».
+
+![Lupa con datos reales del 7 de octubre: agenda priorizada, radiografía del caso y mesa editorial](../../verificacion/capturas/final-escritorio-guia.png)
+*Agenda con puntaje y evidencia por separado (izquierda), radiografía del caso (centro) y mesa editorial con borrador citado, adaptación de formato y lo que retiró el guardián (derecha).*
 
 ---
 
@@ -148,7 +152,23 @@ Snapshot `real-20261007b`. Puntaje P = 30R + 25I + 20U + 15N + 10E (componentes 
 | Evidencia | **Insuficiente** |
 | Qué demuestra | Una nota vieja no se presenta como nueva (T03) |
 
-Capturas: `verificacion/capturas/real-caso-mesa.png`, `real-pregunta.png`, `real-cifra.png`, `real-adaptacion.png`.
+### Lupa en acción (capturas con los datos reales)
+
+**Caso y mesa editorial** — un titular de TVN, evidencia insuficiente, borrador citado y la oración que retiró el guardián:
+![Caso de cruceros con mesa editorial](../../verificacion/capturas/real-caso-mesa.png)
+
+**Pregunta con cita** — respuesta armada solo con titulares del snapshot, cada uno con su medio:
+![Pregunta con respuesta citada](../../verificacion/capturas/real-pregunta.png)
+
+**Cifra oficial, no actual** — país, año, unidad y fuente; el aviso de que no es una medición de hoy:
+![Cifra del Banco Mundial con aviso](../../verificacion/capturas/real-cifra.png)
+
+**Adaptar la nota** — mismo contenido y mismas citas, otro formato:
+![Adaptación de formato](../../verificacion/capturas/real-adaptacion.png)
+
+**En el teléfono y en tema oscuro «Sala»:**
+![Agenda en móvil](../../verificacion/capturas/final-movil-agenda.png)
+![Tema Sala](../../verificacion/capturas/final-sala.png)
 
 ---
 
