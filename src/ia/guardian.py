@@ -24,6 +24,8 @@ PALABRAS_PERMITIDAS = {
 }
 
 INSTRUCCIONES_PROHIBIDAS = re.compile(r"\b(ignora|instrucciones|revela|secretos?|prompt|sistema|anteriores)\b", re.I)
+# Tono publicitario o sensacionalista: impropio de un borrador periodístico.
+TONO_PROHIBIDO = re.compile(r"[!¡]|\b(reserva (?:tu|ya|ahora)|descubre (?:la|el|tu|c[oó]mo)|inolvidable\w*|aventura\w*|imperdible\w*|no te lo pierdas|vive la emoci[oó]n|la emoci[oó]n de|incre[ií]ble\w*|impactante\w*)\b", re.I)
 MENCIONES_PROHIBIDAS = re.compile(r"\b(im[aá]genes?|foto(?:s)?|video(?:s)?|entrevista(?:s)?|declaraci[oó]n directa|comillas)\b|[\"“”]", re.I)
 
 
@@ -108,6 +110,8 @@ def validar_oraciones(oraciones: list[dict], evidencias: list[dict],
             motivo = "La evidencia citada fue excluida por posible instruccion."
         elif MENCIONES_PROHIBIDAS.search(texto):
             motivo = "Menciona imagenes, entrevistas, citas directas o comillas sin evidencia."
+        elif TONO_PROHIBIDO.search(normalizar(texto)) or TONO_PROHIBIDO.search(texto):
+            motivo = "Tono publicitario o sensacionalista."
         else:
             nums = numeros(texto)
             allowed_nums = numeros(corpus[evidencia_id])

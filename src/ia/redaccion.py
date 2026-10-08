@@ -114,6 +114,18 @@ def _fallback_modelo(caso: dict) -> dict:
             "_meta_modelo": {"proveedor": "fallback", "modelo": "sin-modelo", "milisegundos": 0, "tokens": {}}}
 
 
+def _depurar_prosa(campo: str, texto: str, evidencias: list[dict], cita: dict, respaldo: str) -> tuple[str, list]:
+    """Pasa cada oración libre del modelo por el guardián; lo retirado se quita del borrador."""
+    oraciones = [{"texto": o, "evidencia_id": cita["evidencia_id"], "tipo": "inferencia", "seccion": campo}
+                 for o in _sentences(texto or "")]
+    if not oraciones:
+        return respaldo, []
+    resultado = guardian.validar_oraciones(oraciones, evidencias)
+    aceptado = " ".join(o["texto"] for o in resultado.aceptadas).strip()
+    retiradas = [{**o, "seccion": campo} for o in resultado.retiradas]
+    return (aceptado or respaldo), retiradas
+
+
 def generar_paquete(caso: dict, evidencias: list[dict], proveedor=generar_modelo, timeout: int = 120) -> dict:
     started = time.perf_counter()
     afirmaciones, sospechosas = afirmaciones_desde_evidencias(evidencias)
@@ -126,7 +138,23 @@ def generar_paquete(caso: dict, evidencias: list[dict], proveedor=generar_modelo
     prompt = construir_prompt(caso, evidencias, afirmaciones)
     data = proveedor(prompt, SCHEMA, timeout=timeout)
     data = {**_fallback_modelo(caso), **data}
-    apertura = " ".join(_sentences(data.get("apertura", ""))[:2]).strip()
+    primera = afirmaciones[0]
+    titulo_caso = str(caso.get("titulo") or primera["texto"])
+    retiradas_prosa = []
+    titulo, r = _depurar_prosa("titulo", str(data.get("titulo") or ""), evidencias, primera, titulo_caso)
+    retiradas_prosa += r
+    enfoque, r = _depurar_prosa("enfoque", str(data.get("enfoque") or ""), evidencias, primera,
+                                "Interés público: revisar qué sostienen los titulares y qué falta confirmar.")
+    retiradas_prosa += r
+    apertura_txt = " ".join(_sentences(data.get("apertura", ""))[:2]).strip()
+    apertura, r = _depurar_prosa("apertura", apertura_txt, evidencias, primera, "")
+    retiradas_prosa += r
+    if apertura and not apertura.rstrip().endswith((".", "?")):
+        apertura = apertura.rstrip() + "."
+    copy_respaldo = f"{primera['texto']} Falta verificar la fuente primaria antes de publicar."
+    copy_modelo, r = _depurar_prosa("copy", str(data.get("copy") or ""), evidencias, primera, copy_respaldo)
+    retiradas_prosa += r
+    data["copy"] = copy_modelo
     guion_oraciones = [{"texto": f"{af['texto']} ({af['cita_label']}).", "evidencia_id": af["evidencia_id"],
                         "tipo": af["tipo"], "afirmacion_id": af["id"]} for af in afirmaciones]
     cierre = "Falta verificar: " + str(caso.get("preguntas_pendientes") or "fuente primaria, contexto y alcance antes de publicar.")
@@ -143,8 +171,8 @@ def generar_paquete(caso: dict, evidencias: list[dict], proveedor=generar_modelo
                            "afirmacion_id": first["id"]}]
     paquete = {
         "estado": "generado",
-        "titulo": str(data.get("titulo") or caso.get("titulo") or "Borrador"),
-        "enfoque": str(data.get("enfoque") or ""),
+        "titulo": titulo,
+        "enfoque": enfoque,
         "brief": brief,
         "guion": guion,
         "copy": copy,
@@ -161,7 +189,7 @@ def generar_paquete(caso: dict, evidencias: list[dict], proveedor=generar_modelo
     }
     veredicto = guardian.validar_borrador(paquete, evidencias)
     paquete["guardian"] = veredicto
-    paquete["retiradas"] = veredicto["retiradas"]
+    paquete["retiradas"] = retiradas_prosa + veredicto["retiradas"]
     paquete["estado"] = "abstencion" if veredicto["abstencion"] else "aprobable"
     paquete["explicacion"] = veredicto["explicacion"]
     paquete["tiempo_ms"] = round((time.perf_counter() - started) * 1000)

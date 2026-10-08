@@ -152,3 +152,34 @@ class DraftApiTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class ProsaLibreTests(unittest.TestCase):
+    """Casos reales del 2026-10-07: el modelo escribió copy publicitario y expandió mal una sigla."""
+
+    def _paquete(self, respuesta):
+        from src.ia.redaccion import generar_paquete
+        caso = {"id": "C1", "titulo": "Sumarse: segundo día de la Semana de la RSE aborda empleo juvenil"}
+        evidencias = [{"id": "E1", "campo": "titulo", "noticia_titulo":
+                       "Canal de Panamá: Carnival Miracle inaugura temporada de cruceros 2026-2027; se contemplan más de 220 tránsitos",
+                       "medio": "TVN", "alcance_texto": "titular_metadatos"}]
+        return generar_paquete(caso, evidencias, proveedor=lambda prompt, schema, timeout=0: respuesta)
+
+    def test_copy_publicitario_se_retira_y_no_queda_en_el_borrador(self):
+        p = self._paquete({"titulo": "Carnival Miracle inaugura temporada de cruceros", "enfoque": "x",
+                           "apertura": "", "preguntas": ["¿a?", "¿b?", "¿c?"],
+                           "copy": "Descubre la emoción de navegar por el Canal de Panamá. ¡Reserva tu crucero ahora!"})
+        self.assertNotIn("Reserva", p["copy"])
+        self.assertNotIn("Descubre", p["copy"])
+        self.assertTrue(any(r["seccion"] == "copy" for r in p["retiradas"]))
+
+    def test_expansion_inventada_de_sigla_se_retira_del_enfoque(self):
+        p = self._paquete({"titulo": "Carnival Miracle", "apertura": "", "copy": "", "preguntas": [],
+                           "enfoque": "La Semana de la RSE (Resolución de Situaciones Económicas) aborda temas para la juventud."})
+        self.assertNotIn("Resolución de Situaciones", p["enfoque"])
+        self.assertTrue(any(r["seccion"] == "enfoque" for r in p["retiradas"]))
+
+    def test_datos_ajenos_en_el_enfoque_se_retiran(self):
+        p = self._paquete({"titulo": "Carnival Miracle", "apertura": "", "copy": "", "preguntas": [],
+                           "enfoque": "La empresa Carnival Cruise Line anuncia la temporada en el Canal de Panamá."})
+        self.assertNotIn("Cruise Line", p["enfoque"])
