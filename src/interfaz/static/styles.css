@@ -1252,9 +1252,7 @@ textarea {
 /* ===================================================================== Marca Sourced
    Materiales de la verificación: papel, tinta y resaltador. Titulares en serif, filetes finos en vez
    de sombras, un solo acento (el amarillo de las citas) y nada de degradados. */
-.brand-logo .brand-tile { fill: var(--color-tinta); }
-.brand-logo .brand-bracket { fill: none; stroke: var(--color-superficie); stroke-width: 5; stroke-linecap: square; }
-.brand-logo .brand-marker { fill: var(--color-acento); }
+.brand-logo { border-radius: 6px; box-shadow: 0 0 0 1px var(--color-linea); }
 
 .brand h1 {
   margin-bottom: 0;
