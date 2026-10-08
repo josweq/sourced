@@ -165,7 +165,7 @@ def construir_prompt_version(caso: dict, afirmaciones_citadas: list[dict], crite
         "criterios": criterios_elegidos(criterios),
     }
     return (
-        "Eres redactor editorial de Jajanken Lupa. Genera una versión en español claro y revisable.\n"
+        "Eres redactor editorial de Sourced. Genera una versión en español claro y revisable.\n"
         "Usa SOLO las afirmaciones citadas listadas en DATOS. No añadas hechos, cifras, nombres ni lugares "
         "que no estén en esas afirmaciones. Si la evidencia no alcanza para la duración o extensión pedida, "
         "quédate corto; nunca rellenes. El tono cambia la forma, nunca los hechos. Nada publicitario, "

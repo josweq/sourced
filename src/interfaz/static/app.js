@@ -26,7 +26,7 @@ const GUIDE_TEXT = {
   prioridad: 'Ordena la atención de 0 a 100: Relevancia 30, Impacto 25, Urgencia 20, Novedad 15, Evidencia 10. No mide si es verdad ni autoriza publicar.',
   evidencia: 'Insuficiente: solo titulares sin fuente primaria. Parcial: alguna procedencia identificada. Suficiente: hay base para un borrador, que igual requiere revisión.',
   adaptar: 'Genera una versión con criterios editoriales. El modelo solo puede usar afirmaciones citadas y el guardián retira lo no sustentado.',
-  revision: 'Registra quién revisó y qué decidió. Nada se publica desde Lupa.',
+  revision: 'Registra quién revisó y qué decidió. Nada se publica desde Sourced.',
   preguntar: 'Responde con titulares o datos oficiales citados, o se abstiene si no hay evidencia.'
 };
 
@@ -270,7 +270,7 @@ function supportedClaims(draft, evidences) {
 
 function contradictionBlock(contradicciones = []) {
   if (!contradicciones.length) return '';
-  return `<div class="contradiction-list"><p class="warning">Lupa no elige una cifra: requiere fuente primaria antes de usar cualquiera.</p>${contradicciones.map(item => {
+  return `<div class="contradiction-list"><p class="warning">Sourced no elige una cifra: requiere fuente primaria antes de usar cualquiera.</p>${contradicciones.map(item => {
     const lados = (item.lados || []).slice(0, 2);
     return `<article class="contradiction-row"><div class="contradiction-sides">${lados.map(lado => `<div class="contradiction-side"><strong>${esc(lado.medio || 'Medio')}</strong><span>${esc(lado.texto_cifra || '')}</span><small class="mono">${esc(lado.noticia_id || '')}</small></div>`).join('')}</div><p>${esc(item.explicacion || 'Cifras incompatibles entre medios.')}</p></article>`;
   }).join('')}</div>`;

@@ -97,7 +97,7 @@ def construir_prompt(caso: dict, evidencias: list[dict], afirmaciones: list[dict
     datos = {"caso": caso, "afirmaciones": afirmaciones,
              "evidencias": [{**e, "texto": evidencia_texto(e)} for e in evidencias]}
     return (
-        "Eres redactor editorial de Jajanken Lupa. Redacta en espanol neutral, sobrio y claro. "
+        "Eres redactor editorial de Sourced. Redacta en espanol neutral, sobrio y claro. "
         "Usa solo las afirmaciones dadas. No inventes cifras, fechas, imagenes, entrevistas ni citas directas. "
         "Devuelve JSON valido con titulo, enfoque, apertura, copy y tres preguntas. "
         "El copy no debe exceder 80 palabras. La apertura debe tener una o dos frases.\n\n"

@@ -216,7 +216,7 @@ def responder(db, pregunta: str, *, vectorizador=vectorizar, modo: str = "semant
     norm = normalizar(pregunta)
     if INSTRUCCIONES_PROHIBIDAS.search(norm):
         res = {"estado": "abstencion", "metodo": "proteccion",
-               "respuesta": ("La pregunta contiene instrucciones para cambiar el comportamiento de Lupa. "
+               "respuesta": ("La pregunta contiene instrucciones para cambiar el comportamiento de Sourced. "
                              "Las reglas no cambian: no se afirma nada sin evidencia ni se ejecutan órdenes. "
                              "Reformula la pregunta sobre el tema que quieres investigar."),
                "afirmaciones": [], "vacios": []}

@@ -1,4 +1,4 @@
-"""Puerta WCAG para los tokens visuales de Lupa."""
+"""Puerta WCAG para los tokens visuales de Sourced."""
 from pathlib import Path
 import re
 import sys

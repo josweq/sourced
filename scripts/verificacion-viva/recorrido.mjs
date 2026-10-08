@@ -81,7 +81,7 @@ async function recorrido(app, { ok, medir, marca }) {
   const guia = await app.js(`(() => { const b = document.querySelector('#detail .info-button'); if (!b) return 'sin guía'; b.focus(); b.click(); const abierta = b.getAttribute('aria-expanded'); document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); return abierta + '/' + b.getAttribute('aria-expanded') })()`)
   ok(guia === 'true/false', 'una guía «qué significa» abre con el botón y cierra con Esc', guia)
   const rapida = await app.js(`(() => { const b = document.querySelector('#quick-guide'); const d = document.querySelector('#quick-guide-dialog'); if (!b || !d) return 'falta'; b.click(); const abierto = d.open; d.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); if (d.open) d.close(); return String(abierto) })()`)
-  ok(rapida === 'true', 'la guía rápida «Cómo leer Lupa» abre como diálogo', rapida)
+  ok(rapida === 'true', 'la guía rápida «Cómo leer Sourced» abre como diálogo', rapida)
 
   if (await app.js(`Boolean(document.querySelector('.adapt-form'))`)) {
     await medir('adaptar a video vertical', app.esperarCambio(
