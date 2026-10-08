@@ -139,7 +139,7 @@ Crítica y TVN publican la misma donación de EE.UU.: Sourced las une en **un ca
 
 **Sourced · nada sin fuente.**
 
-- Repositorio público: https://github.com/pixeltabletop/sourced
+- Repositorio público: https://github.com/josweq/sourced
 - Documentación técnica y funcional: en la página del equipo, en este mismo espacio.
 
 Equipo Jajanken: Josué Carrillo · Diego Laverde · Juan Andrés López

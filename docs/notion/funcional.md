@@ -148,4 +148,4 @@ Sourced es obra del equipo Jajanken completo: Josué Carrillo, Diego Laverde y J
 | Nombre **Sourced** e identidad «papel, tinta y resaltador» | Dice la promesa; evita la estética genérica de las apps de IA | Nombre de trabajo anterior y paleta azul/lima |
 
 ### Bitácora
-La cronología completa con cada commit está en el [dossier del repositorio](https://github.com/pixeltabletop/jajanken-lupa/blob/main/docs/notion/dossier.md#9-bit%C3%A1cora-cronolog%C3%ADa-con-evidencia).
+La cronología completa con cada commit está en el [dossier del repositorio](https://github.com/josweq/sourced/blob/main/docs/notion/dossier.md#9-bit%C3%A1cora-cronolog%C3%ADa-con-evidencia).

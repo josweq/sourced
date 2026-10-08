@@ -1,7 +1,7 @@
 # Sourced — Blueprint
 
 > Generado con The Architect el 2026-10-07 · Arquetipo: herramienta interna local + capa de IA verificable
-> Repositorio: `pixeltabletop/sourced`. Base: rama `feature/modelo-datos-v1` de Diego.
+> Repositorio: `josweq/sourced`. Base: rama `feature/modelo-datos-v1` (modelo de datos inicial del equipo).
 > Reto: hackIAthon Panamá 4ª edición, «De la señal a la decisión» (TVN Media). Evento: jueves 2026-10-08, 3 días.
 > Equipo Jajanken: Josué (construye la capa de datos e IA), Diego (interfaz, integración, pitch), Juanchi (redes; Notion al final).
 

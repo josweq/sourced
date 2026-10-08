@@ -5,7 +5,7 @@
 
 **Equipo:** Josué Carrillo · Diego Laverde · Juan Andrés «Juanchi» López
 **Modalidad:** editorial (con consulta de entorno logístico, CU-05)
-**Repositorio:** https://github.com/pixeltabletop/jajanken-lupa (rama de entrega: ver README)
+**Repositorio:** https://github.com/josweq/sourced (rama de entrega: ver README)
 **Demo:** local, sin internet ni GPU (instrucciones en el README)
 **Notion:** la organización indicó avanzar sin depender de Notion (la cuenta Business del reto no funciona); este documento es la fuente completa y hay una copia en el espacio «hackIAthon 4taEd».
 

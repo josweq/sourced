@@ -1,6 +1,6 @@
 # Documentación técnica
 
-**Sourced** corre completo en una laptop: sin GPU, sin claves y sin internet durante el uso. Repositorio público: https://github.com/pixeltabletop/jajanken-lupa (rama `main`, licencia MIT).
+**Sourced** corre completo en una laptop: sin GPU, sin claves y sin internet durante el uso. Repositorio público: https://github.com/josweq/sourced (rama `main`, licencia MIT).
 
 ---
 
@@ -29,8 +29,8 @@
 Requisitos: Git, Python 3.10+ y [Ollama](https://ollama.com/download). Un comando por línea (PowerShell 5.1/7, cmd o bash).
 
 ```
-git clone https://github.com/pixeltabletop/jajanken-lupa.git
-cd jajanken-lupa
+git clone https://github.com/josweq/sourced.git
+cd sourced
 python -m venv .venv
 .venv\Scripts\activate        (macOS/Linux: source .venv/bin/activate)
 pip install -r requirements.txt
