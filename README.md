@@ -31,8 +31,8 @@ Pruebas: 125/125. Instalación probada desde cero en un entorno limpio (clon nue
 Requisitos: Git, Python 3.10+ y [Ollama](https://ollama.com/download) instalado. Un comando por línea (funciona igual en PowerShell 5.1, PowerShell 7, cmd y bash).
 
 ```sh
-git clone https://github.com/pixeltabletop/jajanken-lupa.git
-cd jajanken-lupa
+git clone https://github.com/josweq/sourced.git
+cd sourced
 python -m venv .venv
 .venv\Scripts\activate                                 # macOS/Linux: source .venv/bin/activate · si PowerShell lo bloquea: Set-ExecutionPolicy -Scope Process Bypass
 pip install -r requirements.txt                        # ~5 min la primera vez (PyTorch para CPU)

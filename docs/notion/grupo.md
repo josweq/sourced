@@ -6,7 +6,7 @@
 
 **Equipo Jajanken:** Josué Carrillo · Diego Laverde · Juan Andrés López — hackIAthon Panamá 2026, reto TVN Media «De la señal a la decisión», modalidad editorial.
 
-**Repositorio público (código, instalación en 6 pasos, pruebas y evidencias):** https://github.com/pixeltabletop/jajanken-lupa
+**Repositorio público (código, instalación en 6 pasos, pruebas y evidencias):** https://github.com/josweq/sourced
 
 ---
 
