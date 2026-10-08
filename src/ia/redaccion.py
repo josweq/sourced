@@ -282,7 +282,7 @@ def cargar_evidencias_caso(db: sqlite3.Connection, caso_id: str) -> tuple[dict, 
     if not case:
         raise LookupError("Caso no encontrado")
     evidencias = [dict(r) for r in db.execute("""SELECT e.id,e.campo,e.limitaciones,
-      n.titulo AS noticia_titulo,n.medio,n.fecha_publicacion,n.fecha_deteccion,n.alcance_texto,
+      n.id AS noticia_id,n.titulo AS noticia_titulo,n.medio,n.fecha_publicacion,n.fecha_deteccion,n.alcance_texto,
       fn.nombre AS fuente_nombre,
       i.pais_iso3,i.indicador_id,i.anio,i.valor,i.unidad,fi.nombre AS indicador_fuente_nombre
       FROM caso_evidencias ce JOIN evidencias e ON e.snapshot_id=ce.snapshot_id AND e.id=ce.evidencia_id
@@ -291,4 +291,13 @@ def cargar_evidencias_caso(db: sqlite3.Connection, caso_id: str) -> tuple[dict, 
       LEFT JOIN indicadores i ON i.snapshot_id=e.snapshot_id AND i.id=e.indicador_registro_id
       LEFT JOIN fuentes fi ON fi.snapshot_id=i.snapshot_id AND fi.id=i.fuente_id
       WHERE ce.snapshot_id=? AND ce.caso_id=? ORDER BY e.id""", (case["snapshot_id"], caso_id))]
+    if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='ia_contradicciones'").fetchone():
+        conflictos = {}
+        for row in db.execute("""SELECT hallazgo_json FROM ia_contradicciones
+          WHERE snapshot_id=? AND caso_id=? ORDER BY ordinal""", (case["snapshot_id"], caso_id)):
+            hallazgo = json.loads(row["hallazgo_json"])
+            for lado in hallazgo.get("lados", []):
+                conflictos.setdefault(lado.get("noticia_id"), []).extend([lado.get("texto_cifra"), lado.get("valor")])
+        for evidencia in evidencias:
+            evidencia["cifras_conflicto"] = conflictos.get(evidencia.get("noticia_id"), [])
     return dict(case), evidencias

@@ -1,0 +1,522 @@
+{
+  "estado": "amarillo",
+  "commit": "93c11999985eb3cda6653e8c660c80da6fca0ec8",
+  "rojo": [],
+  "amarillo": [
+    "sin capa estática: pasar --estatica con la puerta que prohíbe la red en el código"
+  ],
+  "fecha": "2026-10-08",
+  "comando": "python scripts/smoke_sin_red.py --db data/local/demo-20261008T051225Z.sqlite",
+  "estatica": null,
+  "calibracion": {
+    "momento": "calibración, con la red puesta",
+    "en": "2026-10-08T14:00:57.874Z",
+    "alcanzable": true,
+    "destinos": [
+      {
+        "destino": "1.1.1.1:443",
+        "capa": "tcp",
+        "alcanzable": true,
+        "detalle": "conectado",
+        "ms": 155
+      },
+      {
+        "destino": "8.8.8.8:443",
+        "capa": "tcp",
+        "alcanzable": true,
+        "detalle": "conectado",
+        "ms": 224
+      },
+      {
+        "destino": "https://cloudflare.com/cdn-cgi/trace",
+        "capa": "http",
+        "alcanzable": true,
+        "detalle": "HTTP 200",
+        "ms": 267
+      },
+      {
+        "destino": "example.com",
+        "capa": "dns",
+        "alcanzable": true,
+        "detalle": "172.66.147.243",
+        "ms": 28
+      }
+    ]
+  },
+  "espera": {
+    "ms": 23060,
+    "cortada": true
+  },
+  "tomas": [
+    {
+      "momento": "antes del comando",
+      "en": "2026-10-08T14:01:21.229Z",
+      "alcanzable": false,
+      "destinos": [
+        {
+          "destino": "1.1.1.1:443",
+          "capa": "tcp",
+          "alcanzable": false,
+          "detalle": "EHOSTUNREACH",
+          "ms": 2
+        },
+        {
+          "destino": "8.8.8.8:443",
+          "capa": "tcp",
+          "alcanzable": false,
+          "detalle": "EHOSTUNREACH",
+          "ms": 2
+        },
+        {
+          "destino": "https://cloudflare.com/cdn-cgi/trace",
+          "capa": "http",
+          "alcanzable": false,
+          "detalle": "ENOTFOUND",
+          "ms": 265
+        },
+        {
+          "destino": "example.com",
+          "capa": "dns",
+          "alcanzable": false,
+          "detalle": "getaddrinfo ENOTFOUND example.com",
+          "ms": 293
+        }
+      ]
+    },
+    {
+      "momento": "durante el comando #1 (+1 s)",
+      "en": "2026-10-08T14:01:22.512Z",
+      "alcanzable": false,
+      "destinos": [
+        {
+          "destino": "1.1.1.1:443",
+          "capa": "tcp",
+          "alcanzable": false,
+          "detalle": "EHOSTUNREACH",
+          "ms": 6
+        },
+        {
+          "destino": "8.8.8.8:443",
+          "capa": "tcp",
+          "alcanzable": false,
+          "detalle": "EHOSTUNREACH",
+          "ms": 6
+        },
+        {
+          "destino": "https://cloudflare.com/cdn-cgi/trace",
+          "capa": "http",
+          "alcanzable": false,
+          "detalle": "ENOTFOUND",
+          "ms": 167
+        },
+        {
+          "destino": "example.com",
+          "capa": "dns",
+          "alcanzable": false,
+          "detalle": "getaddrinfo ENOTFOUND example.com",
+          "ms": 162
+        }
+      ]
+    },
+    {
+      "momento": "durante el comando #2 (+6 s)",
+      "en": "2026-10-08T14:01:27.623Z",
+      "alcanzable": false,
+      "destinos": [
+        {
+          "destino": "1.1.1.1:443",
+          "capa": "tcp",
+          "alcanzable": false,
+          "detalle": "EHOSTUNREACH",
+          "ms": 6
+        },
+        {
+          "destino": "8.8.8.8:443",
+          "capa": "tcp",
+          "alcanzable": false,
+          "detalle": "EHOSTUNREACH",
+          "ms": 6
+        },
+        {
+          "destino": "https://cloudflare.com/cdn-cgi/trace",
+          "capa": "http",
+          "alcanzable": false,
+          "detalle": "ENOTFOUND",
+          "ms": 6
+        },
+        {
+          "destino": "example.com",
+          "capa": "dns",
+          "alcanzable": false,
+          "detalle": "getaddrinfo ENOTFOUND example.com",
+          "ms": 3
+        }
+      ]
+    },
+    {
+      "momento": "durante el comando #3 (+11 s)",
+      "en": "2026-10-08T14:01:32.721Z",
+      "alcanzable": false,
+      "destinos": [
+        {
+          "destino": "1.1.1.1:443",
+          "capa": "tcp",
+          "alcanzable": false,
+          "detalle": "EHOSTUNREACH",
+          "ms": 9
+        },
+        {
+          "destino": "8.8.8.8:443",
+          "capa": "tcp",
+          "alcanzable": false,
+          "detalle": "EHOSTUNREACH",
+          "ms": 10
+        },
+        {
+          "destino": "https://cloudflare.com/cdn-cgi/trace",
+          "capa": "http",
+          "alcanzable": false,
+          "detalle": "ENOTFOUND",
+          "ms": 9
+        },
+        {
+          "destino": "example.com",
+          "capa": "dns",
+          "alcanzable": false,
+          "detalle": "getaddrinfo ENOTFOUND example.com",
+          "ms": 3
+        }
+      ]
+    },
+    {
+      "momento": "durante el comando #4 (+17 s)",
+      "en": "2026-10-08T14:01:37.820Z",
+      "alcanzable": false,
+      "destinos": [
+        {
+          "destino": "1.1.1.1:443",
+          "capa": "tcp",
+          "alcanzable": false,
+          "detalle": "EHOSTUNREACH",
+          "ms": 2
+        },
+        {
+          "destino": "8.8.8.8:443",
+          "capa": "tcp",
+          "alcanzable": false,
+          "detalle": "EHOSTUNREACH",
+          "ms": 2
+        },
+        {
+          "destino": "https://cloudflare.com/cdn-cgi/trace",
+          "capa": "http",
+          "alcanzable": false,
+          "detalle": "ENOTFOUND",
+          "ms": 2
+        },
+        {
+          "destino": "example.com",
+          "capa": "dns",
+          "alcanzable": false,
+          "detalle": "getaddrinfo ENOTFOUND example.com",
+          "ms": 1
+        }
+      ]
+    },
+    {
+      "momento": "durante el comando #5 (+22 s)",
+      "en": "2026-10-08T14:01:42.916Z",
+      "alcanzable": false,
+      "destinos": [
+        {
+          "destino": "1.1.1.1:443",
+          "capa": "tcp",
+          "alcanzable": false,
+          "detalle": "EHOSTUNREACH",
+          "ms": 2
+        },
+        {
+          "destino": "8.8.8.8:443",
+          "capa": "tcp",
+          "alcanzable": false,
+          "detalle": "EHOSTUNREACH",
+          "ms": 1
+        },
+        {
+          "destino": "https://cloudflare.com/cdn-cgi/trace",
+          "capa": "http",
+          "alcanzable": false,
+          "detalle": "ENOTFOUND",
+          "ms": 1
+        },
+        {
+          "destino": "example.com",
+          "capa": "dns",
+          "alcanzable": false,
+          "detalle": "getaddrinfo ENOTFOUND example.com",
+          "ms": 1
+        }
+      ]
+    },
+    {
+      "momento": "durante el comando #6 (+27 s)",
+      "en": "2026-10-08T14:01:47.991Z",
+      "alcanzable": false,
+      "destinos": [
+        {
+          "destino": "1.1.1.1:443",
+          "capa": "tcp",
+          "alcanzable": false,
+          "detalle": "EHOSTUNREACH",
+          "ms": 3
+        },
+        {
+          "destino": "8.8.8.8:443",
+          "capa": "tcp",
+          "alcanzable": false,
+          "detalle": "EHOSTUNREACH",
+          "ms": 4
+        },
+        {
+          "destino": "https://cloudflare.com/cdn-cgi/trace",
+          "capa": "http",
+          "alcanzable": false,
+          "detalle": "ENOTFOUND",
+          "ms": 4
+        },
+        {
+          "destino": "example.com",
+          "capa": "dns",
+          "alcanzable": false,
+          "detalle": "getaddrinfo ENOTFOUND example.com",
+          "ms": 2
+        }
+      ]
+    },
+    {
+      "momento": "durante el comando #7 (+32 s)",
+      "en": "2026-10-08T14:01:53.094Z",
+      "alcanzable": false,
+      "destinos": [
+        {
+          "destino": "1.1.1.1:443",
+          "capa": "tcp",
+          "alcanzable": false,
+          "detalle": "EHOSTUNREACH",
+          "ms": 3
+        },
+        {
+          "destino": "8.8.8.8:443",
+          "capa": "tcp",
+          "alcanzable": false,
+          "detalle": "EHOSTUNREACH",
+          "ms": 2
+        },
+        {
+          "destino": "https://cloudflare.com/cdn-cgi/trace",
+          "capa": "http",
+          "alcanzable": false,
+          "detalle": "ENOTFOUND",
+          "ms": 2
+        },
+        {
+          "destino": "example.com",
+          "capa": "dns",
+          "alcanzable": false,
+          "detalle": "getaddrinfo ENOTFOUND example.com",
+          "ms": 2
+        }
+      ]
+    },
+    {
+      "momento": "durante el comando #8 (+37 s)",
+      "en": "2026-10-08T14:01:58.198Z",
+      "alcanzable": false,
+      "destinos": [
+        {
+          "destino": "1.1.1.1:443",
+          "capa": "tcp",
+          "alcanzable": false,
+          "detalle": "EHOSTUNREACH",
+          "ms": 4
+        },
+        {
+          "destino": "8.8.8.8:443",
+          "capa": "tcp",
+          "alcanzable": false,
+          "detalle": "EHOSTUNREACH",
+          "ms": 4
+        },
+        {
+          "destino": "https://cloudflare.com/cdn-cgi/trace",
+          "capa": "http",
+          "alcanzable": false,
+          "detalle": "ENOTFOUND",
+          "ms": 3
+        },
+        {
+          "destino": "example.com",
+          "capa": "dns",
+          "alcanzable": false,
+          "detalle": "getaddrinfo ENOTFOUND example.com",
+          "ms": 2
+        }
+      ]
+    },
+    {
+      "momento": "durante el comando #9 (+42 s)",
+      "en": "2026-10-08T14:02:03.273Z",
+      "alcanzable": false,
+      "destinos": [
+        {
+          "destino": "1.1.1.1:443",
+          "capa": "tcp",
+          "alcanzable": false,
+          "detalle": "EHOSTUNREACH",
+          "ms": 3
+        },
+        {
+          "destino": "8.8.8.8:443",
+          "capa": "tcp",
+          "alcanzable": false,
+          "detalle": "EHOSTUNREACH",
+          "ms": 3
+        },
+        {
+          "destino": "https://cloudflare.com/cdn-cgi/trace",
+          "capa": "http",
+          "alcanzable": false,
+          "detalle": "ENOTFOUND",
+          "ms": 3
+        },
+        {
+          "destino": "example.com",
+          "capa": "dns",
+          "alcanzable": false,
+          "detalle": "getaddrinfo ENOTFOUND example.com",
+          "ms": 1
+        }
+      ]
+    },
+    {
+      "momento": "durante el comando #10 (+47 s)",
+      "en": "2026-10-08T14:02:08.391Z",
+      "alcanzable": false,
+      "destinos": [
+        {
+          "destino": "1.1.1.1:443",
+          "capa": "tcp",
+          "alcanzable": false,
+          "detalle": "EHOSTUNREACH",
+          "ms": 3
+        },
+        {
+          "destino": "8.8.8.8:443",
+          "capa": "tcp",
+          "alcanzable": false,
+          "detalle": "EHOSTUNREACH",
+          "ms": 3
+        },
+        {
+          "destino": "https://cloudflare.com/cdn-cgi/trace",
+          "capa": "http",
+          "alcanzable": false,
+          "detalle": "ENOTFOUND",
+          "ms": 3
+        },
+        {
+          "destino": "example.com",
+          "capa": "dns",
+          "alcanzable": false,
+          "detalle": "getaddrinfo ENOTFOUND example.com",
+          "ms": 2
+        }
+      ]
+    },
+    {
+      "momento": "durante el comando #11 (+52 s)",
+      "en": "2026-10-08T14:02:13.518Z",
+      "alcanzable": false,
+      "destinos": [
+        {
+          "destino": "1.1.1.1:443",
+          "capa": "tcp",
+          "alcanzable": false,
+          "detalle": "EHOSTUNREACH",
+          "ms": 5
+        },
+        {
+          "destino": "8.8.8.8:443",
+          "capa": "tcp",
+          "alcanzable": false,
+          "detalle": "EHOSTUNREACH",
+          "ms": 5
+        },
+        {
+          "destino": "https://cloudflare.com/cdn-cgi/trace",
+          "capa": "http",
+          "alcanzable": false,
+          "detalle": "ENOTFOUND",
+          "ms": 5
+        },
+        {
+          "destino": "example.com",
+          "capa": "dns",
+          "alcanzable": false,
+          "detalle": "getaddrinfo ENOTFOUND example.com",
+          "ms": 2
+        }
+      ]
+    },
+    {
+      "momento": "después del comando",
+      "en": "2026-10-08T14:02:18.606Z",
+      "alcanzable": false,
+      "destinos": [
+        {
+          "destino": "1.1.1.1:443",
+          "capa": "tcp",
+          "alcanzable": false,
+          "detalle": "EHOSTUNREACH",
+          "ms": 3
+        },
+        {
+          "destino": "8.8.8.8:443",
+          "capa": "tcp",
+          "alcanzable": false,
+          "detalle": "EHOSTUNREACH",
+          "ms": 2
+        },
+        {
+          "destino": "https://cloudflare.com/cdn-cgi/trace",
+          "capa": "http",
+          "alcanzable": false,
+          "detalle": "ENOTFOUND",
+          "ms": 3
+        },
+        {
+          "destino": "example.com",
+          "capa": "dns",
+          "alcanzable": false,
+          "detalle": "getaddrinfo ENOTFOUND example.com",
+          "ms": 2
+        }
+      ]
+    }
+  ],
+  "corrida": {
+    "codigo": 0,
+    "senal": null,
+    "ms": 57372,
+    "final": [
+      "\rLoading weights:   0%|          | 0/199 [00:00<?, ?it/s]",
+      "\rLoading weights:  28%|##7       | 55/199 [00:00<00:00, 549.58it/s]",
+      "\rLoading weights: 100%|##########| 199/199 [00:00<00:00, 1207.73it/s]",
+      "OK    pregunta con evidencia (embeddings locales) � 44449 ms � 3 afirmaciones citadas",
+      "OK    pregunta sin evidencia (abstenci�n) � 104 ms � abstenci�n",
+      "OK    cifra oficial del snapshot � 4 ms � Panam�, 2024: 0,7 (% anual). Dato anual del Banco Mundial; n",
+      "OK    redacci�n con Ollama local � 8065 ms � �En qu� puedo ayud",
+      "OK    adaptaci�n de formato � 40 ms � 0-5 s � Lo que se reporta"
+    ]
+  }
+}

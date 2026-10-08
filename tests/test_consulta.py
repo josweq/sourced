@@ -3,7 +3,7 @@ import unittest
 
 import numpy as np
 
-from src.ia.consulta import responder
+from src.ia.consulta import _contenido, responder
 
 
 def base():
@@ -66,6 +66,36 @@ class ConsultaTests(unittest.TestCase):
         r = responder(base(), "receta de sancocho", vectorizador=vec)
         self.assertEqual(r["estado"], "abstencion")
         self.assertEqual(r["afirmaciones"], [])
+
+    def test_anio_mes_y_palabras_de_tiempo_no_cuentan_como_coincidencia(self):
+        # Casos reales del 2026-10-08: «turistas en septiembre de 2026» devolvía el titular de cruceros
+        # «2026-2027» y «¿hubo sismos esta semana?» devolvía «Semana de la RSE».
+        self.assertEqual(_contenido("turistas en septiembre de 2026"), {"turistas"})
+        self.assertEqual(_contenido("¿hubo sismos esta semana?"), {"sismos"})
+        vec = vectorizador_falso({"Shakira prepara un cierre histórico en Madrid": 0.86})
+        r = responder(base(), "Shakira en septiembre de 2026", vectorizador=vec)
+        self.assertEqual(r["estado"], "respondida", "la palabra de tema sí cuenta")
+
+    def test_linea_base_lexica_responde_por_palabra_comun(self):
+        # La línea base sin IA no usa embeddings: basta una palabra de contenido común.
+        def sin_embeddings(textos, tipo="passage"):
+            raise AssertionError("el modo léxico no debe vectorizar")
+        r = responder(base(), "equipos donados", vectorizador=sin_embeddings, modo="lexico")
+        self.assertEqual(r["estado"], "respondida")
+        self.assertEqual(r["reglas"]["modelo"], "palabras-clave-v1")
+        r = responder(base(), "receta de sancocho", vectorizador=sin_embeddings, modo="lexico")
+        self.assertEqual(r["estado"], "abstencion")
+
+    def test_el_anio_no_entra_en_la_busqueda_semantica(self):
+        consultas = []
+        base_vec = vectorizador_falso({})
+
+        def vec(textos, tipo="passage"):
+            if tipo == "query":
+                consultas.extend(textos)
+            return base_vec(textos, tipo)
+        responder(base(), "sismos en 2024", vectorizador=vec)
+        self.assertEqual(consultas, ["sismos en"])
 
     def test_respuesta_citada_cuenta_medios_del_evento(self):
         vec = vectorizador_falso({"EE.UU. dona a Panamá equipos de emergencia": 0.93,

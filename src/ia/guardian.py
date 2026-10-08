@@ -53,11 +53,32 @@ def tokens(texto: str) -> set[str]:
 
 def numeros(texto: str) -> set[str]:
     found = set()
-    for value in re.findall(r"\d+(?:[.,]\d+)?", texto or ""):
-        normalized = value.replace(",", ".")
+    for value in re.findall(r"(?:\d+(?:[.,]\d{3})*(?:[.,]\d+)?|\d+)", texto or ""):
+        normalized = _normalizar_numero(value)
         found.add(normalized)
         if normalized.endswith(".0"):
             found.add(normalized[:-2])
+    return found
+
+
+def _normalizar_numero(value: str) -> str:
+    raw = value.strip()
+    if "," in raw and "." in raw:
+        raw = raw.replace(".", "").replace(",", ".") if raw.rfind(",") > raw.rfind(".") else raw.replace(",", "")
+    elif "," in raw:
+        parts = raw.split(",")
+        raw = "".join(parts) if len(parts[-1]) == 3 and len(parts) > 1 else raw.replace(",", ".")
+    elif "." in raw:
+        parts = raw.split(".")
+        if len(parts) > 1 and all(len(part) == 3 for part in parts[1:]):
+            raw = "".join(parts)
+    return raw
+
+
+def numeros_conflicto(evidencia: dict) -> set[str]:
+    found = set()
+    for value in evidencia.get("cifras_conflicto") or []:
+        found |= numeros(str(value))
     return found
 
 
@@ -114,6 +135,12 @@ def validar_oraciones(oraciones: list[dict], evidencias: list[dict],
             motivo = "Tono publicitario o sensacionalista."
         else:
             nums = numeros(texto)
+            evidencia = next((e for e in evidencias if str(e.get("id")) == evidencia_id), {})
+            conflictos = nums & numeros_conflicto(evidencia)
+            if conflictos:
+                motivo = "cifra en conflicto entre medios: " + ", ".join(sorted(conflictos))
+                retiradas.append({**item, "motivo": motivo})
+                continue
             allowed_nums = numeros(corpus[evidencia_id])
             inventados = sorted(value for value in nums if value not in allowed_nums)
             if inventados:

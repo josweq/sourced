@@ -17,22 +17,24 @@ Prototipo local funcionando de punta a punta con **datos reales del 7 de octubre
 | Preguntas en español con respuesta citada o abstención (CU-02, CU-04, CU-05) | Hecho |
 | Adaptar la nota: TV, radio 30 s, video vertical 60 s, web y alerta (duración, énfasis, tono) | Hecho |
 | Guías «qué significa» en cada sección y guía rápida «Cómo leer Lupa» | Hecho |
-| Benchmark de desarrollo (40 preguntas) | 37/40 · abstención correcta 7/7 · citas 33/33 · mediana 58 ms (`evaluation/resultados/`) |
-| Matriz T01–T10 | 8 cumplen, T05 parcial, T10 pendiente de la corrida con la red cortada (`evaluation/matriz-T01-T10.md`) |
-| Notion | Dossier listo para importar (`docs/notion/dossier.md`) |
+| Benchmark de desarrollo (40 preguntas) | 37/40 · abstención correcta 7/7 · citas 33/33 · mediana 92 ms; línea base sin IA (palabras clave): 35/40 y abstención correcta 4/7 (`evaluation/resultados/`) |
+| Matriz T01–T10 | 10/10 cumplen; T05 detecta cifras incompatibles entre medios (0 en el snapshot real, sintético SYN detectado); T10 corrida con el Wi-Fi cortado: 5/5 pasos y 0 salidas a la red (`evaluation/matriz-T01-T10.md`, `verificacion/prueba-local.md`) |
+| Dossier | [`docs/notion/dossier.md`](docs/notion/dossier.md): fuente completa con capturas, decisiones, fichas, pruebas, riesgos, guion del pitch y bitácora. Copia en el espacio de Notion «hackIAthon 4taEd» (la organización indicó avanzar sin depender de Notion) |
 
-Pruebas: 96/96. Verificación viva en verde dos veces (contraste en ambos temas, 360/390 px) en `verificacion/`. Prueba sin red: `python scripts/smoke_sin_red.py --db <base>`.
+Pruebas: 111/111. Verificación viva en verde dos veces (contraste en ambos temas, 360/390 px) en `verificacion/`. Prueba sin red: `python scripts/smoke_sin_red.py --db <base>` y puerta estática `python scripts/check_sin_red.py`.
 
-## Probar en 5 pasos (Windows, macOS o Linux; sin GPU, sin claves)
+## Probar en 6 pasos (Windows, macOS o Linux; sin GPU, sin claves)
+Requisitos: Python 3.10+ y [Ollama](https://ollama.com/download) instalado. Un comando por línea (funciona igual en PowerShell 5.1, PowerShell 7, cmd y bash).
+
 ```sh
-python -m venv .venv && .venv\Scripts\activate        # en macOS/Linux: source .venv/bin/activate
-pip install -r requirements.txt
-ollama pull llama3.2:3b                                # requiere Ollama instalado
+python -m venv .venv
+.venv\Scripts\activate                                 # en macOS/Linux: source .venv/bin/activate
+pip install -r requirements.txt                        # ~5 min la primera vez (PyTorch para CPU)
+ollama pull llama3.2:3b
 python scripts/preparar_modelos.py                     # descarga y verifica el modelo de embeddings (una vez)
 python scripts/preparar_demo.py --snapshot data/snapshot-dev/real-20261007b --borradores 3
-python src/interfaz/app.py --db <ruta que imprimió el paso anterior>
 ```
-Abrir `http://127.0.0.1:8765`. Con `--borradores 0` el paso 5 tarda ~1 minuto; cada borrador con el modelo local suma ~60–90 s en CPU.
+El último paso imprime `"siguiente_paso"`: copia y ejecuta ese comando (`python src/interfaz/app.py --db "data/local/demo-<marca>.sqlite"`; usa la base **sin** `-importada` en el nombre) y abre `http://127.0.0.1:8765`. Con `--borradores 0` el paso tarda ~1–3 minutos; cada borrador con el modelo local suma ~60–90 s en CPU. Al arrancar, la interfaz precarga el modelo de embeddings (unos segundos) para que la primera pregunta no espere.
 
 ## Empieza aquí
 1. Lee [AGENTS.md](AGENTS.md), también con una IA que no lo cargue automáticamente.
@@ -56,7 +58,7 @@ Abrir `http://127.0.0.1:8765`. Con `--borradores 0` el paso 5 tarda ~1 minuto; c
 Snapshot → validación → organización → contexto → ranking → ficha → borrador → revisión humana → Notion.
 
 ## Reglas esenciales
-Notion es obligatorio para ejecutar, documentar y presentar; GitHub no lo reemplaza.
+La documentación del reto (decisiones, fichas, pruebas, riesgos y pitch) está en el dossier; Notion la replica cuando la cuenta del reto lo permite.
 No publicar automáticamente. No inventar cifras, citas ni resultados.
 Separar prioridad editorial de suficiencia de evidencia.
 La demo debe funcionar sin internet con fallback documentado.
@@ -67,8 +69,8 @@ Plan derivado del PDF de 12 páginas «hackIAthon - reto TVN Media.pdf» facilit
 ## Estructura compartida
 Consulta [el mapa de módulos](docs/10-estructura.md), [los contratos propuestos](contracts/README.md) y [las plantillas](templates/tarea.md). `src/`, `scripts/`, `tests/` y `evaluation/` contienen el prototipo local, sus utilidades y la evidencia de prueba.
 
-## Restricción vigente
-**No acceder, subir, crear, editar ni sincronizar contenido en Notion por el momento.** La plantilla se conserva solo como preparación en GitHub. Nadie tiene tareas asignadas; cada integrante decide qué explorar con su IA.
+## Notion
+La organización indicó avanzar sin depender de Notion porque la cuenta Business del reto no funciona. La documentación completa está en [`docs/notion/dossier.md`](docs/notion/dossier.md) y hay una copia en el espacio «hackIAthon 4taEd».
 
 ## Probar el modelo de datos
 Lee el [modelo y diagrama](docs/11-modelo-datos.md) y el [diccionario](contracts/diccionario.md).
@@ -84,8 +86,12 @@ El último comando crea una base nueva y nunca sobrescribe. Todos los ejemplos s
 
 ## Importador e interfaz local
 
-El [recorrido local](docs/12-importador-interfaz.md) incluye carga CSV con cuarentena de filas inválidas y una primera interfaz de agenda, evidencia, borrador y revisión. Funciona con biblioteca estándar de Python y datos sintéticos; los datos oficiales siguen pendientes.
+El [recorrido local](docs/12-importador-interfaz.md) incluye carga CSV con cuarentena de filas inválidas y una primera interfaz de agenda, evidencia, borrador y revisión. Funciona con biblioteca estándar de Python; hoy se usa con el snapshot real `real-20261007b` (ver «Probar en 6 pasos»).
 
 El [baseline de agrupación y ranking](docs/13-agrupacion-ranking.md) conecta la importación con la agenda. Es una comparación determinista y explicable, no la capacidad de IA requerida por el reto.
 
 La [búsqueda editorial](docs/14-busqueda-baseline.md) filtra la agenda por texto y metadatos, explica coincidencias y se abstiene cuando no encuentra un caso sustentado.
+
+## Licencia
+
+MIT (ver `LICENSE`). Las fuentes tipográficas incluidas conservan su licencia SIL OFL 1.1.
