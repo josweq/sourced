@@ -56,6 +56,7 @@ async function recorrido(app, { ok, medir, marca }) {
         (r.fallos ? ` · peor ${r.malas[0].ratio}:1 en ${r.malas[0].camino}` : ''))
     }
   }
+  await medir('cargar la agenda', app.esperarCambio(`document.querySelectorAll('#cases .case').length > 0`, async () => {}, 'tarjetas de la agenda'))
   const tema = () => app.js(`document.documentElement.dataset.tema || 'redaccion'`)
   ok(await tema() !== 'sala', 'arranca en tema Redacción', await tema())
   const n = await app.js(`document.querySelectorAll('#cases .case').length`)
@@ -73,13 +74,27 @@ async function recorrido(app, { ok, medir, marca }) {
   ok(await app.js(`scrollY === 0 && document.querySelector('header').getBoundingClientRect().top >= 0`), 'abrir un caso no desplaza la página y la cabecera sigue visible')
   await contraste('Redacción · caso abierto')
 
+
+  await medir('preguntar algo con evidencia', app.esperarCambio(
+    `/Respuesta/.test(document.querySelector('#detail')?.textContent ?? '') ? document.querySelector('#detail').textContent.length : 0`,
+    async () => { await app.escribir('#ask', 'contrato de laptops de Meduca'); await app.js(`document.querySelector('#ask-form').requestSubmit()`) },
+    'la respuesta citada'))
+  ok(await app.js(`/Respondida con evidencia citada/.test(document.querySelector('#detail').textContent)`), 'una pregunta con evidencia responde con citas')
+  await medir('preguntar algo sin evidencia', app.esperarCambio(
+    `/Me abstengo/.test(document.querySelector('#detail')?.textContent ?? '')`,
+    async () => { await app.escribir('#ask', 'receta de sancocho'); await app.js(`document.querySelector('#ask-form').requestSubmit()`) },
+    'la abstención'))
+  ok(await app.js(`/Me abstengo/.test(document.querySelector('#detail').textContent)`), 'una pregunta sin evidencia se abstiene')
+  await contraste('Redacción · respuesta')
+  await app.pulsar('#cases .case')
+  await app.quieto()
   const antes = await app.js(`document.querySelectorAll('.review-entry').length`)
   await app.escribir('[name="persona_revisora"]', `Verificación ${marca}`)
   await app.js(`(() => { const s = document.querySelector('[name="estado"]'); s.value = 'en_revision'; s.dispatchEvent(new Event('change', { bubbles: true })) })()`)
   await app.escribir('[name="comentario"]', `Revisión automática ${marca}`)
   await medir('registrar la revisión', app.esperarCambio(
     `document.querySelectorAll('.review-entry').length`,
-    () => app.js(`document.querySelector('.review-form, form[data-review], #detail form').requestSubmit()`),
+    () => app.js(`document.querySelector('.review-form').requestSubmit()`),
     'la revisión nueva en el historial'))
   ok(await app.js(`document.querySelector('#detail').textContent.includes('Verificación ${marca}')`),
     'la revisión nueva aparece con su persona revisora', `antes ${antes}`)

@@ -162,7 +162,7 @@ async function loadCases(params = lastParams) {
       button.dataset.id = caseData.id;
       button.dataset.nivel = level.level;
       button.title = `ID técnico: ${caseData.id}`;
-      button.querySelector('.case-meta').textContent = `${topicLabel(caseData.tema)} · ${when ? panamaText(when, true).replace(' (UTC−5)', '') : 'sin fecha'}`;
+      button.querySelector('.case-meta').textContent = `${topicLabel(caseData.tema)} · ${when ? panamaText(when, false).replace(' (UTC−5)', '').replace(` ${new Date().getFullYear()}`, '') : 'sin fecha'}`;
       button.querySelector('.score').textContent = caseData.puntaje == null ? 'Sin puntaje' : `${Math.round(Number(caseData.puntaje))}/100`;
       button.querySelector('strong').textContent = caseData.titulo;
       const evidenceEl = button.querySelector('.evidence');
@@ -205,7 +205,13 @@ function sourceRows(evidences, grouping) {
 function supportedClaims(draft, evidences) {
   if (!draft) return disabledBlock('Qué está respaldado', 'Todavía no hay afirmaciones citadas.');
   const byEvidence = new Map(evidences.map(item => [item.id, item]));
-  const claims = draft.afirmaciones || [];
+  const seen = new Set();
+  const claims = (draft.afirmaciones || []).filter(item => {
+    const key = `${(item.texto || '').replace(/\s*\([^)]*\)\.?$/, '').trim()}|${item.evidencia_id}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
   if (!claims.length) return disabledBlock('Qué está respaldado', 'El borrador no tiene afirmaciones citadas.');
   return `<section class="section"><h3>Qué está respaldado</h3><div class="claim-list">${claims.map(item => {
     const label = evidenceLabel(byEvidence.get(item.evidencia_id));
@@ -382,6 +388,50 @@ async function submitReview(event) {
     message.textContent = error.message;
   }
 }
+
+const askForm = document.querySelector('#ask-form');
+
+function consultaBadge(estado) {
+  if (estado === 'respondida') return '<i class="state-suficiente">✓ Respondida con evidencia citada</i>';
+  if (estado === 'contexto_sectorial') return '<i class="state-parcial">◆ Contexto sectorial</i>';
+  return '<i class="state-insuficiente">○ Me abstengo: no hay evidencia suficiente</i>';
+}
+
+function consultaCita(af) {
+  const c = af.cita || {};
+  if (c.tipo === 'indicador') {
+    return `<span class="mono">${esc(c.fuente)} · ${esc(c.indicador)} · ${esc(c.anio)}</span> · <a href="${esc(c.url)}" target="_blank" rel="noopener noreferrer">fuente</a>`;
+  }
+  const medios = (af.medios_del_evento || []).filter(Boolean);
+  const indep = medios.length > 1 ? ` · ${medios.length} medios publican el evento: ${medios.map(esc).join(', ')}` : '';
+  return `${esc(c.medio || '')} · ${esc(c.fecha ? panamaText(c.fecha, true) : 'sin fecha')} · <a href="${esc(c.url)}" target="_blank" rel="noopener noreferrer">abrir titular</a>${indep}`;
+}
+
+function renderConsulta(r) {
+  const afirm = (r.afirmaciones || []).map(af => `<li class="consulta-item"><p class="reading">${esc(af.texto)}</p><p class="muted">${af.tipo === 'contexto' ? 'Contexto (no responde lo pedido) · ' : ''}${consultaCita(af)}</p></li>`).join('');
+  const vacios = (r.vacios || []).map(v => `<li>${esc(v)}</li>`).join('');
+  detailEl.className = '';
+  detailEl.innerHTML = `<div class="panel radiografia-panel"><div class="panel-header"><h2>Respuesta</h2><p class="muted">«${esc(r.pregunta)}»</p><div class="badges">${consultaBadge(r.estado)}</div></div><section class="section"><p>${esc(r.respuesta)}</p>${afirm ? `<ul class="consulta-lista">${afirm}</ul>` : ''}</section>${vacios ? `<section class="section"><h3>Falta verificar</h3><ul>${vacios}</ul></section>` : ''}<p class="technical-id">Método: ${esc(r.metodo)} · ${esc(r.latencia_ms)} ms · modelo local ${esc((r.reglas || {}).modelo || '')}</p></div><div class="panel mesa-panel"><div class="panel-header"><h2>Mesa editorial</h2><p class="muted">Abre un caso de la agenda para trabajar su borrador.</p></div></div>`;
+  setPanel('radiografia');
+}
+
+askForm.addEventListener('submit', async event => {
+  event.preventDefault();
+  const pregunta = askForm.pregunta.value.trim();
+  if (!pregunta) { askForm.pregunta.focus(); return; }
+  const button = askForm.querySelector('button');
+  button.disabled = true; button.textContent = 'Buscando…';
+  detailEl.className = 'empty';
+  detailEl.innerHTML = '<div><strong>Buscando evidencia en el snapshot…</strong><p>La primera pregunta puede tardar mientras carga el modelo local.</p></div>';
+  try {
+    renderConsulta(await api('/api/consulta', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ pregunta }) }));
+  } catch (error) {
+    detailEl.className = 'empty';
+    detailEl.innerHTML = `<div><strong>No se pudo responder</strong><p>${esc(error.message)}</p></div>`;
+  } finally {
+    button.disabled = false; button.textContent = 'Preguntar';
+  }
+});
 
 searchForm.addEventListener('submit', event => { event.preventDefault(); loadCases(Object.fromEntries(new FormData(searchForm))); });
 searchForm.addEventListener('input', updateFilterCount);

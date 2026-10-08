@@ -4,6 +4,7 @@ from contextlib import contextmanager
 from datetime import datetime, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
+import threading
 from pathlib import Path
 import re
 import sqlite3
@@ -12,7 +13,13 @@ import unicodedata
 from urllib.parse import parse_qs, unquote, urlparse
 import uuid
 
-from src.editorial.cronometro import resumen_cronometro
+import sys
+
+# Permite `python src/interfaz/app.py` desde la raíz (el comando del README), no solo `python -m`.
+if str(Path(__file__).resolve().parents[2]) not in sys.path:
+    sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+
+from src.editorial.cronometro import resumen_cronometro  # noqa: E402
 from src.ia.proveedores import ProviderUnavailable, estado_proveedor, modelo_activo, proveedor_activo
 from src.ia.redaccion import cargar_evidencias_caso, generar_paquete, guardar_borrador
 
@@ -363,7 +370,8 @@ class Handler(BaseHTTPRequestHandler):
         route = urlparse(self.path).path
         match_review = re.fullmatch(r"/api/cases/([^/]+)/reviews", route)
         match_draft = re.fullmatch(r"/api/cases/([^/]+)/borrador", route)
-        if not match_review and not match_draft:
+        is_query = route == "/api/consulta"
+        if not match_review and not match_draft and not is_query:
             return self.send_json(404, {"error": "Ruta no encontrada"})
         origin = self.headers.get("Origin")
         if origin and origin not in {f"http://127.0.0.1:{self.server.server_port}", f"http://localhost:{self.server.server_port}"}:
@@ -373,6 +381,10 @@ class Handler(BaseHTTPRequestHandler):
             if length < 0 or length > 8192:
                 raise ValueError("Cuerpo inválido o demasiado grande")
             payload = json.loads(self.rfile.read(length)) if length else {}
+            if is_query:
+                from src.ia.consulta import responder  # carga diferida: el modelo pesa
+                with connect(self.db_path) as db:
+                    return self.send_json(200, responder(db, str(payload.get("pregunta", ""))))
             with connect(self.db_path) as db:
                 if match_draft:
                     provider = estado_proveedor()
@@ -382,6 +394,8 @@ class Handler(BaseHTTPRequestHandler):
                 else:
                     result = add_review(db, unquote(match_review.group(1)), payload)
             self.send_json(201, result)
+        except UnicodeDecodeError:
+            self.send_json(400, {"error": "El texto debe enviarse en UTF-8"})
         except json.JSONDecodeError:
             self.send_json(400, {"error": "JSON inválido"})
         except ValueError as exc:
@@ -447,15 +461,29 @@ class Handler(BaseHTTPRequestHandler):
         print(f"[{self.log_date_time_string()}] {fmt % args}")
 
 
+def calentar_modelo(db_path):
+    """Precarga el modelo y el caché de titulares para que la primera pregunta no tarde un minuto."""
+    try:
+        from src.ia.consulta import responder
+        with connect(db_path) as db:
+            responder(db, "calentamiento del modelo local")
+        print("Modelo de embeddings listo.")
+    except Exception as exc:  # noqa: BLE001 - la interfaz sigue funcionando sin consultas
+        print(f"No se pudo precargar el modelo de embeddings: {exc}")
+
+
 def main():
     parser = argparse.ArgumentParser(description="Interfaz editorial local")
     parser.add_argument("--db", type=Path, required=True)
     parser.add_argument("--port", type=int, default=8765)
+    parser.add_argument("--sin-calentar", action="store_true", help="No precarga el modelo de embeddings al arrancar.")
     args = parser.parse_args()
     if not args.db.is_file():
         raise SystemExit(f"Base no encontrada: {args.db}")
     Handler.db_path = args.db.resolve()
     server = ThreadingHTTPServer(("127.0.0.1", args.port), Handler)
+    if not args.sin_calentar:
+        threading.Thread(target=calentar_modelo, args=(Handler.db_path,), daemon=True).start()
     print(f"Jajanken Lupa: http://127.0.0.1:{args.port}")
     try:
         server.serve_forever()

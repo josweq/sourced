@@ -1,18 +1,30 @@
 {
   "proyecto": "jajanken-lupa",
-  "commit": "2037a4d",
-  "fecha": "2026-10-07",
+  "commit": "3f00bd5",
+  "fecha": "2026-10-08",
   "estado": "verde",
   "corridas": [
     {
       "n": 1,
-      "comprobaciones": 30,
+      "comprobaciones": 35,
       "fallos": 0,
       "errores": 0,
       "esperas": [
         {
+          "que": "cargar la agenda",
+          "ms": 264
+        },
+        {
           "que": "abrir el primer caso",
-          "ms": 261
+          "ms": 260
+        },
+        {
+          "que": "preguntar algo con evidencia",
+          "ms": 277
+        },
+        {
+          "que": "preguntar algo sin evidencia",
+          "ms": 257
         },
         {
           "que": "registrar la revisión",
@@ -20,7 +32,7 @@
         },
         {
           "que": "cambiar a tema Sala",
-          "ms": 3
+          "ms": 86
         }
       ],
       "detalle": [
@@ -32,32 +44,32 @@
         {
           "ok": true,
           "que": "la agenda muestra casos",
-          "detalle": "2"
+          "detalle": "275"
         },
         {
           "ok": true,
           "que": "contraste · Redacción · agenda · en reposo",
-          "detalle": "32/32 textos"
+          "detalle": "1397/1397 textos"
         },
         {
           "ok": true,
           "que": "contraste · Redacción · agenda · hover",
-          "detalle": "32/32 textos"
+          "detalle": "1397/1397 textos"
         },
         {
           "ok": true,
           "que": "contraste · Redacción · agenda · hover + active",
-          "detalle": "32/32 textos"
+          "detalle": "1397/1397 textos"
         },
         {
           "ok": true,
           "que": "tarjeta de agenda compacta (≤ 120 px)",
-          "detalle": "90 px"
+          "detalle": "101 px"
         },
         {
           "ok": true,
           "que": "caben ≥ 5 tarjetas a 1366×860",
-          "detalle": "capacidad 5 en 572 px"
+          "detalle": "capacidad 5 en 552 px"
         },
         {
           "ok": true,
@@ -72,22 +84,47 @@
         {
           "ok": true,
           "que": "contraste · Redacción · caso abierto · en reposo",
-          "detalle": "120/120 textos"
+          "detalle": "1511/1511 textos"
         },
         {
           "ok": true,
           "que": "contraste · Redacción · caso abierto · hover",
-          "detalle": "120/120 textos"
+          "detalle": "1510/1510 textos"
         },
         {
           "ok": true,
           "que": "contraste · Redacción · caso abierto · hover + active",
-          "detalle": "120/120 textos"
+          "detalle": "1511/1511 textos"
+        },
+        {
+          "ok": true,
+          "que": "una pregunta con evidencia responde con citas",
+          "detalle": ""
+        },
+        {
+          "ok": true,
+          "que": "una pregunta sin evidencia se abstiene",
+          "detalle": ""
+        },
+        {
+          "ok": true,
+          "que": "contraste · Redacción · respuesta · en reposo",
+          "detalle": "1404/1404 textos"
+        },
+        {
+          "ok": true,
+          "que": "contraste · Redacción · respuesta · hover",
+          "detalle": "1404/1404 textos"
+        },
+        {
+          "ok": true,
+          "que": "contraste · Redacción · respuesta · hover + active",
+          "detalle": "1404/1404 textos"
         },
         {
           "ok": true,
           "que": "la revisión nueva aparece con su persona revisora",
-          "detalle": "antes 10"
+          "detalle": "antes 4"
         },
         {
           "ok": true,
@@ -97,22 +134,22 @@
         {
           "ok": true,
           "que": "contraste · Sala · caso abierto · en reposo",
-          "detalle": "124/124 textos"
+          "detalle": "1515/1515 textos"
         },
         {
           "ok": true,
           "que": "contraste · Sala · caso abierto · hover",
-          "detalle": "124/124 textos"
+          "detalle": "1514/1514 textos"
         },
         {
           "ok": true,
           "que": "contraste · Sala · caso abierto · hover + active",
-          "detalle": "124/124 textos"
+          "detalle": "1515/1515 textos"
         },
         {
           "ok": true,
           "que": "ancho sala · 360 px Agenda",
-          "detalle": "{\"ancho\":360,\"pestana\":\"Agenda\",\"ventana\":360,\"pagina\":360,\"peor\":null,\"ok\":true}"
+          "detalle": "{\"ancho\":360,\"pestana\":\"Agenda\",\"ventana\":360,\"pagina\":345,\"peor\":null,\"ok\":true}"
         },
         {
           "ok": true,
@@ -127,7 +164,7 @@
         {
           "ok": true,
           "que": "ancho sala · 390 px Agenda",
-          "detalle": "{\"ancho\":390,\"pestana\":\"Agenda\",\"ventana\":390,\"pagina\":390,\"peor\":null,\"ok\":true}"
+          "detalle": "{\"ancho\":390,\"pestana\":\"Agenda\",\"ventana\":390,\"pagina\":375,\"peor\":null,\"ok\":true}"
         },
         {
           "ok": true,
@@ -142,7 +179,7 @@
         {
           "ok": true,
           "que": "ancho redaccion · 360 px Agenda",
-          "detalle": "{\"ancho\":360,\"pestana\":\"Agenda\",\"ventana\":360,\"pagina\":360,\"peor\":null,\"ok\":true}"
+          "detalle": "{\"ancho\":360,\"pestana\":\"Agenda\",\"ventana\":360,\"pagina\":345,\"peor\":null,\"ok\":true}"
         },
         {
           "ok": true,
@@ -157,7 +194,7 @@
         {
           "ok": true,
           "que": "ancho redaccion · 390 px Agenda",
-          "detalle": "{\"ancho\":390,\"pestana\":\"Agenda\",\"ventana\":390,\"pagina\":390,\"peor\":null,\"ok\":true}"
+          "detalle": "{\"ancho\":390,\"pestana\":\"Agenda\",\"ventana\":390,\"pagina\":375,\"peor\":null,\"ok\":true}"
         },
         {
           "ok": true,
@@ -175,25 +212,37 @@
           "detalle": ""
         }
       ],
-      "segundos": 7
+      "segundos": 18
     },
     {
       "n": 2,
-      "comprobaciones": 30,
+      "comprobaciones": 35,
       "fallos": 0,
       "errores": 0,
       "esperas": [
         {
+          "que": "cargar la agenda",
+          "ms": 270
+        },
+        {
           "que": "abrir el primer caso",
-          "ms": 258
+          "ms": 268
+        },
+        {
+          "que": "preguntar algo con evidencia",
+          "ms": 279
+        },
+        {
+          "que": "preguntar algo sin evidencia",
+          "ms": 264
         },
         {
           "que": "registrar la revisión",
-          "ms": 259
+          "ms": 265
         },
         {
           "que": "cambiar a tema Sala",
-          "ms": 1
+          "ms": 96
         }
       ],
       "detalle": [
@@ -205,32 +254,32 @@
         {
           "ok": true,
           "que": "la agenda muestra casos",
-          "detalle": "2"
+          "detalle": "275"
         },
         {
           "ok": true,
           "que": "contraste · Redacción · agenda · en reposo",
-          "detalle": "32/32 textos"
+          "detalle": "1397/1397 textos"
         },
         {
           "ok": true,
           "que": "contraste · Redacción · agenda · hover",
-          "detalle": "32/32 textos"
+          "detalle": "1397/1397 textos"
         },
         {
           "ok": true,
           "que": "contraste · Redacción · agenda · hover + active",
-          "detalle": "32/32 textos"
+          "detalle": "1397/1397 textos"
         },
         {
           "ok": true,
           "que": "tarjeta de agenda compacta (≤ 120 px)",
-          "detalle": "90 px"
+          "detalle": "101 px"
         },
         {
           "ok": true,
           "que": "caben ≥ 5 tarjetas a 1366×860",
-          "detalle": "capacidad 5 en 572 px"
+          "detalle": "capacidad 5 en 552 px"
         },
         {
           "ok": true,
@@ -245,22 +294,47 @@
         {
           "ok": true,
           "que": "contraste · Redacción · caso abierto · en reposo",
-          "detalle": "124/124 textos"
+          "detalle": "1515/1515 textos"
         },
         {
           "ok": true,
           "que": "contraste · Redacción · caso abierto · hover",
-          "detalle": "124/124 textos"
+          "detalle": "1514/1514 textos"
         },
         {
           "ok": true,
           "que": "contraste · Redacción · caso abierto · hover + active",
-          "detalle": "124/124 textos"
+          "detalle": "1515/1515 textos"
+        },
+        {
+          "ok": true,
+          "que": "una pregunta con evidencia responde con citas",
+          "detalle": ""
+        },
+        {
+          "ok": true,
+          "que": "una pregunta sin evidencia se abstiene",
+          "detalle": ""
+        },
+        {
+          "ok": true,
+          "que": "contraste · Redacción · respuesta · en reposo",
+          "detalle": "1404/1404 textos"
+        },
+        {
+          "ok": true,
+          "que": "contraste · Redacción · respuesta · hover",
+          "detalle": "1404/1404 textos"
+        },
+        {
+          "ok": true,
+          "que": "contraste · Redacción · respuesta · hover + active",
+          "detalle": "1404/1404 textos"
         },
         {
           "ok": true,
           "que": "la revisión nueva aparece con su persona revisora",
-          "detalle": "antes 11"
+          "detalle": "antes 5"
         },
         {
           "ok": true,
@@ -270,22 +344,22 @@
         {
           "ok": true,
           "que": "contraste · Sala · caso abierto · en reposo",
-          "detalle": "128/128 textos"
+          "detalle": "1519/1519 textos"
         },
         {
           "ok": true,
           "que": "contraste · Sala · caso abierto · hover",
-          "detalle": "128/128 textos"
+          "detalle": "1518/1518 textos"
         },
         {
           "ok": true,
           "que": "contraste · Sala · caso abierto · hover + active",
-          "detalle": "128/128 textos"
+          "detalle": "1519/1519 textos"
         },
         {
           "ok": true,
           "que": "ancho sala · 360 px Agenda",
-          "detalle": "{\"ancho\":360,\"pestana\":\"Agenda\",\"ventana\":360,\"pagina\":360,\"peor\":null,\"ok\":true}"
+          "detalle": "{\"ancho\":360,\"pestana\":\"Agenda\",\"ventana\":360,\"pagina\":345,\"peor\":null,\"ok\":true}"
         },
         {
           "ok": true,
@@ -300,7 +374,7 @@
         {
           "ok": true,
           "que": "ancho sala · 390 px Agenda",
-          "detalle": "{\"ancho\":390,\"pestana\":\"Agenda\",\"ventana\":390,\"pagina\":390,\"peor\":null,\"ok\":true}"
+          "detalle": "{\"ancho\":390,\"pestana\":\"Agenda\",\"ventana\":390,\"pagina\":375,\"peor\":null,\"ok\":true}"
         },
         {
           "ok": true,
@@ -315,7 +389,7 @@
         {
           "ok": true,
           "que": "ancho redaccion · 360 px Agenda",
-          "detalle": "{\"ancho\":360,\"pestana\":\"Agenda\",\"ventana\":360,\"pagina\":360,\"peor\":null,\"ok\":true}"
+          "detalle": "{\"ancho\":360,\"pestana\":\"Agenda\",\"ventana\":360,\"pagina\":345,\"peor\":null,\"ok\":true}"
         },
         {
           "ok": true,
@@ -330,7 +404,7 @@
         {
           "ok": true,
           "que": "ancho redaccion · 390 px Agenda",
-          "detalle": "{\"ancho\":390,\"pestana\":\"Agenda\",\"ventana\":390,\"pagina\":390,\"peor\":null,\"ok\":true}"
+          "detalle": "{\"ancho\":390,\"pestana\":\"Agenda\",\"ventana\":390,\"pagina\":375,\"peor\":null,\"ok\":true}"
         },
         {
           "ok": true,
@@ -348,7 +422,7 @@
           "detalle": ""
         }
       ],
-      "segundos": 7
+      "segundos": 18
     }
   ]
 }

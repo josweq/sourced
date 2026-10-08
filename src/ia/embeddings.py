@@ -1,6 +1,8 @@
 """Embeddings locales e5 con caché SQLite por modelo y texto."""
 from __future__ import annotations
 
+import functools
+
 import hashlib
 import os
 from pathlib import Path
@@ -77,10 +79,16 @@ class VectorizadorE5:
         return vectorizar(textos, tipo=tipo, modelo=self.modelo, model=self._model)
 
 
+@functools.lru_cache(maxsize=2)
+def _modelo_compartido(modelo: str, permitir_descarga: bool = False):
+    """Carga el modelo una sola vez por proceso (recargarlo en cada consulta costaba segundos)."""
+    return VectorizadorE5(modelo, permitir_descarga=permitir_descarga)._model
+
+
 def _encode(textos_prefijados: Sequence[str], model=None, modelo: str | None = None,
             permitir_descarga: bool = False) -> np.ndarray:
     if model is None:
-        model = VectorizadorE5(modelo, permitir_descarga=permitir_descarga)._model
+        model = _modelo_compartido(modelo or nombre_modelo(), permitir_descarga)
     vectores = model.encode(list(textos_prefijados), normalize_embeddings=True, convert_to_numpy=True)
     return normalizar(np.asarray(vectores, dtype="float32"))
 
