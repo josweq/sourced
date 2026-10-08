@@ -27,7 +27,10 @@ MARGEN_SECUNDARIOS = 0.03  # un resultado secundario debe estar cerca del mejor
 # Palabras demasiado frecuentes en el corpus para contar como coincidencia de contenido.
 VACIAS = {"panama", "panamenos", "panameno", "panamena", "sobre", "cual", "cuales", "cuanto",
           "cuantos", "cuando", "donde", "como", "esta", "este", "estos", "hace", "segun", "noticia",
-          "noticias", "dice", "dicen", "pasa", "paso", "tiene", "tienen", "puede", "hubo", "fueron"}
+          "noticias", "dice", "dicen", "pasa", "paso", "tiene", "tienen", "puede", "hubo", "fueron",
+          # Palabras de tiempo: «¿hubo sismos esta semana?» no debe coincidir con «Semana de la RSE».
+          "semana", "semanas", "ayer", "manana", "ahora", "actual", "ultimo", "ultima", "ultimos",
+          "ultimas", "reciente", "recientes", "dias", "meses", "anos"}
 
 INDICADORES = {
     "FP.CPI.TOTL.ZG": ("inflacion", "precios al consumidor", "ipc"),
@@ -119,8 +122,14 @@ def _ruta_indicador(db, pregunta_norm: str) -> dict | None:
             "afirmaciones": [afirmacion(ultimo)], "vacios": vacios}
 
 
+MESES = {"enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre",
+         "setiembre", "octubre", "noviembre", "diciembre"}
+
+
 def _contenido(texto: str) -> set[str]:
-    return {t for t in tokens(texto) if t not in VACIAS}
+    # Años, cifras y meses no son tema: «turistas en septiembre de 2026» no debe coincidir con
+    # «temporada de cruceros 2026-2027» solo por el «2026».
+    return {t for t in tokens(texto) if t not in VACIAS and t not in MESES and not t.isdigit()}
 
 
 def _ruta_noticias(db, pregunta: str, *, vectorizador=vectorizar, solo_logistica: bool = False) -> dict:
@@ -137,7 +146,10 @@ def _ruta_noticias(db, pregunta: str, *, vectorizador=vectorizar, solo_logistica
         V = np.asarray(vectorizar([f["titulo"] for f in filas], tipo="passage", db=db), dtype="float32")
     else:
         V = np.asarray(vectorizador([f["titulo"] for f in filas], tipo="passage"), dtype="float32")
-    q = np.asarray(vectorizador([pregunta], tipo="query"), dtype="float32")[0]
+    # El año pesa demasiado en preguntas cortas: «sismos en 2024» se parecía más a «Premios Victoria 2024»
+    # que a cualquier nota de sismos. Se busca por el tema; la fecha la juzga quien lee la cita.
+    consulta_texto = re.sub(r"\b(19|20)\d\d\b", " ", pregunta).strip() or pregunta
+    q = np.asarray(vectorizador([consulta_texto], tipo="query"), dtype="float32")[0]
     sims = V @ q
     orden = np.argsort(-sims)
     pregunta_contenido = _contenido(pregunta)
