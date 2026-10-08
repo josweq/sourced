@@ -7,6 +7,7 @@ import hashlib
 import os
 from pathlib import Path
 import sqlite3
+import threading
 from typing import Callable, Iterable, Sequence
 
 import numpy as np
@@ -79,9 +80,21 @@ class VectorizadorE5:
         return vectorizar(textos, tipo=tipo, modelo=self.modelo, model=self._model)
 
 
-@functools.lru_cache(maxsize=2)
+_CARGA = threading.Lock()
+
+
 def _modelo_compartido(modelo: str, permitir_descarga: bool = False):
-    """Carga el modelo una sola vez por proceso (recargarlo en cada consulta costaba segundos)."""
+    """Carga el modelo una sola vez por proceso (recargarlo en cada consulta costaba segundos).
+
+    Con candado: una pregunta que llega mientras la interfaz precarga el modelo espera esa carga en
+    vez de iniciar otra en paralelo (prueba en equipo limpio, 2026-10-08: 18 s y dos cargas).
+    """
+    with _CARGA:
+        return _cargar_modelo(modelo, permitir_descarga)
+
+
+@functools.lru_cache(maxsize=2)
+def _cargar_modelo(modelo: str, permitir_descarga: bool = False):
     return VectorizadorE5(modelo, permitir_descarga=permitir_descarga)._model
 
 

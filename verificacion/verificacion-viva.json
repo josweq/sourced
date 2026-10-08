@@ -1,6 +1,6 @@
 {
   "proyecto": "jajanken-lupa",
-  "commit": "13e6208",
+  "commit": "d44278a",
   "fecha": "2026-10-08",
   "estado": "verde",
   "corridas": [
@@ -12,31 +12,31 @@
       "esperas": [
         {
           "que": "cargar la agenda",
-          "ms": 265
+          "ms": 624
         },
         {
           "que": "abrir el primer caso",
-          "ms": 371
+          "ms": 592
         },
         {
           "que": "generar versión reel 30 s",
-          "ms": 8759
+          "ms": 29768
         },
         {
           "que": "preguntar algo con evidencia",
-          "ms": 271
+          "ms": 1056
         },
         {
           "que": "preguntar algo sin evidencia",
-          "ms": 260
+          "ms": 274
         },
         {
           "que": "registrar la revisión",
-          "ms": 654
+          "ms": 831
         },
         {
           "que": "cambiar a tema Sala",
-          "ms": 16
+          "ms": 29
         }
       ],
       "detalle": [
@@ -73,7 +73,7 @@
         {
           "ok": true,
           "que": "caben ≥ 5 tarjetas a 1366×860",
-          "detalle": "capacidad 5 en 552 px"
+          "detalle": "capacidad 5 en 551 px"
         },
         {
           "ok": true,
@@ -98,7 +98,7 @@
         {
           "ok": true,
           "que": "contraste · Redacción · caso abierto · hover + active",
-          "detalle": "1497/1497 textos"
+          "detalle": "1496/1496 textos"
         },
         {
           "ok": true,
@@ -153,7 +153,7 @@
         {
           "ok": true,
           "que": "contraste · Redacción · versión generada · hover + active",
-          "detalle": "1502/1502 textos"
+          "detalle": "1501/1501 textos"
         },
         {
           "ok": true,
@@ -203,7 +203,7 @@
         {
           "ok": true,
           "que": "contraste · Sala · caso abierto · hover + active",
-          "detalle": "1500/1500 textos"
+          "detalle": "1499/1499 textos"
         },
         {
           "ok": true,
@@ -218,7 +218,7 @@
         {
           "ok": true,
           "que": "ancho sala · 360 px Mesa",
-          "detalle": "{\"ancho\":360,\"pestana\":\"Mesa\",\"ventana\":360,\"pagina\":345,\"peor\":{\"derecha\":412,\"que\":\"button\"},\"ok\":true}"
+          "detalle": "{\"ancho\":360,\"pestana\":\"Mesa\",\"ventana\":360,\"pagina\":345,\"peor\":{\"derecha\":380,\"que\":\"button\"},\"ok\":true}"
         },
         {
           "ok": true,
@@ -233,7 +233,7 @@
         {
           "ok": true,
           "que": "ancho sala · 390 px Mesa",
-          "detalle": "{\"ancho\":390,\"pestana\":\"Mesa\",\"ventana\":390,\"pagina\":375,\"peor\":{\"derecha\":412,\"que\":\"button\"},\"ok\":true}"
+          "detalle": "{\"ancho\":390,\"pestana\":\"Mesa\",\"ventana\":390,\"pagina\":375,\"peor\":null,\"ok\":true}"
         },
         {
           "ok": true,
@@ -248,7 +248,7 @@
         {
           "ok": true,
           "que": "ancho redaccion · 360 px Mesa",
-          "detalle": "{\"ancho\":360,\"pestana\":\"Mesa\",\"ventana\":360,\"pagina\":345,\"peor\":{\"derecha\":378,\"que\":\"button\"},\"ok\":true}"
+          "detalle": "{\"ancho\":360,\"pestana\":\"Mesa\",\"ventana\":360,\"pagina\":345,\"peor\":null,\"ok\":true}"
         },
         {
           "ok": true,
@@ -271,7 +271,7 @@
           "detalle": ""
         }
       ],
-      "segundos": 104
+      "segundos": 368
     },
     {
       "n": 2,
@@ -281,31 +281,31 @@
       "esperas": [
         {
           "que": "cargar la agenda",
-          "ms": 342
+          "ms": 633
         },
         {
           "que": "abrir el primer caso",
-          "ms": 351
+          "ms": 327
         },
         {
           "que": "generar versión reel 30 s",
-          "ms": 7766
+          "ms": 34840
         },
         {
           "que": "preguntar algo con evidencia",
-          "ms": 311
+          "ms": 1079
         },
         {
           "que": "preguntar algo sin evidencia",
-          "ms": 304
+          "ms": 315
         },
         {
           "que": "registrar la revisión",
-          "ms": 527
+          "ms": 265
         },
         {
           "que": "cambiar a tema Sala",
-          "ms": 24
+          "ms": 87
         }
       ],
       "detalle": [
@@ -342,7 +342,7 @@
         {
           "ok": true,
           "que": "caben ≥ 5 tarjetas a 1366×860",
-          "detalle": "capacidad 5 en 552 px"
+          "detalle": "capacidad 5 en 551 px"
         },
         {
           "ok": true,
@@ -367,7 +367,7 @@
         {
           "ok": true,
           "que": "contraste · Redacción · caso abierto · hover + active",
-          "detalle": "1500/1500 textos"
+          "detalle": "1499/1499 textos"
         },
         {
           "ok": true,
@@ -422,7 +422,7 @@
         {
           "ok": true,
           "que": "contraste · Redacción · versión generada · hover + active",
-          "detalle": "1505/1505 textos"
+          "detalle": "1504/1504 textos"
         },
         {
           "ok": true,
@@ -462,7 +462,7 @@
         {
           "ok": true,
           "que": "contraste · Sala · caso abierto · en reposo",
-          "detalle": "1503/1503 textos"
+          "detalle": "1504/1504 textos"
         },
         {
           "ok": true,
@@ -472,7 +472,7 @@
         {
           "ok": true,
           "que": "contraste · Sala · caso abierto · hover + active",
-          "detalle": "1504/1504 textos"
+          "detalle": "1503/1503 textos"
         },
         {
           "ok": true,
@@ -487,7 +487,7 @@
         {
           "ok": true,
           "que": "ancho sala · 360 px Mesa",
-          "detalle": "{\"ancho\":360,\"pestana\":\"Mesa\",\"ventana\":360,\"pagina\":345,\"peor\":{\"derecha\":412,\"que\":\"button\"},\"ok\":true}"
+          "detalle": "{\"ancho\":360,\"pestana\":\"Mesa\",\"ventana\":360,\"pagina\":345,\"peor\":{\"derecha\":380,\"que\":\"button\"},\"ok\":true}"
         },
         {
           "ok": true,
@@ -502,7 +502,7 @@
         {
           "ok": true,
           "que": "ancho sala · 390 px Mesa",
-          "detalle": "{\"ancho\":390,\"pestana\":\"Mesa\",\"ventana\":390,\"pagina\":375,\"peor\":{\"derecha\":412,\"que\":\"button\"},\"ok\":true}"
+          "detalle": "{\"ancho\":390,\"pestana\":\"Mesa\",\"ventana\":390,\"pagina\":375,\"peor\":null,\"ok\":true}"
         },
         {
           "ok": true,
@@ -517,7 +517,7 @@
         {
           "ok": true,
           "que": "ancho redaccion · 360 px Mesa",
-          "detalle": "{\"ancho\":360,\"pestana\":\"Mesa\",\"ventana\":360,\"pagina\":345,\"peor\":{\"derecha\":378,\"que\":\"button\"},\"ok\":true}"
+          "detalle": "{\"ancho\":360,\"pestana\":\"Mesa\",\"ventana\":360,\"pagina\":345,\"peor\":null,\"ok\":true}"
         },
         {
           "ok": true,
@@ -540,7 +540,7 @@
           "detalle": ""
         }
       ],
-      "segundos": 109
+      "segundos": 282
     }
   ]
 }

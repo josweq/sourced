@@ -1248,3 +1248,104 @@ textarea {
     display: none;
   }
 }
+
+/* ===================================================================== Marca Sourced
+   Materiales de la verificación: papel, tinta y resaltador. Titulares en serif, filetes finos en vez
+   de sombras, un solo acento (el amarillo de las citas) y nada de degradados. */
+.brand-logo .brand-tile { fill: var(--color-tinta); }
+.brand-logo .brand-bracket { fill: none; stroke: var(--color-superficie); stroke-width: 5; stroke-linecap: square; }
+.brand-logo .brand-marker { fill: var(--color-acento); }
+
+.brand h1 {
+  margin-bottom: 0;
+  font-family: var(--fuente-lectura);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.1;
+}
+
+.brand p {
+  font-size: var(--tamano-minimo);
+  letter-spacing: 0.01em;
+}
+
+h2,
+h3 {
+  font-family: var(--fuente-lectura);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+.case {
+  box-shadow: none;
+  transition: border-color var(--duracion-rapida) var(--easing), background-color var(--duracion-rapida) var(--easing);
+}
+
+.case.active {
+  border-color: var(--color-tinta);
+  background: color-mix(in srgb, var(--color-acento) 16%, var(--color-superficie));
+}
+
+button:not(:disabled):active {
+  transform: translateY(1px);
+}
+
+button {
+  transition: background-color var(--duracion-rapida) var(--easing), border-color var(--duracion-rapida) var(--easing), transform var(--duracion-rapida) var(--easing);
+}
+
+.citation,
+.cita,
+mark {
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.app-header {
+  border-bottom-width: 2px;
+  border-bottom-color: var(--color-tinta);
+}
+
+/* Barra «Generar versión» como la de un procesador de texto: título arriba, criterios en una rejilla
+   compacta que se reacomoda sola (3 columnas en escritorio, 2 en teléfono) y acciones al final. */
+.version-form .criteria-toolbar {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(118px, 1fr));
+  gap: var(--espacio-2) var(--espacio-3);
+  align-items: end;
+}
+
+.version-form .adapt-label {
+  grid-column: 1 / -1;
+  font-family: var(--fuente-lectura);
+  font-weight: 600;
+}
+
+.version-form .criterion {
+  display: grid;
+  gap: 2px;
+  font-size: var(--tamano-minimo);
+  color: var(--color-secundario);
+}
+
+.version-form .criterion select {
+  width: 100%;
+  color: var(--color-tinta);
+}
+
+.version-form .generate-button,
+.version-form .reset-criteria {
+  align-self: end;
+}
+
+.version-form .message:empty {
+  display: none;
+}
+
+/* Densidad de la agenda: con Source Sans caben ≥ 5 tarjetas a 1366×860 (prueba viva). */
+.case {
+  min-height: 0;
+  padding-block: 6px;
+  gap: 2px;
+}

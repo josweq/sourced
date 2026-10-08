@@ -1,87 +1,43 @@
-@font-face {
-  font-family: "Inter";
-  src: url("/fonts/Inter-Regular.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
+/* Familia Adobe «Source» (SIL OFL 1.1), servida en local: serif para titulares, sans para la
+   interfaz y mono para datos. Coherente con el nombre del producto y sin la Inter de siempre. */
+@font-face { font-family: "Source Sans 3"; src: url("/fonts/source-sans-3-400.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Source Sans 3"; src: url("/fonts/source-sans-3-600.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: "Source Sans 3"; src: url("/fonts/source-sans-3-700.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: "Source Serif 4"; src: url("/fonts/SourceSerif4-Regular.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Source Serif 4"; src: url("/fonts/SourceSerif4-Semibold.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: "Source Code Pro"; src: url("/fonts/source-code-pro-400.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Source Code Pro"; src: url("/fonts/source-code-pro-500.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: swap; }
 
-@font-face {
-  font-family: "Inter";
-  src: url("/fonts/Inter-SemiBold.woff2") format("woff2");
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("/fonts/Inter-Bold.woff2") format("woff2");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Source Serif 4";
-  src: url("/fonts/SourceSerif4-Regular.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Source Serif 4";
-  src: url("/fonts/SourceSerif4-Semibold.woff2") format("woff2");
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "JetBrains Mono";
-  src: url("/fonts/JetBrainsMono-Regular.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "JetBrains Mono";
-  src: url("/fonts/JetBrainsMono-Medium.woff2") format("woff2");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
+/* Marca Sourced: los materiales de la verificación. Papel de prensa, tinta y un solo acento, el
+   resaltador amarillo que marca cada cita. Sin degradados, sin azules ni morados «de IA». */
 :root {
   color-scheme: light;
-  --color-fondo: #f5f7f9;
-  --color-superficie: #ffffff;
-  --color-linea: #d3dbe3;
-  --color-tinta: #14212b;
-  --color-secundario: #4a5966;
-  --color-primario: #0b4f7c;
-  --color-primario-hover: #083c5f;
-  --color-foco: #0b4f7c;
-  --color-acento: #0b4f7c;
-  --color-cita-fondo: #ffe98a;
+  --color-fondo: #efeeea;
+  --color-superficie: #fbfbf8;
+  --color-linea: #d6d4cd;
+  --color-tinta: #1a1a1c;
+  --color-secundario: #57565a;
+  --color-primario: #1a1a1c;
+  --color-primario-hover: #3d3c40;
+  --color-foco: #1a1a1c;
+  --color-acento: #ffd84d;
+  --color-cita-fondo: #ffe27a;
   --color-cita-tinta: #1c1a12;
   --color-cita-borde: #a37d00;
-  --color-suficiente: #17794a;
+  --color-suficiente: #2e6b3f;
   --color-parcial: #8a5410;
   --color-insuficiente: #a12f2f;
-  --color-urgente: #b3261e;
-  --color-deshabilitado-fondo: #eef1f4;
-  --color-deshabilitado-texto: #5d6a75;
+  --color-urgente: #a1261e;
+  --color-deshabilitado-fondo: #e7e6e1;
+  --color-deshabilitado-texto: #5b5a5e;
   --color-boton-tinta: #ffffff;
-  --color-boton-secundario: #ffffff;
-  --color-sombra: rgb(20 33 43 / 0.08);
+  --color-boton-secundario: #fbfbf8;
+  --color-sombra: rgb(26 26 28 / 0.06);
   --color-transparente: rgb(255 255 255 / 0);
 
-  --fuente-ui: "Inter", system-ui, "Segoe UI", Arial, sans-serif;
+  --fuente-ui: "Source Sans 3", system-ui, "Segoe UI", Arial, sans-serif;
   --fuente-lectura: "Source Serif 4", Georgia, serif;
-  --fuente-mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+  --fuente-mono: "Source Code Pro", ui-monospace, Consolas, monospace;
 
   --tamano-base: 14px;
   --tamano-h1: 24px;
@@ -101,8 +57,8 @@
   --espacio-6: 32px;
   --espacio-7: 48px;
 
-  --radio-control: 6px;
-  --radio-tarjeta: 10px;
+  --radio-control: 4px;
+  --radio-tarjeta: 6px;
   --ancho-agenda: 320px;
   --ancho-mesa: 440px;
   --alto-clic: 24px;
@@ -117,24 +73,24 @@
 
 [data-tema="sala"] {
   color-scheme: dark;
-  --color-fondo: #0b1620;
-  --color-superficie: #12212e;
-  --color-linea: #2b3f50;
-  --color-tinta: #eef3f7;
-  --color-secundario: #a9b8c5;
-  --color-primario: #6cb4ee;
-  --color-primario-hover: #95c9f2;
-  --color-foco: #6cb4ee;
-  --color-acento: #c9ff68;
-  --color-suficiente: #5fd39a;
-  --color-parcial: #f0b45a;
-  --color-insuficiente: #ff8b8b;
-  --color-urgente: #ff6b5e;
-  --color-deshabilitado-fondo: #1a2a37;
-  --color-deshabilitado-texto: #c2ced8;
-  --color-boton-tinta: #08111a;
-  --color-boton-secundario: #12212e;
-  --color-sombra: rgb(0 0 0 / 0.24);
+  --color-fondo: #141414;
+  --color-superficie: #1d1d1b;
+  --color-linea: #34332f;
+  --color-tinta: #edebe4;
+  --color-secundario: #b4b1a8;
+  --color-primario: #edebe4;
+  --color-primario-hover: #d2cfc6;
+  --color-foco: #ffd84d;
+  --color-acento: #ffd84d;
+  --color-suficiente: #86cf9e;
+  --color-parcial: #e9b45c;
+  --color-insuficiente: #ff9a8f;
+  --color-urgente: #ff7b6e;
+  --color-deshabilitado-fondo: #262624;
+  --color-deshabilitado-texto: #c9c6bd;
+  --color-boton-tinta: #141414;
+  --color-boton-secundario: #1d1d1b;
+  --color-sombra: rgb(0 0 0 / 0.3);
   --tamano-base: 16px;
 }
 

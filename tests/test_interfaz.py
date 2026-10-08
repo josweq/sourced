@@ -66,9 +66,9 @@ class StaticServerTests(unittest.TestCase):
     def test_new_static_mime_types(self):
         expected = {
             "/tokens.css": "text/css; charset=utf-8",
-            "/img/lupa.svg": "image/svg+xml",
+            "/img/sourced.svg": "image/svg+xml",
             "/favicon.svg": "image/svg+xml",
-            "/fonts/Inter-Regular.woff2": "font/woff2",
+            "/fonts/source-sans-3-400.woff2": "font/woff2",
         }
         for path, content_type in expected.items():
             with self.subTest(path=path):
@@ -79,6 +79,32 @@ class StaticServerTests(unittest.TestCase):
     def test_static_path_traversal_returns_404(self):
         response = self.request("/fonts/../app.py")
         self.assertEqual(response.status, 404)
+
+    def raw(self, method, path, body=None, headers=None):
+        conn = HTTPConnection("127.0.0.1", self.server.server_port, timeout=5)
+        self.addCleanup(conn.close)
+        conn.request(method, path, body=body, headers=headers or {})
+        return conn.getresponse()
+
+    def test_host_ajeno_se_rechaza(self):
+        # Auditoría 2026-10-08 (CN-001): sin validar Host, una página con DNS rebinding leía la agenda.
+        for method in ("GET", "POST", "PUT"):
+            with self.subTest(method=method):
+                response = self.raw(method, "/api/cases" if method == "GET" else "/api/consulta",
+                                    body=b"{}", headers={"Host": "evil.example", "Content-Type": "application/json"})
+                self.assertEqual(response.status, 403)
+
+    def test_cuerpo_que_no_es_objeto_o_no_es_json_responde_400(self):
+        # CN-003 y CN-005: «[]», un número o texto plano cortaban la conexión o se aceptaban sin tipo.
+        casos = [(b"[]", "application/json"), (b"7", "application/json"), (b'{"pregunta": "x"}', "text/plain")]
+        for body, tipo in casos:
+            with self.subTest(body=body, tipo=tipo):
+                response = self.raw("POST", "/api/consulta", body=body, headers={"Content-Type": tipo})
+                self.assertEqual(response.status, 400)
+                response.read()
+        response = self.raw("POST", "/api/consulta", body=b"{}", headers={"Content-Type": "application/json", "Content-Length": "abc"})
+        self.assertEqual(response.status, 400)
+        self.assertNotIn("invalid literal", response.read().decode("utf-8"))
 
 
 if __name__ == "__main__":

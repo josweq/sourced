@@ -19,6 +19,14 @@ from scripts.importar_csv import run_import  # noqa: E402
 from scripts.procesar_snapshot import process  # noqa: E402
 
 
+def ruta_para_mostrar(ruta: Path) -> str:
+    """Ruta relativa a la raíz del repo con «/», que funciona igual en PowerShell, cmd y bash."""
+    try:
+        return ruta.resolve().relative_to(ROOT).as_posix()
+    except ValueError:
+        return ruta.resolve().as_posix()
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--snapshot", type=Path, required=True, help="Carpeta del snapshot (con processed/)")
@@ -41,9 +49,13 @@ def main():
         "base": str(final),
         "casos": reporte.get("casos_creados"),
         "borradores": [(b.get("caso_id"), b.get("estado")) for b in reporte.get("borradores", [])],
-        "siguiente_paso": f'python src/interfaz/app.py --db "{final}"',
+        "siguiente_paso": f'python src/interfaz/app.py --db "{ruta_para_mostrar(final)}"',
     }
     print(json.dumps(resumen, ensure_ascii=False, indent=2))
+    # Dentro del JSON el comando sale con comillas escapadas y no se puede pegar tal cual en PowerShell.
+    print()
+    print("Siguiente paso (cópialo tal cual):")
+    print("  " + resumen["siguiente_paso"])
 
 
 if __name__ == "__main__":

@@ -23,7 +23,7 @@ from src.editorial.cronometro import resumen_cronometro  # noqa: E402
 from src.editorial.formatos import adaptar  # noqa: E402
 from src.editorial.criterios import validar as validar_criterios  # noqa: E402
 from src.editorial.generar_version import generar_version  # noqa: E402
-from src.ia.proveedores import ProviderUnavailable, estado_proveedor, modelo_activo, proveedor_activo
+from src.ia.proveedores import ProviderResponseError, ProviderUnavailable, estado_proveedor, modelo_activo, proveedor_activo
 from src.ia.redaccion import cargar_evidencias_caso, generar_paquete, guardar_borrador
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -375,6 +375,29 @@ def add_review(db, case_id, payload):
 
 class Handler(BaseHTTPRequestHandler):
     db_path = None
+    timeout = 15  # una conexión que no envía el cuerpo no retiene un hilo para siempre (CN-004)
+
+    def host_ok(self):
+        """Solo responde a 127.0.0.1/localhost en su puerto: evita DNS rebinding (CN-001)."""
+        port = self.server.server_port
+        return (self.headers.get("Host") or "") in {f"127.0.0.1:{port}", f"localhost:{port}"}
+
+    def leer_json(self, limite, obligatorio=False):
+        """Cuerpo JSON acotado: tipo de contenido JSON, tamaño máximo y objeto en la raíz (CN-003, CN-005)."""
+        try:
+            length = int(self.headers.get("Content-Length", "0"))
+        except ValueError:
+            raise ValueError("Cabecera Content-Length inválida") from None
+        if length < 0 or length > limite or (obligatorio and length == 0):
+            raise ValueError("Cuerpo inválido o demasiado grande")
+        if not length:
+            return {}
+        if not (self.headers.get("Content-Type") or "").lower().startswith("application/json"):
+            raise ValueError("El cuerpo debe enviarse como application/json")
+        payload = json.loads(self.rfile.read(length))
+        if not isinstance(payload, dict):
+            raise ValueError("El cuerpo debe ser un objeto JSON")
+        return payload
 
     def security_headers(self, content_type):
         self.send_header("Content-Type", content_type)
@@ -392,6 +415,8 @@ class Handler(BaseHTTPRequestHandler):
         self.wfile.write(body)
 
     def do_GET(self):
+        if not self.host_ok():
+            return self.send_json(403, {"error": "Host no permitido"})
         parsed = urlparse(self.path)
         route = parsed.path
         if route == "/":
@@ -434,16 +459,15 @@ class Handler(BaseHTTPRequestHandler):
         match_adapt = re.fullmatch(r"/api/borradores/([^/]+)/adaptar", route)
         match_generate = re.fullmatch(r"/api/borradores/([^/]+)/generar", route)
         is_query = route == "/api/consulta"
+        if not self.host_ok():
+            return self.send_json(403, {"error": "Host no permitido"})
         if not match_review and not match_draft and not match_adapt and not match_generate and not is_query:
             return self.send_json(404, {"error": "Ruta no encontrada"})
         origin = self.headers.get("Origin")
         if origin and origin not in {f"http://127.0.0.1:{self.server.server_port}", f"http://localhost:{self.server.server_port}"}:
             return self.send_json(403, {"error": "Origen no permitido"})
         try:
-            length = int(self.headers.get("Content-Length", "0"))
-            if length < 0 or length > 8192:
-                raise ValueError("Cuerpo inválido o demasiado grande")
-            payload = json.loads(self.rfile.read(length)) if length else {}
+            payload = self.leer_json(8192)
             if is_query:
                 from src.ia.consulta import responder  # carga diferida: el modelo pesa
                 with connect(self.db_path) as db:
@@ -467,15 +491,21 @@ class Handler(BaseHTTPRequestHandler):
             self.send_json(400, {"error": "JSON inválido"})
         except ValueError as exc:
             self.send_json(400, {"error": str(exc)})
+        except TypeError:
+            self.send_json(400, {"error": "Algún valor del cuerpo no tiene el tipo esperado"})
         except LookupError as exc:
             self.send_json(404, {"error": str(exc)})
         except ProviderUnavailable as exc:
             self.send_json(503, {"error": str(exc)})
+        except ProviderResponseError:
+            self.send_json(502, {"error": "El modelo local devolvió una respuesta que no se pudo validar; intenta de nuevo."})
         except sqlite3.Error:
             self.send_json(409, {"error": "No se pudo registrar la revisión"})
 
     def do_PUT(self):
         route = urlparse(self.path).path
+        if not self.host_ok():
+            return self.send_json(403, {"error": "Host no permitido"})
         match = re.fullmatch(r"/api/borradores/([^/]+)", route)
         if not match:
             return self.send_json(404, {"error": "Ruta no encontrada"})
@@ -483,13 +513,14 @@ class Handler(BaseHTTPRequestHandler):
         if origin and origin not in {f"http://127.0.0.1:{self.server.server_port}", f"http://localhost:{self.server.server_port}"}:
             return self.send_json(403, {"error": "Origen no permitido"})
         try:
-            length = int(self.headers.get("Content-Length", "0"))
-            if length <= 0 or length > 65536:
-                raise ValueError("Cuerpo inválido o demasiado grande")
-            payload = json.loads(self.rfile.read(length))
+            payload = self.leer_json(65536, obligatorio=True)
             with connect(self.db_path) as db:
                 result = save_human_version(db, unquote(match.group(1)), payload)
             self.send_json(201, result)
+        except UnicodeDecodeError:
+            self.send_json(400, {"error": "El texto debe enviarse en UTF-8"})
+        except TypeError:
+            self.send_json(400, {"error": "Algún valor del cuerpo no tiene el tipo esperado"})
         except json.JSONDecodeError:
             self.send_json(400, {"error": "JSON inválido"})
         except ValueError as exc:
@@ -511,7 +542,7 @@ class Handler(BaseHTTPRequestHandler):
     def send_static(self, name):
         clean = unquote(name)
         if clean == "favicon.svg":
-            clean = "img/lupa.svg"
+            clean = "img/sourced.svg"
         if "\\" in clean or ".." in Path(clean).parts:
             return self.send_json(404, {"error": "Ruta no encontrada"})
         path = STATIC / clean

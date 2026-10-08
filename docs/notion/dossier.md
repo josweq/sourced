@@ -51,7 +51,7 @@ Cobertura de citas 100 % · abstención correcta ≥ 80 % · ninguna cifra inven
 | 6 | Redacción con guardián y mesa editorial | Josué + Codex | Hecho |
 | 7 | Preguntas con abstención (CU-02, CU-04, CU-05) | Josué | Hecho |
 | 8 | Benchmark de desarrollo y matriz T01–T10 | Josué | Hecho |
-| 9 | Etiquetado humano de temas y pares (pre-etiquetado por Codex, revisado por persona) | Josué, Juanchi (Diego no llegó a tiempo) | Hecho |
+| 9 | Etiquetado humano de temas y pares (pre-etiquetado por Codex, revisado por persona) | Josué, Juanchi, Diego | Hecho |
 | 10 | Formatos de adaptación (TV, radio, vertical, web, alerta) | Josué + Codex | Hecho |
 | 10b | Guías «qué significa» y guía rápida en la interfaz | Josué + Codex | Hecho |
 | 11 | Prueba sin internet (T10) | Josué | Hecho |
@@ -121,7 +121,7 @@ Snapshot `real-20261007b`. Puntaje P = 30R + 25I + 20U + 15N + 10E (componentes 
 |---|---|
 | Caso | `CASO-d7414efb7cc141eab72c` |
 | Publicaciones | La Prensa, 17 ago 2026: «Meduca contrató $28.4 millones por 54,000 laptops…» · 18 ago 2026: «Meduca tramitó adenda… por $235 mil y 75 días más» |
-| Puntaje | 46,25 (U 0,10: notas de agosto, no de hoy) · tema «regulación» · puesto 116 de 275 |
+| Puntaje | 46,25 (U 0,10: notas de agosto, no de hoy) · tema «regulación» · puesto 118 de 275 |
 | Evidencia | **Insuficiente** (un solo medio) |
 | Pregunta en Sourced | «contrato de laptops del Meduca» → responde con 3 titulares citados |
 | Qué demuestra | Las fechas originales mandan sobre la fecha de captura |
@@ -131,7 +131,7 @@ Snapshot `real-20261007b`. Puntaje P = 30R + 25I + 20U + 15N + 10E (componentes 
 |---|---|
 | Caso | `CASO-eac2d70e82de48de49cd` |
 | Publicación | TVN, 7 oct 2026 16:59 (UTC−5): «Canal de Panamá: Carnival Miracle inaugura temporada de cruceros 2026-2027; se contemplan más de 220 tránsitos» |
-| Puntaje | **61,75** (R 0,60 · I 0,55 · U 1,00 · N 0,50 · E 0,25) · tema «turismo» · puesto 47 de 275. El máximo del snapshot es 65,5, en rango **medio** (alto ≥ 70; con solo titulares, ningún caso real llega ahí porque E y N quedan bajos) |
+| Puntaje | **61,75** (R 0,60 · I 0,55 · U 1,00 · N 0,50 · E 0,25) · tema «turismo» · puesto 46 de 275. El máximo del snapshot es 65,5, en rango **medio** (alto ≥ 70; con solo titulares, ningún caso real llega ahí porque E y N quedan bajos) |
 | Evidencia | **Insuficiente**: un titular, sin fuente primaria |
 | Borrador | Brief, guion y copy citados; el guardián **retiró** un copy publicitario del modelo («¡Reserva tu crucero ahora…!») |
 | Qué demuestra | Prioridad ≠ permiso para publicar (T08); la caja «Falta verificar» manda |
@@ -149,7 +149,7 @@ Snapshot `real-20261007b`. Puntaje P = 30R + 25I + 20U + 15N + 10E (componentes 
 |---|---|
 | Caso | `CASO-c89d635822b3f8a2ffc9` |
 | Publicación | Crítica: «EL MUNDO DESPIDE AL PAPA FRANCISCO #ENVIVO», fecha original **26 abr 2025**, servida en el RSS de hoy |
-| Puntaje | 25,5 (U 0,10, mínima) — puesto 258 de 275 |
+| Puntaje | 25,5 (U 0,10, mínima) — puesto 259 de 275 |
 | Evidencia | **Insuficiente** |
 | Qué demuestra | Una nota vieja no se presenta como nueva (T03) |
 
@@ -197,15 +197,15 @@ Mismas 40 preguntas, mismas reglas de cifras oficiales, abstención y protecció
 **Sesgo declarado:** las preguntas y los umbrales los preparó el equipo con el sistema a la vista (conjunto de desarrollo, no reservado); la diferencia es indicativa, no una medición independiente. Resultados: `evaluation/resultados/benchmark-20261008T154642Z.md` y `benchmark-20261008T154554Z-lexico.md`.
 
 ### Clasificación de tema y agrupación con etiquetas humanas
-189 titulares y 27 pares revisados fila por fila por dos personas del equipo (pre-etiquetado por Codex, revisado por persona; 72 temas corregidos). Validación cruzada de 5 pliegues:
+284 titulares y 40 pares revisados fila por fila por las tres personas del equipo (pre-etiquetado por Codex, revisado por persona; 81 temas corregidos). Validación cruzada de 5 pliegues:
 
 | Método | Macro-F1 | Aciertos |
 |---|---|---|
-| **Clasificador entrenado con etiquetas humanas** (embeddings locales + regresión logística) | **0,479** | 121/189 |
-| Reglas por palabras clave (sin IA) | 0,254 | 125/189 |
-| Embeddings sin entrenar | 0,210 | 23/189 |
+| **Clasificador entrenado con etiquetas humanas** (embeddings locales + regresión logística) | **0,449** | 179/283 |
+| Reglas por palabras clave (sin IA) | 0,259 | 185/283 |
+| Embeddings sin entrenar | 0,163 | 30/283 |
 
-**Qué significa:** el modelo entrenado casi duplica a las reglas en macro-F1 (acierta en temas que las reglas nunca ven: regulación 0,47 frente a 0,09; eventos naturales 0,60 frente a 0). Las reglas empatan en aciertos totales porque mandan casi todo a «sin clasificar», la clase más grande. Agrupación: con el umbral en uso (0,945) la precisión es 0,75 y la cobertura 0,18; preferimos no fusionar hechos distintos aunque queden tarjetas repetidas. Detalle y curva completa: `evaluation/resultados/etiquetas-humanas-20261008.md`.
+**Qué significa:** el modelo entrenado sube el macro-F1 de 0,26 a 0,45: acierta en temas que las reglas nunca ven (regulación 0,52 frente a 0,13; eventos naturales 0,33 frente a 0). Las reglas empatan en aciertos totales porque mandan casi todo a «sin clasificar», la clase más grande. Agrupación: en los 40 pares, el umbral en uso (0,945) da precisión 0,50 y cobertura 0,14, y bajarlo a 0,90 sube la cobertura a 0,77; pero revisando el snapshot completo con 0,90 aparecen fusiones absurdas (Amber Heard con una reforma de seguridad chilena, cuatro notas de fútbol en un caso). Preferimos no fusionar hechos distintos aunque queden tarjetas repetidas. Detalle y curva completa: `evaluation/resultados/etiquetas-humanas-20261008.md`.
 
 ### Una prueba fallida y su corrección
 **Fallo:** con noticias reales, el borrador del modelo dijo «¡Reserva tu crucero ahora y prepárate para una aventura inolvidable!» y expandió «RSE» como «Resolución de Situaciones Económicas». **Causa:** el guardián validaba las afirmaciones, pero no la prosa libre. **Corrección:** cada oración del modelo pasa por el guardián; lo retirado sale con su motivo. Hay prueba automática con esos casos reales.
@@ -260,7 +260,7 @@ Una prueba fallida contada sin pena: el centroide unía 102 titulares sin relaci
 ### 9:00 – 10:00 · Límites y próximos pasos
 - Solo titulares: por eso casi todo queda «insuficiente». Con cuerpos de nota autorizados, la evidencia puede subir.
 - Un modelo de 3B redacta sobrio; el guardián retira mucho. Con un modelo local mayor, mejor prosa sin perder control.
-- Clasificación de tema: entrenada con 189 etiquetas revisadas por dos personas (macro-F1 0,479 frente a 0,254 de reglas). Con más etiquetas y la categoría «logística y Canal» (sin ejemplos humanos hoy) mejoraría.
+- Clasificación de tema: entrenada con 284 etiquetas revisadas por las tres personas del equipo (macro-F1 0,449 frente a 0,259 de reglas). Con más etiquetas y la categoría «logística y Canal» (sin ejemplos humanos hoy) mejoraría.
 - Próximo: piloto con una mesa de TVN, fuente primaria (comunicados oficiales) y detección de contradicciones entre medios.
 
 > Cierre: «Antes de contar una historia, mostramos qué la sostiene.»
@@ -308,3 +308,4 @@ Hora de Panamá (UTC−5). Cada línea enlaza a un commit del repositorio.
 | 8 oct 11:20 | Generar versión: barra de criterios opcionales (formato, duración, palabras, tono, enfoque, público) que arma el prompt; tope sin relleno | `d8aaf7c` |
 | 8 oct 11:45 | El producto pasa a llamarse **Sourced** («nada sin fuente») | `6a6a51f` |
 | 8 oct 12:20 | Etiquetas humanas (Josué y Juanchi): clasificador entrenado macro-F1 0,479 frente a 0,254 de reglas; **fallo**: el umbral heredado de 0,45 dejaba todo sin tema → calibrado a 0; **fallo**: «EE.UU.» partía oraciones → corregido; capturas y verificación viva rehechas | este commit |
+| 8 oct 13:30 | Tercera hoja (Diego): 284 temas y 40 pares, macro-F1 0,449; **fallo**: una sola etiqueta de «logística y Canal» impedía entrenar → clases con menos de 5 ejemplos fuera; identidad Sourced (papel, tinta y resaltador); auditoría de seguridad (0 críticos/altos) con correcciones; instalación probada en un entorno limpio | `1508656`, `d44278a` |

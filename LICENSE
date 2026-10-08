@@ -20,6 +20,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-Las fuentes tipográficas de src/interfaz/static/fonts/ (Inter, JetBrains Mono,
-Source Serif 4) se distribuyen bajo SIL Open Font License 1.1; ver sus archivos
+Las fuentes tipográficas de src/interfaz/static/fonts/ (Source Sans 3, Source Code Pro,
+Source Serif 4, de Adobe) se distribuyen bajo SIL Open Font License 1.1; ver sus archivos
 LICENSE-*.txt en esa carpeta.

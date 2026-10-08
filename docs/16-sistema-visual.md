@@ -1,5 +1,7 @@
 # Sistema visual
 
+> **Actualizado el 8-oct-2026:** la paleta azul/lima de este documento fue reemplazada por la identidad Sourced (papel, tinta y resaltador; familia Adobe Source). Ver [docs/marca/README.md](marca/README.md) y `src/interfaz/static/tokens.css`. Las reglas de accesibilidad y las puertas de contraste siguen vigentes.
+
 Estado: D-VIS-01 aprobado para el prototipo local. No usa marca, logo ni azul exacto de TVN.
 
 ## Tokens

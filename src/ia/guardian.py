@@ -23,7 +23,12 @@ PALABRAS_PERMITIDAS = {
     "trata", "verificar", "version",
 }
 
-INSTRUCCIONES_PROHIBIDAS = re.compile(r"\b(ignora|instrucciones|revela|secretos?|prompt|sistema|anteriores)\b", re.I)
+INSTRUCCIONES_PROHIBIDAS = re.compile(
+    r"\b(ignora\w*|olvida\w*|instrucciones|revela\w*|secretos?|prompt|sistema|anteriores|"
+    r"ignore|disregard|forget|override|jailbreak|previous instructions)\b", re.I)
+# Palabras cortas que cambian el sentido (negación) o la escala (multiplicador): el filtro de términos
+# solo mira palabras de 4+ letras y aceptaba «Canal no reduce…» o «24 mil diarios» (CN-002).
+CORTAS_CRITICAS = re.compile(r"\b(no|ni|sin|mil|nunca|jamas|tampoco)\b")
 # Tono publicitario o sensacionalista: impropio de un borrador periodístico.
 TONO_PROHIBIDO = re.compile(r"[!¡]|\b(reserva (?:tu|ya|ahora)|descubre (?:la|el|tu|c[oó]mo)|inolvidable\w*|aventura\w*|imperdible\w*|no te lo pierdas|vive la emoci[oó]n|la emoci[oó]n de|incre[ií]ble\w*|impactante\w*)\b", re.I)
 MENCIONES_PROHIBIDAS = re.compile(r"\b(im[aá]genes?|foto(?:s)?|video(?:s)?|entrevista(?:s)?|declaraci[oó]n directa|comillas)\b|[\"“”]", re.I)
@@ -148,8 +153,12 @@ def validar_oraciones(oraciones: list[dict], evidencias: list[dict],
             else:
                 usados = tokens(texto)
                 sin_respaldo = sorted(tok for tok in usados if tok not in tokens_total)
+                cortas = sorted(set(CORTAS_CRITICAS.findall(normalizar(texto)))
+                                - set(CORTAS_CRITICAS.findall(normalizar(corpus[evidencia_id]))))
                 if sin_respaldo:
                     motivo = "Terminos sin respaldo: " + ", ".join(sin_respaldo[:8])
+                elif cortas:
+                    motivo = "Negación o escala sin respaldo en la evidencia citada: " + ", ".join(cortas)
         if motivo:
             retiradas.append({**item, "motivo": motivo})
         else:
