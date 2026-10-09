@@ -114,7 +114,7 @@ Crítica y TVN publican la misma donación de EE.UU.: Sourced las une en **un ca
 | Pruebas de aceptación del reto (T01–T10) | **10/10** |
 | Sin internet, con el Wi-Fi cortado | **0 de 52** intentos salieron a la red |
 | Seguridad (OWASP / CWE) | **0** hallazgos críticos o altos |
-| Pruebas automáticas | **125** |
+| Pruebas automáticas | **128** |
 
 ---
 

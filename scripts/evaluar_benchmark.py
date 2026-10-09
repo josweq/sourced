@@ -47,7 +47,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--db", type=Path, required=True)
     parser.add_argument("--salida", type=Path, default=ROOT / "evaluation" / "resultados")
-    parser.add_argument("--modo", choices=("semantico", "lexico"), default="semantico",
+    parser.add_argument("--modo", choices=("semantico", "lexico", "bm25", "hibrido"), default="semantico",
                         help="lexico = línea base sin IA (palabras clave) con las mismas reglas de cifras y abstención")
     args = parser.parse_args()
     items = [json.loads(linea) for linea in BENCHMARK.read_text(encoding="utf-8").splitlines() if linea.strip()]

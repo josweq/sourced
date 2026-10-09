@@ -40,7 +40,7 @@ python scripts/preparar_demo.py --snapshot data/snapshot-dev/real-20261007b --bo
 ```
 El último paso termina con «Siguiente paso (cópialo tal cual)»: `python src/interfaz/app.py --db "data/local/demo-<marca>.sqlite"`. Luego abre `http://127.0.0.1:8765`.
 
-Comprobaciones: `python -m unittest discover -s tests -p "test_*.py"` (125 pruebas), `python scripts/check_sin_red.py` y `python scripts/check_contraste.py`.
+Comprobaciones: `python -m unittest discover -s tests -p "test_*.py"` (128 pruebas), `python scripts/check_sin_red.py` y `python scripts/check_contraste.py`.
 
 **Probado en un entorno limpio** (clon nuevo, entorno de Python nuevo, caché de modelos vacía): los 6 pasos en ~8 minutos; pip ~5 min, modelo de embeddings ~1,5 min, preparación de la demo ~1,5 min con un borrador.
 
@@ -112,7 +112,7 @@ El modelo recibe solo afirmaciones citadas y devuelve JSON. Cada oración pasa p
 
 Matriz completa con entradas, resultados y evidencias: `evaluation/matriz-T01-T10.md`.
 
-**Además:** 125 pruebas automáticas; verificación viva de la app real en verde en dos corridas seguidas (contraste en reposo, hover y presionado en ambos temas; 360 y 390 px; recorridos de punta a punta; sin errores de consola).
+**Además:** 128 pruebas automáticas; verificación viva de la app real en verde en dos corridas seguidas (contraste en reposo, hover y presionado en ambos temas; 360 y 390 px; recorridos de punta a punta; sin errores de consola).
 
 ---
 

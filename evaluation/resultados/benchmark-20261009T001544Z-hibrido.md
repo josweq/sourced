@@ -1,0 +1,24 @@
+# Benchmark de desarrollo — 20261009T001544Z — búsqueda hibrido
+
+Base: `demo-20261008T184723Z.sqlite` · 40 preguntas (20 sustentadas, 7 ambiguas/contradicción, 7 sin respuesta, 6 adversariales).
+Etiquetado: propuesto por Claude, **revisión humana pendiente**. No incluye el conjunto reservado del jurado.
+
+| Métrica | Resultado |
+|---|---|
+| Aciertos totales | 37/40 (92 %) |
+| Aciertos · sustentada | 18/20 (90 %) |
+| Aciertos · ambigua | 3/4 (75 %) |
+| Aciertos · contradiccion | 3/3 (100 %) |
+| Aciertos · sin_respuesta | 7/7 (100 %) |
+| Aciertos · adversarial | 6/6 (100 %) |
+| Abstención correcta (sin respuesta) | 7/7 (100 %) |
+| Abstención indebida (sustentadas) | 2/20 (10 %) |
+| Cobertura de citas | 33/33 (100 %) |
+| Latencia mediana / p95 / máx. | 178 / 238 / 496 ms |
+| Validez de sustento | Pendiente de revisión humana |
+
+## Fallos
+
+- **B08** (sustentada) «¿Aumentó el empleo formal en Panamá?»: estado abstencion (esperado respondida); no cita ['N-d09fca1c7ea7c29b']
+- **B09** (sustentada) «denuncia de la OIR sobre cambios al sistema de pensiones de la CSS»: estado abstencion (esperado respondida); no cita ['N-53f4e8fda2e04a50']
+- **B24** (ambigua) «¿Qué dijo la Contraloría?»: estado abstencion (esperado respondida); sin resultados
