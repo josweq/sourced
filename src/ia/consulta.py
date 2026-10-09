@@ -268,5 +268,5 @@ def responder(db, pregunta: str, *, vectorizador=vectorizar, modo: str = "semant
     res["pregunta"] = pregunta
     res["latencia_ms"] = round((time.perf_counter() - inicio) * 1000)
     res["reglas"] = {"umbral_directo": UMBRAL_DIRECTO, "umbral_con_coincidencia": UMBRAL_CON_COINCIDENCIA,
-                     "modelo": {"lexico": "palabras-clave-v1", "bm25": "bm25-v1"}.get(modo) if modo in ("lexico", "bm25") else "intfloat/multilingual-e5-small"}
+                     "modelo": {"lexico": "palabras-clave-v1", "bm25": "bm25-v1", "hibrido": "bm25-v1 + intfloat/multilingual-e5-small (RRF)"}.get(modo, "intfloat/multilingual-e5-small")}
     return res

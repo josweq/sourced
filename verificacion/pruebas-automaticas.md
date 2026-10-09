@@ -1,6 +1,6 @@
 # Pruebas automáticas · ejecución final
 
-Fecha: 2026-10-08 · commit base `00febac` + BM25 (`tests/test_bm25.py`) · Windows 11, Python 3.12.10.
+Fecha: 2026-10-08 · commit `7e65163` (main, con BM25 y `tests/test_bm25.py`) · Windows 11, Python 3.12.10.
 
 Comando:
 
