@@ -12,6 +12,7 @@
    resaltador amarillo que marca cada cita. Sin degradados, sin azules ni morados «de IA». */
 :root {
   color-scheme: light;
+  --arranque-fondo: #f9f9f4; /* fondo exacto del video del logotipo */
   --color-fondo: #efeeea;
   --color-superficie: #fbfbf8;
   --color-linea: #d6d4cd;

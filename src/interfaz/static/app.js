@@ -1,3 +1,22 @@
+// Arranque: la animación del logotipo se muestra una vez por sesión y nunca bloquea el trabajo.
+(function arranque() {
+  const capa = document.getElementById('arranque');
+  if (!capa) return;
+  const quitar = () => { capa.classList.add('fuera'); setTimeout(() => capa.remove(), 500); };
+  let visto = false;
+  try { visto = sessionStorage.getItem('sourced-arranque') === '1'; sessionStorage.setItem('sourced-arranque', '1'); } catch (_) { /* sin almacenamiento: se muestra */ }
+  const reducir = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (visto || reducir || navigator.webdriver) { capa.remove(); return; }
+  const video = capa.querySelector('video');
+  video.addEventListener('ended', quitar, { once: true });
+  video.addEventListener('error', quitar, { once: true });
+  capa.addEventListener('click', quitar, { once: true });
+  document.addEventListener('keydown', quitar, { once: true });
+  setTimeout(quitar, 5200);
+  const intento = video.play();
+  if (intento && intento.catch) intento.catch(quitar);
+})();
+
 const casesEl = document.querySelector('#cases');
 const detailEl = document.querySelector('#detail');
 const template = document.querySelector('#case-template');

@@ -34,6 +34,7 @@ STATIC_TYPES = {
     ".html": "text/html; charset=utf-8",
     ".svg": "image/svg+xml",
     ".woff2": "font/woff2",
+    ".mp4": "video/mp4",
 }
 STATIC_ROOT_FILES = {"index.html", "styles.css", "tokens.css", "app.js", "favicon.svg"}
 STATIC_DIRS = {"fonts", "img"}
@@ -404,7 +405,7 @@ class Handler(BaseHTTPRequestHandler):
         self.send_header("Cache-Control", "no-store")
         self.send_header("X-Content-Type-Options", "nosniff")
         self.send_header("X-Frame-Options", "DENY")
-        self.send_header("Content-Security-Policy", "default-src 'self'; style-src 'self'; script-src 'self'; connect-src 'self'; img-src 'self' data:; font-src 'self'")
+        self.send_header("Content-Security-Policy", "default-src 'self'; style-src 'self'; script-src 'self'; connect-src 'self'; img-src 'self' data:; media-src 'self'; font-src 'self'")
 
     def send_json(self, status, payload):
         body = json.dumps(payload, ensure_ascii=False).encode("utf-8")
