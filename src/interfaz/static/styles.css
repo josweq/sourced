@@ -1347,3 +1347,9 @@ mark {
   padding-block: 6px;
   gap: 2px;
 }
+
+/* Arranque: animación del logotipo al abrir la app (una vez por sesión; se salta con un clic o una tecla) */
+.arranque{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;background:var(--arranque-fondo);transition:opacity .45s ease}
+.arranque video{width:min(72vw,960px);height:auto;-webkit-mask-image:radial-gradient(ellipse at center,#000 55%,transparent 72%);mask-image:radial-gradient(ellipse at center,#000 55%,transparent 72%)}
+.arranque.fuera{opacity:0;pointer-events:none}
+@media (prefers-reduced-motion: reduce){.arranque{display:none}}
