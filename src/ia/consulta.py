@@ -132,6 +132,28 @@ def _contenido(texto: str) -> set[str]:
     return {t for t in tokens(texto) if t not in VACIAS and t not in MESES and not t.isdigit()}
 
 
+def _bm25(docs: list[list[str]], consulta: list[str], k1: float = 1.5, b: float = 0.75) -> np.ndarray:
+    """Okapi BM25 normalizado a 0–1 por el máximo de la consulta. Sin dependencias ni red."""
+    n = len(docs)
+    if not n or not consulta:
+        return np.zeros(n, dtype="float32")
+    largo_medio = sum(len(d) for d in docs) / n or 1.0
+    terminos = set(consulta)
+    df = {t: sum(1 for d in docs if t in d) for t in terminos}
+    puntajes = np.zeros(n, dtype="float32")
+    for j, d in enumerate(docs):
+        total = 0.0
+        for t in terminos:
+            tf = d.count(t)
+            if not tf:
+                continue
+            idf = np.log(1 + (n - df[t] + 0.5) / (df[t] + 0.5))
+            total += idf * tf * (k1 + 1) / (tf + k1 * (1 - b + b * len(d) / largo_medio))
+        puntajes[j] = total
+    maximo = float(puntajes.max())
+    return puntajes / maximo if maximo > 0 else puntajes
+
+
 def _ruta_noticias(db, pregunta: str, *, vectorizador=vectorizar, solo_logistica: bool = False,
                    modo: str = "semantico") -> dict:
     filas = db.execute(
@@ -149,6 +171,9 @@ def _ruta_noticias(db, pregunta: str, *, vectorizador=vectorizar, solo_logistica
         # aparecen en el titular; responde solo si hay al menos una. Mismas reglas de cifras y abstención.
         sims = np.array([len(pregunta_contenido & _contenido(f["titulo"])) / max(1, len(pregunta_contenido))
                          for f in filas], dtype="float32")
+    elif modo == "bm25":
+        # Línea base sin IA más fuerte (Okapi BM25 sobre el titular): misma puerta de coincidencia que «lexico».
+        sims = _bm25([list(_contenido(f["titulo"])) for f in filas], list(pregunta_contenido))
     else:
         if vectorizador is vectorizar:
             V = np.asarray(vectorizar([f["titulo"] for f in filas], tipo="passage", db=db), dtype="float32")
@@ -160,13 +185,22 @@ def _ruta_noticias(db, pregunta: str, *, vectorizador=vectorizar, solo_logistica
         q = np.asarray(vectorizador([consulta_texto], tipo="query"), dtype="float32")[0]
         sims = V @ q
     orden = np.argsort(-sims, kind="stable")
+    if modo == "hibrido":
+        # Fusión por rango recíproco (RRF, k=60) de BM25 y embeddings; la aceptación sigue siendo la semántica.
+        lex = np.argsort(-_bm25([list(_contenido(f["titulo"])) for f in filas], list(pregunta_contenido)), kind="stable")
+        rrf = np.zeros(len(filas), dtype="float64")
+        for rango, i in enumerate(orden):
+            rrf[i] += 1.0 / (60 + rango + 1)
+        for rango, i in enumerate(lex):
+            rrf[i] += 1.0 / (60 + rango + 1)
+        orden = np.argsort(-rrf, kind="stable")
     elegidas, vistos_grupo = [], set()
     for i in orden[:20]:
         s = float(sims[i]); f = filas[int(i)]
         if elegidas and s < elegidas[0][1] - MARGEN_SECUNDARIOS:
             break
         comun = pregunta_contenido & _contenido(f["titulo"])
-        acepta = bool(comun) if modo == "lexico" else (s >= UMBRAL_DIRECTO or (s >= UMBRAL_CON_COINCIDENCIA and comun))
+        acepta = bool(comun) if modo in ("lexico", "bm25") else (s >= UMBRAL_DIRECTO or (s >= UMBRAL_CON_COINCIDENCIA and comun))
         if not acepta:
             continue
         if f["grupo_id"] and f["grupo_id"] in vistos_grupo:
@@ -234,5 +268,5 @@ def responder(db, pregunta: str, *, vectorizador=vectorizar, modo: str = "semant
     res["pregunta"] = pregunta
     res["latencia_ms"] = round((time.perf_counter() - inicio) * 1000)
     res["reglas"] = {"umbral_directo": UMBRAL_DIRECTO, "umbral_con_coincidencia": UMBRAL_CON_COINCIDENCIA,
-                     "modelo": "palabras-clave-v1" if modo == "lexico" else "intfloat/multilingual-e5-small"}
+                     "modelo": {"lexico": "palabras-clave-v1", "bm25": "bm25-v1"}.get(modo) if modo in ("lexico", "bm25") else "intfloat/multilingual-e5-small"}
     return res

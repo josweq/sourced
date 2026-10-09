@@ -23,11 +23,11 @@ Prototipo local funcionando de punta a punta con **datos reales del 7 de octubre
 | Generar versión: formato, duración, palabras, tono, enfoque, público y énfasis como criterios opcionales; arma el prompt, el guardián valida y no rellena lo que la evidencia no sostiene | Hecho |
 | Seguridad: auditoría OWASP/CWE sin hallazgos críticos ni altos; los medios y bajos corregidos con prueba (Host, cuerpo JSON, timeout, negaciones en el guardián) | Hecho |
 | Guías «qué significa» en cada sección y guía rápida «Cómo leer Sourced» | Hecho |
-| Benchmark de desarrollo (40 preguntas) | 37/40 · abstención correcta 7/7 · citas 33/33 · mediana 84 ms; línea base sin IA (palabras clave): 35/40 y abstención correcta 4/7 (`evaluation/resultados/`) |
+| Benchmark de desarrollo (40 preguntas) | 37/40 · abstención correcta 7/7 · citas 33/33 · mediana 84 ms; línea base sin IA (palabras clave): 35/40 y abstención correcta 4/7; BM25: 36/40 y 4/7; híbrida BM25 + embeddings: 37/40 y 7/7, sin mejora sobre la semántica, que es la que usa la app ([`evaluation/alternativas-busqueda.md`](evaluation/alternativas-busqueda.md)) |
 | Matriz T01–T10 | 10/10 cumplen; T05 detecta cifras incompatibles entre medios (0 en el snapshot real, sintético SYN detectado); T10 corrida con el Wi-Fi cortado: 5/5 pasos y 0 salidas a la red (`evaluation/matriz-T01-T10.md`, `verificacion/prueba-local.md`) |
 | Dossier | [`docs/notion/dossier.md`](docs/notion/dossier.md): fuente completa con capturas, decisiones, fichas, pruebas, riesgos, presentación y bitácora. Publicado en Notion (ver sección «Notion») |
 
-Pruebas: 125/125. Instalación probada desde cero en un entorno limpio (clon nuevo, venv nuevo, caché de modelos vacía). Verificación viva en verde dos veces (contraste en ambos temas, 360/390 px) en `verificacion/`. Prueba sin red: `python scripts/smoke_sin_red.py --db <base>` y puerta estática `python scripts/check_sin_red.py`.
+Pruebas: 128/128. Instalación probada desde cero en un entorno limpio (clon nuevo, venv nuevo, caché de modelos vacía). Verificación viva en verde dos veces (contraste en ambos temas, 360/390 px) en `verificacion/`. Prueba sin red: `python scripts/smoke_sin_red.py --db <base>` y puerta estática `python scripts/check_sin_red.py`.
 
 ## Probar en 6 pasos (Windows, macOS o Linux; sin GPU, sin claves)
 Requisitos: Git, Python 3.10+ y [Ollama](https://ollama.com/download) instalado. Un comando por línea (funciona igual en PowerShell 5.1, PowerShell 7, cmd y bash).
