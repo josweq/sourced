@@ -83,7 +83,7 @@ def main():
     }
     marca = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     args.salida.mkdir(parents=True, exist_ok=True)
-    base = args.salida / (f"benchmark-{marca}" + ("-lexico" if args.modo == "lexico" else ""))
+    base = args.salida / (f"benchmark-{marca}" + ("" if args.modo == "semantico" else f"-{args.modo}"))
     (base.with_suffix(".json")).write_text(json.dumps({"db": str(args.db), "metricas": metricas, "filas": filas},
                                                       ensure_ascii=False, indent=2), encoding="utf-8")
     pct = lambda par: f"{par[0]}/{par[1]}" + (f" ({100 * par[0] / par[1]:.0f} %)" if par[1] else "")
