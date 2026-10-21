@@ -304,7 +304,7 @@ function scoreBlock(priority, grouping) {
   const rows = Object.keys(priority.componentes).map(key => {
     const value = Number(priority.componentes[key]);
     return `<div class="score-bar"><div class="score-row"><strong>${esc(key)}</strong><span class="mono">${esc(value)} × ${esc(priority.pesos[key])}</span></div>
-      <div class="bar-track" aria-hidden="true"><span class="bar-fill" style="--valor:${Math.max(0, Math.min(100, value))}%"></span></div>
+      <div class="bar-track" aria-hidden="true"><span class="bar-fill" data-valor="${Math.max(0, Math.min(100, value * 100))}"></span></div>
       <p class="muted">${esc(priority.explicacion[key])}</p></div>`;
   }).join('');
   return `<section class="score-card">${sectionTitle(`Prioridad ${Math.round(Number(priority.puntaje))}/100`, 'prioridad')}<p class="muted">${esc(priority.reglas_version)} · ${esc(plural(grouping?.publicaciones, 'publicación', 'publicaciones'))}</p><div class="score-list">${rows}</div><p class="warning">El puntaje ordena atención; no estima verdad ni habilita publicación.</p></section>`;
@@ -339,8 +339,31 @@ function sectionClaims(draft, evidences, section) {
   return `<div class="draft-sentences">${claims.map(item => `<p class="reading cited-sentence"><span>${esc(item.texto)}</span> ${citationButton(item, evidences)}</p>`).join('')}</div>`;
 }
 
+function briefStructure(draft, evidences) {
+  const b = draft?.meta?.brief_estructura;
+  if (!b) return sectionClaims(draft, evidences, 'brief');
+  const list = items => items?.length ? `<ul>${items.map(i => `<li>${esc(i)}</li>`).join('')}</ul>` : '<p class="muted">Sin datos.</p>';
+  return `<div class="brief-structure"><p class="warning">${esc(b.aviso)}</p>
+    <h4>Título propuesto</h4><p class="reading">${esc(b.titulo)}</p>
+    <h4>Enfoque de interés público</h4><p class="reading">${esc(b.enfoque)}</p>
+    <h4>Qué se reporta</h4>${sectionClaims(draft, evidences, 'brief')}
+    ${b.datos?.length ? `<h4>Dato oficial relacionado</h4>${list(b.datos)}` : ''}
+    <h4>Estado de evidencia</h4><p class="reading">${esc(b.estado)}</p>
+    <h4>Preguntas de investigación</h4><ol class="question-list">${(b.preguntas || []).map(p => `<li>${esc(p)}</li>`).join('')}</ol>
+    <h4>Fuentes</h4>${list(b.fuentes)}
+    <h4>Verificaciones pendientes</h4><p class="reading">${esc(b.pendientes)}</p></div>`;
+}
+
+function guionBlocks(draft, evidences) {
+  const blocks = draft?.meta?.guion_bloques;
+  if (!blocks?.length) return sectionClaims(draft, evidences, 'guion');
+  return `<div class="draft-sentences guion-blocks">${blocks.map(block => `<p class="reading cited-sentence"><strong>[${esc(block.marca)}]</strong> <span>${esc(block.texto)}</span>${block.evidencia_id ? ' ' + citationButton(block, evidences) : ''}</p>`).join('')}<p class="muted">Basado únicamente en titular/metadatos.</p></div>`;
+}
+
 function draftTabContent(draft, evidences, tab) {
   if (tab === 'preguntas') return `<ol class="question-list">${(draft.preguntas || []).map(p => `<li>${esc(p)}</li>`).join('')}</ol>`;
+  if (tab === 'brief') return briefStructure(draft, evidences);
+  if (tab === 'guion') return guionBlocks(draft, evidences);
   return sectionClaims(draft, evidences, tab);
 }
 
@@ -667,3 +690,14 @@ setPanel('agenda');
 updateFilterCount();
 loadCases({});
 loadEstado();
+
+
+// La CSP (style-src 'self') bloquea style="" en el HTML; el largo de las barras se aplica por CSSOM, que sí está permitido.
+function aplicarBarras(raiz) {
+  (raiz.querySelectorAll ? raiz : document).querySelectorAll('.bar-fill[data-valor]').forEach(el => {
+    el.style.setProperty('--valor', `${Number(el.dataset.valor) || 0}%`);
+  });
+}
+new MutationObserver(cambios => cambios.forEach(c => c.addedNodes.forEach(n => { if (n.nodeType === 1) aplicarBarras(n); })))
+  .observe(document.documentElement, { childList: true, subtree: true });
+aplicarBarras(document);

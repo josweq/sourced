@@ -8,6 +8,7 @@ DEFAULT_PPM = 160
 def texto_cronometrable(texto: str) -> str:
     """Quita marcas de produccion que no se leen en voz alta."""
     limpio = re.sub(r"\[(?:VO|SOT)[^\]]*\]", " ", texto or "", flags=re.I)
+    limpio = re.sub(r"\[[A-ZÁÉÍÓÚÑ ]+\]", " ", limpio)
     limpio = re.sub(r"\([^)]*\)", " ", limpio)
     limpio = re.sub(r"\s+", " ", limpio).strip()
     return limpio

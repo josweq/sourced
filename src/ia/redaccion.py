@@ -1,7 +1,7 @@
 """Redaccion sustentada: el codigo arma afirmaciones y el modelo solo redacta."""
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 import json
 import re
 import sqlite3
@@ -74,6 +74,113 @@ def etiqueta_cita(e: dict) -> str:
     if e.get("indicador_id"):
         return f"Banco Mundial · {e.get('pais_iso3')} {e.get('anio')}"
     return f"Evidencia · {e.get('id')}"
+
+
+MESES = ("enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto",
+         "septiembre", "octubre", "noviembre", "diciembre")
+AVISO_TITULARES = "Basado únicamente en titular/metadatos."
+ESTADOS_TEXTO = {"insuficiente": "insuficiente", "parcial": "parcial",
+                 "suficiente_para_borrador": "suficiente para borrador"}
+
+
+def fecha_corta(valor) -> str:
+    """«2026-10-07T23:48:04Z» → «7 de octubre de 2026», en hora de Panamá (UTC-5)."""
+    try:
+        dt = datetime.fromisoformat(str(valor).replace("Z", "+00:00"))
+    except (TypeError, ValueError):
+        return ""
+    if dt.tzinfo:
+        dt = (dt - timedelta(hours=5)).replace(tzinfo=None)
+    return f"{dt.day} de {MESES[dt.month - 1]} de {dt.year}"
+
+
+def _medios(evidencias: list[dict]) -> list[str]:
+    vistos = []
+    for e in evidencias:
+        medio = e.get("medio") or e.get("fuente_nombre")
+        if e.get("noticia_titulo") and medio and medio not in vistos:
+            vistos.append(medio)
+    return vistos
+
+
+def _lista(nombres: list[str]) -> str:
+    if len(nombres) <= 1:
+        return "".join(nombres)
+    return ", ".join(nombres[:-1]) + " y " + nombres[-1]
+
+
+def armar_brief(caso: dict, evidencias: list[dict], titulo: str, enfoque: str, preguntas: list[str]) -> tuple[str, dict]:
+    """Brief con la estructura de las bases: aviso, título, enfoque, qué se reporta, estado, preguntas, fuentes y pendientes."""
+    reportes, datos, fuentes = [], [], []
+    for e in evidencias:
+        if e.get("noticia_titulo"):
+            medio = e.get("medio") or e.get("fuente_nombre") or "Medio"
+            fecha = fecha_corta(e.get("fecha_publicacion"))
+            reportes.append(f"{medio} ({fecha}): «{e['noticia_titulo']}»" if fecha else f"{medio}: «{e['noticia_titulo']}»")
+            fuente = f"{medio}, titular publicado el {fecha}" if fecha else medio
+            if fuente not in fuentes:
+                fuentes.append(fuente)
+        elif e.get("indicador_id"):
+            datos.append(f"{e.get('indicador_id')} · {e.get('pais_iso3')} {e.get('anio')}: {e.get('valor')} {e.get('unidad') or ''}".strip()
+                         + " (dato anual del Banco Mundial; no es una medición actual)")
+            fuentes.append(f"Banco Mundial, {e.get('indicador_id')} {e.get('anio')}")
+    n_pub = len(reportes)
+    medios = _medios(evidencias)
+    estado = ESTADOS_TEXTO.get(caso.get("estado_evidencia"), caso.get("estado_evidencia") or "sin estado")
+    estado_linea = (f"{estado} · {n_pub} publicación{'es' if n_pub != 1 else ''}"
+                    + (f" de {_lista(medios)}" if medios else "")
+                    + "; una publicación cuenta como fuente independiente solo si declara su origen.")
+    pendientes = str(caso.get("preguntas_pendientes") or "Confirmar fuente primaria, contexto y alcance antes de publicar.")
+    estructura = {"aviso": AVISO_TITULARES, "titulo": titulo, "enfoque": enfoque, "reportes": reportes,
+                  "datos": datos, "estado": estado_linea, "preguntas": list(preguntas[:3]), "fuentes": fuentes,
+                  "pendientes": pendientes}
+    partes = [AVISO_TITULARES, f"Título propuesto: {titulo}", f"Enfoque de interés público: {enfoque}",
+              ("Qué se reporta: " + "; ".join(reportes) + ".") if reportes else "",
+              ("Dato oficial relacionado: " + "; ".join(datos) + ".") if datos else "",
+              f"Estado de evidencia: {estado_linea}",
+              "Preguntas de investigación: " + " ".join(f"{i}. {q}" for i, q in enumerate(preguntas[:3], 1)),
+              ("Fuentes: " + "; ".join(fuentes) + ".") if fuentes else "",
+              f"Verificaciones pendientes: {pendientes}"]
+    return "\n".join(p for p in partes if p), estructura
+
+
+def armar_guion(caso: dict, evidencias: list[dict], apertura: str, preguntas: list[str],
+                enfoque: str = "", max_titulares: int = 3) -> tuple[str, list[dict]]:
+    """Guion de TV por bloques. Se alarga con lo que sí dice la evidencia (medio, fecha, estado, faltantes), nunca con hechos nuevos."""
+    medios = _medios(evidencias)
+    noticias = [e for e in evidencias if e.get("noticia_titulo")]
+    datos = [e for e in evidencias if e.get("indicador_id")]
+    bloques = [{"marca": "PRESENTADOR", "texto": apertura or "Esto es lo que se sabe hasta ahora y lo que falta confirmar."}]
+    for e in noticias[:max_titulares]:
+        medio = e.get("medio") or e.get("fuente_nombre") or "Un medio"
+        fecha = fecha_corta(e.get("fecha_publicacion"))
+        cuando = f" el {fecha}" if fecha else ""
+        bloques.append({"marca": "VO", "texto": f"{medio} publicó{cuando} este titular: {str(e['noticia_titulo']).rstrip('.')}.",
+                        "evidencia_id": e.get("id")})
+    if len(noticias) > max_titulares:
+        bloques.append({"marca": "VO", "texto": f"Hay {len(noticias) - max_titulares} publicaciones más sobre el mismo hecho."})
+    if enfoque:
+        bloques.append({"marca": "CONTEXTO", "texto": f"¿Por qué importa? {enfoque.rstrip('.')}."})
+    for e in datos:
+        unidad = (e.get("unidad") or "").strip()
+        bloques.append({"marca": "DATO", "texto": f"Como contexto, el Banco Mundial registra para {e.get('pais_iso3')} en {e.get('anio')} "
+                        f"un valor de {e.get('valor')}{(' ' + unidad) if unidad else ''}. Es un dato anual, no una medición de hoy.",
+                        "evidencia_id": e.get("id")})
+    if len(noticias) == 1 and medios:
+        origen = f"una sola publicación, de {medios[0]}"
+    elif medios:
+        origen = f"{len(noticias)} publicaciones de {_lista(medios)}"
+    else:
+        origen = "los datos disponibles"
+    estado = ESTADOS_TEXTO.get(caso.get("estado_evidencia"), "sin estado")
+    falta = str(caso.get("preguntas_pendientes") or "Falta confirmar la fuente primaria, el contexto y el alcance.")
+    bloques.append({"marca": "LO QUE FALTA", "texto": f"Por ahora, la información viene de {origen}. "
+                    f"Con lo que tenemos, el respaldo es {estado}. {falta}"})
+    if preguntas:
+        bloques.append({"marca": "CIERRE", "texto": "Antes de ampliar esta nota, la redacción debe responder: "
+                        + " ".join(preguntas[:3]) + " Les contaremos lo que se confirme en cuanto tengamos la fuente oficial."})
+    texto = "\n".join(f"[{b['marca']}] {b['texto']}" for b in bloques) + f"\n({AVISO_TITULARES})"
+    return texto, bloques
 
 
 def afirmaciones_desde_evidencias(evidencias: list[dict]) -> tuple[list[dict], list[dict]]:
@@ -196,7 +303,7 @@ def generar_paquete(caso: dict, evidencias: list[dict], proveedor=generar_modelo
     titulo, r = _depurar_prosa("titulo", str(data.get("titulo") or ""), evidencias, primera, titulo_caso)
     retiradas_prosa += r
     enfoque, r = _depurar_prosa("enfoque", str(data.get("enfoque") or ""), evidencias, primera,
-                                "Interés público: revisar qué sostienen los titulares y qué falta confirmar.")
+                                "Revisar qué sostienen los titulares y qué falta confirmar antes de contarlo.")
     retiradas_prosa += r
     apertura_txt = " ".join(_sentences(data.get("apertura", ""))[:2]).strip()
     apertura, r = _depurar_prosa("apertura", apertura_txt, evidencias, primera, "")
@@ -211,12 +318,13 @@ def generar_paquete(caso: dict, evidencias: list[dict], proveedor=generar_modelo
     retiradas_prosa += r
     guion_oraciones = [{"texto": f"{af['texto']} ({af['cita_label']}).", "evidencia_id": af["evidencia_id"],
                         "tipo": af["tipo"], "afirmacion_id": af["id"]} for af in afirmaciones]
-    cierre = "Falta verificar: " + str(caso.get("preguntas_pendientes") or "fuente primaria, contexto y alcance antes de publicar.")
-    guion = " ".join(part for part in [apertura, *[o["texto"] for o in guion_oraciones], cierre] if part)
+    guion, guion_bloques = armar_guion(caso, evidencias, apertura, preguntas, enfoque=enfoque)
     brief_oraciones = [{"texto": af["texto"], "evidencia_id": af["evidencia_id"], "tipo": af["tipo"],
                         "afirmacion_id": af["id"]} for af in afirmaciones]
-    brief = " ".join(item["texto"] for item in brief_oraciones)
-    brief, brief_recortado = recortar_por_oracion(brief, 250)
+    brief, brief_estructura = armar_brief(caso, evidencias, titulo, enfoque, preguntas)
+    brief_recortado = len(brief.split()) > 250
+    if brief_recortado:
+        brief, _ = recortar_por_oracion(brief, 250)
     copy, copy_recortado = recortar_por_oracion(str(data.get("copy", "")), 80)
     copy_oraciones = []
     if copy:
@@ -237,6 +345,8 @@ def generar_paquete(caso: dict, evidencias: list[dict], proveedor=generar_modelo
         "copy_oraciones": copy_oraciones,
         "recortes": {"brief": brief_recortado, "copy": copy_recortado},
         "cronometro": resumen_cronometro(guion),
+        "brief_estructura": brief_estructura,
+        "guion_bloques": guion_bloques,
         "modelo": data.get("_meta_modelo", {}),
         "prompt_version": PROMPT_VERSION,
         "sospechosas": sospechosas,
@@ -263,7 +373,8 @@ def guardar_borrador(db: sqlite3.Connection, caso_id: str, paquete: dict, genera
                          (snapshot_id, caso_id)).fetchone()[0]
     borrador_id = "BOR-" + uuid.uuid4().hex
     meta = {"guardian": paquete.get("guardian"), "recortes": paquete.get("recortes"),
-            "cronometro": paquete.get("cronometro"), "tiempo_ms": paquete.get("tiempo_ms")}
+            "cronometro": paquete.get("cronometro"), "tiempo_ms": paquete.get("tiempo_ms"),
+            "brief_estructura": paquete.get("brief_estructura"), "guion_bloques": paquete.get("guion_bloques")}
     modelo_meta = paquete.get("modelo") or {}
     with db:
         db.execute("""INSERT INTO borradores VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",

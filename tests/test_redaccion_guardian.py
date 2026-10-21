@@ -216,3 +216,47 @@ class PreguntasTests(unittest.TestCase):
         self.assertFalse(any("gustaría" in q or "situaciones económicas" in q for q in p["preguntas"]))
         self.assertIn("¿Cuántos jóvenes participaron en la Semana de la RSE?", p["preguntas"])
         self.assertTrue(any(r["seccion"] == "preguntas" for r in p["retiradas"]))
+
+
+class FormatoBasesTests(unittest.TestCase):
+    """Comentario del jurado (2026-10-21): el brief reformulaba el titular y el guion no llegaba a 45 s."""
+
+    CASO = {"id": "C1", "titulo": "Canal de Panamá: Carnival Miracle inaugura temporada de cruceros 2026-2027",
+            "estado_evidencia": "insuficiente",
+            "preguntas_pendientes": "Confirmar fuente primaria, relación con Panamá y contenido autorizado antes de publicar."}
+    EVIDENCIAS = [{"id": "E1", "campo": "titulo", "medio": "TVN", "alcance_texto": "titular_metadatos",
+                   "fecha_publicacion": "2026-10-07T23:48:04Z",
+                   "noticia_titulo": "Canal de Panamá: Carnival Miracle inaugura temporada de cruceros 2026-2027; se contemplan más de 220 tránsitos"}]
+
+    def _paquete(self, respuesta=None):
+        return generar_paquete(self.CASO, self.EVIDENCIAS, proveedor=lambda *a, **k: (respuesta or {}))
+
+    def test_brief_trae_la_estructura_de_las_bases_y_no_solo_el_titular(self):
+        p = self._paquete()
+        brief = p["brief"]
+        for etiqueta in ("Basado únicamente en titular/metadatos.", "Título propuesto:", "Enfoque de interés público:",
+                         "Estado de evidencia:", "Preguntas de investigación:", "Fuentes:", "Verificaciones pendientes:"):
+            self.assertIn(etiqueta, brief)
+        self.assertIn("7 de octubre de 2026", brief)  # fecha en hora de Panamá
+        self.assertEqual(len(p["brief_estructura"]["preguntas"]), 3)
+        self.assertLessEqual(len(brief.split()), 250)
+        self.assertNotEqual(brief.strip(), p["afirmaciones"][0]["texto"].strip())
+
+    def test_guion_de_un_titular_llega_a_45_segundos_sin_cifras_nuevas(self):
+        p = self._paquete(fake_provider(None, None))
+        self.assertGreaterEqual(p["cronometro"]["segundos"], 45)
+        self.assertLessEqual(p["cronometro"]["segundos"], 60)
+        marcas = [b["marca"] for b in p["guion_bloques"]]
+        self.assertEqual(marcas[0], "PRESENTADOR")
+        self.assertIn("LO QUE FALTA", marcas)
+        # El guion no agrega cifras que no estén en la evidencia (2026-2027, 220) ni en la fecha de publicación.
+        import re
+        permitidas = set(re.findall(r"\d+", self.EVIDENCIAS[0]["noticia_titulo"])) | {"7", "2026"}
+        self.assertTrue(set(re.findall(r"\d+", p["guion"])) <= permitidas)
+
+    def test_guion_largo_se_limita_a_tres_titulares(self):
+        evidencias = [{**self.EVIDENCIAS[0], "id": f"E{i}", "medio": f"Medio {i}",
+                       "noticia_titulo": f"Titular distinto número {i} sobre la temporada de cruceros"} for i in range(1, 6)]
+        p = generar_paquete(self.CASO, evidencias, proveedor=lambda *a, **k: {})
+        self.assertEqual(sum(1 for b in p["guion_bloques"] if b["marca"] == "VO" and b.get("evidencia_id")), 3)
+        self.assertTrue(any("2 publicaciones más" in b["texto"] for b in p["guion_bloques"]))
