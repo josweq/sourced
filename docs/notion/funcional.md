@@ -97,13 +97,13 @@ En la mesa, la persona registra su nombre, el estado (en revisión, requiere evi
 
 ## 6. Casos reales (snapshot del 7 de octubre de 2026)
 
-| Caso | Qué pasó | Qué demuestra |
-|---|---|---|
-| **Donación de EE.UU.** (Crítica y TVN) | «$500 mil» y «$500,000» en un solo caso; ningún medio declara su fuente; puntaje 64,25, evidencia insuficiente | Agrupa entre medios sin inflar la evidencia; reconoce que es la misma cifra |
-| **Laptops del Meduca** (La Prensa, agosto) | Dos notas de seguimiento; puntaje 46,25 con urgencia mínima | La fecha original manda sobre la de captura |
-| **Cruceros en el Canal** (TVN) | Puntaje 61,75; el guardián retiró del borrador «¡Reserva tu crucero ahora…!» | Prioridad no es permiso para publicar; nada publicitario |
-| **Inflación de Panamá** (Banco Mundial) | «¿Inflación hoy?» → «Panamá, 2024: 0,7 %… no es una medición actual» | Año y unidad siempre visibles; con «2026» se abstiene |
-| **Nota recirculada del papa Francisco** (Crítica) | El RSS de hoy sirve una nota del 26 de abril de 2025; queda en el puesto 259 de 275 | Una nota vieja no se presenta como nueva |
+| ID | Caso | Qué pasó | Qué demuestra |
+|---|---|---|---|
+| `CASO-828dcf139d9cf6f0510e` | **Donación de EE.UU.** (Crítica y TVN) | «$500 mil» y «$500,000» en un solo caso; ningún medio declara su fuente; puntaje 64,25, evidencia insuficiente | Agrupa entre medios sin inflar la evidencia; reconoce que es la misma cifra |
+| `CASO-d7414efb7cc141eab72c` | **Laptops del Meduca** (La Prensa, agosto) | Dos notas de seguimiento; puntaje 46,25 con urgencia mínima | La fecha original manda sobre la de captura |
+| `CASO-eac2d70e82de48de49cd` | **Cruceros en el Canal** (TVN) | Puntaje 61,75; el guardián retiró del borrador «¡Reserva tu crucero ahora…!» | Prioridad no es permiso para publicar; nada publicitario |
+| `Consulta (no es un caso)` | **Inflación de Panamá** (Banco Mundial) | «¿Inflación hoy?» → «Panamá, 2024: 0,7 %… no es una medición actual» | Año y unidad siempre visibles; con «2026» se abstiene |
+| `CASO-c89d635822b3f8a2ffc9` | **Nota recirculada del papa Francisco** (Crítica) | El RSS de hoy sirve una nota del 26 de abril de 2025; queda en el puesto 259 de 275 | Una nota vieja no se presenta como nueva |
 
 ---
 
@@ -121,21 +121,21 @@ En la mesa, la persona registra su nombre, el estado (en revisión, requiere evi
 Sourced es obra del equipo Jajanken completo: Josué Carrillo, Diego Laverde y Juan Andrés López decidimos juntos el alcance, el diseño y la identidad, etiquetamos y revisamos los datos a mano, probamos la herramienta y preparamos la documentación y la presentación. Por practicidad, el código se integró y publicó desde un solo equipo y una sola cuenta de GitHub, por eso la mayoría de los commits aparecen con un mismo autor. Usamos asistentes de IA (Codex para construir partes del código y Claude para auditarlo y documentarlo), siempre bajo revisión del equipo.
 
 ### Plan
-| # | Tarea | Responsable | Estado |
-|---|---|---|---|
-| 1 | Analizar las bases del reto y el repositorio de partida | Equipo Jajanken | Hecho |
-| 2 | Modelo de datos, importador, agenda y búsqueda base | Diego | Hecho |
-| 3 | Blueprint de arquitectura | Equipo Jajanken | Hecho |
-| 4 | Snapshot reproducible (5 RSS, Banco Mundial, USGS) | Equipo Jajanken | Hecho |
-| 5 | Capa de IA local (embeddings, agrupación, búsqueda) | Equipo Jajanken | Hecho |
-| 6 | Redacción con guardián y mesa editorial | Equipo Jajanken | Hecho |
-| 7 | Preguntas con cita o abstención | Equipo Jajanken | Hecho |
-| 8 | Benchmark y matriz T01–T10 | Equipo Jajanken | Hecho |
-| 9 | Etiquetado humano de temas y pares | Equipo Jajanken | Hecho |
-| 10 | Generar versión con criterios opcionales | Equipo Jajanken | Hecho |
-| 11 | Prueba sin internet, seguridad e instalación en limpio | Equipo Jajanken | Hecho |
-| 12 | Identidad Sourced (nombre, logo, interfaz) | Equipo Jajanken | Hecho |
-| 13 | Documentación, pitch y entrega | Equipo Jajanken | Hecho |
+| # | Tarea | Responsable | Fecha (2026) | Estado |
+|---|---|---|---|---|
+| 1 | Analizar las bases del reto y el repositorio de partida | Equipo Jajanken | 6–7 oct | Hecho |
+| 2 | Modelo de datos, importador, agenda y búsqueda base | Diego | antes del 7 oct | Hecho |
+| 3 | Blueprint de arquitectura | Equipo Jajanken | 7 oct | Hecho |
+| 4 | Snapshot reproducible (5 RSS, Banco Mundial, USGS) | Equipo Jajanken | 7 oct | Hecho |
+| 5 | Capa de IA local (embeddings, agrupación, búsqueda) | Equipo Jajanken | 7 oct | Hecho |
+| 6 | Redacción con guardián y mesa editorial | Equipo Jajanken | 7 oct | Hecho |
+| 7 | Preguntas con cita o abstención | Equipo Jajanken | 7 oct | Hecho |
+| 8 | Benchmark y matriz T01–T10 | Equipo Jajanken | 7–8 oct | Hecho |
+| 9 | Etiquetado humano de temas y pares | Equipo Jajanken | 7–8 oct | Hecho |
+| 10 | Generar versión con criterios opcionales | Equipo Jajanken | 8 oct | Hecho |
+| 11 | Prueba sin internet, seguridad e instalación en limpio | Equipo Jajanken | 8 oct | Hecho |
+| 12 | Identidad Sourced (nombre, logo, interfaz) | Equipo Jajanken | 8 oct | Hecho |
+| 13 | Documentación, pitch y entrega | Equipo Jajanken | 8 oct (entrega 20:54) | Hecho |
 
 ### Decisiones
 | Decisión | Por qué | Alternativa descartada |
